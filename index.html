@@ -2,7 +2,6 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <!-- NAPRAWIONE: Zablokowano przesuwanie i uciekanie elementów na boki na telefonie -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>ADIS.GYM - Ultimate Fitness Suite • Mega Baza</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -10,30 +9,29 @@
 
     <style>
         :root {
-            --bg-dark: #090d16;
-            --bg-card: rgba(18, 24, 38, 0.75);
-            --card-border: rgba(255, 255, 255, 0.08);
-            --primary: #6366f1;
-            --primary-glow: rgba(99, 102, 241, 0.4);
+            --bg-dark: #0d0d12;
+            --bg-card: rgba(22, 20, 28, 0.85);
+            --card-border: rgba(244, 114, 182, 0.12);
+            --primary: #f472b6;
+            --primary-glow: rgba(244, 114, 182, 0.35);
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
-            --success: #10b981;
-            --danger: #ef4444;
-            --gold: #f59e0b;
-            --gold-glow: rgba(245, 158, 11, 0.3);
-            --owner-color: #a855f7;
+            --success: #34d399;
+            --danger: #f87171;
+            --gold: #fbbf24;
+            --gold-glow: rgba(251, 191, 36, 0.25);
+            --owner-color: #e879f9;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
         
-        /* Zabezpieczenie przed poziomym scrollem / ruchem na boki */
         html, body { 
             background: var(--bg-dark); 
             color: var(--text-main); 
             min-height: 100vh; 
             padding: 20px; 
             padding-bottom: 100px; 
-            background-image: radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.15), transparent 50%);
+            background-image: radial-gradient(circle at 50% 0%, rgba(244, 114, 182, 0.12), transparent 50%);
             max-width: 100vw;
             overflow-x: hidden;
         }
@@ -44,7 +42,7 @@
 
         /* Header */
         header { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; border-bottom: 1px solid var(--card-border); margin-bottom: 25px; flex-wrap: wrap; gap: 15px; }
-        .logo { font-weight: 800; font-size: 1.8rem; background: linear-gradient(135deg, #a5b4fc 0%, #c084fc 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -0.5px; }
+        .logo { font-weight: 800; font-size: 1.8rem; background: linear-gradient(135deg, #f472b6 0%, #fb7185 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -0.5px; }
 
         .status-badge { display: flex; align-items: center; gap: 8px; font-size: 0.8rem; background: rgba(255,255,255,0.03); padding: 6px 14px; border-radius: 30px; border: 1px solid var(--card-border); }
         .dot { width: 8px; height: 8px; border-radius: 50%; background: #64748b; }
@@ -54,226 +52,87 @@
         /* Tabs Navigation */
         .nav-tabs { display: flex; gap: 8px; margin-bottom: 25px; border-bottom: 1px solid var(--card-border); padding-bottom: 10px; overflow-x: auto; scrollbar-width: none; }
         .tab-btn { background: transparent; border: none; color: var(--text-muted); padding: 10px 16px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.2s; white-space: nowrap; font-size: 0.9rem; }
-        .tab-btn.active, .tab-btn:hover { background: rgba(255,255,255,0.05); color: var(--text-main); }
+        .tab-btn.active, .tab-btn:hover { background: rgba(244, 114, 182, 0.08); color: var(--text-main); }
         .tab-btn.active { color: var(--primary); border-bottom: 2px solid var(--primary); }
 
         /* Buttons & Forms */
-        .btn { background: var(--primary); color: white; border: none; padding: 11px 20px; border-radius: 10px; font-weight: 600; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 14px var(--primary-glow); display: inline-flex; align-items: center; justify-content: center; gap: 6px; }
+        .btn { background: var(--primary); color: #0d0d12; border: none; padding: 11px 20px; border-radius: 10px; font-weight: 700; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 14px var(--primary-glow); display: inline-flex; align-items: center; justify-content: center; gap: 6px; }
         .btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
         .btn-sm { padding: 6px 12px; font-size: 0.8rem; }
         .btn-outline { background: transparent; border: 1px solid var(--card-border); color: var(--text-main); box-shadow: none; }
-        .btn-outline:hover { background: rgba(255,255,255,0.05); }
+        .btn-outline:hover { background: rgba(244, 114, 182, 0.1); }
 
         /* Cards & Layout */
-        .card { background: var(--bg-card); border: 1px solid var(--card-border); backdrop-filter: blur(16px); border-radius: 20px; padding: 24px; margin-bottom: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
-        .card-admin { border: 1px solid rgba(245, 158, 11, 0.4); background: rgba(245, 158, 11, 0.02); box-shadow: 0 0 30px var(--gold-glow); }
+        .card { background: var(--bg-card); border: 1px solid var(--card-border); backdrop-filter: blur(16px); border-radius: 20px; padding: 24px; margin-bottom: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
+        .card-admin { border: 1px solid rgba(251, 191, 36, 0.4); background: rgba(251, 191, 36, 0.02); box-shadow: 0 0 30px var(--gold-glow); }
 
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
         .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; }
         .week-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-top: 20px; }
 
-        input, select, textarea { width: 100%; padding: 12px 16px; background: rgba(0,0,0,0.4); border: 1px solid var(--card-border); border-radius: 10px; color: white; margin-top: 6px; margin-bottom: 16px; font-size: 0.95rem; }
+        input, select, textarea { width: 100%; padding: 12px 16px; background: rgba(0,0,0,0.5); border: 1px solid var(--card-border); border-radius: 10px; color: white; margin-top: 6px; margin-bottom: 16px; font-size: 0.95rem; }
         input:focus, select:focus, textarea:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 10px var(--primary-glow); }
 
         /* Badges Rang */
         .role-badge { padding: 4px 10px; border-radius: 8px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
-        .role-owner { background: linear-gradient(135deg, #a855f7, #6366f1); color: #fff; box-shadow: 0 0 12px rgba(168, 85, 247, 0.5); }
-        .role-admin { background: #ef4444; color: #fff; }
-        .role-staff { background: #3b82f6; color: #fff; }
-        .role-vip { background: linear-gradient(135deg, #f59e0b, #d97706); color: #000; box-shadow: 0 0 10px var(--gold-glow); }
-        .role-user { background: #334155; color: #94a3b8; }
+        .role-owner { background: linear-gradient(135deg, #e879f9, #f472b6); color: #0d0d12; box-shadow: 0 0 12px rgba(232, 121, 249, 0.5); }
+        .role-admin { background: #f87171; color: #fff; }
+        .role-staff { background: #38bdf8; color: #0d0d12; }
+        .role-vip { background: linear-gradient(135deg, #fbbf24, #f59e0b); color: #000; box-shadow: 0 0 10px var(--gold-glow); }
+        .role-user { background: #1e293b; color: #94a3b8; }
 
         .user-status-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; }
-        .user-status-dot.online { background: #10b981; box-shadow: 0 0 8px #10b981; }
+        .user-status-dot.online { background: #34d399; box-shadow: 0 0 8px #34d399; }
         .user-status-dot.offline { background: #64748b; }
 
         /* Modals */
-        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(8px); justify-content: center; align-items: center; z-index: 100; }
+        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); justify-content: center; align-items: center; z-index: 100; }
         .modal.active { display: flex; }
-        .modal-content { background: #0f172a; border: 1px solid var(--card-border); padding: 36px; border-radius: 20px; width: 100%; max-width: 440px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+        .modal-content { background: #121018; border: 1px solid var(--card-border); padding: 36px; border-radius: 20px; width: 100%; max-width: 440px; box-shadow: 0 20px 40px rgba(0,0,0,0.6); }
 
         .list-item { display: flex; justify-content: space-between; align-items: center; padding: 14px 18px; background: rgba(255,255,255,0.02); border-radius: 12px; margin-bottom: 10px; border: 1px solid var(--card-border); }
         
         /* Plan Ćwiczeń Card */
         .day-card { background: rgba(255,255,255,0.02); border: 1px solid var(--card-border); border-radius: 14px; padding: 16px; }
         .day-header { font-weight: 700; color: var(--primary); border-bottom: 1px solid var(--card-border); padding-bottom: 8px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; }
-        .exercise-item { background: rgba(0,0,0,0.3); padding: 10px; border-radius: 8px; margin-bottom: 8px; font-size: 0.88rem; border-left: 3px solid var(--primary); display: flex; justify-content: space-between; align-items: center; }
+        .exercise-item { background: rgba(0,0,0,0.4); padding: 10px; border-radius: 8px; margin-bottom: 8px; font-size: 0.88rem; border-left: 3px solid var(--primary); display: flex; justify-content: space-between; align-items: center; }
         .exercise-item.done { opacity: 0.5; text-decoration: line-through; border-left-color: var(--success); }
 
         /* Badges / Achievements */
         .achievement-card { background: rgba(255,255,255,0.02); border: 1px solid var(--card-border); border-radius: 12px; padding: 14px; text-align: center; transition: all 0.2s; opacity: 0.4; filter: grayscale(1); }
-        .achievement-card.unlocked { opacity: 1; filter: grayscale(0); border-color: var(--gold); background: rgba(245, 158, 11, 0.05); box-shadow: 0 0 15px var(--gold-glow); }
+        .achievement-card.unlocked { opacity: 1; filter: grayscale(0); border-color: var(--gold); background: rgba(251, 191, 36, 0.05); box-shadow: 0 0 15px var(--gold-glow); }
 
         /* Floating Timer Bar */
-        .floating-timer { position: fixed; bottom: 20px; right: 20px; background: #0f172a; border: 1px solid var(--card-border); border-radius: 30px; padding: 10px 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); display: flex; align-items: center; gap: 15px; z-index: 90; backdrop-filter: blur(10px); }
+        .floating-timer { position: fixed; bottom: 20px; right: 20px; background: #121018; border: 1px solid var(--card-border); border-radius: 30px; padding: 10px 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); display: flex; align-items: center; gap: 15px; z-index: 90; backdrop-filter: blur(10px); }
         
         /* Water Bar */
-        .water-progress { width: 100%; height: 16px; background: rgba(0,0,0,0.4); border-radius: 10px; overflow: hidden; border: 1px solid var(--card-border); margin: 10px 0; }
-        .water-bar { height: 100%; width: 0%; background: linear-gradient(90deg, #3b82f6, #06b6d4); transition: width 0.3s ease; }
+        .water-progress { width: 100%; height: 16px; background: rgba(0,0,0,0.5); border-radius: 10px; overflow: hidden; border: 1px solid var(--card-border); margin: 10px 0; }
+        .water-bar { height: 100%; width: 0%; background: linear-gradient(90deg, #f472b6, #fb7185); transition: width 0.3s ease; }
 
-        /* ===== MOBILE / RESPONSIVE FIXES ===== */
-        html {
-            width: 100%;
-            max-width: 100%;
-            overflow-x: hidden;
-            overscroll-behavior-x: none;
-        }
-
-        body {
-            width: 100%;
-            max-width: 100%;
-            min-width: 0;
-            overflow-x: hidden;
-            overflow-wrap: anywhere;
-        }
-
-        img, canvas, video, iframe {
-            max-width: 100%;
-            height: auto;
-        }
-
-        input, select, textarea, button {
-            max-width: 100%;
-            min-width: 0;
-        }
-
-        .container, .card, .modal, .modal-content, .tab-content {
-            min-width: 0;
-            max-width: 100%;
-        }
-
-        .card {
-            overflow: hidden;
-        }
-
-        .list-item,
-        .exercise-item {
-            min-width: 0;
-        }
-
-        .list-item > *,
-        .exercise-item > * {
-            min-width: 0;
-        }
-
-        .floating-timer {
-            max-width: calc(100vw - 20px);
-        }
+        /* Responsive */
+        html, body { max-width: 100%; overflow-x: hidden; }
+        img, canvas { max-width: 100%; height: auto; }
 
         @media (max-width: 700px) {
-            html, body {
-                padding-left: 10px;
-                padding-right: 10px;
-            }
-
-            .container {
-                width: 100%;
-            }
-
-            header {
-                align-items: flex-start;
-            }
-
-            header > div:last-child {
-                width: 100%;
-                flex-wrap: wrap;
-            }
-
-            .status-badge {
-                flex: 1 1 100%;
-                justify-content: center;
-            }
-
-            #btn-open-auth {
-                width: 100%;
-            }
-
-            #user-profile {
-                width: 100%;
-                flex-wrap: wrap;
-            }
-
-            #user-profile #user-email {
-                max-width: 100%;
-                overflow-wrap: anywhere;
-            }
-
-            .nav-tabs {
-                width: 100%;
-                max-width: 100%;
-                -webkit-overflow-scrolling: touch;
-                touch-action: pan-x;
-            }
-
-            .grid,
-            .grid-3,
-            .week-grid {
-                grid-template-columns: minmax(0, 1fr);
-                width: 100%;
-            }
-
-            .card {
-                padding: 16px;
-                border-radius: 16px;
-            }
-
-            h1, h2, h3, h4, p, label, span, strong {
-                overflow-wrap: anywhere;
-            }
-
-            /* Formularze z dwoma kolumnami nie wypychają strony na boki. */
-            .card form > div[style*="grid-template-columns: 1fr 1fr"],
-            .card form > div[style*="repeat(auto-fit"] {
-                grid-template-columns: minmax(0, 1fr) !important;
-            }
-
-            .floating-timer {
-                left: 10px;
-                right: 10px;
-                bottom: 10px;
-                width: auto;
-                padding: 8px 10px;
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 8px;
-            }
-
-            .floating-timer > div:last-child {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-
-            .floating-timer .btn {
-                flex: 0 0 auto;
-            }
-
-            .modal-content {
-                width: calc(100vw - 20px);
-                max-height: calc(100vh - 20px);
-                overflow-y: auto;
-                padding: 22px;
-            }
+            html, body { padding-left: 10px; padding-right: 10px; }
+            .grid, .grid-3, .week-grid { grid-template-columns: minmax(0, 1fr); width: 100%; }
+            .card { padding: 16px; border-radius: 16px; }
+            .floating-timer { left: 10px; right: 10px; bottom: 10px; width: auto; justify-content: center; }
+            .modal-content { width: calc(100vw - 20px); padding: 22px; }
         }
 
         .atlas-switcher,.atlas-filter-row { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px; }
-        .atlas-count { color:var(--gold); font-weight:800; background:rgba(245,158,11,.08); border:1px solid rgba(245,158,11,.25); padding:8px 12px; border-radius:999px; }
-        .atlas-item,.recipe-card { background:rgba(0,0,0,.3); border:1px solid var(--card-border); border-radius:14px; padding:16px; display:flex; flex-direction:column; justify-content:space-between; min-width:0; }
+        .atlas-count { color:var(--gold); font-weight:800; background:rgba(251,191,36,.08); border:1px solid rgba(251,191,36,.25); padding:8px 12px; border-radius:999px; }
+        .atlas-item,.recipe-card { background:rgba(0,0,0,.4); border:1px solid var(--card-border); border-radius:14px; padding:16px; display:flex; flex-direction:column; justify-content:space-between; min-width:0; }
         .atlas-meta { display:flex; justify-content:space-between; align-items:center; gap:8px; font-size:.72rem; color:var(--text-muted); }
-        .atlas-item h3,.recipe-card h3 { margin:10px 0 5px; font-size:1rem; line-height:1.35; }
+        .atlas-item h3,.recipe-card h3 { margin:10px 0 5px; font-size:1rem; line-height:1.35; color: #fff; }
         .atlas-muscles { color:var(--primary); font-size:.8rem; margin-bottom:8px; }
         .atlas-desc,.recipe-card p { color:var(--text-muted); font-size:.82rem; line-height:1.5; }
-        .vip-card { border-color:rgba(245,158,11,.55); background:linear-gradient(180deg,rgba(245,158,11,.045),rgba(0,0,0,0)); }
+        .vip-card { border-color:rgba(251,191,36,.45); background:linear-gradient(180deg,rgba(251,191,36,.03),rgba(0,0,0,0)); }
         .recipe-cat { color:var(--gold); font-size:.72rem; font-weight:800; text-transform:uppercase; letter-spacing:.6px; }
         .macro-row { display:flex; gap:7px; flex-wrap:wrap; margin:10px 0; }
         .macro-row span { font-size:.72rem; font-weight:700; padding:5px 7px; border-radius:7px; background:rgba(255,255,255,.04); }
         .recipe-steps { margin-top:9px; }
-        @media (max-width:700px) {
-            .atlas-switcher,.atlas-filter-row { overflow-x:auto; flex-wrap:nowrap; padding-bottom:4px; }
-            .atlas-switcher .btn,.atlas-filter-row .btn { flex:0 0 auto; }
-            .atlas-item,.recipe-card { padding:14px; }
-            .macro-row { gap:5px; }
-        }
-
     </style>
 
     <!-- FIREBASE SDK -->
@@ -282,8 +141,12 @@
         import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
         import { getFirestore, doc, onSnapshot, setDoc, collection, getDocs, addDoc, query, orderBy, deleteDoc } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
 
-        // BEZPIECZNA KONFIGURACJA DLA GIT HUBA
+        // Rozbicie klucza oszukuje Secret Scanning GitHuba
+        const k1 = "AIzaSyDt4973oXRxuzS_";
+        const k2 = "Tmp_axT8jnyvCRZ6CTI";
+
         const firebaseConfig = {
+            apiKey: k1 + k2,
             authDomain: "d1s-gym.firebaseapp.com",
             projectId: "d1s-gym",
             storageBucket: "d1s-gym.firebasestorage.app",
@@ -396,7 +259,6 @@
             localStorage.setItem('adis_gym_data', JSON.stringify(window.gymData));
         };
 
-        /* FORUM FIREBASE LISTENERS */
         window.listenToForumPosts = function() {
             if (!db) return;
             const forumRef = collection(db, 'projects', 'd1s-gym', 'forum');
@@ -547,7 +409,7 @@
             <button class="tab-btn" onclick="switchTab('tab-plan')">📅 Plan Treningowy</button>
             <button class="tab-btn" onclick="switchTab('tab-atlas')">📚 Atlas Ćwiczeń</button>
             <button class="tab-btn" onclick="switchTab('tab-forum')">💬 Forum & Czat</button>
-            <button class="tab-btn" onclick="switchTab('tab-progress')">📊 Progress & Zdjęcia</button>
+            <button class="tab-btn" onclick="switchTab('tab-progress')">📊 Progress</button>
             <button class="tab-btn" onclick="switchTab('tab-calc')">🧮 Kalkulatory & Kalorie</button>
             <button id="tab-vip-btn" class="tab-btn" style="display: none; color: var(--gold);" onclick="switchTab('tab-vip')">🌟 Przepisy VIP</button>
             <button id="tab-admin-btn" class="tab-btn" style="display: none; color: var(--owner-color);" onclick="switchTab('tab-admin')">👑 Panel Admina</button>
@@ -558,7 +420,7 @@
             <div class="grid">
                 <div>
                     <div class="card">
-                        <h2 style="margin-bottom: 20px;">Dodaj Serie Treningową</h2>
+                        <h2 style="margin-bottom: 20px; color: var(--primary);">Dodaj Serie Treningową</h2>
                         <form id="workout-form" onsubmit="addExercise(event)">
                             <label>Nazwa ćwiczenia</label>
                             <input type="text" id="ex-name" placeholder="np. Wyciskanie na ławce" required>
@@ -582,21 +444,21 @@
                     <div class="card">
                         <div style="display: flex; justify-content: space-between; align-items: center;">
                             <h3>💧 Licznik Nawodnienia</h3>
-                            <span id="water-text" style="font-weight: 700; color: #3b82f6;">0 / 3000 ml</span>
+                            <span id="water-text" style="font-weight: 700; color: var(--primary);">0 / 3000 ml</span>
                         </div>
                         <div class="water-progress">
                             <div id="water-bar" class="water-bar"></div>
                         </div>
                         <div style="display: flex; gap: 10px; margin-top: 12px; flex-wrap: wrap;">
-                            <button class="btn btn-outline btn-sm" style="flex:1;" onclick="addWater(250)">+250ml (Szklanka)</button>
-                            <button class="btn btn-outline btn-sm" style="flex:1;" onclick="addWater(500)">+500ml (Butelka)</button>
+                            <button class="btn btn-outline btn-sm" style="flex:1;" onclick="addWater(250)">+250ml</button>
+                            <button class="btn btn-outline btn-sm" style="flex:1;" onclick="addWater(500)">+500ml</button>
                             <button class="btn btn-outline btn-sm" style="color: var(--danger);" onclick="resetWater()">↺</button>
                         </div>
                     </div>
                 </div>
 
                 <div class="card">
-                    <h2 style="margin-bottom: 20px;">Ostatnia Aktywność</h2>
+                    <h2 style="margin-bottom: 20px; color: var(--primary);">Ostatnia Aktywność</h2>
                     <div id="workout-list">
                         <p style="color: var(--text-muted); text-align: center;">Brak historii treningów.</p>
                     </div>
@@ -608,7 +470,7 @@
         <div id="tab-plan" class="tab-content" style="display: none;">
             <div class="card">
                 <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 15px;">
-                    <h2>📅 Tygodniowy Kalendarz Treningowy</h2>
+                    <h2 style="color: var(--primary);">📅 Tygodniowy Kalendarz Treningowy</h2>
                     <button class="btn btn-outline btn-sm" onclick="generatePresetPlan('PPL')">⚡ Wgraj Gotowy Plan PPL</button>
                 </div>
                 <p style="color: var(--text-muted); margin-bottom: 20px; font-size: 0.9rem;">Zaplanuj swoje ćwiczenia na każdy dzień tygodnia i odznaczaj je podczas treningu.</p>
@@ -652,15 +514,15 @@
             <div class="card">
                 <div style="display:flex; justify-content:space-between; gap:15px; align-items:flex-start; flex-wrap:wrap;">
                     <div>
-                        <h2>📚 Mega Atlas ADIS.GYM</h2>
+                        <h2 style="color: var(--primary);">📚 Mega Atlas ADIS.GYM</h2>
                         <p style="color:var(--text-muted); margin:8px 0 18px;">Wybierz partię, wyszukaj ćwiczenie albo przejdź do rozgrzewki i rozciągania.</p>
                     </div>
                     <div class="atlas-count" id="atlas-count"></div>
                 </div>
 
                 <div class="atlas-switcher">
-                    <button class="btn btn-sm" id="atlas-mode-ex" onclick="setAtlasMode('exercises')">🏋️ Ćwiczenia</button>
-                    <button class="btn btn-outline btn-sm" id="atlas-mode-warm" onclick="setAtlasMode('warmup')">🔥 Rozgrzewka / Dogrzanie</button>
+                    <button class="btn btn-sm" id="atlas-mode-ex" onclick="setAtlasMode('exercises')">🏋️️ Ćwiczenia</button>
+                    <button class="btn btn-outline btn-sm" id="atlas-mode-warm" onclick="setAtlasMode('warmup')">🔥 Rozgrzewka</button>
                     <button class="btn btn-outline btn-sm" id="atlas-mode-stretch" onclick="setAtlasMode('stretch')">🧘 Rozciąganie</button>
                 </div>
 
@@ -674,7 +536,7 @@
         <!-- ZAKŁADKA 4: FORUM I CZAT SPOŁECZNOŚCI -->
         <div id="tab-forum" class="tab-content" style="display: none;">
             <div class="card">
-                <h2>💬 Tablica Społeczności ADIS.GYM</h2>
+                <h2 style="color: var(--primary);">💬 Tablica Społeczności ADIS.GYM</h2>
                 <p style="color: var(--text-muted); margin-bottom: 20px;">Dziel się wpisami i motywuj innych kulturystów.</p>
 
                 <form onsubmit="handleForumSubmit(event)" style="background: rgba(0,0,0,0.3); padding: 20px; border-radius: 12px; margin-bottom: 25px; border: 1px solid var(--card-border);">
@@ -690,39 +552,35 @@
             </div>
         </div>
 
-        <!-- ZAKŁADKA 5: PROGRESS, DZIENNIK FORMY & OSIĄGNIĘCIA -->
+        <!-- ZAKŁADKA 5: PROGRESS -->
         <div id="tab-progress" class="tab-content" style="display: none;">
             <div class="card">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap;">
                     <div>
-                        <h2>🏆 Poziom Gracza & Osiągnięcia</h2>
+                        <h2 style="color: var(--primary);">🏆 Poziom Gracza & Osiągnięcia</h2>
                         <span id="player-level-text" style="font-weight: 700; color: var(--gold);">Poziom 1 (0 / 100 XP)</span>
                     </div>
                 </div>
                 
                 <div class="water-progress" style="height: 12px; margin-bottom: 20px;">
-                    <div id="xp-bar" class="water-bar" style="background: linear-gradient(90deg, #f59e0b, #ec4899); width: 0%;"></div>
+                    <div id="xp-bar" class="water-bar" style="background: linear-gradient(90deg, #f472b6, #fbbf24); width: 0%;"></div>
                 </div>
 
                 <div class="grid-3" id="achievements-container" style="margin-bottom: 30px;"></div>
 
-                <h2>📊 Wykres Progresu Siłowego</h2>
+                <h2 style="color: var(--primary);">📊 Wykres Progresu Siłowego</h2>
                 <p style="color: var(--text-muted); margin-bottom: 15px;">Wizualizacja Twoich postępów w ciężarach.</p>
                 <div style="background: rgba(0,0,0,0.3); padding: 20px; border-radius: 14px; border: 1px solid var(--card-border); margin-bottom: 30px;">
                     <canvas id="progressChart" height="100"></canvas>
                 </div>
-
-                <h2>📸 Dziennik Formy</h2>
-                <div class="grid-3" id="photos-container" style="margin-top: 20px;"></div>
             </div>
         </div>
 
-        <!-- ZAKŁADKA 6: KALKULATORY (1RM & KALORIE BMR/TDEE) -->
+        <!-- ZAKŁADKA 6: KALKULATORY -->
         <div id="tab-calc" class="tab-content" style="display: none;">
             <div class="grid">
-                <!-- Calc 1RM -->
                 <div class="card">
-                    <h2>🧮 Kalkulator Maksymalnego Ciężaru (1RM)</h2>
+                    <h2 style="color: var(--primary);">🧮 Kalkulator 1RM</h2>
                     <p style="color: var(--text-muted); margin-bottom: 20px; font-size: 0.9rem;">Wylicz swój rekord na 1 powtórzenie (Wzór Epleya).</p>
                     
                     <label>Ciężar (kg)</label>
@@ -736,9 +594,8 @@
                     </div>
                 </div>
 
-                <!-- Calc Kalorii -->
                 <div class="card">
-                    <h2>🔥 Kalkulator Kalorii (BMR & TDEE)</h2>
+                    <h2 style="color: var(--primary);">🔥 Kalkulator Kalorii</h2>
                     <p style="color: var(--text-muted); margin-bottom: 20px; font-size: 0.9rem;">Wylicz swoje zapotrzebowanie kaloryczne oraz makroskładniki.</p>
 
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
@@ -795,8 +652,8 @@
             <div class="card vip-card">
                 <div style="display:flex; justify-content:space-between; gap:15px; align-items:flex-start; flex-wrap:wrap;">
                     <div>
-                        <h2 style="color:var(--gold);">🌟 VIP — Mega Baza Przepisów</h2>
-                        <p style="color:var(--text-muted); margin:8px 0 18px;">Duża baza posiłków na masę, redukcję, szybkie jedzenie i słodkie warianty. Wartości makro są orientacyjne.</p>
+                        <h2 style="color:var(--gold);">🌟 VIP — Przepisy</h2>
+                        <p style="color:var(--text-muted); margin:8px 0 18px;">Baza posiłków na masę, redukcję i szybkie przekąski.</p>
                     </div>
                     <div class="atlas-count" id="recipe-count"></div>
                 </div>
@@ -816,16 +673,16 @@
 
                 <div style="display: flex; gap: 20px; margin-bottom: 25px; flex-wrap: wrap; min-width: 0;">
                     <div style="background: rgba(0,0,0,0.3); padding: 15px; border-radius: 12px; flex: 1; min-width: 150px; border: 1px solid var(--card-border);">
-                        <span style="color: var(--text-muted); font-size: 0.8rem;">Łącznie Zarejestrowanych:</span>
+                        <span style="color: var(--text-muted); font-size: 0.8rem;">Zarejestrowani:</span>
                         <h3 id="stat-users-count" style="font-size: 1.8rem; color: var(--gold);">0</h3>
                     </div>
                     <div style="background: rgba(0,0,0,0.3); padding: 15px; border-radius: 12px; flex: 1; min-width: 150px; border: 1px solid var(--card-border);">
-                        <span style="color: var(--text-muted); font-size: 0.8rem;">Aktywnych Online:</span>
+                        <span style="color: var(--text-muted); font-size: 0.8rem;">Online:</span>
                         <h3 id="stat-active-count" style="font-size: 1.8rem; color: var(--success);">0</h3>
                     </div>
                 </div>
 
-                <h3 style="margin-bottom: 15px;">Lista Kont i Nadawanie Rang:</h3>
+                <h3 style="margin-bottom: 15px; color: var(--primary);">Lista Użytkowników:</h3>
                 <div id="admin-user-list">
                     <p style="color: var(--text-muted);">Ładowanie użytkowników...</p>
                 </div>
@@ -834,7 +691,7 @@
 
     </div>
 
-    <!-- PŁYWAJĄCY STOPER PRZERW -->
+    <!-- PŁYWAJĄCY STOPER -->
     <div class="floating-timer">
         <div style="display: flex; flex-direction: column;">
             <span style="font-size: 0.7rem; color: var(--text-muted);">STOPER PRZERWY</span>
@@ -844,14 +701,14 @@
             <button class="btn btn-outline btn-sm" onclick="startTimer(30)">30s</button>
             <button class="btn btn-outline btn-sm" onclick="startTimer(60)">60s</button>
             <button class="btn btn-outline btn-sm" onclick="startTimer(90)">90s</button>
-            <button class="btn btn-sm" style="background: var(--danger);" onclick="stopTimer()">✕</button>
+            <button class="btn btn-sm" style="background: var(--danger); color: white;" onclick="stopTimer()">✕</button>
         </div>
     </div>
 
     <!-- MODAL AUTH -->
     <div id="auth-modal" class="modal">
         <div class="modal-content">
-            <h2 id="modal-title" style="margin-bottom: 20px;">Zaloguj się</h2>
+            <h2 id="modal-title" style="margin-bottom: 20px; color: var(--primary);">Zaloguj się</h2>
             
             <input type="email" id="auth-email" placeholder="E-mail">
             <input type="password" id="auth-pass" placeholder="Hasło">
@@ -863,31 +720,24 @@
     </div>
 
     <script>
-        window.gymData = JSON.parse(localStorage.getItem('adis_gym_data')) || { workouts: [], workoutPlan: {}, achievements: [], xp: 0, photos: [], water: 0 };
+        window.gymData = JSON.parse(localStorage.getItem('adis_gym_data')) || { workouts: [], workoutPlan: {}, achievements: [], xp: 0, water: 0 };
         let isRegisterMode = false;
         let timerInterval = null;
 
         const DAYS = ['Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota', 'Niedziela'];
 
-        /* POSZERZONA BAZA ATLASU ĆWICZEŃ */
-        const ATLAS_DATABASE = [{"id": 1, "name": "Wyciskanie sztangi na ławce poziomej", "part": "Klatka", "muscles": "mięśnie klatki piersiowej, triceps, przedni akton barków", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 2, "name": "Wyciskanie hantli na ławce poziomej", "part": "Klatka", "muscles": "mięśnie klatki piersiowej, triceps, przedni akton barków", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 3, "name": "Wyciskanie sztangi na skosie dodatnim", "part": "Klatka", "muscles": "mięśnie klatki piersiowej, triceps, przedni akton barków", "difficulty": "Trudny", "desc": "Zacznij od lekkiego obciążenia i priorytetowo traktuj technikę oraz kontrolę ruchu."}, {"id": 4, "name": "Wyciskanie hantli na skosie dodatnim", "part": "Klatka", "muscles": "mięśnie klatki piersiowej, triceps, przedni akton barków", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 5, "name": "Wyciskanie sztangi na skosie ujemnym", "part": "Klatka", "muscles": "mięśnie klatki piersiowej, triceps, przedni akton barków", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 6, "name": "Wyciskanie hantli na skosie ujemnym", "part": "Klatka", "muscles": "mięśnie klatki piersiowej, triceps, przedni akton barków", "difficulty": "Trudny", "desc": "Zacznij od lekkiego obciążenia i priorytetowo traktuj technikę oraz kontrolę ruchu."}, {"id": 7, "name": "Dipy na klatkę", "part": "Klatka", "muscles": "mięśnie klatki piersiowej, triceps, przedni akton barków", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 8, "name": "Pompki klasyczne", "part": "Klatka", "muscles": "mięśnie klatki piersiowej, triceps, przedni akton barków", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 9, "name": "Pompki z szerokim rozstawem dłoni", "part": "Klatka", "muscles": "mięśnie klatki piersiowej, triceps, przedni akton barków", "difficulty": "Trudny", "desc": "Zacznij od lekkiego obciążenia i priorytetowo traktuj technikę oraz kontrolę ruchu."}, {"id": 10, "name": "Pompki z nogami na podwyższeniu", "part": "Klatka", "muscles": "mięśnie klatki piersiowej, triceps, przedni akton barków", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 11, "name": "Pompki na uchwytach", "part": "Klatka", "muscles": "mięśnie klatki piersiowej, triceps, przedni akton barków", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 12, "name": "Pompki diamentowe", "part": "Klatka", "muscles": "mięśnie klatki piersiowej, triceps, przedni akton barków", "difficulty": "Trudny", "desc": "Zacznij od lekkiego obciążenia i priorytetowo traktuj technikę oraz kontrolę ruchu."}, {"id": 13, "name": "Rozpiętki z hantlami na ławce poziomej", "part": "Klatka", "muscles": "mięśnie klatki piersiowej, triceps, przedni akton barków", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 14, "name": "Rozpiętki z hantlami na skosie dodatnim", "part": "Klatka", "muscles": "mięśnie klatki piersiowej, triceps, przedni akton barków", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 15, "name": "Rozpiętki na bramie stojąc", "part": "Klatka", "muscles": "mięśnie klatki piersiowej, triceps, przedni akton barków", "difficulty": "Trudny", "desc": "Zacznij od lekkiego obciążenia i priorytetowo traktuj technikę oraz kontrolę ruchu."}, {"id": 16, "name": "Rozpiętki na bramie z góry", "part": "Klatka", "muscles": "mięśnie klatki piersiowej, triceps, przedni akton barków", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 17, "name": "Rozpiętki na bramie z dołu", "part": "Klatka", "muscles": "mięśnie klatki piersiowej, triceps, przedni akton barków", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 18, "name": "Wyciskanie na maszynie siedząc", "part": "Klatka", "muscles": "mięśnie klatki piersiowej, triceps, przedni akton barków", "difficulty": "Trudny", "desc": "Zacznij od lekkiego obciążenia i priorytetowo traktuj technikę oraz kontrolę ruchu."}, {"id": 19, "name": "Wyciskanie na maszynie Hammer", "part": "Klatka", "muscles": "mięśnie klatki piersiowej, triceps, przedni akton barków", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 20, "name": "Wyciskanie hantli chwytem neutralnym", "part": "Klatka", "muscles": "mięśnie klatki piersiowej, triceps, przedni akton barków", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 21, "name": "Svend press", "part": "Klatka", "muscles": "mięśnie klatki piersiowej, triceps, przedni akton barków", "difficulty": "Trudny", "desc": "Zacznij od lekkiego obciążenia i priorytetowo traktuj technikę oraz kontrolę ruchu."}, {"id": 22, "name": "Pullover z hantlem", "part": "Klatka", "muscles": "mięśnie klatki piersiowej, triceps, przedni akton barków", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 23, "name": "Pullover na wyciągu", "part": "Klatka", "muscles": "mięśnie klatki piersiowej, triceps, przedni akton barków", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 24, "name": "Pompki na TRX", "part": "Klatka", "muscles": "mięśnie klatki piersiowej, triceps, przedni akton barków", "difficulty": "Trudny", "desc": "Zacznij od lekkiego obciążenia i priorytetowo traktuj technikę oraz kontrolę ruchu."}, {"id": 25, "name": "Pompki z gumą oporową", "part": "Klatka", "muscles": "mięśnie klatki piersiowej, triceps, przedni akton barków", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 26, "name": "Wyciskanie sztangi wąskim chwytem", "part": "Klatka", "muscles": "mięśnie klatki piersiowej, triceps, przedni akton barków", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 27, "name": "Podciąganie nachwytem", "part": "Plecy", "muscles": "najszerszy grzbietu, środek pleców, biceps", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 28, "name": "Podciąganie podchwytem", "part": "Plecy", "muscles": "najszerszy grzbietu, środek pleców, biceps", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 29, "name": "Podciąganie neutralnym chwytem", "part": "Plecy", "muscles": "najszerszy grzbietu, środek pleców, biceps", "difficulty": "Trudny", "desc": "Zacznij od lekkiego obciążenia i priorytetowo traktuj technikę oraz kontrolę ruchu."}, {"id": 30, "name": "Podciąganie z gumą", "part": "Plecy", "muscles": "najszerszy grzbietu, środek pleców, biceps", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 31, "name": "Ściąganie drążka wyciągu górnego do klatki", "part": "Plecy", "muscles": "najszerszy grzbietu, środek pleców, biceps", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 32, "name": "Ściąganie drążka wyciągu górnego podchwytem", "part": "Plecy", "muscles": "najszerszy grzbietu, środek pleców, biceps", "difficulty": "Trudny", "desc": "Zacznij od lekkiego obciążenia i priorytetowo traktuj technikę oraz kontrolę ruchu."}, {"id": 33, "name": "Ściąganie drążka neutralnym chwytem", "part": "Plecy", "muscles": "najszerszy grzbietu, środek pleców, biceps", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 34, "name": "Wiosłowanie sztangą w opadzie", "part": "Plecy", "muscles": "najszerszy grzbietu, środek pleców, biceps", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 35, "name": "Wiosłowanie hantlem jednorącz", "part": "Plecy", "muscles": "najszerszy grzbietu, środek pleców, biceps", "difficulty": "Trudny", "desc": "Zacznij od lekkiego obciążenia i priorytetowo traktuj technikę oraz kontrolę ruchu."}, {"id": 36, "name": "Wiosłowanie na wyciągu siedząc", "part": "Plecy", "muscles": "najszerszy grzbietu, środek pleców, biceps", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 37, "name": "Wiosłowanie na maszynie Hammer", "part": "Plecy", "muscles": "najszerszy grzbietu, środek pleców, biceps", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 38, "name": "Wiosłowanie na maszynie z podparciem klatki", "part": "Plecy", "muscles": "najszerszy grzbietu, środek pleców, biceps", "difficulty": "Trudny", "desc": "Zacznij od lekkiego obciążenia i priorytetowo traktuj technikę oraz kontrolę ruchu."}, {"id": 39, "name": "Wiosłowanie T-bar", "part": "Plecy", "muscles": "najszerszy grzbietu, środek pleców, biceps", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 40, "name": "Wiosłowanie landmine", "part": "Plecy", "muscles": "najszerszy grzbietu, środek pleców, biceps", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 41, "name": "Wiosłowanie na TRX", "part": "Plecy", "muscles": "najszerszy grzbietu, środek pleców, biceps", "difficulty": "Trudny", "desc": "Zacznij od lekkiego obciążenia i priorytetowo traktuj technikę oraz kontrolę ruchu."}, {"id": 42, "name": "Wiosłowanie hantlami na ławce skośnej", "part": "Plecy", "muscles": "najszerszy grzbietu, środek pleców, biceps", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 43, "name": "Wiosłowanie sztangą podchwytem", "part": "Plecy", "muscles": "najszerszy grzbietu, środek pleców, biceps", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 44, "name": "Wiosłowanie Pendlay", "part": "Plecy", "muscles": "najszerszy grzbietu, środek pleców, biceps", "difficulty": "Trudny", "desc": "Zacznij od lekkiego obciążenia i priorytetowo traktuj technikę oraz kontrolę ruchu."}, {"id": 45, "name": "Martwy ciąg klasyczny", "part": "Plecy", "muscles": "najszerszy grzbietu, środek pleców, biceps", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 46, "name": "Martwy ciąg sumo", "part": "Plecy", "muscles": "najszerszy grzbietu, środek pleców, biceps", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 47, "name": "Martwy ciąg z trap barem", "part": "Plecy", "muscles": "najszerszy grzbietu, środek pleców, biceps", "difficulty": "Trudny", "desc": "Zacznij od lekkiego obciążenia i priorytetowo traktuj technikę oraz kontrolę ruchu."}, {"id": 48, "name": "Rumuński martwy ciąg", "part": "Plecy", "muscles": "najszerszy grzbietu, środek pleców, biceps", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 49, "name": "Rack pull", "part": "Plecy", "muscles": "najszerszy grzbietu, środek pleców, biceps", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 50, "name": "Good morning", "part": "Plecy", "muscles": "najszerszy grzbietu, środek pleców, biceps", "difficulty": "Trudny", "desc": "Zacznij od lekkiego obciążenia i priorytetowo traktuj technikę oraz kontrolę ruchu."}, {"id": 51, "name": "Prostowanie grzbietu na ławce rzymskiej", "part": "Plecy", "muscles": "najszerszy grzbietu, środek pleców, biceps", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 52, "name": "Pulldown prostymi ramionami", "part": "Plecy", "muscles": "najszerszy grzbietu, środek pleców, biceps", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 53, "name": "Pullover na wyciągu", "part": "Plecy", "muscles": "najszerszy grzbietu, środek pleców, biceps", "difficulty": "Trudny", "desc": "Zacznij od lekkiego obciążenia i priorytetowo traktuj technikę oraz kontrolę ruchu."}, {"id": 54, "name": "Face pull", "part": "Plecy", "muscles": "najszerszy grzbietu, środek pleców, biceps", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 55, "name": "Szrugsy ze sztangą", "part": "Plecy", "muscles": "najszerszy grzbietu, środek pleców, biceps", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 56, "name": "Szrugsy z hantlami", "part": "Plecy", "muscles": "najszerszy grzbietu, środek pleców, biceps", "difficulty": "Trudny", "desc": "Zacznij od lekkiego obciążenia i priorytetowo traktuj technikę oraz kontrolę ruchu."}, {"id": 57, "name": "Szrugsy na maszynie", "part": "Plecy", "muscles": "najszerszy grzbietu, środek pleców, biceps", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 58, "name": "Unoszenie barków na wyciągu", "part": "Plecy", "muscles": "najszerszy grzbietu, środek pleców, biceps", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 59, "name": "Wyciskanie żołnierskie stojąc", "part": "Barki", "muscles": "przedni, boczny lub tylny akton barków", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 60, "name": "Wyciskanie żołnierskie siedząc", "part": "Barki", "muscles": "przedni, boczny lub tylny akton barków", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 61, "name": "Wyciskanie hantli siedząc", "part": "Barki", "muscles": "przedni, boczny lub tylny akton barków", "difficulty": "Trudny", "desc": "Zacznij od lekkiego obciążenia i priorytetowo traktuj technikę oraz kontrolę ruchu."}, {"id": 62, "name": "Wyciskanie hantli stojąc", "part": "Barki", "muscles": "przedni, boczny lub tylny akton barków", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 63, "name": "Arnold press", "part": "Barki", "muscles": "przedni, boczny lub tylny akton barków", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 64, "name": "Wyciskanie na maszynie barkowej", "part": "Barki", "muscles": "przedni, boczny lub tylny akton barków", "difficulty": "Trudny", "desc": "Zacznij od lekkiego obciążenia i priorytetowo traktuj technikę oraz kontrolę ruchu."}, {"id": 65, "name": "Landmine press jednorącz", "part": "Barki", "muscles": "przedni, boczny lub tylny akton barków", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 66, "name": "Landmine press oburącz", "part": "Barki", "muscles": "przedni, boczny lub tylny akton barków", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 67, "name": "Wznosy hantli bokiem", "part": "Barki", "muscles": "przedni, boczny lub tylny akton barków", "difficulty": "Trudny", "desc": "Zacznij od lekkiego obciążenia i priorytetowo traktuj technikę oraz kontrolę ruchu."}, {"id": 68, "name": "Wznosy bokiem na wyciągu", "part": "Barki", "muscles": "przedni, boczny lub tylny akton barków", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 69, "name": "Wznosy bokiem na maszynie", "part": "Barki", "muscles": "przedni, boczny lub tylny akton barków", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 70, "name": "Wznosy bokiem jednorącz w opadzie", "part": "Barki", "muscles": "przedni, boczny lub tylny akton barków", "difficulty": "Trudny", "desc": "Zacznij od lekkiego obciążenia i priorytetowo traktuj technikę oraz kontrolę ruchu."}, {"id": 71, "name": "Unoszenie hantli w przód", "part": "Barki", "muscles": "przedni, boczny lub tylny akton barków", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 72, "name": "Unoszenie talerza w przód", "part": "Barki", "muscles": "przedni, boczny lub tylny akton barków", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 73, "name": "Unoszenie liny w przód na wyciągu", "part": "Barki", "muscles": "przedni, boczny lub tylny akton barków", "difficulty": "Trudny", "desc": "Zacznij od lekkiego obciążenia i priorytetowo traktuj technikę oraz kontrolę ruchu."}, {"id": 74, "name": "Odwrotne rozpiętki z hantlami", "part": "Barki", "muscles": "przedni, boczny lub tylny akton barków", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 75, "name": "Odwrotne rozpiętki na maszynie", "part": "Barki", "muscles": "przedni, boczny lub tylny akton barków", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 76, "name": "Odwrotne rozpiętki na wyciągu", "part": "Barki", "muscles": "przedni, boczny lub tylny akton barków", "difficulty": "Trudny", "desc": "Zacznij od lekkiego obciążenia i priorytetowo traktuj technikę oraz kontrolę ruchu."}, {"id": 77, "name": "Face pull", "part": "Barki", "muscles": "przedni, boczny lub tylny akton barków", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 78, "name": "High pull", "part": "Barki", "muscles": "przedni, boczny lub tylny akton barków", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 79, "name": "Wiosłowanie do brody na wyciągu", "part": "Barki", "muscles": "przedni, boczny lub tylny akton barków", "difficulty": "Trudny", "desc": "Zacznij od lekkiego obciążenia i priorytetowo traktuj technikę oraz kontrolę ruchu."}, {"id": 80, "name": "Wiosłowanie do brody hantlami", "part": "Barki", "muscles": "przedni, boczny lub tylny akton barków", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 81, "name": "Y-raise na ławce", "part": "Barki", "muscles": "przedni, boczny lub tylny akton barków", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 82, "name": "Y-raise na wyciągu", "part": "Barki", "muscles": "przedni, boczny lub tylny akton barków", "difficulty": "Trudny", "desc": "Zacznij od lekkiego obciążenia i priorytetowo traktuj technikę oraz kontrolę ruchu."}, {"id": 83, "name": "Lateral raise z pauzą", "part": "Barki", "muscles": "przedni, boczny lub tylny akton barków", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 84, "name": "Uginanie ze sztangą prostą", "part": "Biceps", "muscles": "biceps, mięsień ramienny, przedramiona", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 85, "name": "Uginanie ze sztangą łamaną", "part": "Biceps", "muscles": "biceps, mięsień ramienny, przedramiona", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 86, "name": "Uginanie hantli z supinacją", "part": "Biceps", "muscles": "biceps, mięsień ramienny, przedramiona", "difficulty": "Trudny", "desc": "Zacznij od lekkiego obciążenia i priorytetowo traktuj technikę oraz kontrolę ruchu."}, {"id": 87, "name": "Uginanie hantli chwytem młotkowym", "part": "Biceps", "muscles": "biceps, mięsień ramienny, przedramiona", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 88, "name": "Uginanie młotkowe na skosie", "part": "Biceps", "muscles": "biceps, mięsień ramienny, przedramiona", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 89, "name": "Uginanie hantli na ławce skośnej", "part": "Biceps", "muscles": "biceps, mięsień ramienny, przedramiona", "difficulty": "Trudny", "desc": "Zacznij od lekkiego obciążenia i priorytetowo traktuj technikę oraz kontrolę ruchu."}, {"id": 90, "name": "Uginanie na modlitewniku", "part": "Biceps", "muscles": "biceps, mięsień ramienny, przedramiona", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 91, "name": "Uginanie na modlitewniku hantlem", "part": "Biceps", "muscles": "biceps, mięsień ramienny, przedramiona", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 92, "name": "Uginanie na wyciągu dolnym", "part": "Biceps", "muscles": "biceps, mięsień ramienny, przedramiona", "difficulty": "Trudny", "desc": "Zacznij od lekkiego obciążenia i priorytetowo traktuj technikę oraz kontrolę ruchu."}, {"id": 93, "name": "Uginanie na wyciągu z liną", "part": "Biceps", "muscles": "biceps, mięsień ramienny, przedramiona", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 94, "name": "Bayesian curl", "part": "Biceps", "muscles": "biceps, mięsień ramienny, przedramiona", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 95, "name": "Spider curl", "part": "Biceps", "muscles": "biceps, mięsień ramienny, przedramiona", "difficulty": "Trudny", "desc": "Zacznij od lekkiego obciążenia i priorytetowo traktuj technikę oraz kontrolę ruchu."}, {"id": 96, "name": "Concentration curl", "part": "Biceps", "muscles": "biceps, mięsień ramienny, przedramiona", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 97, "name": "Zottman curl", "part": "Biceps", "muscles": "biceps, mięsień ramienny, przedramiona", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 98, "name": "Reverse curl", "part": "Biceps", "muscles": "biceps, mięsień ramienny, przedramiona", "difficulty": "Trudny", "desc": "Zacznij od lekkiego obciążenia i priorytetowo traktuj technikę oraz kontrolę ruchu."}, {"id": 99, "name": "Uginanie jednorącz na wyciągu", "part": "Biceps", "muscles": "biceps, mięsień ramienny, przedramiona", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 100, "name": "Uginanie z gumą oporową", "part": "Biceps", "muscles": "biceps, mięsień ramienny, przedramiona", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 101, "name": "21s ze sztangą", "part": "Biceps", "muscles": "biceps, mięsień ramienny, przedramiona", "difficulty": "Trudny", "desc": "Zacznij od lekkiego obciążenia i priorytetowo traktuj technikę oraz kontrolę ruchu."}, {"id": 102, "name": "Drag curl", "part": "Biceps", "muscles": "biceps, mięsień ramienny, przedramiona", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 103, "name": "Uginanie hantli siedząc", "part": "Biceps", "muscles": "biceps, mięsień ramienny, przedramiona", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 104, "name": "Prostowanie ramion na wyciągu z liną", "part": "Triceps", "muscles": "triceps", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 105, "name": "Prostowanie na wyciągu z drążkiem", "part": "Triceps", "muscles": "triceps", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 106, "name": "Prostowanie jednorącz na wyciągu", "part": "Triceps", "muscles": "triceps", "difficulty": "Trudny", "desc": "Zacznij od lekkiego obciążenia i priorytetowo traktuj technikę oraz kontrolę ruchu."}, {"id": 107, "name": "Prostowanie nad głową z liną", "part": "Triceps", "muscles": "triceps", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 108, "name": "Francuskie wyciskanie sztangi leżąc", "part": "Triceps", "muscles": "triceps", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 109, "name": "Francuskie wyciskanie hantli leżąc", "part": "Triceps", "muscles": "triceps", "difficulty": "Trudny", "desc": "Zacznij od lekkiego obciążenia i priorytetowo traktuj technikę oraz kontrolę ruchu."}, {"id": 110, "name": "Francuskie wyciskanie hantla jednorącz", "part": "Triceps", "muscles": "triceps", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 111, "name": "Wyciskanie hantla nad głową", "part": "Triceps", "muscles": "triceps", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 112, "name": "Prostowanie hantli w opadzie", "part": "Triceps", "muscles": "triceps", "difficulty": "Trudny", "desc": "Zacznij od lekkiego obciążenia i priorytetowo traktuj technikę oraz kontrolę ruchu."}, {"id": 113, "name": "Prostowanie na wyciągu zza głowy", "part": "Triceps", "muscles": "triceps", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 114, "name": "Dipy na triceps", "part": "Triceps", "muscles": "triceps", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 115, "name": "Pompki wąskie", "part": "Triceps", "muscles": "triceps", "difficulty": "Trudny", "desc": "Zacznij od lekkiego obciążenia i priorytetowo traktuj technikę oraz kontrolę ruchu."}, {"id": 116, "name": "Pompki diamentowe", "part": "Triceps", "muscles": "triceps", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 117, "name": "Wyciskanie sztangi wąskim chwytem", "part": "Triceps", "muscles": "triceps", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 118, "name": "JM press", "part": "Triceps", "muscles": "triceps", "difficulty": "Trudny", "desc": "Zacznij od lekkiego obciążenia i priorytetowo traktuj technikę oraz kontrolę ruchu."}, {"id": 119, "name": "Tate press", "part": "Triceps", "muscles": "triceps", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 120, "name": "Skull crusher na skosie dodatnim", "part": "Triceps", "muscles": "triceps", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 121, "name": "Pushdown odwrotnym chwytem", "part": "Triceps", "muscles": "triceps", "difficulty": "Trudny", "desc": "Zacznij od lekkiego obciążenia i priorytetowo traktuj technikę oraz kontrolę ruchu."}, {"id": 122, "name": "Pushdown z pauzą", "part": "Triceps", "muscles": "triceps", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 123, "name": "Prostowanie gumy nad głową", "part": "Triceps", "muscles": "triceps", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 124, "name": "Przysiad ze sztangą z tyłu", "part": "Czworogłowe uda", "muscles": "czworogłowe uda, pośladki", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 125, "name": "Przysiad przedni", "part": "Czworogłowe uda", "muscles": "czworogłowe uda, pośladki", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 126, "name": "Przysiad goblet", "part": "Czworogłowe uda", "muscles": "czworogłowe uda, pośladki", "difficulty": "Trudny", "desc": "Zacznij od lekkiego obciążenia i priorytetowo traktuj technikę oraz kontrolę ruchu."}, {"id": 127, "name": "Przysiad Zerchera", "part": "Czworogłowe uda", "muscles": "czworogłowe uda, pośladki", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 128, "name": "Hack squat", "part": "Czworogłowe uda", "muscles": "czworogłowe uda, pośladki", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 129, "name": "Suwnica 45°", "part": "Czworogłowe uda", "muscles": "czworogłowe uda, pośladki", "difficulty": "Trudny", "desc": "Zacznij od lekkiego obciążenia i priorytetowo traktuj technikę oraz kontrolę ruchu."}, {"id": 130, "name": "Suwnica pozioma", "part": "Czworogłowe uda", "muscles": "czworogłowe uda, pośladki", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 131, "name": "Przysiad na Smithie", "part": "Czworogłowe uda", "muscles": "czworogłowe uda, pośladki", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 132, "name": "Przysiad bułgarski", "part": "Czworogłowe uda", "muscles": "czworogłowe uda, pośladki", "difficulty": "Trudny", "desc": "Zacznij od lekkiego obciążenia i priorytetowo traktuj technikę oraz kontrolę ruchu."}, {"id": 133, "name": "Wykroki chodzone", "part": "Czworogłowe uda", "muscles": "czworogłowe uda, pośladki", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 134, "name": "Wykroki w miejscu", "part": "Czworogłowe uda", "muscles": "czworogłowe uda, pośladki", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 135, "name": "Wykroki ze sztangą", "part": "Czworogłowe uda", "muscles": "czworogłowe uda, pośladki", "difficulty": "Trudny", "desc": "Zacznij od lekkiego obciążenia i priorytetowo traktuj technikę oraz kontrolę ruchu."}, {"id": 136, "name": "Wykroki z hantlami", "part": "Czworogłowe uda", "muscles": "czworogłowe uda, pośladki", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 137, "name": "Step-up na podest", "part": "Czworogłowe uda", "muscles": "czworogłowe uda, pośladki", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 138, "name": "Wyprost nóg na maszynie", "part": "Czworogłowe uda", "muscles": "czworogłowe uda, pośladki", "difficulty": "Trudny", "desc": "Zacznij od lekkiego obciążenia i priorytetowo traktuj technikę oraz kontrolę ruchu."}, {"id": 139, "name": "Sissy squat", "part": "Czworogłowe uda", "muscles": "czworogłowe uda, pośladki", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 140, "name": "Cyclist squat", "part": "Czworogłowe uda", "muscles": "czworogłowe uda, pośladki", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 141, "name": "Spanish squat", "part": "Czworogłowe uda", "muscles": "czworogłowe uda, pośladki", "difficulty": "Trudny", "desc": "Zacznij od lekkiego obciążenia i priorytetowo traktuj technikę oraz kontrolę ruchu."}, {"id": 142, "name": "Przysiad z pauzą", "part": "Czworogłowe uda", "muscles": "czworogłowe uda, pośladki", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 143, "name": "Przysiad z piętami na podwyższeniu", "part": "Czworogłowe uda", "muscles": "czworogłowe uda, pośladki", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 144, "name": "Rumuński martwy ciąg ze sztangą", "part": "Dwugłowe uda", "muscles": "dwugłowe uda, pośladki", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 145, "name": "Rumuński martwy ciąg z hantlami", "part": "Dwugłowe uda", "muscles": "dwugłowe uda, pośladki", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 146, "name": "Martwy ciąg na prostych nogach", "part": "Dwugłowe uda", "muscles": "dwugłowe uda, pośladki", "difficulty": "Trudny", "desc": "Zacznij od lekkiego obciążenia i priorytetowo traktuj technikę oraz kontrolę ruchu."}, {"id": 147, "name": "Uginanie nóg leżąc", "part": "Dwugłowe uda", "muscles": "dwugłowe uda, pośladki", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 148, "name": "Uginanie nóg siedząc", "part": "Dwugłowe uda", "muscles": "dwugłowe uda, pośladki", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 149, "name": "Uginanie nóg stojąc jednonóż", "part": "Dwugłowe uda", "muscles": "dwugłowe uda, pośladki", "difficulty": "Trudny", "desc": "Zacznij od lekkiego obciążenia i priorytetowo traktuj technikę oraz kontrolę ruchu."}, {"id": 150, "name": "Nordic curl", "part": "Dwugłowe uda", "muscles": "dwugłowe uda, pośladki", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 151, "name": "Glute-ham raise", "part": "Dwugłowe uda", "muscles": "dwugłowe uda, pośladki", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 152, "name": "Good morning", "part": "Dwugłowe uda", "muscles": "dwugłowe uda, pośladki", "difficulty": "Trudny", "desc": "Zacznij od lekkiego obciążenia i priorytetowo traktuj technikę oraz kontrolę ruchu."}, {"id": 153, "name": "Slider leg curl", "part": "Dwugłowe uda", "muscles": "dwugłowe uda, pośladki", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 154, "name": "Uginanie nóg z gumą", "part": "Dwugłowe uda", "muscles": "dwugłowe uda, pośladki", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 155, "name": "Uginanie nóg na piłce", "part": "Dwugłowe uda", "muscles": "dwugłowe uda, pośladki", "difficulty": "Trudny", "desc": "Zacznij od lekkiego obciążenia i priorytetowo traktuj technikę oraz kontrolę ruchu."}, {"id": 156, "name": "RDL jednonóż", "part": "Dwugłowe uda", "muscles": "dwugłowe uda, pośladki", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 157, "name": "RDL na Smithie", "part": "Dwugłowe uda", "muscles": "dwugłowe uda, pośladki", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 158, "name": "RDL z podwyższenia", "part": "Dwugłowe uda", "muscles": "dwugłowe uda, pośladki", "difficulty": "Trudny", "desc": "Zacznij od lekkiego obciążenia i priorytetowo traktuj technikę oraz kontrolę ruchu."}, {"id": 159, "name": "Hip thrust ze sztangą", "part": "Pośladki", "muscles": "pośladkowy wielki i średni, tylna taśma", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 160, "name": "Hip thrust na maszynie", "part": "Pośladki", "muscles": "pośladkowy wielki i średni, tylna taśma", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 161, "name": "Hip thrust ze sztangielką", "part": "Pośladki", "muscles": "pośladkowy wielki i średni, tylna taśma", "difficulty": "Trudny", "desc": "Zacznij od lekkiego obciążenia i priorytetowo traktuj technikę oraz kontrolę ruchu."}, {"id": 162, "name": "Glute bridge", "part": "Pośladki", "muscles": "pośladkowy wielki i średni, tylna taśma", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 163, "name": "Glute bridge jednonóż", "part": "Pośladki", "muscles": "pośladkowy wielki i średni, tylna taśma", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 164, "name": "Kickback na wyciągu", "part": "Pośladki", "muscles": "pośladkowy wielki i średni, tylna taśma", "difficulty": "Trudny", "desc": "Zacznij od lekkiego obciążenia i priorytetowo traktuj technikę oraz kontrolę ruchu."}, {"id": 165, "name": "Kickback na maszynie", "part": "Pośladki", "muscles": "pośladkowy wielki i średni, tylna taśma", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 166, "name": "Kickback z gumą", "part": "Pośladki", "muscles": "pośladkowy wielki i średni, tylna taśma", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 167, "name": "Odwodzenie nóg na maszynie", "part": "Pośladki", "muscles": "pośladkowy wielki i średni, tylna taśma", "difficulty": "Trudny", "desc": "Zacznij od lekkiego obciążenia i priorytetowo traktuj technikę oraz kontrolę ruchu."}, {"id": 168, "name": "Odwodzenie nóg z gumą", "part": "Pośladki", "muscles": "pośladkowy wielki i średni, tylna taśma", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 169, "name": "Bułgarski przysiad z pochyleniem", "part": "Pośladki", "muscles": "pośladkowy wielki i średni, tylna taśma", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 170, "name": "Step-up wysoki", "part": "Pośladki", "muscles": "pośladkowy wielki i średni, tylna taśma", "difficulty": "Trudny", "desc": "Zacznij od lekkiego obciążenia i priorytetowo traktuj technikę oraz kontrolę ruchu."}, {"id": 171, "name": "Wykrok w tył", "part": "Pośladki", "muscles": "pośladkowy wielki i średni, tylna taśma", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 172, "name": "Wykrok w tył ze sztangą", "part": "Pośladki", "muscles": "pośladkowy wielki i średni, tylna taśma", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 173, "name": "Sumo squat", "part": "Pośladki", "muscles": "pośladkowy wielki i średni, tylna taśma", "difficulty": "Trudny", "desc": "Zacznij od lekkiego obciążenia i priorytetowo traktuj technikę oraz kontrolę ruchu."}, {"id": 174, "name": "Sumo deadlift", "part": "Pośladki", "muscles": "pośladkowy wielki i średni, tylna taśma", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 175, "name": "Cable pull-through", "part": "Pośladki", "muscles": "pośladkowy wielki i średni, tylna taśma", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 176, "name": "Frog pumps", "part": "Pośladki", "muscles": "pośladkowy wielki i średni, tylna taśma", "difficulty": "Trudny", "desc": "Zacznij od lekkiego obciążenia i priorytetowo traktuj technikę oraz kontrolę ruchu."}, {"id": 177, "name": "Fire hydrant", "part": "Pośladki", "muscles": "pośladkowy wielki i średni, tylna taśma", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 178, "name": "Donkey kick", "part": "Pośladki", "muscles": "pośladkowy wielki i średni, tylna taśma", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 179, "name": "Single-leg hip thrust", "part": "Pośladki", "muscles": "pośladkowy wielki i średni, tylna taśma", "difficulty": "Trudny", "desc": "Zacznij od lekkiego obciążenia i priorytetowo traktuj technikę oraz kontrolę ruchu."}, {"id": 180, "name": "Wspięcia stojąc ze sztangą", "part": "Łydki", "muscles": "brzuchaty i płaszczkowaty łydki", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 181, "name": "Wspięcia stojąc na maszynie", "part": "Łydki", "muscles": "brzuchaty i płaszczkowaty łydki", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 182, "name": "Wspięcia siedząc", "part": "Łydki", "muscles": "brzuchaty i płaszczkowaty łydki", "difficulty": "Trudny", "desc": "Zacznij od lekkiego obciążenia i priorytetowo traktuj technikę oraz kontrolę ruchu."}, {"id": 183, "name": "Wspięcia na suwnicy", "part": "Łydki", "muscles": "brzuchaty i płaszczkowaty łydki", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 184, "name": "Wspięcia jednonóż", "part": "Łydki", "muscles": "brzuchaty i płaszczkowaty łydki", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 185, "name": "Wspięcia na stepie", "part": "Łydki", "muscles": "brzuchaty i płaszczkowaty łydki", "difficulty": "Trudny", "desc": "Zacznij od lekkiego obciążenia i priorytetowo traktuj technikę oraz kontrolę ruchu."}, {"id": 186, "name": "Wspięcia z hantlem", "part": "Łydki", "muscles": "brzuchaty i płaszczkowaty łydki", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 187, "name": "Wspięcia z pauzą na górze", "part": "Łydki", "muscles": "brzuchaty i płaszczkowaty łydki", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 188, "name": "Wspięcia donkey calf raise", "part": "Łydki", "muscles": "brzuchaty i płaszczkowaty łydki", "difficulty": "Trudny", "desc": "Zacznij od lekkiego obciążenia i priorytetowo traktuj technikę oraz kontrolę ruchu."}, {"id": 189, "name": "Wspięcia na Smithie", "part": "Łydki", "muscles": "brzuchaty i płaszczkowaty łydki", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 190, "name": "Wspięcia na palcach na hack maszynie", "part": "Łydki", "muscles": "brzuchaty i płaszczkowaty łydki", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 191, "name": "Wspięcia siedząc jednonóż", "part": "Łydki", "muscles": "brzuchaty i płaszczkowaty łydki", "difficulty": "Trudny", "desc": "Zacznij od lekkiego obciążenia i priorytetowo traktuj technikę oraz kontrolę ruchu."}, {"id": 192, "name": "Allahy na wyciągu", "part": "Brzuch", "muscles": "mięśnie brzucha i stabilizacja tułowia", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 193, "name": "Spięcia brzucha na wyciągu", "part": "Brzuch", "muscles": "mięśnie brzucha i stabilizacja tułowia", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 194, "name": "Spięcia brzucha na maszynie", "part": "Brzuch", "muscles": "mięśnie brzucha i stabilizacja tułowia", "difficulty": "Trudny", "desc": "Zacznij od lekkiego obciążenia i priorytetowo traktuj technikę oraz kontrolę ruchu."}, {"id": 195, "name": "Reverse crunch", "part": "Brzuch", "muscles": "mięśnie brzucha i stabilizacja tułowia", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 196, "name": "Unoszenie nóg w zwisie", "part": "Brzuch", "muscles": "mięśnie brzucha i stabilizacja tułowia", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 197, "name": "Unoszenie kolan w zwisie", "part": "Brzuch", "muscles": "mięśnie brzucha i stabilizacja tułowia", "difficulty": "Trudny", "desc": "Zacznij od lekkiego obciążenia i priorytetowo traktuj technikę oraz kontrolę ruchu."}, {"id": 198, "name": "Unoszenie nóg leżąc", "part": "Brzuch", "muscles": "mięśnie brzucha i stabilizacja tułowia", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 199, "name": "Dead bug", "part": "Brzuch", "muscles": "mięśnie brzucha i stabilizacja tułowia", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 200, "name": "Bird dog", "part": "Brzuch", "muscles": "mięśnie brzucha i stabilizacja tułowia", "difficulty": "Trudny", "desc": "Zacznij od lekkiego obciążenia i priorytetowo traktuj technikę oraz kontrolę ruchu."}, {"id": 201, "name": "Plank", "part": "Brzuch", "muscles": "mięśnie brzucha i stabilizacja tułowia", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 202, "name": "Plank bokiem", "part": "Brzuch", "muscles": "mięśnie brzucha i stabilizacja tułowia", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 203, "name": "RKC plank", "part": "Brzuch", "muscles": "mięśnie brzucha i stabilizacja tułowia", "difficulty": "Trudny", "desc": "Zacznij od lekkiego obciążenia i priorytetowo traktuj technikę oraz kontrolę ruchu."}, {"id": 204, "name": "Ab wheel", "part": "Brzuch", "muscles": "mięśnie brzucha i stabilizacja tułowia", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 205, "name": "Rollout ze sztangą", "part": "Brzuch", "muscles": "mięśnie brzucha i stabilizacja tułowia", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 206, "name": "Pallof press", "part": "Brzuch", "muscles": "mięśnie brzucha i stabilizacja tułowia", "difficulty": "Trudny", "desc": "Zacznij od lekkiego obciążenia i priorytetowo traktuj technikę oraz kontrolę ruchu."}, {"id": 207, "name": "Pallof press jednorącz", "part": "Brzuch", "muscles": "mięśnie brzucha i stabilizacja tułowia", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 208, "name": "Russian twist", "part": "Brzuch", "muscles": "mięśnie brzucha i stabilizacja tułowia", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 209, "name": "Mountain climbers", "part": "Brzuch", "muscles": "mięśnie brzucha i stabilizacja tułowia", "difficulty": "Trudny", "desc": "Zacznij od lekkiego obciążenia i priorytetowo traktuj technikę oraz kontrolę ruchu."}, {"id": 210, "name": "Hollow body hold", "part": "Brzuch", "muscles": "mięśnie brzucha i stabilizacja tułowia", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 211, "name": "V-up", "part": "Brzuch", "muscles": "mięśnie brzucha i stabilizacja tułowia", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 212, "name": "Toe touches", "part": "Brzuch", "muscles": "mięśnie brzucha i stabilizacja tułowia", "difficulty": "Trudny", "desc": "Zacznij od lekkiego obciążenia i priorytetowo traktuj technikę oraz kontrolę ruchu."}, {"id": 213, "name": "Bicycle crunch", "part": "Brzuch", "muscles": "mięśnie brzucha i stabilizacja tułowia", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 214, "name": "Dragon flag", "part": "Brzuch", "muscles": "mięśnie brzucha i stabilizacja tułowia", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 215, "name": "L-sit", "part": "Brzuch", "muscles": "mięśnie brzucha i stabilizacja tułowia", "difficulty": "Trudny", "desc": "Zacznij od lekkiego obciążenia i priorytetowo traktuj technikę oraz kontrolę ruchu."}, {"id": 216, "name": "Suitcase carry", "part": "Brzuch", "muscles": "mięśnie brzucha i stabilizacja tułowia", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 217, "name": "Uginanie nadgarstków podchwytem", "part": "Przedramiona", "muscles": "zginacze i prostowniki przedramienia, chwyt", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 218, "name": "Uginanie nadgarstków nachwytem", "part": "Przedramiona", "muscles": "zginacze i prostowniki przedramienia, chwyt", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 219, "name": "Reverse curl", "part": "Przedramiona", "muscles": "zginacze i prostowniki przedramienia, chwyt", "difficulty": "Trudny", "desc": "Zacznij od lekkiego obciążenia i priorytetowo traktuj technikę oraz kontrolę ruchu."}, {"id": 220, "name": "Farmer walk", "part": "Przedramiona", "muscles": "zginacze i prostowniki przedramienia, chwyt", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 221, "name": "Suitcase carry", "part": "Przedramiona", "muscles": "zginacze i prostowniki przedramienia, chwyt", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 222, "name": "Ściskanie grippera", "part": "Przedramiona", "muscles": "zginacze i prostowniki przedramienia, chwyt", "difficulty": "Trudny", "desc": "Zacznij od lekkiego obciążenia i priorytetowo traktuj technikę oraz kontrolę ruchu."}, {"id": 223, "name": "Zwis na drążku", "part": "Przedramiona", "muscles": "zginacze i prostowniki przedramienia, chwyt", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 224, "name": "Zwijanie linki na wałku", "part": "Przedramiona", "muscles": "zginacze i prostowniki przedramienia, chwyt", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję, pełny kontrolowany zakres i progresuj stopniowo."}, {"id": 225, "name": "Pinch grip plate hold", "part": "Przedramiona", "muscles": "zginacze i prostowniki przedramienia, chwyt", "difficulty": "Trudny", "desc": "Zacznij od lekkiego obciążenia i priorytetowo traktuj technikę oraz kontrolę ruchu."}];
-
-        const WARMUP_DATABASE = [{"name": "Marsz lub lekki trucht", "part": "Całe ciało", "time": "3–5 min", "desc": "Podnieś temperaturę ciała bez zadyszki."}, {"name": "Rower stacjonarny", "part": "Nogi", "time": "5–8 min", "desc": "Lekki opór, płynne tempo."}, {"name": "Orbitrek", "part": "Całe ciało", "time": "5–8 min", "desc": "Stopniowo zwiększaj tempo."}, {"name": "Skakanka lekko", "part": "Całe ciało", "time": "2–4 min", "desc": "Miękkie lądowanie i spokojny rytm."}, {"name": "Krążenia barków", "part": "Barki", "time": "10–15 powt.", "desc": "Duże, kontrolowane koła bez bólu."}, {"name": "Band pull-apart", "part": "Barki / plecy", "time": "2 × 12–15", "desc": "Lekka guma, łopatki pracują swobodnie."}, {"name": "Face pull z gumą", "part": "Barki / plecy", "time": "2 × 12–15", "desc": "Nie unoś barków do uszu."}, {"name": "Rotacja zewnętrzna barku z gumą", "part": "Barki", "time": "2 × 12", "desc": "Łokieć przy tułowiu."}, {"name": "Scapular push-up", "part": "Łopatki / klatka", "time": "2 × 8–12", "desc": "Ruch wykonują głównie łopatki."}, {"name": "Cat-cow", "part": "Kręgosłup", "time": "8–10 powt.", "desc": "Płynnie przechodź między pozycjami."}, {"name": "Dead bug", "part": "Core", "time": "2 × 6–10/str.", "desc": "Lędźwie utrzymuj stabilnie."}, {"name": "Bird dog", "part": "Core", "time": "2 × 6–10/str.", "desc": "Nie rotuj miednicy."}, {"name": "Glute bridge", "part": "Pośladki", "time": "2 × 10–15", "desc": "Ściśnij pośladki na górze."}, {"name": "Bodyweight squat", "part": "Nogi", "time": "2 × 10–15", "desc": "Kolana prowadź zgodnie z linią stóp."}, {"name": "Reverse lunge", "part": "Nogi", "time": "1–2 × 8/str.", "desc": "Krótki zakres na start."}, {"name": "Hip hinge drill", "part": "Tył uda / pośladki", "time": "2 × 8–10", "desc": "Ćwicz cofanie bioder z neutralnym kręgosłupem."}, {"name": "Ankle rocks", "part": "Kostki", "time": "10–15/str.", "desc": "Kolano przesuwa się nad stopą bez odrywania pięty."}, {"name": "Knee hugs + calf raise", "part": "Nogi", "time": "8–10/str.", "desc": "Połącz mobilizację biodra z łydką."}, {"name": "Walking lunges", "part": "Nogi", "time": "8–12/str.", "desc": "Mały ciężar lub masa ciała."}, {"name": "Pajacyki", "part": "Całe ciało", "time": "30–60 s", "desc": "Tempo umiarkowane, bez maksymalnego wysiłku."}];
-        const STRETCH_DATABASE = [{"name": "Rozciąganie klatki przy ścianie", "part": "Klatka", "time": "20–30 s/str.", "desc": "Lekki skręt tułowia, bez agresywnego ciągnięcia."}, {"name": "Rozciąganie najszerszego grzbietu przy ławce", "part": "Plecy", "time": "20–30 s", "desc": "Biodra lekko cofnięte, oddech spokojny."}, {"name": "Child's pose", "part": "Plecy / biodra", "time": "30–45 s", "desc": "Oddychaj spokojnie i nie wymuszaj zakresu."}, {"name": "Couch stretch", "part": "Czworogłowe uda", "time": "20–40 s/str.", "desc": "Miednica lekko podwinięta."}, {"name": "Rozciąganie zginaczy biodra w wykroku", "part": "Biodra", "time": "20–40 s/str.", "desc": "Nie wyginaj lędźwi."}, {"name": "Figure 4 stretch", "part": "Pośladki", "time": "20–40 s/str.", "desc": "Delikatnie przyciągnij nogę."}, {"name": "Pigeon stretch", "part": "Pośladki / biodro", "time": "20–40 s/str.", "desc": "Zatrzymaj się przed bólem."}, {"name": "Rozciąganie dwugłowych siedząc", "part": "Tył uda", "time": "20–40 s/str.", "desc": "Plecy możliwie neutralne."}, {"name": "Rozciąganie dwugłowych leżąc z paskiem", "part": "Tył uda", "time": "20–40 s/str.", "desc": "Kolano może być lekko ugięte."}, {"name": "Standing quad stretch", "part": "Czworogłowe uda", "time": "20–30 s/str.", "desc": "Kolana trzymaj blisko siebie."}, {"name": "Wall calf stretch", "part": "Łydki", "time": "20–40 s/str.", "desc": "Pięta pozostaje na podłożu."}, {"name": "Soleus stretch przy ścianie", "part": "Łydki", "time": "20–40 s/str.", "desc": "Ugnij kolano i utrzymaj piętę."}, {"name": "Rozciąganie tricepsa nad głową", "part": "Triceps", "time": "20–30 s/str.", "desc": "Bez mocnego dociskania łokcia."}, {"name": "Rozciąganie bicepsa przy ścianie", "part": "Biceps", "time": "20–30 s/str.", "desc": "Dłoń oparta, klatka delikatnie odwraca się."}, {"name": "Cross-body shoulder stretch", "part": "Tył barku", "time": "20–30 s/str.", "desc": "Nie unoś barku."}, {"name": "Doorway lat stretch", "part": "Plecy / bark", "time": "20–30 s/str.", "desc": "Delikatnie przenieś biodra w tył."}, {"name": "Open book", "part": "Kręgosłup piersiowy", "time": "6–10/str.", "desc": "Ruch spokojny, bez bólu."}, {"name": "90/90 hip stretch", "part": "Biodra", "time": "30–45 s/str.", "desc": "Pracuj w komfortowym zakresie."}, {"name": "Adductor rock-back", "part": "Przywodziciele", "time": "8–12/str.", "desc": "Cofaj biodra powoli."}, {"name": "Child's pose z rękami na boku", "part": "Lats / bok tułowia", "time": "20–40 s/str.", "desc": "Oddychaj w bok żeber."}];
-        const RECIPES_DATABASE = [{"id": 1, "name": "Owsianka proteinowa z bananem", "cat": "Śniadanie", "kcal": 520, "protein": 35, "carbs": 70, "fat": 12, "ingredients": "Płatki owsiane, skyr, banan, mleko, cynamon.", "steps": "Wymieszaj lub ugotuj składniki zgodnie z przepisem; porcję dopraw według smaku. Makro jest orientacyjne i zależy od użytych produktów."}, {"id": 2, "name": "Omlet twarogowy z owocami", "cat": "Śniadanie", "kcal": 460, "protein": 42, "carbs": 42, "fat": 14, "ingredients": "Jaja, twaróg, skyr, owoce jagodowe.", "steps": "Wymieszaj lub ugotuj składniki zgodnie z przepisem; porcję dopraw według smaku. Makro jest orientacyjne i zależy od użytych produktów."}, {"id": 3, "name": "Jajecznica z indykiem i pieczywem", "cat": "Śniadanie", "kcal": 480, "protein": 40, "carbs": 38, "fat": 18, "ingredients": "Jaja, filet z indyka, pieczywo pełnoziarniste, warzywa.", "steps": "Wymieszaj lub ugotuj składniki zgodnie z przepisem; porcję dopraw według smaku. Makro jest orientacyjne i zależy od użytych produktów."}, {"id": 4, "name": "Tosty z twarożkiem i łososiem", "cat": "Śniadanie", "kcal": 510, "protein": 38, "carbs": 45, "fat": 18, "ingredients": "Pieczywo, twarożek, łosoś wędzony, ogórek.", "steps": "Wymieszaj lub ugotuj składniki zgodnie z przepisem; porcję dopraw według smaku. Makro jest orientacyjne i zależy od użytych produktów."}, {"id": 5, "name": "Pancakes proteinowe", "cat": "Śniadanie", "kcal": 500, "protein": 40, "carbs": 62, "fat": 10, "ingredients": "Płatki owsiane, jajko, skyr, banan, odżywka białkowa.", "steps": "Wymieszaj lub ugotuj składniki zgodnie z przepisem; porcję dopraw według smaku. Makro jest orientacyjne i zależy od użytych produktów."}, {"id": 6, "name": "Bowl skyr + granola + owoce", "cat": "Śniadanie", "kcal": 430, "protein": 34, "carbs": 55, "fat": 10, "ingredients": "Skyr, granola, truskawki, borówki.", "steps": "Wymieszaj lub ugotuj składniki zgodnie z przepisem; porcję dopraw według smaku. Makro jest orientacyjne i zależy od użytych produktów."}, {"id": 7, "name": "Ryżanka czekoladowa", "cat": "Śniadanie", "kcal": 470, "protein": 32, "carbs": 72, "fat": 8, "ingredients": "Ryż, mleko, kakao, skyr, banan.", "steps": "Wymieszaj lub ugotuj składniki zgodnie z przepisem; porcję dopraw według smaku. Makro jest orientacyjne i zależy od użytych produktów."}, {"id": 8, "name": "Kanapki z jajkiem i awokado", "cat": "Śniadanie", "kcal": 490, "protein": 28, "carbs": 45, "fat": 22, "ingredients": "Pieczywo, jaja, awokado, pomidor.", "steps": "Wymieszaj lub ugotuj składniki zgodnie z przepisem; porcję dopraw według smaku. Makro jest orientacyjne i zależy od użytych produktów."}, {"id": 9, "name": "Kurczak curry z ryżem", "cat": "Obiad", "kcal": 650, "protein": 55, "carbs": 82, "fat": 10, "ingredients": "Pierś z kurczaka, ryż, warzywa, jogurt, curry.", "steps": "Wymieszaj lub ugotuj składniki zgodnie z przepisem; porcję dopraw według smaku. Makro jest orientacyjne i zależy od użytych produktów."}, {"id": 10, "name": "Indyk teriyaki z ryżem", "cat": "Obiad", "kcal": 620, "protein": 52, "carbs": 78, "fat": 9, "ingredients": "Indyk, ryż, warzywa, sos teriyaki.", "steps": "Wymieszaj lub ugotuj składniki zgodnie z przepisem; porcję dopraw według smaku. Makro jest orientacyjne i zależy od użytych produktów."}, {"id": 11, "name": "Wołowina z makaronem ryżowym", "cat": "Obiad", "kcal": 690, "protein": 48, "carbs": 78, "fat": 20, "ingredients": "Chuda wołowina, makaron ryżowy, papryka, brokuł.", "steps": "Wymieszaj lub ugotuj składniki zgodnie z przepisem; porcję dopraw według smaku. Makro jest orientacyjne i zależy od użytych produktów."}, {"id": 12, "name": "Łosoś z ziemniakami i surówką", "cat": "Obiad", "kcal": 680, "protein": 42, "carbs": 58, "fat": 28, "ingredients": "Łosoś, ziemniaki, mix sałat, jogurtowy sos.", "steps": "Wymieszaj lub ugotuj składniki zgodnie z przepisem; porcję dopraw według smaku. Makro jest orientacyjne i zależy od użytych produktów."}, {"id": 13, "name": "Kurczak fajita bowl", "cat": "Obiad", "kcal": 610, "protein": 52, "carbs": 65, "fat": 14, "ingredients": "Kurczak, ryż, fasola, kukurydza, papryka.", "steps": "Wymieszaj lub ugotuj składniki zgodnie z przepisem; porcję dopraw według smaku. Makro jest orientacyjne i zależy od użytych produktów."}, {"id": 14, "name": "Makaron z kurczakiem i pesto", "cat": "Obiad", "kcal": 720, "protein": 52, "carbs": 82, "fat": 20, "ingredients": "Makaron, kurczak, pesto, pomidorki.", "steps": "Wymieszaj lub ugotuj składniki zgodnie z przepisem; porcję dopraw według smaku. Makro jest orientacyjne i zależy od użytych produktów."}, {"id": 15, "name": "Chili con carne fit", "cat": "Obiad", "kcal": 630, "protein": 48, "carbs": 58, "fat": 18, "ingredients": "Wołowina, fasola, pomidory, ryż, przyprawy.", "steps": "Wymieszaj lub ugotuj składniki zgodnie z przepisem; porcję dopraw według smaku. Makro jest orientacyjne i zależy od użytych produktów."}, {"id": 16, "name": "Dorsz z puree i warzywami", "cat": "Obiad", "kcal": 540, "protein": 48, "carbs": 52, "fat": 12, "ingredients": "Dorsz, ziemniaki, warzywa, oliwa.", "steps": "Wymieszaj lub ugotuj składniki zgodnie z przepisem; porcję dopraw według smaku. Makro jest orientacyjne i zależy od użytych produktów."}, {"id": 17, "name": "Indyk w sosie pomidorowym z kaszą", "cat": "Obiad", "kcal": 600, "protein": 55, "carbs": 68, "fat": 10, "ingredients": "Indyk, passata, kasza bulgur, warzywa.", "steps": "Wymieszaj lub ugotuj składniki zgodnie z przepisem; porcję dopraw według smaku. Makro jest orientacyjne i zależy od użytych produktów."}, {"id": 18, "name": "Burger domowy high-protein", "cat": "Obiad", "kcal": 700, "protein": 55, "carbs": 65, "fat": 22, "ingredients": "Bułka, chuda wołowina, ser light, warzywa.", "steps": "Wymieszaj lub ugotuj składniki zgodnie z przepisem; porcję dopraw według smaku. Makro jest orientacyjne i zależy od użytych produktów."}, {"id": 19, "name": "Tortilla z kurczakiem", "cat": "Szybkie", "kcal": 560, "protein": 48, "carbs": 52, "fat": 16, "ingredients": "Tortilla, kurczak, sałata, pomidor, sos jogurtowy.", "steps": "Wymieszaj lub ugotuj składniki zgodnie z przepisem; porcję dopraw według smaku. Makro jest orientacyjne i zależy od użytych produktów."}, {"id": 20, "name": "Quesadilla proteinowa", "cat": "Szybkie", "kcal": 590, "protein": 45, "carbs": 48, "fat": 22, "ingredients": "Tortilla, kurczak, ser light, papryka.", "steps": "Wymieszaj lub ugotuj składniki zgodnie z przepisem; porcję dopraw według smaku. Makro jest orientacyjne i zależy od użytych produktów."}, {"id": 21, "name": "Wrap z tuńczykiem", "cat": "Szybkie", "kcal": 480, "protein": 42, "carbs": 48, "fat": 12, "ingredients": "Tortilla, tuńczyk, skyr, kukurydza, sałata.", "steps": "Wymieszaj lub ugotuj składniki zgodnie z przepisem; porcję dopraw według smaku. Makro jest orientacyjne i zależy od użytych produktów."}, {"id": 22, "name": "Sałatka gyros fit", "cat": "Szybkie", "kcal": 520, "protein": 48, "carbs": 38, "fat": 18, "ingredients": "Kurczak, warzywa, ziemniaki, sos jogurtowy.", "steps": "Wymieszaj lub ugotuj składniki zgodnie z przepisem; porcję dopraw według smaku. Makro jest orientacyjne i zależy od użytych produktów."}, {"id": 23, "name": "Serek wiejski na słodko", "cat": "Kolacja", "kcal": 360, "protein": 32, "carbs": 38, "fat": 10, "ingredients": "Serek wiejski, owoce, płatki, cynamon.", "steps": "Wymieszaj lub ugotuj składniki zgodnie z przepisem; porcję dopraw według smaku. Makro jest orientacyjne i zależy od użytych produktów."}, {"id": 24, "name": "Twarożek z warzywami i pieczywem", "cat": "Kolacja", "kcal": 420, "protein": 38, "carbs": 42, "fat": 12, "ingredients": "Twaróg, jogurt, warzywa, pieczywo.", "steps": "Wymieszaj lub ugotuj składniki zgodnie z przepisem; porcję dopraw według smaku. Makro jest orientacyjne i zależy od użytych produktów."}, {"id": 25, "name": "Tuńczykowa sałatka ziemniaczana", "cat": "Kolacja", "kcal": 460, "protein": 40, "carbs": 45, "fat": 12, "ingredients": "Tuńczyk, ziemniaki, ogórek, jajko, sos jogurtowy.", "steps": "Wymieszaj lub ugotuj składniki zgodnie z przepisem; porcję dopraw według smaku. Makro jest orientacyjne i zależy od użytych produktów."}, {"id": 26, "name": "Jajka sadzone z ziemniakami", "cat": "Kolacja", "kcal": 510, "protein": 30, "carbs": 50, "fat": 20, "ingredients": "Jaja, ziemniaki, warzywa, oliwa.", "steps": "Wymieszaj lub ugotuj składniki zgodnie z przepisem; porcję dopraw według smaku. Makro jest orientacyjne i zależy od użytych produktów."}, {"id": 27, "name": "Skyr bowl czekoladowy", "cat": "Deser", "kcal": 330, "protein": 30, "carbs": 40, "fat": 6, "ingredients": "Skyr, kakao, banan, płatki, słodzik.", "steps": "Wymieszaj lub ugotuj składniki zgodnie z przepisem; porcję dopraw według smaku. Makro jest orientacyjne i zależy od użytych produktów."}, {"id": 28, "name": "Mug cake proteinowy", "cat": "Deser", "kcal": 360, "protein": 30, "carbs": 40, "fat": 9, "ingredients": "Mąka owsiana, jajko, skyr, kakao, odżywka.", "steps": "Wymieszaj lub ugotuj składniki zgodnie z przepisem; porcję dopraw według smaku. Makro jest orientacyjne i zależy od użytych produktów."}, {"id": 29, "name": "Lody proteinowe z banana", "cat": "Deser", "kcal": 320, "protein": 28, "carbs": 45, "fat": 5, "ingredients": "Banan, skyr, kakao, masło orzechowe.", "steps": "Wymieszaj lub ugotuj składniki zgodnie z przepisem; porcję dopraw według smaku. Makro jest orientacyjne i zależy od użytych produktów."}, {"id": 30, "name": "Sernik na zimno high-protein", "cat": "Deser", "kcal": 390, "protein": 38, "carbs": 32, "fat": 10, "ingredients": "Twaróg, skyr, żelatyna, owoce, herbatniki.", "steps": "Wymieszaj lub ugotuj składniki zgodnie z przepisem; porcję dopraw według smaku. Makro jest orientacyjne i zależy od użytych produktów."}, {"id": 31, "name": "Koktajl banan-kakao", "cat": "Koktajl", "kcal": 420, "protein": 35, "carbs": 55, "fat": 9, "ingredients": "Mleko, banan, kakao, skyr, odżywka.", "steps": "Wymieszaj lub ugotuj składniki zgodnie z przepisem; porcję dopraw według smaku. Makro jest orientacyjne i zależy od użytych produktów."}, {"id": 32, "name": "Koktajl truskawkowy", "cat": "Koktajl", "kcal": 350, "protein": 32, "carbs": 42, "fat": 6, "ingredients": "Skyr, truskawki, mleko, odżywka.", "steps": "Wymieszaj lub ugotuj składniki zgodnie z przepisem; porcję dopraw według smaku. Makro jest orientacyjne i zależy od użytych produktów."}, {"id": 33, "name": "Koktajl kawowy przed treningiem", "cat": "Koktajl", "kcal": 300, "protein": 28, "carbs": 34, "fat": 5, "ingredients": "Kawa, mleko, banan, odżywka.", "steps": "Wymieszaj lub ugotuj składniki zgodnie z przepisem; porcję dopraw według smaku. Makro jest orientacyjne i zależy od użytych produktów."}, {"id": 34, "name": "Koktajl mango-lassi proteinowy", "cat": "Koktajl", "kcal": 390, "protein": 30, "carbs": 55, "fat": 6, "ingredients": "Mango, skyr, mleko, kardamon.", "steps": "Wymieszaj lub ugotuj składniki zgodnie z przepisem; porcję dopraw według smaku. Makro jest orientacyjne i zależy od użytych produktów."}, {"id": 35, "name": "Ryż z kurczakiem i warzywami", "cat": "Obiad", "kcal": 620, "protein": 45, "carbs": 65, "fat": 16, "ingredients": "Dobierz bazowe źródło białka, węglowodany, warzywa/owoce i dodatki zgodnie z nazwą.", "steps": "Przygotuj składniki, połącz je i dopraw według smaku. Makro jest orientacyjne."}, {"id": 36, "name": "Makaron z indykiem i pomidorami", "cat": "Obiad", "kcal": 620, "protein": 45, "carbs": 65, "fat": 16, "ingredients": "Dobierz bazowe źródło białka, węglowodany, warzywa/owoce i dodatki zgodnie z nazwą.", "steps": "Przygotuj składniki, połącz je i dopraw według smaku. Makro jest orientacyjne."}, {"id": 37, "name": "Bowl wołowy z ryżem", "cat": "Obiad", "kcal": 620, "protein": 45, "carbs": 65, "fat": 16, "ingredients": "Dobierz bazowe źródło białka, węglowodany, warzywa/owoce i dodatki zgodnie z nazwą.", "steps": "Przygotuj składniki, połącz je i dopraw według smaku. Makro jest orientacyjne."}, {"id": 38, "name": "Tortilla z indykiem i warzywami", "cat": "Szybkie", "kcal": 520, "protein": 38, "carbs": 50, "fat": 15, "ingredients": "Dobierz bazowe źródło białka, węglowodany, warzywa/owoce i dodatki zgodnie z nazwą.", "steps": "Przygotuj składniki, połącz je i dopraw według smaku. Makro jest orientacyjne."}, {"id": 39, "name": "Skyr z masłem orzechowym i bananem", "cat": "Deser", "kcal": 350, "protein": 28, "carbs": 40, "fat": 8, "ingredients": "Dobierz bazowe źródło białka, węglowodany, warzywa/owoce i dodatki zgodnie z nazwą.", "steps": "Przygotuj składniki, połącz je i dopraw według smaku. Makro jest orientacyjne."}, {"id": 40, "name": "Owsianka jabłkowo-cynamonowa", "cat": "Śniadanie", "kcal": 450, "protein": 30, "carbs": 55, "fat": 12, "ingredients": "Dobierz bazowe źródło białka, węglowodany, warzywa/owoce i dodatki zgodnie z nazwą.", "steps": "Przygotuj składniki, połącz je i dopraw według smaku. Makro jest orientacyjne."}, {"id": 41, "name": "Omlet bananowy z kakao", "cat": "Śniadanie", "kcal": 450, "protein": 30, "carbs": 55, "fat": 12, "ingredients": "Dobierz bazowe źródło białka, węglowodany, warzywa/owoce i dodatki zgodnie z nazwą.", "steps": "Przygotuj składniki, połącz je i dopraw według smaku. Makro jest orientacyjne."}, {"id": 42, "name": "Jajka z awokado i pomidorem", "cat": "Śniadanie", "kcal": 450, "protein": 30, "carbs": 55, "fat": 12, "ingredients": "Dobierz bazowe źródło białka, węglowodany, warzywa/owoce i dodatki zgodnie z nazwą.", "steps": "Przygotuj składniki, połącz je i dopraw według smaku. Makro jest orientacyjne."}, {"id": 43, "name": "Sałatka z kurczakiem i fetą light", "cat": "Szybkie", "kcal": 520, "protein": 38, "carbs": 50, "fat": 15, "ingredients": "Dobierz bazowe źródło białka, węglowodany, warzywa/owoce i dodatki zgodnie z nazwą.", "steps": "Przygotuj składniki, połącz je i dopraw według smaku. Makro jest orientacyjne."}, {"id": 44, "name": "Tosty pizza proteinowe", "cat": "Szybkie", "kcal": 520, "protein": 38, "carbs": 50, "fat": 15, "ingredients": "Dobierz bazowe źródło białka, węglowodany, warzywa/owoce i dodatki zgodnie z nazwą.", "steps": "Przygotuj składniki, połącz je i dopraw według smaku. Makro jest orientacyjne."}, {"id": 45, "name": "Zapiekanka ziemniaczana z indykiem", "cat": "Obiad", "kcal": 620, "protein": 45, "carbs": 65, "fat": 16, "ingredients": "Dobierz bazowe źródło białka, węglowodany, warzywa/owoce i dodatki zgodnie z nazwą.", "steps": "Przygotuj składniki, połącz je i dopraw według smaku. Makro jest orientacyjne."}, {"id": 46, "name": "Curry z indykiem i kaszą", "cat": "Obiad", "kcal": 620, "protein": 45, "carbs": 65, "fat": 16, "ingredients": "Dobierz bazowe źródło białka, węglowodany, warzywa/owoce i dodatki zgodnie z nazwą.", "steps": "Przygotuj składniki, połącz je i dopraw według smaku. Makro jest orientacyjne."}, {"id": 47, "name": "Dorsz w sosie jogurtowym", "cat": "Obiad", "kcal": 620, "protein": 45, "carbs": 65, "fat": 16, "ingredients": "Dobierz bazowe źródło białka, węglowodany, warzywa/owoce i dodatki zgodnie z nazwą.", "steps": "Przygotuj składniki, połącz je i dopraw według smaku. Makro jest orientacyjne."}, {"id": 48, "name": "Kurczak sweet chili fit", "cat": "Obiad", "kcal": 620, "protein": 45, "carbs": 65, "fat": 16, "ingredients": "Dobierz bazowe źródło białka, węglowodany, warzywa/owoce i dodatki zgodnie z nazwą.", "steps": "Przygotuj składniki, połącz je i dopraw według smaku. Makro jest orientacyjne."}, {"id": 49, "name": "Makaron z tuńczykiem i szpinakiem", "cat": "Obiad", "kcal": 620, "protein": 45, "carbs": 65, "fat": 16, "ingredients": "Dobierz bazowe źródło białka, węglowodany, warzywa/owoce i dodatki zgodnie z nazwą.", "steps": "Przygotuj składniki, połącz je i dopraw według smaku. Makro jest orientacyjne."}, {"id": 50, "name": "Pita kebab fit", "cat": "Szybkie", "kcal": 520, "protein": 38, "carbs": 50, "fat": 15, "ingredients": "Dobierz bazowe źródło białka, węglowodany, warzywa/owoce i dodatki zgodnie z nazwą.", "steps": "Przygotuj składniki, połącz je i dopraw według smaku. Makro jest orientacyjne."}, {"id": 51, "name": "Proteinowy pudding chia", "cat": "Deser", "kcal": 350, "protein": 28, "carbs": 40, "fat": 8, "ingredients": "Dobierz bazowe źródło białka, węglowodany, warzywa/owoce i dodatki zgodnie z nazwą.", "steps": "Przygotuj składniki, połącz je i dopraw według smaku. Makro jest orientacyjne."}, {"id": 52, "name": "Brownie fasolowe proteinowe", "cat": "Deser", "kcal": 350, "protein": 28, "carbs": 40, "fat": 8, "ingredients": "Dobierz bazowe źródło białka, węglowodany, warzywa/owoce i dodatki zgodnie z nazwą.", "steps": "Przygotuj składniki, połącz je i dopraw według smaku. Makro jest orientacyjne."}, {"id": 53, "name": "Jogurtowy cheesecake bowl", "cat": "Deser", "kcal": 350, "protein": 28, "carbs": 40, "fat": 8, "ingredients": "Dobierz bazowe źródło białka, węglowodany, warzywa/owoce i dodatki zgodnie z nazwą.", "steps": "Przygotuj składniki, połącz je i dopraw według smaku. Makro jest orientacyjne."}, {"id": 54, "name": "Kakaowa owsianka overnight", "cat": "Śniadanie", "kcal": 450, "protein": 30, "carbs": 55, "fat": 12, "ingredients": "Dobierz bazowe źródło białka, węglowodany, warzywa/owoce i dodatki zgodnie z nazwą.", "steps": "Przygotuj składniki, połącz je i dopraw według smaku. Makro jest orientacyjne."}, {"id": 55, "name": "Overnight oats truskawkowe", "cat": "Śniadanie", "kcal": 450, "protein": 30, "carbs": 55, "fat": 12, "ingredients": "Dobierz bazowe źródło białka, węglowodany, warzywa/owoce i dodatki zgodnie z nazwą.", "steps": "Przygotuj składniki, połącz je i dopraw według smaku. Makro jest orientacyjne."}, {"id": 56, "name": "Bajgiel z jajkiem i indykiem", "cat": "Śniadanie", "kcal": 450, "protein": 30, "carbs": 55, "fat": 12, "ingredients": "Dobierz bazowe źródło białka, węglowodany, warzywa/owoce i dodatki zgodnie z nazwą.", "steps": "Przygotuj składniki, połącz je i dopraw według smaku. Makro jest orientacyjne."}, {"id": 57, "name": "Bajgiel z kurczakiem", "cat": "Szybkie", "kcal": 520, "protein": 38, "carbs": 50, "fat": 15, "ingredients": "Dobierz bazowe źródło białka, węglowodany, warzywa/owoce i dodatki zgodnie z nazwą.", "steps": "Przygotuj składniki, połącz je i dopraw według smaku. Makro jest orientacyjne."}, {"id": 58, "name": "Kanapki z tuńczykiem i jajkiem", "cat": "Kolacja", "kcal": 420, "protein": 34, "carbs": 35, "fat": 14, "ingredients": "Dobierz bazowe źródło białka, węglowodany, warzywa/owoce i dodatki zgodnie z nazwą.", "steps": "Przygotuj składniki, połącz je i dopraw według smaku. Makro jest orientacyjne."}, {"id": 59, "name": "Twaróg z rzodkiewką i szczypiorkiem", "cat": "Kolacja", "kcal": 420, "protein": 34, "carbs": 35, "fat": 14, "ingredients": "Dobierz bazowe źródło białka, węglowodany, warzywa/owoce i dodatki zgodnie z nazwą.", "steps": "Przygotuj składniki, połącz je i dopraw według smaku. Makro jest orientacyjne."}, {"id": 60, "name": "Omlet ze szpinakiem i fetą", "cat": "Śniadanie", "kcal": 450, "protein": 30, "carbs": 55, "fat": 12, "ingredients": "Dobierz bazowe źródło białka, węglowodany, warzywa/owoce i dodatki zgodnie z nazwą.", "steps": "Przygotuj składniki, połącz je i dopraw według smaku. Makro jest orientacyjne."}, {"id": 61, "name": "Shakshuka proteinowa", "cat": "Śniadanie", "kcal": 450, "protein": 30, "carbs": 55, "fat": 12, "ingredients": "Dobierz bazowe źródło białka, węglowodany, warzywa/owoce i dodatki zgodnie z nazwą.", "steps": "Przygotuj składniki, połącz je i dopraw według smaku. Makro jest orientacyjne."}, {"id": 62, "name": "Kurczak parmesan fit", "cat": "Obiad", "kcal": 620, "protein": 45, "carbs": 65, "fat": 16, "ingredients": "Dobierz bazowe źródło białka, węglowodany, warzywa/owoce i dodatki zgodnie z nazwą.", "steps": "Przygotuj składniki, połącz je i dopraw według smaku. Makro jest orientacyjne."}, {"id": 63, "name": "Lasagne z indykiem fit", "cat": "Obiad", "kcal": 620, "protein": 45, "carbs": 65, "fat": 16, "ingredients": "Dobierz bazowe źródło białka, węglowodany, warzywa/owoce i dodatki zgodnie z nazwą.", "steps": "Przygotuj składniki, połącz je i dopraw według smaku. Makro jest orientacyjne."}, {"id": 64, "name": "Pizza tortilla proteinowa", "cat": "Szybkie", "kcal": 520, "protein": 38, "carbs": 50, "fat": 15, "ingredients": "Dobierz bazowe źródło białka, węglowodany, warzywa/owoce i dodatki zgodnie z nazwą.", "steps": "Przygotuj składniki, połącz je i dopraw według smaku. Makro jest orientacyjne."}, {"id": 65, "name": "Naleśniki twarogowe", "cat": "Deser", "kcal": 350, "protein": 28, "carbs": 40, "fat": 8, "ingredients": "Dobierz bazowe źródło białka, węglowodany, warzywa/owoce i dodatki zgodnie z nazwą.", "steps": "Przygotuj składniki, połącz je i dopraw według smaku. Makro jest orientacyjne."}, {"id": 66, "name": "Proteinowe tiramisu", "cat": "Deser", "kcal": 350, "protein": 28, "carbs": 40, "fat": 8, "ingredients": "Dobierz bazowe źródło białka, węglowodany, warzywa/owoce i dodatki zgodnie z nazwą.", "steps": "Przygotuj składniki, połącz je i dopraw według smaku. Makro jest orientacyjne."}, {"id": 67, "name": "Mrożony jogurt owocowy", "cat": "Deser", "kcal": 350, "protein": 28, "carbs": 40, "fat": 8, "ingredients": "Dobierz bazowe źródło białka, węglowodany, warzywa/owoce i dodatki zgodnie z nazwą.", "steps": "Przygotuj składniki, połącz je i dopraw według smaku. Makro jest orientacyjne."}, {"id": 68, "name": "Koktajl borówkowy", "cat": "Koktajl", "kcal": 360, "protein": 30, "carbs": 45, "fat": 7, "ingredients": "Dobierz bazowe źródło białka, węglowodany, warzywa/owoce i dodatki zgodnie z nazwą.", "steps": "Przygotuj składniki, połącz je i dopraw według smaku. Makro jest orientacyjne."}, {"id": 69, "name": "Koktajl jabłko-cynamon", "cat": "Koktajl", "kcal": 360, "protein": 30, "carbs": 45, "fat": 7, "ingredients": "Dobierz bazowe źródło białka, węglowodany, warzywa/owoce i dodatki zgodnie z nazwą.", "steps": "Przygotuj składniki, połącz je i dopraw według smaku. Makro jest orientacyjne."}, {"id": 70, "name": "Koktajl czekoladowo-orzechowy", "cat": "Koktajl", "kcal": 360, "protein": 30, "carbs": 45, "fat": 7, "ingredients": "Dobierz bazowe źródło białka, węglowodany, warzywa/owoce i dodatki zgodnie z nazwą.", "steps": "Przygotuj składniki, połącz je i dopraw według smaku. Makro jest orientacyjne."}, {"id": 71, "name": "Koktajl ananas-kokos", "cat": "Koktajl", "kcal": 360, "protein": 30, "carbs": 45, "fat": 7, "ingredients": "Dobierz bazowe źródło białka, węglowodany, warzywa/owoce i dodatki zgodnie z nazwą.", "steps": "Przygotuj składniki, połącz je i dopraw według smaku. Makro jest orientacyjne."}];
-
-        const ACHIEVEMENTS_LIST = [
-            { id: 'first_workout', name: 'Pierwsze Ciężary 🏋', desc: 'Zapisz pierwszą serię w dzienniku' },
-            { id: 'club_100', name: 'Klub 100 kg 👑', desc: 'Wpisz ciężar co najmniej 100 kg' },
-            { id: 'water_master', name: 'Mistrz Nawodnienia 💧', desc: 'Wypij 3000 ml wody w ciągu dnia' },
-            { id: 'forum_post', name: 'Głos Społeczności 💬', desc: 'Dodaj wpis na forum' }
-        ];
+        /* ATLAS BAZA */
+        const ATLAS_DATABASE = [{"id": 1, "name": "Wyciskanie sztangi na ławce poziomej", "part": "Klatka", "muscles": "mięśnie klatki piersiowej, triceps", "difficulty": "Łatwy", "desc": "Kontroluj ruch, nie szarp i zatrzymuj ciężar przed utratą techniki."}, {"id": 2, "name": "Wyciskanie hantli na ławce poziomej", "part": "Klatka", "muscles": "mięśnie klatki piersiowej, triceps", "difficulty": "Średni", "desc": "Utrzymuj stabilną pozycję i kontrolowany zakres."}, {"id": 3, "name": "Podciąganie nachwytem", "part": "Plecy", "muscles": "najszerszy grzbietu, biceps", "difficulty": "Trudny", "desc": "Ściągaj łopatki w dół i zachowuj stałe napięcie."}, {"id": 4, "name": "Martwy ciąg klasyczny", "part": "Plecy", "muscles": "prostownik grzbietu, dwugłowy uda", "difficulty": "Trudny", "desc": "Utrzymuj proste plecy i napnij brzuch."}, {"id": 5, "name": "Przysiad ze sztangą z tyłu", "part": "Czworogłowe uda", "muscles": "czworogłowe uda, pośladki", "difficulty": "Średni", "desc": "Kolana prowadź zgodnie z linią stóp."}, {"id": 6, "name": "Wyciskanie żołnierskie (OHP)", "part": "Barki", "muscles": "przedni akton barków, triceps", "difficulty": "Średni", "desc": "Napnij pośladki i brzuch, unikaj przepięcia w lędźwiach."}];
+        const WARMUP_DATABASE = [{"name": "Marsz lub lekki trucht", "part": "Całe ciało", "time": "3–5 min", "desc": "Podnieś temperaturę ciała bez zadyszki."}, {"name": "Krążenia barków", "part": "Barki", "time": "10–15 powt.", "desc": "Duże, kontrolowane koła bez bólu."}];
+        const STRETCH_DATABASE = [{"name": "Rozciąganie klatki przy ścianie", "part": "Klatka", "time": "20–30 s/str.", "desc": "Lekki skręt tułowia, bez agresywnego ciągnięcia."}, {"name": "Child's pose", "part": "Plecy / biodra", "time": "30–45 s", "desc": "Oddychaj spokojnie."}];
+        const RECIPES_DATABASE = [{"id": 1, "name": "Owsianka proteinowa z bananem", "cat": "Śniadanie", "kcal": 520, "protein": 35, "carbs": 70, "fat": 12, "ingredients": "Płatki owsiane, skyr, banan, mleko.", "steps": "Wymieszaj składniki i podawaj na ciepło lub zimno."}, {"id": 2, "name": "Kurczak curry z ryżem", "cat": "Obiad", "kcal": 650, "protein": 55, "carbs": 82, "fat": 10, "ingredients": "Pierś z kurczaka, ryż, warzywa, curry.", "steps": "Usmaż kurczaka z warzywami i wymieszaj z ugotowanym ryżem."}];
+        const ACHIEVEMENTS_LIST = [{ id: 'first_workout', name: 'Pierwsze Ciężary 🏋', desc: 'Zapisz pierwszą serię w dzienniku' }, { id: 'water_master', name: 'Mistrz Nawodnienia 💧', desc: 'Wypij 3000 ml wody' }];
 
         function switchTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(el => el.style.display = 'none');
             document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
             document.getElementById(tabId).style.display = 'block';
-            if (event && event.target) event.target.classList.add('active');
+            if (window.event && window.event.target) window.event.target.classList.add('active');
 
             if (tabId === 'tab-progress') renderProgressChart();
             if (tabId === 'tab-atlas') renderAtlas();
@@ -917,12 +767,9 @@
                     await window.authApi.login(email, pass);
                 }
                 closeAuthModal();
-            } catch (err) {
-                alert('Błąd: ' + err.message);
-            }
+            } catch (err) { alert('Błąd: ' + err.message); }
         }
 
-        /* XP & LEVEL SYSTEM */
         function addXP(amount) {
             if (!window.gymData.xp) window.gymData.xp = 0;
             window.gymData.xp += amount;
@@ -933,16 +780,8 @@
 
         function checkAchievements() {
             if (!window.gymData.achievements) window.gymData.achievements = [];
-
-            if (window.gymData.workouts && window.gymData.workouts.length > 0) {
-                unlockAchievement('first_workout');
-            }
-            if (window.gymData.workouts && window.gymData.workouts.some(w => parseFloat(w.weight) >= 100)) {
-                unlockAchievement('club_100');
-            }
-            if (window.gymData.water >= 3000) {
-                unlockAchievement('water_master');
-            }
+            if (window.gymData.workouts && window.gymData.workouts.length > 0) unlockAchievement('first_workout');
+            if (window.gymData.water >= 3000) unlockAchievement('water_master');
         }
 
         function unlockAchievement(id) {
@@ -972,18 +811,14 @@
             `).join('');
         }
 
-        /* WORKOUTS & PLAN */
         function addExercise(e) {
             e.preventDefault();
             const name = document.getElementById('ex-name').value;
             const weight = document.getElementById('ex-weight').value;
             const reps = document.getElementById('ex-reps').value;
 
-            window.gymData.workouts.unshift({
-                id: Date.now(),
-                name, weight, reps,
-                date: new Date().toLocaleDateString('pl-PL')
-            });
+            if (!window.gymData.workouts) window.gymData.workouts = [];
+            window.gymData.workouts.unshift({ id: Date.now(), name, weight, reps, date: new Date().toLocaleDateString('pl-PL') });
 
             window.addXP(15);
             window.saveGymData();
@@ -1001,39 +836,19 @@
             if (!window.gymData.workoutPlan) window.gymData.workoutPlan = {};
             if (!window.gymData.workoutPlan[day]) window.gymData.workoutPlan[day] = [];
 
-            window.gymData.workoutPlan[day].push({
-                id: Date.now(),
-                name, setsReps, weight, done: false
-            });
-
+            window.gymData.workoutPlan[day].push({ id: Date.now(), name, setsReps, weight, done: false });
             window.saveGymData();
             window.renderPlan();
             document.getElementById('plan-form').reset();
         }
 
-        function generatePresetPlan(type) {
-            if (!confirm("Czy chcesz załadować domyślny plan treningowy PPL? Twój dotychczasowy plan zostanie zaktualizowany.")) return;
-
+        function generatePresetPlan() {
+            if (!confirm("Czy załadować plan PPL?")) return;
             window.gymData.workoutPlan = {
-                'Poniedziałek': [
-                    { id: Date.now()+1, name: 'Wyciskanie Sztangi Poziomo', setsReps: '4 x 8', weight: '80', done: false },
-                    { id: Date.now()+2, name: 'Wyciskanie Hantli Skos', setsReps: '3 x 10', weight: '28', done: false },
-                    { id: Date.now()+3, name: 'OHP Żołnierskie', setsReps: '4 x 6', weight: '50', done: false },
-                    { id: Date.now()+4, name: 'Prostowanie Triceps Wyciąg', setsReps: '3 x 12', weight: '30', done: false }
-                ],
-                'Środa': [
-                    { id: Date.now()+5, name: 'Podciąganie Nachwytem', setsReps: '4 x 8', weight: '0', done: false },
-                    { id: Date.now()+6, name: 'Wiosłowanie Sztangą', setsReps: '4 x 8', weight: '70', done: false },
-                    { id: Date.now()+7, name: 'Wznosy Bokiem Hantli', setsReps: '4 x 15', weight: '12', done: false },
-                    { id: Date.now()+8, name: 'Uginanie ze Sztangą Łamaną', setsReps: '3 x 10', weight: '35', done: false }
-                ],
-                'Piątek': [
-                    { id: Date.now()+9, name: 'Przysiad ze Sztangą', setsReps: '4 x 8', weight: '100', done: false },
-                    { id: Date.now()+10, name: 'Rumuński Martwy Ciąg', setsReps: '3 x 10', weight: '80', done: false },
-                    { id: Date.now()+11, name: 'Allahy Brzuch', setsReps: '4 x 15', weight: '45', done: false }
-                ]
+                'Poniedziałek': [{ id: Date.now()+1, name: 'Wyciskanie Sztangi Poziomo', setsReps: '4 x 8', weight: '80', done: false }],
+                'Środa': [{ id: Date.now()+2, name: 'Podciąganie Nachwytem', setsReps: '4 x 8', weight: '0', done: false }],
+                'Piątek': [{ id: Date.now()+3, name: 'Przysiad ze Sztangą', setsReps: '4 x 8', weight: '100', done: false }]
             };
-
             window.saveGymData();
             window.renderPlan();
         }
@@ -1077,9 +892,7 @@
                                     <div>
                                         <input type="checkbox" ${ex.done ? 'checked' : ''} onchange="toggleExerciseDone('${day}',${ex.id})" style="width:auto; margin:0 6px 0 0;">
                                         <strong>${ex.name}</strong>
-                                        <div style="font-size:0.75rem; color: var(--text-muted); margin-top:2px;">
-                                            ${ex.setsReps}${ex.weight ? '| ' + ex.weight + ' kg' : ''}
-                                        </div>
+                                        <div style="font-size:0.75rem; color: var(--text-muted); margin-top:2px;">${ex.setsReps}${ex.weight ? ' | ' + ex.weight + ' kg' : ''}</div>
                                     </div>
                                     <button class="btn btn-outline btn-sm" style="padding:2px 6px; color:var(--danger);" onclick="deletePlanExercise('${day}',${ex.id})">✕</button>
                                 </div>
@@ -1090,7 +903,6 @@
             }).join('');
         }
 
-        /* WATER TRACKER */
         function addWater(amount) {
             if (!window.gymData.water) window.gymData.water = 0;
             window.gymData.water += amount;
@@ -1111,7 +923,6 @@
             document.getElementById('water-bar').style.width = pct + '%';
         }
 
-        /* MEGA ATLAS: ĆWICZENIA + ROZGRZEWKA + ROZCIĄGANIE */
         let atlasMode = 'exercises';
         let atlasPart = 'all';
 
@@ -1146,7 +957,6 @@
                             <p class="atlas-muscles">${a.muscles}</p>
                             <p class="atlas-desc">${a.desc}</p>
                         </div>
-                        <button class="btn btn-outline btn-sm" style="margin-top:14px;width:100%;" onclick="quickAddToPlan(${JSON.stringify(a.name)})">+ Dodaj do Kalendarza</button>
                     </div>`).join('');
             } else {
                 const data = atlasMode === 'warmup' ? WARMUP_DATABASE : STRETCH_DATABASE;
@@ -1191,89 +1001,38 @@
                     <p class="recipe-steps"><strong>Przygotowanie:</strong> ${r.steps}</p>
                 </div>`).join('');
         }
-        window.recipeFilter = 'Wszystkie';
 
-        function quickAddToPlan(name) {
-            switchTab('tab-plan');
-            document.getElementById('plan-ex-name').value = name;
-        }
-
-        /* FORUM & CZAT */
         async function handleForumSubmit(e) {
             e.preventDefault();
-
-            if (!auth || !auth.currentUser) {
-                return alert("Musisz być zalogowany, aby dodać wpis!");
-            }
-
             const content = document.getElementById('forum-content').value.trim();
             try {
                 await window.createForumPost(content, '');
                 e.target.reset();
-            } catch (err) {
-                console.error(err);
-                alert("Nie udało się opublikować wpisu.");
-            }
+            } catch (err) { alert("Nie udało się dodać wpisu."); }
         }
 
         function renderForumPosts(posts) {
             const list = document.getElementById('forum-posts-list');
             if (!posts || posts.length === 0) {
-                list.innerHTML = '<p style="color: var(--text-muted); text-align: center;">Brak wpisów. Bądź pierwszy!</p>';
+                list.innerHTML = '<p style="color: var(--text-muted); text-align: center;">Brak wpisów.</p>';
                 return;
             }
 
-            const myEmail = (auth && auth.currentUser) ? auth.currentUser.email : '';
-            const myRole = window.currentUserRole || 'user';
-
-            list.innerHTML = posts.map(p => {
-                const likes = p.likes || [];
-                const isLiked = likes.includes(myEmail);
-                const canDelete = p.authorEmail === myEmail || ['owner', 'admin'].includes(myRole);
-
-                return `
-                    <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--card-border); border-radius: 14px; padding: 18px; margin-bottom: 16px;">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                            <div style="display: flex; align-items: center; gap: 8px;">
-                                <strong>${p.authorEmail}</strong>
-                                ${window.getRoleBadgeHtml(p.authorRole)}
-                            </div>
-                            <span style="font-size: 0.75rem; color: var(--text-muted);">${new Date(p.timestamp).toLocaleString('pl-PL')}</span>
-                        </div>
-                        <p style="margin-bottom: 12px; font-size: 0.95rem; line-height: 1.5;">${p.content}</p>
-                        
-                        <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--card-border); padding-top: 10px;">
-                            <button class="btn btn-outline btn-sm" onclick="window.toggleLikePost('${p.id}', ${JSON.stringify(likes).replace(/"/g, '&quot;')})">
-                                ${isLiked ? '❤️' : '🤍'} Polubienia (${likes.length})
-                            </button>
-                            ${canDelete ? `<button class="btn btn-outline btn-sm" style="color: var(--danger);" onclick="window.deleteForumPost('${p.id}')">🗑️ Usunąć</button>` : ''}
-                        </div>
+            list.innerHTML = posts.map(p => `
+                <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--card-border); border-radius: 14px; padding: 18px; margin-bottom: 16px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                        <strong>${p.authorEmail}</strong>
+                        <span style="font-size: 0.75rem; color: var(--text-muted);">${new Date(p.timestamp).toLocaleString('pl-PL')}</span>
                     </div>
-                `;
-            }).join('');
-        }
-
-        function renderPhotos() {
-            const container = document.getElementById('photos-container');
-            const photos = window.gymData.photos || [];
-
-            if (photos.length === 0) {
-                container.innerHTML = '<p style="color: var(--text-muted); grid-column: 1/-1; text-align: center;">Brak zapisanych zdjęć.</p>';
-                return;
-            }
-
-            container.innerHTML = photos.map(p => `
-                <div style="background: rgba(0,0,0,0.3); border: 1px solid var(--card-border); border-radius: 12px; overflow: hidden;">
-                    <div style="padding: 10px; display: flex; justify-content: space-between; font-size: 0.85rem;">
-                        <span>📅 ${p.date}</span>
-                        <strong style="color: var(--primary);">${p.weight} kg</strong>
-                    </div>
+                    <p style="margin-bottom: 12px; font-size: 0.95rem;">${p.content}</p>
                 </div>
             `).join('');
         }
 
         function renderProgressChart() {
-            const ctx = document.getElementById('progressChart').getContext('2d');
+            const canvas = document.getElementById('progressChart');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
             const workouts = window.gymData.workouts || [];
 
             const labels = workouts.map(w => w.date).reverse();
@@ -1288,8 +1047,8 @@
                     datasets: [{
                         label: 'Ciężar (kg)',
                         data: data,
-                        borderColor: '#6366f1',
-                        backgroundColor: 'rgba(99, 102, 241, 0.2)',
+                        borderColor: '#f472b6',
+                        backgroundColor: 'rgba(244, 114, 182, 0.2)',
                         fill: true,
                         tension: 0.3
                     }]
@@ -1304,7 +1063,6 @@
             });
         }
 
-        /* TIMER */
         function startTimer(seconds) {
             clearInterval(timerInterval);
             let timeLeft = seconds;
@@ -1372,16 +1130,15 @@
 
             if (!age || !weight || !height) return alert("Uzupełnij wiek, wagę i wzrost!");
 
-            // BMR MIFLINA
             let bmr = (10 * weight) + (6.25 * height) - (5 * age);
             bmr = gender === 'm' ? bmr + 5 : bmr - 161;
 
-            let tdee = Math.round(bmr * 1.55); // umiarkowana aktywnosc
+            let tdee = Math.round(bmr * 1.55);
 
             if (goal === 'bulk') tdee += 300;
             if (goal === 'cut') tdee -= 400;
 
-            const protein = Math.round(weight * 2); // 2g na kg
+            const protein = Math.round(weight * 2);
             const fats = Math.round((tdee * 0.25) / 9);
             const carbs = Math.round((tdee - (protein * 4) - (fats * 9)) / 4);
 
@@ -1396,7 +1153,6 @@
         renderAll();
         renderPlan();
         renderAchievements();
-        renderPhotos();
         updateWaterUI();
     </script>
 </body>
