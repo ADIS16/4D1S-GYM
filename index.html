@@ -2,7 +2,8 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- NAPRAWIONE: Zablokowano przesuwanie i uciekanie elementów na boki na telefonie -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>ADIS.GYM - Ultimate Fitness Suite</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -24,9 +25,22 @@
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
-        body { background: var(--bg-dark); color: var(--text-main); min-height: 100vh; padding: 20px; padding-bottom: 100px; background-image: radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.15), transparent 50%); }
+        
+        /* Zabezpieczenie przed poziomym scrollem / ruchem na boki */
+        html, body { 
+            background: var(--bg-dark); 
+            color: var(--text-main); 
+            min-height: 100vh; 
+            padding: 20px; 
+            padding-bottom: 100px; 
+            background-image: radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.15), transparent 50%);
+            max-width: 100vw;
+            overflow-x: hidden;
+        }
 
-        .container { max-width: 1240px; margin: 0 auto; }
+        *, *:before, *:after { box-sizing: inherit; }
+
+        .container { max-width: 1240px; margin: 0 auto; width: 100%; }
 
         /* Header */
         header { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; border-bottom: 1px solid var(--card-border); margin-bottom: 25px; flex-wrap: wrap; gap: 15px; }
@@ -532,18 +546,19 @@
                 </div>
 
                 <h2>📸 Dziennik Formy (Zdjęcia Sylwetki)</h2>
+                <!-- PRZYSTOSOWANE DO TELEFONU: Dodawanie zdjęć bezpośrednio z galerii lub aparatu urządzenia -->
                 <form onsubmit="addProgressPhoto(event)" style="background: rgba(0,0,0,0.3); padding: 16px; border-radius: 12px; margin-top: 15px; border: 1px solid var(--card-border);">
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px;">
                         <div>
-                            <label>URL Zdjęcia Formy</label>
-                            <input type="url" id="photo-url" placeholder="https://..." required>
+                            <label>Wybierz zdjęcie z Galerii / Aparatu</label>
+                            <input type="file" id="photo-file-input" accept="image/*" style="padding: 9px;" required>
                         </div>
                         <div>
                             <label>Aktualna Waga (kg)</label>
                             <input type="number" step="0.1" id="photo-weight" placeholder="78.5" required>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-sm">+ Dodaj Zdjęcie do Galerii</button>
+                    <button type="submit" class="btn btn-sm" style="margin-top: 10px;">+ Dodaj Zdjęcie do Galerii</button>
                 </form>
 
                 <div class="grid-3" id="photos-container" style="margin-top: 20px;"></div>
@@ -735,7 +750,7 @@
         ];
 
         const ACHIEVEMENTS_LIST = [
-            { id: 'first_workout', name: 'Pierwsze Ciężary 🏋️️', desc: 'Zapisz pierwszą serię w dzienniku' },
+            { id: 'first_workout', name: 'Pierwsze Ciężary 🏋', desc: 'Zapisz pierwszą serię w dzienniku' },
             { id: 'club_100', name: 'Klub 100 kg 👑', desc: 'Wpisz ciężar co najmniej 100 kg' },
             { id: 'water_master', name: 'Mistrz Nawodnienia 💧', desc: 'Wypij 3000 ml wody w ciągu dnia' },
             { id: 'forum_post', name: 'Głos Społeczności 💬', desc: 'Dodaj wpis na forum' }
@@ -1043,22 +1058,30 @@
             }).join('');
         }
 
-        /* PROGRESS PHOTOS & CHART */
+        /* PROGRESS PHOTOS & CHART - Obsługa ładowania plików z galerii */
         function addProgressPhoto(e) {
             e.preventDefault();
-            const url = document.getElementById('photo-url').value;
+            const fileInput = document.getElementById('photo-file-input');
             const weight = document.getElementById('photo-weight').value;
 
-            if (!window.gymData.photos) window.gymData.photos = [];
-            window.gymData.photos.unshift({
-                id: Date.now(),
-                url, weight,
-                date: new Date().toLocaleDateString('pl-PL')
-            });
+            if (fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const url = event.target.result; // Zamiana obrazu na base64 do lokalnego zapisu/Firebase
 
-            window.saveGymData();
-            window.renderPhotos();
-            e.target.reset();
+                    if (!window.gymData.photos) window.gymData.photos = [];
+                    window.gymData.photos.unshift({
+                        id: Date.now(),
+                        url, weight,
+                        date: new Date().toLocaleDateString('pl-PL')
+                    });
+
+                    window.saveGymData();
+                    window.renderPhotos();
+                    e.target.reset();
+                };
+                reader.readAsDataURL(fileInput.files[0]);
+            }
         }
 
         function renderPhotos() {
@@ -1124,7 +1147,7 @@
                 updateTimerDisplay(timeLeft);
                 if (timeLeft <= 0) {
                     clearInterval(timerInterval);
-                    alert("⏱️ Czas na kolejną serię!");
+                    alert("⏱️️ Czas na kolejną serię!");
                 }
             }, 1000);
         }
