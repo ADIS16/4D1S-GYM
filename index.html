@@ -255,7 +255,6 @@
             }
         }
 
-
         .atlas-switcher,.atlas-filter-row { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px; }
         .atlas-count { color:var(--gold); font-weight:800; background:rgba(245,158,11,.08); border:1px solid rgba(245,158,11,.25); padding:8px 12px; border-radius:999px; }
         .atlas-item,.recipe-card { background:rgba(0,0,0,.3); border:1px solid var(--card-border); border-radius:14px; padding:16px; display:flex; flex-direction:column; justify-content:space-between; min-width:0; }
@@ -283,8 +282,8 @@
         import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
         import { getFirestore, doc, onSnapshot, setDoc, collection, getDocs, addDoc, query, orderBy, deleteDoc } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
 
+        // BEZPIECZNA KONFIGURACJA DLA GIT HUBA
         const firebaseConfig = {
-            apiKey: "AIzaSyDt4973oXRxuzS_Tmp_axT8jnyvCRZ6CTI",
             authDomain: "d1s-gym.firebaseapp.com",
             projectId: "d1s-gym",
             storageBucket: "d1s-gym.firebasestorage.app",
@@ -304,82 +303,84 @@
             login: (e, p) => signInWithEmailAndPassword(auth, e, p),
             reg: (e, p) => createUserWithEmailAndPassword(auth, e, p),
             out: async () => {
-                if (auth.currentUser) {
+                if (auth && auth.currentUser) {
                     await setDoc(doc(db, 'projects', 'd1s-gym', 'users', auth.currentUser.uid), {
                         isOnline: false,
                         lastSeen: new Date().toLocaleString('pl-PL')
                     }, { merge: true });
                 }
-                signOut(auth);
+                if (auth) signOut(auth);
             }
         };
 
         const OWNER_EMAIL = "adrianniekil@gmail.com";
 
-        onAuthStateChanged(auth, async (user) => {
-            const dot = document.getElementById('status-dot');
-            const txt = document.getElementById('status-text');
-            
-            if (user) {
-                document.getElementById('btn-open-auth').style.display = 'none';
-                document.getElementById('user-profile').style.display = 'flex';
-                document.getElementById('user-email').innerText = user.email;
-
-                const userDocRef = doc(db, 'projects', 'd1s-gym', 'users', user.uid);
+        if (auth) {
+            onAuthStateChanged(auth, async (user) => {
+                const dot = document.getElementById('status-dot');
+                const txt = document.getElementById('status-text');
                 
-                await setDoc(userDocRef, {
-                    email: user.email,
-                    isOnline: true,
-                    lastSeen: new Date().toLocaleString('pl-PL')
-                }, { merge: true });
+                if (user) {
+                    document.getElementById('btn-open-auth').style.display = 'none';
+                    document.getElementById('user-profile').style.display = 'flex';
+                    document.getElementById('user-email').innerText = user.email;
 
-                onSnapshot(userDocRef, (snap) => {
-                    dot.className = "dot online";
-                    txt.innerText = "Połączono z Firebase";
+                    const userDocRef = doc(db, 'projects', 'd1s-gym', 'users', user.uid);
                     
-                    let userData = snap.exists() ? snap.data() : {};
-                    
-                    if (user.email.toLowerCase() === OWNER_EMAIL.toLowerCase()) {
-                        userData.role = 'owner';
-                    } else if (!userData.role) {
-                        userData.role = 'user';
-                    }
+                    await setDoc(userDocRef, {
+                        email: user.email,
+                        isOnline: true,
+                        lastSeen: new Date().toLocaleString('pl-PL')
+                    }, { merge: true });
 
-                    window.currentUserRole = userData.role;
-                    window.gymData = userData.gym_data || { workouts: [], workoutPlan: {}, achievements: [], xp: 0, photos: [], water: 0 };
+                    onSnapshot(userDocRef, (snap) => {
+                        dot.className = "dot online";
+                        txt.innerText = "Połączono z Firebase";
+                        
+                        let userData = snap.exists() ? snap.data() : {};
+                        
+                        if (user.email.toLowerCase() === OWNER_EMAIL.toLowerCase()) {
+                            userData.role = 'owner';
+                        } else if (!userData.role) {
+                            userData.role = 'user';
+                        }
 
-                    document.getElementById('user-role-tag').innerHTML = getRoleBadgeHtml(window.currentUserRole);
+                        window.currentUserRole = userData.role;
+                        window.gymData = userData.gym_data || { workouts: [], workoutPlan: {}, achievements: [], xp: 0, photos: [], water: 0 };
 
-                    if (['owner', 'admin'].includes(window.currentUserRole)) {
-                        document.getElementById('tab-admin-btn').style.display = 'inline-block';
-                        window.loadAdminUserList();
-                    } else {
-                        document.getElementById('tab-admin-btn').style.display = 'none';
-                    }
+                        document.getElementById('user-role-tag').innerHTML = getRoleBadgeHtml(window.currentUserRole);
 
-                    if (['owner', 'admin', 'vip'].includes(window.currentUserRole)) {
-                        document.getElementById('tab-vip-btn').style.display = 'inline-block';
-                    } else {
-                        document.getElementById('tab-vip-btn').style.display = 'none';
-                    }
+                        if (['owner', 'admin'].includes(window.currentUserRole)) {
+                            document.getElementById('tab-admin-btn').style.display = 'inline-block';
+                            window.loadAdminUserList();
+                        } else {
+                            document.getElementById('tab-admin-btn').style.display = 'none';
+                        }
 
-                    window.renderAll();
-                    window.renderPlan();
-                    window.renderAchievements();
-                    window.renderPhotos();
-                    window.updateWaterUI();
-                });
+                        if (['owner', 'admin', 'vip'].includes(window.currentUserRole)) {
+                            document.getElementById('tab-vip-btn').style.display = 'inline-block';
+                        } else {
+                            document.getElementById('tab-vip-btn').style.display = 'none';
+                        }
 
-                window.listenToForumPosts();
-            } else {
-                document.getElementById('btn-open-auth').style.display = 'block';
-                document.getElementById('user-profile').style.display = 'none';
-                document.getElementById('tab-admin-btn').style.display = 'none';
-                document.getElementById('tab-vip-btn').style.display = 'none';
-                dot.className = "dot offline";
-                txt.innerText = "Niezalogowany";
-            }
-        });
+                        window.renderAll();
+                        window.renderPlan();
+                        window.renderAchievements();
+                        window.renderPhotos();
+                        window.updateWaterUI();
+                    });
+
+                    window.listenToForumPosts();
+                } else {
+                    document.getElementById('btn-open-auth').style.display = 'block';
+                    document.getElementById('user-profile').style.display = 'none';
+                    document.getElementById('tab-admin-btn').style.display = 'none';
+                    document.getElementById('tab-vip-btn').style.display = 'none';
+                    dot.className = "dot offline";
+                    txt.innerText = "Niezalogowany";
+                }
+            });
+        }
 
         window.saveGymData = async function() {
             if (auth && auth.currentUser) {
@@ -410,7 +411,7 @@
         };
 
         window.createForumPost = async function(content, imageUrl) {
-            if (!auth.currentUser) return alert("Musisz być zalogowany, aby dodać wpis!");
+            if (!auth || !auth.currentUser) return alert("Musisz być zalogowany, aby dodać wpis!");
             try {
                 await addDoc(collection(db, 'projects', 'd1s-gym', 'forum'), {
                     authorEmail: auth.currentUser.email,
@@ -425,7 +426,7 @@
         };
 
         window.toggleLikePost = async function(postId, likesArr) {
-            if (!auth.currentUser) return;
+            if (!auth || !auth.currentUser) return;
             const myEmail = auth.currentUser.email;
             let updatedLikes = [...likesArr];
             if (updatedLikes.includes(myEmail)) {
@@ -674,14 +675,11 @@
         <div id="tab-forum" class="tab-content" style="display: none;">
             <div class="card">
                 <h2>💬 Tablica Społeczności ADIS.GYM</h2>
-                <p style="color: var(--text-muted); margin-bottom: 20px;">Dziel się wpisami, zdjęciami formie i motywuj innych kulturystów.</p>
+                <p style="color: var(--text-muted); margin-bottom: 20px;">Dziel się wpisami i motywuj innych kulturystów.</p>
 
                 <form onsubmit="handleForumSubmit(event)" style="background: rgba(0,0,0,0.3); padding: 20px; border-radius: 12px; margin-bottom: 25px; border: 1px solid var(--card-border);">
                     <label>Co tam dzisiaj trenowane?</label>
                     <textarea id="forum-content" rows="3" placeholder="Wpisz treść posta..." required></textarea>
-
-                    <label>Zdjęcie (opcjonalnie)</label>
-                    <input type="file" id="forum-image-file" accept="image/*" style="padding: 9px;">
 
                     <button type="submit" class="btn">Opublikuj Wpis (+20 XP)</button>
                 </form>
@@ -714,22 +712,7 @@
                     <canvas id="progressChart" height="100"></canvas>
                 </div>
 
-                <h2>📸 Dziennik Formy (Zdjęcia Sylwetki)</h2>
-                <!-- PRZYSTOSOWANE DO TELEFONU: Dodawanie zdjęć bezpośrednio z galerii lub aparatu urządzenia -->
-                <form onsubmit="addProgressPhoto(event)" style="background: rgba(0,0,0,0.3); padding: 16px; border-radius: 12px; margin-top: 15px; border: 1px solid var(--card-border);">
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px;">
-                        <div>
-                            <label>Wybierz zdjęcie z Galerii / Aparatu</label>
-                            <input type="file" id="photo-file-input" accept="image/*" style="padding: 9px;" required>
-                        </div>
-                        <div>
-                            <label>Aktualna Waga (kg)</label>
-                            <input type="number" step="0.1" id="photo-weight" placeholder="78.5" required>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-sm" style="margin-top: 10px;">+ Dodaj Zdjęcie do Galerii</button>
-                </form>
-
+                <h2>📸 Dziennik Formy</h2>
                 <div class="grid-3" id="photos-container" style="margin-top: 20px;"></div>
             </div>
         </div>
@@ -904,7 +887,7 @@
             document.querySelectorAll('.tab-content').forEach(el => el.style.display = 'none');
             document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
             document.getElementById(tabId).style.display = 'block';
-            event.target.classList.add('active');
+            if (event && event.target) event.target.classList.add('active');
 
             if (tabId === 'tab-progress') renderProgressChart();
             if (tabId === 'tab-atlas') renderAtlas();
@@ -1186,8 +1169,6 @@
             }
         }
 
-        function filterAtlas(part) { atlasPart = part; renderAtlas(); }
-
         function renderRecipes() {
             const container = document.getElementById('recipes-container');
             const filters = document.getElementById('recipe-filters');
@@ -1217,45 +1198,22 @@
             document.getElementById('plan-ex-name').value = name;
         }
 
-        function filterAtlas(part) { renderAtlas(part); }
-
         /* FORUM & CZAT */
         async function handleForumSubmit(e) {
             e.preventDefault();
 
-            if (!auth.currentUser) {
+            if (!auth || !auth.currentUser) {
                 return alert("Musisz być zalogowany, aby dodać wpis!");
             }
 
             const content = document.getElementById('forum-content').value.trim();
-            const fileInput = document.getElementById('forum-image-file');
-            const file = fileInput.files && fileInput.files[0];
-
-            let img = '';
-
             try {
-                if (file) {
-                    if (!file.type.startsWith('image/')) {
-                        return alert("Wybierz plik graficzny.");
-                    }
-                    img = await fileToDataURL(file);
-                }
-
-                await window.createForumPost(content, img);
+                await window.createForumPost(content, '');
                 e.target.reset();
             } catch (err) {
                 console.error(err);
-                alert("Nie udało się przygotować zdjęcia: " + (err.message || err));
+                alert("Nie udało się opublikować wpisu.");
             }
-        }
-
-        function fileToDataURL(file) {
-            return new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.onload = () => resolve(reader.result);
-                reader.onerror = () => reject(new Error("Nie udało się odczytać zdjęcia."));
-                reader.readAsDataURL(file);
-            });
         }
 
         function renderForumPosts(posts) {
@@ -1265,7 +1223,7 @@
                 return;
             }
 
-            const myEmail = auth.currentUser ? auth.currentUser.email : '';
+            const myEmail = (auth && auth.currentUser) ? auth.currentUser.email : '';
             const myRole = window.currentUserRole || 'user';
 
             list.innerHTML = posts.map(p => {
@@ -1283,7 +1241,6 @@
                             <span style="font-size: 0.75rem; color: var(--text-muted);">${new Date(p.timestamp).toLocaleString('pl-PL')}</span>
                         </div>
                         <p style="margin-bottom: 12px; font-size: 0.95rem; line-height: 1.5;">${p.content}</p>
-                        ${p.imageUrl ? `<img src="${p.imageUrl}" style="display:block; width:100%; max-width:100%; max-height:350px; border-radius:10px; margin-bottom:12px; object-fit:cover;">` : ''}
                         
                         <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--card-border); padding-top: 10px;">
                             <button class="btn btn-outline btn-sm" onclick="window.toggleLikePost('${p.id}', ${JSON.stringify(likes).replace(/"/g, '&quot;')})">
@@ -1296,81 +1253,17 @@
             }).join('');
         }
 
-        /* PROGRESS PHOTOS & CHART - Obsługa ładowania plików z galerii */
-        async function addProgressPhoto(e) {
-            e.preventDefault();
-
-            const fileInput = document.getElementById('photo-file-input');
-            const weight = document.getElementById('photo-weight').value;
-            const file = fileInput.files && fileInput.files[0];
-
-            if (!file) return alert("Wybierz zdjęcie.");
-            if (!file.type.startsWith('image/')) return alert("Wybierz prawidłowy plik graficzny.");
-
-            try {
-                const url = await resizeImageForStorage(file);
-
-                if (!window.gymData.photos) window.gymData.photos = [];
-                window.gymData.photos.unshift({
-                    id: Date.now(),
-                    url,
-                    weight,
-                    date: new Date().toLocaleDateString('pl-PL')
-                });
-
-                window.saveGymData();
-                window.renderPhotos();
-                e.target.reset();
-            } catch (err) {
-                console.error(err);
-                alert("Nie udało się dodać zdjęcia: " + (err.message || err));
-            }
-        }
-
-        function resizeImageForStorage(file) {
-            return new Promise((resolve, reject) => {
-                const reader = new FileReader();
-
-                reader.onload = () => {
-                    const img = new Image();
-
-                    img.onload = () => {
-                        const maxSide = 1600;
-                        const scale = Math.min(1, maxSide / Math.max(img.width, img.height));
-                        const width = Math.max(1, Math.round(img.width * scale));
-                        const height = Math.max(1, Math.round(img.height * scale));
-
-                        const canvas = document.createElement('canvas');
-                        canvas.width = width;
-                        canvas.height = height;
-
-                        const ctx = canvas.getContext('2d');
-                        ctx.drawImage(img, 0, 0, width, height);
-
-                        resolve(canvas.toDataURL('image/jpeg', 0.82));
-                    };
-
-                    img.onerror = () => reject(new Error("Nie udało się otworzyć zdjęcia."));
-                    img.src = reader.result;
-                };
-
-                reader.onerror = () => reject(new Error("Nie udało się odczytać zdjęcia."));
-                reader.readAsDataURL(file);
-            });
-        }
-
         function renderPhotos() {
             const container = document.getElementById('photos-container');
             const photos = window.gymData.photos || [];
 
             if (photos.length === 0) {
-                container.innerHTML = '<p style="color: var(--text-muted); grid-column: 1/-1; text-align: center;">Brak zdjęć w galerii.</p>';
+                container.innerHTML = '<p style="color: var(--text-muted); grid-column: 1/-1; text-align: center;">Brak zapisanych zdjęć.</p>';
                 return;
             }
 
             container.innerHTML = photos.map(p => `
                 <div style="background: rgba(0,0,0,0.3); border: 1px solid var(--card-border); border-radius: 12px; overflow: hidden;">
-                    <img src="${p.url}" style="display:block; width:100%; max-width:100%; height:200px; object-fit:cover;">
                     <div style="padding: 10px; display: flex; justify-content: space-between; font-size: 0.85rem;">
                         <span>📅 ${p.date}</span>
                         <strong style="color: var(--primary);">${p.weight} kg</strong>
@@ -1422,7 +1315,7 @@
                 updateTimerDisplay(timeLeft);
                 if (timeLeft <= 0) {
                     clearInterval(timerInterval);
-                    alert("⏱️️ Czas na kolejną serię!");
+                    alert("⏱ Czas na kolejną serię!");
                 }
             }, 1000);
         }
