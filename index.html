@@ -5,15 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>ADIS.GYM - Ultimate Fitness Suite</title>
     
-    <!-- PWA Config -->
+    <!-- PWA Config dla iOS & Android -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="ADIS.GYM">
     <meta name="theme-color" content="#0d0d12">
     
-    <!-- Custom Logo iOS App Icon -->
-    <link rel="apple-touch-icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' width='512' height='512' style='background:%230d0d12;'><rect width='512' height='512' rx='100' fill='%230d0d12'/><path d='M120 210 h40 v92 h-40 z M352 210 h40 v92 h-40 z M160 236 h30 v40 h-30 z M322 236 h30 v40 h-30 z M190 246 h132 v20 h-132 z' fill='%23f472b6'/><text x='50%' y='410' text-anchor='middle' fill='%23ffffff' font-family='sans-serif' font-weight='900' font-size='42' letter-spacing='2'>ADIS.GYM</text></svg>">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%230d0d12'/><path d='M25 40 h10 v20 h-10 z M65 40 h10 v20 h-10 z M35 46 h30 v8 h-30 z' fill='%23f472b6'/></svg>">
+    <!-- Dynamicznie podmieniany Apple Touch Icon dla iPhone (PNG Generator) -->
+    <link id="apple-icon" rel="apple-touch-icon" href="">
+    <link id="fav-icon" rel="icon" type="image/png" href="">
 
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -49,7 +49,6 @@
 
         .container { max-width: 1200px; margin: 0 auto; width: 100%; }
 
-        /* Header */
         header { display: flex; justify-content: space-between; align-items: center; padding: 12px 0 18px; border-bottom: 1px solid var(--card-border); margin-bottom: 20px; flex-wrap: wrap; gap: 10px; }
         .logo { font-weight: 900; font-size: 1.6rem; background: linear-gradient(135deg, #f472b6 0%, #fb7185 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -0.5px; }
 
@@ -58,16 +57,14 @@
         .dot.online { background: var(--success); box-shadow: 0 0 10px var(--success); }
         .dot.offline { background: var(--danger); }
 
-        /* Tabs Navigation */
         .nav-tabs { display: flex; gap: 8px; margin-bottom: 20px; border-bottom: 1px solid var(--card-border); padding-bottom: 8px; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
         .nav-tabs::-webkit-scrollbar { display: none; }
         .tab-btn { background: transparent; border: none; color: var(--text-muted); padding: 8px 14px; border-radius: 10px; font-weight: 700; cursor: pointer; transition: all 0.2s; white-space: nowrap; font-size: 0.85rem; }
         .tab-btn.active { background: rgba(244, 114, 182, 0.12); color: var(--primary); border: 1px solid var(--card-border); }
 
-        /* Buttons & Cards */
         .btn { background: var(--primary); color: #0d0d12; border: none; padding: 12px 18px; border-radius: 12px; font-weight: 800; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 14px var(--primary-glow); display: inline-flex; align-items: center; justify-content: center; gap: 6px; font-size: 0.9rem; }
         .btn:active { transform: scale(0.97); }
-        .btn-sm { padding: 5px 10px; font-size: 0.75rem; border-radius: 8px; }
+        .btn-sm { padding: 6px 12px; font-size: 0.75rem; border-radius: 8px; }
         .btn-outline { background: transparent; border: 1px solid var(--card-border); color: var(--text-main); box-shadow: none; }
 
         .card { background: var(--bg-card); border: 1px solid var(--card-border); backdrop-filter: blur(16px); border-radius: 18px; padding: 20px; margin-bottom: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
@@ -86,10 +83,8 @@
         .role-vip { background: #fbbf24; color: #000; }
         .role-user { background: #1e293b; color: #94a3b8; }
 
-        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); justify-content: center; align-items: center; z-index: 100; padding: 15px; }
-        .modal.active { display: flex; }
-        .modal-content { background: #121018; border: 1px solid var(--card-border); padding: 24px; border-radius: 20px; width: 100%; max-width: 420px; }
-
+        #auth-lockscreen { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 60vh; text-align: center; }
+        
         .list-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; background: rgba(255,255,255,0.02); border-radius: 12px; margin-bottom: 8px; border: 1px solid var(--card-border); font-size: 0.88rem; }
         
         .day-card { background: rgba(255,255,255,0.02); border: 1px solid var(--card-border); border-radius: 14px; padding: 14px; }
@@ -157,9 +152,13 @@
             onAuthStateChanged(auth, async (user) => {
                 const dot = document.getElementById('status-dot');
                 const txt = document.getElementById('status-text');
+                const appContent = document.getElementById('app-main-content');
+                const lockScreen = document.getElementById('auth-lockscreen');
                 
                 if (user) {
-                    document.getElementById('btn-open-auth').style.display = 'none';
+                    lockScreen.style.display = 'none';
+                    appContent.style.display = 'block';
+
                     document.getElementById('user-profile').style.display = 'flex';
                     document.getElementById('user-email').innerText = user.email;
 
@@ -168,7 +167,7 @@
 
                     onSnapshot(userDocRef, (snap) => {
                         dot.className = "dot online";
-                        txt.innerText = "Połączono";
+                        txt.innerText = "Zalogowano";
                         let userData = snap.exists() ? snap.data() : {};
                         
                         userData.role = (user.email.toLowerCase() === OWNER_EMAIL.toLowerCase()) ? 'owner' : (userData.role || 'user');
@@ -192,12 +191,14 @@
                     window.listenToLiveBases();
                     window.listenToForumPosts();
                 } else {
-                    document.getElementById('btn-open-auth').style.display = 'block';
+                    lockScreen.style.display = 'flex';
+                    appContent.style.display = 'none';
+
                     document.getElementById('user-profile').style.display = 'none';
                     document.getElementById('tab-admin-btn').style.display = 'none';
                     document.getElementById('tab-vip-btn').style.display = 'none';
                     dot.className = "dot offline";
-                    txt.innerText = "Niezalogowany";
+                    txt.innerText = "Wymagane logowanie";
                 }
             });
         }
@@ -252,15 +253,35 @@
         };
 
         window.deleteForumPostAdmin = async function(postId) {
-            if(confirm("Usunąć ten post jako Admin?")) {
+            if(confirm("Usunąć ten post z czatu?")) {
                 await deleteDoc(doc(db, 'projects', 'd1s-gym', 'forum', postId));
+            }
+        };
+
+        window.deleteCustomAtlasItem = async function(itemId) {
+            if(confirm("Usunąć to ćwiczenie z Atlasu?")) {
+                await deleteDoc(doc(db, 'projects', 'd1s-gym', 'custom_atlas', itemId));
+            }
+        };
+
+        window.deleteCustomRecipeItem = async function(itemId) {
+            if(confirm("Usunąć ten przepis VIP?")) {
+                await deleteDoc(doc(db, 'projects', 'd1s-gym', 'custom_recipes', itemId));
             }
         };
 
         window.changeUserRole = async function(targetUid, newRole) {
             await setDoc(doc(db, 'projects', 'd1s-gym', 'users', targetUid), { role: newRole }, { merge: true });
-            alert("Ranga zmieniona!");
+            alert("Ranga została pomyślnie zaktualizowana!");
             window.loadAdminUserList();
+        };
+
+        window.deleteUserFromDatabase = async function(targetUid) {
+            if(confirm("Czy na pewno chcesz usunąć tego użytkownika z bazy danych?")) {
+                await deleteDoc(doc(db, 'projects', 'd1s-gym', 'users', targetUid));
+                alert("Użytkownik usunięty!");
+                window.loadAdminUserList();
+            }
         };
 
         window.loadAdminUserList = async function() {
@@ -272,19 +293,26 @@
             snap.forEach(userDoc => {
                 const data = userDoc.data();
                 if (data.isOnline) active++;
+                const uLvl = data.gym_data?.level || 1;
+                const uXp = data.gym_data?.xp || 0;
+
                 html += `
-                    <div class="list-item">
+                    <div class="list-item" style="flex-wrap:wrap; gap:8px;">
                         <div>
-                            <strong>${data.email || 'Brak'}</strong>
+                            <strong>${data.email || 'Brak Emaila'}</strong>
+                            <div style="font-size:0.75rem; color:var(--gold); font-weight:700;">LVL ${uLvl} (${uXp} XP)</div>
                             <div style="margin-top:4px;">${getRoleBadgeHtml(data.role || 'user')}</div>
                         </div>
-                        <select onchange="window.changeUserRole('${userDoc.id}', this.value)" style="width:auto; margin:0; padding:4px 8px;">
-                            <option value="user" ${data.role==='user'?'selected':''}>Użytkownik</option>
-                            <option value="vip" ${data.role==='vip'?'selected':''}>VIP 🌟</option>
-                            <option value="staff" ${data.role==='staff'?'selected':''}>Obsługa 🛠️</option>
-                            <option value="admin" ${data.role==='admin'?'selected':''}>Admin 🛡</option>
-                            <option value="owner" ${data.role==='owner'?'selected':''}>Szef 👑</option>
-                        </select>
+                        <div style="display:flex; gap:6px; align-items:center;">
+                            <select onchange="window.changeUserRole('${userDoc.id}', this.value)" style="width:auto; margin:0; padding:6px 10px;">
+                                <option value="user" ${data.role==='user'?'selected':''}>Użytkownik</option>
+                                <option value="vip" ${data.role==='vip'?'selected':''}>VIP 🌟</option>
+                                <option value="staff" ${data.role==='staff'?'selected':''}>Obsługa 🛠️</option>
+                                <option value="admin" ${data.role==='admin'?'selected':''}>Admin 🛡</option>
+                                <option value="owner" ${data.role==='owner'?'selected':''}>Szef 👑</option>
+                            </select>
+                            <button class="btn btn-outline btn-sm" style="color:var(--danger);" onclick="window.deleteUserFromDatabase('${userDoc.id}')">🗑 Usunąć</button>
+                        </div>
                     </div>
                 `;
             });
@@ -296,7 +324,7 @@
         function getRoleBadgeHtml(role) {
             switch(role) {
                 case 'owner': return '<span class="role-badge role-owner">👑 Szef</span>';
-                case 'admin': return '<span class="role-badge role-admin">🛡️ Admin</span>';
+                case 'admin': return '<span class="role-badge role-admin">🛡 Admin</span>';
                 case 'staff': return '<span class="role-badge role-staff">🛠️ Staff</span>';
                 case 'vip': return '<span class="role-badge role-vip">🌟 VIP</span>';
                 default: return '<span class="role-badge role-user">🏋 Gracz</span>';
@@ -313,225 +341,242 @@
             <div style="display: flex; gap: 8px; align-items: center;">
                 <div class="status-badge">
                     <div id="status-dot" class="dot offline"></div>
-                    <span id="status-text">Łączenie...</span>
+                    <span id="status-text">Musi być zalogowany</span>
                 </div>
-                <button id="btn-open-auth" class="btn btn-sm" onclick="openAuthModal()">Zaloguj</button>
                 <div id="user-profile" style="display: none; align-items: center; gap: 8px;">
                     <span id="user-role-tag"></span>
                     <span id="user-email" style="font-size: 0.75rem; color: var(--text-muted); display: none;"></span>
-                    <button class="btn btn-outline btn-sm" onclick="window.authApi.out()">✕</button>
+                    <button class="btn btn-outline btn-sm" onclick="window.authApi.out()" title="Wyloguj">Wyloguj ✕</button>
                 </div>
             </div>
         </header>
 
-        <!-- Nawigacja Zakładek -->
-        <div class="nav-tabs">
-            <button class="tab-btn active" onclick="switchTab('tab-workout')">💪 Dziennik</button>
-            <button class="tab-btn" onclick="switchTab('tab-plan')">📅 Plan Treningowy</button>
-            <button class="tab-btn" onclick="switchTab('tab-atlas')">📚 Atlas</button>
-            <button class="tab-btn" onclick="switchTab('tab-forum')">💬 Czat</button>
-            <button class="tab-btn" onclick="switchTab('tab-progress')">📊 Progress</button>
-            <button class="tab-btn" onclick="switchTab('tab-calc')">🧮 Kalorie</button>
-            <button id="tab-vip-btn" class="tab-btn" style="display: none; color: var(--gold);" onclick="switchTab('tab-vip')">🌟 VIP Przepisy</button>
-            <button id="tab-admin-btn" class="tab-btn" style="display: none; color: var(--owner-color);" onclick="switchTab('tab-admin')">👑 Admin</button>
+        <!-- EKRAN BLOKADY / LOGOWANIE -->
+        <div id="auth-lockscreen" class="card">
+            <h2 id="modal-title" style="margin-bottom: 8px; color: var(--primary);">Zaloguj się do ADIS.GYM</h2>
+            <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:20px;">Dostęp do aplikacji jest możliwy wyłącznie dla zalogowanych użytkowników.</p>
+            
+            <div style="width:100%; max-width:320px;">
+                <input type="email" id="auth-email" placeholder="E-mail">
+                <input type="password" id="auth-pass" placeholder="Hasło">
+                <button id="auth-submit" class="btn" style="width: 100%; margin-bottom: 10px;" onclick="handleAuth()">Zaloguj się</button>
+                <button class="btn btn-outline" style="width: 100%; border: none; font-size:0.8rem;" onclick="toggleAuthMode()" id="auth-toggle">Nie masz konta? Zarejestruj się</button>
+            </div>
         </div>
 
-        <!-- ZAKŁADKA 1: DZIENNIK TRENINGOWY -->
-        <div id="tab-workout" class="tab-content">
-            <div class="grid">
-                <div>
-                    <div class="card">
-                        <h3 style="margin-bottom: 12px; color: var(--primary);">Dodaj Serie</h3>
-                        <form id="workout-form" onsubmit="addExercise(event)">
-                            <label>Ćwiczenie</label>
-                            <input type="text" id="ex-name" placeholder="np. Wyciskanie na ławce" required>
+        <!-- GŁÓWNA ZAWARTOŚĆ STRONY -->
+        <div id="app-main-content" style="display: none;">
 
-                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
-                                <div>
-                                    <label>Ciężar (kg)</label>
-                                    <input type="number" id="ex-weight" step="0.5" placeholder="80" required>
+            <!-- Nawigacja Zakładek -->
+            <div class="nav-tabs">
+                <button class="tab-btn active" onclick="switchTab('tab-workout')">💪 Dziennik</button>
+                <button class="tab-btn" onclick="switchTab('tab-plan')">📅 Plan Treningowy</button>
+                <button class="tab-btn" onclick="switchTab('tab-atlas')">📚 Atlas</button>
+                <button class="tab-btn" onclick="switchTab('tab-forum')">💬 Czat</button>
+                <button class="tab-btn" onclick="switchTab('tab-progress')">📊 Progress & LVL</button>
+                <button class="tab-btn" onclick="switchTab('tab-calc')">🧮 Kalorie</button>
+                <button id="tab-vip-btn" class="tab-btn" style="display: none; color: var(--gold);" onclick="switchTab('tab-vip')">🌟 VIP Przepisy</button>
+                <button id="tab-admin-btn" class="tab-btn" style="display: none; color: var(--owner-color);" onclick="switchTab('tab-admin')">👑 Admin</button>
+            </div>
+
+            <!-- ZAKŁADKA 1: DZIENNIK TRENINGOWY -->
+            <div id="tab-workout" class="tab-content">
+                <div class="grid">
+                    <div>
+                        <div class="card">
+                            <h3 style="margin-bottom: 12px; color: var(--primary);">Dodaj Serie</h3>
+                            <form id="workout-form" onsubmit="addExercise(event)">
+                                <label>Ćwiczenie</label>
+                                <input type="text" id="ex-name" placeholder="np. Wyciskanie na ławce" required>
+
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                                    <div>
+                                        <label>Ciężar (kg)</label>
+                                        <input type="number" id="ex-weight" step="0.5" placeholder="80" required>
+                                    </div>
+                                    <div>
+                                        <label>Powtórzenia</label>
+                                        <input type="number" id="ex-reps" placeholder="10" required>
+                                    </div>
                                 </div>
-                                <div>
-                                    <label>Powtórzenia</label>
-                                    <input type="number" id="ex-reps" placeholder="10" required>
-                                </div>
+
+                                <button type="submit" class="btn" style="width: 100%; margin-top: 5px;">Zapisz Serie</button>
+                            </form>
+                        </div>
+
+                        <!-- Water Tracker -->
+                        <div class="card">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <h4>💧 Nawodnienie</h4>
+                                <span id="water-text" style="font-weight: 800; color: var(--primary); font-size: 0.9rem;">0 / 3000 ml</span>
                             </div>
-
-                            <button type="submit" class="btn" style="width: 100%; margin-top: 5px;">Zapisz Serie</button>
-                        </form>
+                            <div class="water-progress"><div id="water-bar" class="water-bar"></div></div>
+                            <div style="display: flex; gap: 6px; margin-top: 8px;">
+                                <button class="btn btn-outline btn-sm" style="flex:1;" onclick="addWater(250)">+250ml</button>
+                                <button class="btn btn-outline btn-sm" style="flex:1;" onclick="addWater(500)">+500ml</button>
+                                <button class="btn btn-outline btn-sm" style="color: var(--danger);" onclick="resetWater()">↺</button>
+                            </div>
+                        </div>
                     </div>
 
-                    <!-- Water Tracker -->
                     <div class="card">
-                        <div style="display: flex; justify-content: space-between; align-items: center;">
-                            <h4>💧 Nawodnienie</h4>
-                            <span id="water-text" style="font-weight: 800; color: var(--primary); font-size: 0.9rem;">0 / 3000 ml</span>
-                        </div>
-                        <div class="water-progress"><div id="water-bar" class="water-bar"></div></div>
-                        <div style="display: flex; gap: 6px; margin-top: 8px;">
-                            <button class="btn btn-outline btn-sm" style="flex:1;" onclick="addWater(250)">+250ml</button>
-                            <button class="btn btn-outline btn-sm" style="flex:1;" onclick="addWater(500)">+500ml</button>
-                            <button class="btn btn-outline btn-sm" style="color: var(--danger);" onclick="resetWater()">↺</button>
-                        </div>
+                        <h3 style="margin-bottom: 12px; color: var(--primary);">Ostatnia Aktywność</h3>
+                        <div id="workout-list"><p style="color: var(--text-muted); text-align: center;">Brak serii.</p></div>
                     </div>
                 </div>
+            </div>
 
+            <!-- ZAKŁADKA 2: TYGODNIOWY PLAN TRENINGOWY -->
+            <div id="tab-plan" class="tab-content" style="display: none;">
                 <div class="card">
-                    <h3 style="margin-bottom: 12px; color: var(--primary);">Ostatnia Aktywność</h3>
-                    <div id="workout-list"><p style="color: var(--text-muted); text-align: center;">Brak serii.</p></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ZAKŁADKA 2: TYGODNIOWY PLAN TRENINGOWY -->
-        <div id="tab-plan" class="tab-content" style="display: none;">
-            <div class="card">
-                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 12px;">
-                    <h3 style="color: var(--primary);">📅 Swobodny Plan Treningowy</h3>
-                    <button class="btn btn-outline btn-sm" onclick="generatePresetPlanPPL()">⚡ Załaduj Przykładowy PPL</button>
-                </div>
-                
-                <form id="plan-form" onsubmit="addPlanExercise(event)" style="background: rgba(0,0,0,0.3); padding: 12px; border-radius: 12px; margin-bottom: 15px;">
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 8px;">
-                        <div>
-                            <label>Dzień Tygodnia</label>
-                            <select id="plan-day" required>
-                                <option value="Poniedziałek">Poniedziałek</option>
-                                <option value="Wtorek">Wtorek</option>
-                                <option value="Środa">Środa</option>
-                                <option value="Czwartek">Czwartek</option>
-                                <option value="Piątek">Piątek</option>
-                                <option value="Sobota">Sobota</option>
-                                <option value="Niedziela">Niedziela</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label>Nazwa Ćwiczenia</label>
-                            <input type="text" id="plan-ex-name" placeholder="np. Przysiad ze sztangą" required>
-                        </div>
-                        <div>
-                            <label>Ilość Seri na Start</label>
-                            <input type="number" id="plan-sets-count" placeholder="3" value="3" required>
-                        </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 12px;">
+                        <h3 style="color: var(--primary);">📅 Swobodny Plan Treningowy</h3>
+                        <button class="btn btn-outline btn-sm" onclick="generatePresetPlanPPL()">⚡ Wgraj Przykładowy PPL</button>
                     </div>
-                    <button type="submit" class="btn btn-sm" style="margin-top: 5px;">+ Dodaj Ćwiczenie do Dnia</button>
-                </form>
+                    
+                    <form id="plan-form" onsubmit="addPlanExercise(event)" style="background: rgba(0,0,0,0.3); padding: 12px; border-radius: 12px; margin-bottom: 15px;">
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 8px;">
+                            <div>
+                                <label>Dzień Tygodnia</label>
+                                <select id="plan-day" required>
+                                    <option value="Poniedziałek">Poniedziałek</option>
+                                    <option value="Wtorek">Wtorek</option>
+                                    <option value="Środa">Środa</option>
+                                    <option value="Czwartek">Czwartek</option>
+                                    <option value="Piątek">Piątek</option>
+                                    <option value="Sobota">Sobota</option>
+                                    <option value="Niedziela">Niedziela</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label>Nazwa Ćwiczenia</label>
+                                <input type="text" id="plan-ex-name" placeholder="np. Przysiad ze sztangą" required>
+                            </div>
+                            <div>
+                                <label>Ilość Seri na Start</label>
+                                <input type="number" id="plan-sets-count" placeholder="3" value="3" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-sm" style="margin-top: 5px;">+ Dodaj Ćwiczenie do Dnia</button>
+                    </form>
 
-                <div class="grid" id="week-plan-container"></div>
-            </div>
-        </div>
-
-        <!-- ZAKŁADKA 3: ATLAS -->
-        <div id="tab-atlas" class="tab-content" style="display: none;">
-            <div class="card">
-                <h3 style="color: var(--primary); margin-bottom: 10px;">📚 Atlas Ćwiczeń</h3>
-                <input id="atlas-search" type="search" placeholder="🔎 Szukaj ćwiczenia..." oninput="renderAtlas()">
-                <div class="grid-3" id="atlas-container" style="margin-top: 10px;"></div>
-            </div>
-        </div>
-
-        <!-- ZAKŁADKA 4: CZAT SPOŁECZNOŚCI -->
-        <div id="tab-forum" class="tab-content" style="display: none;">
-            <div class="card">
-                <h3 style="color: var(--primary); margin-bottom: 10px;">💬 Czat & Wpisy</h3>
-                <form onsubmit="handleForumSubmit(event)" style="margin-bottom: 15px;">
-                    <textarea id="forum-content" rows="2" placeholder="Co dziś było trenowane?" required></textarea>
-                    <button type="submit" class="btn btn-sm">Opublikuj Wpis</button>
-                </form>
-                <div id="forum-posts-list"></div>
-            </div>
-        </div>
-
-        <!-- ZAKŁADKA 5: PROGRESS I POZIOM 1-999 LVL -->
-        <div id="tab-progress" class="tab-content" style="display: none;">
-            <div class="card">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                    <h3 style="color: var(--primary);">🏆 Poziom Postępu Gracza</h3>
-                    <span id="player-level-text" style="font-weight: 900; color: var(--gold); font-size: 1.1rem;">LVL 1 (0/100 XP)</span>
-                </div>
-                <div class="water-progress" style="height:18px;"><div id="xp-bar" class="water-bar" style="background: linear-gradient(90deg, #f472b6, #fbbf24);"></div></div>
-                <p style="font-size:0.75rem; color:var(--text-muted); margin-top:4px; text-align:center;">Zdobywaj +50 XP za każde pobicie swojego rekordu ciężaru w jakimkolwiek ćwiczeniu! Max Level: 999 🚀</p>
-
-                <h3 style="color: var(--primary); margin: 20px 0 10px;">📊 Wykres Progresu Siłowego</h3>
-                <div style="background: rgba(0,0,0,0.3); padding: 10px; border-radius: 12px; border: 1px solid var(--card-border);">
-                    <canvas id="progressChart" height="140"></canvas>
+                    <div class="grid" id="week-plan-container"></div>
                 </div>
             </div>
-        </div>
 
-        <!-- ZAKŁADKA 6: KALORIE -->
-        <div id="tab-calc" class="tab-content" style="display: none;">
-            <div class="grid">
+            <!-- ZAKŁADKA 3: ATLAS -->
+            <div id="tab-atlas" class="tab-content" style="display: none;">
                 <div class="card">
-                    <h3 style="color: var(--primary);">🧮 Kalkulator 1RM</h3>
-                    <label>Ciężar (kg)</label>
-                    <input type="number" id="calc-weight" placeholder="100" oninput="calculate1RM()">
-                    <label>Powtórzenia</label>
-                    <input type="number" id="calc-reps" placeholder="5" oninput="calculate1RM()">
-                    <div style="margin-top: 15px; text-align: center; background: rgba(0,0,0,0.3); padding: 12px; border-radius: 10px;">
-                        <span style="font-size: 0.8rem; color: var(--text-muted);">Szacowany Rekord:</span>
-                        <h2 id="calc-result" style="color: var(--primary);">0 kg</h2>
-                    </div>
+                    <h3 style="color: var(--primary); margin-bottom: 10px;">📚 Atlas Ćwiczeń</h3>
+                    <input id="atlas-search" type="search" placeholder="🔎 Szukaj ćwiczenia..." oninput="renderAtlas()">
+                    <div class="grid-3" id="atlas-container" style="margin-top: 10px;"></div>
                 </div>
+            </div>
 
+            <!-- ZAKŁADKA 4: CZAT SPOŁECZNOŚCI -->
+            <div id="tab-forum" class="tab-content" style="display: none;">
                 <div class="card">
-                    <h3 style="color: var(--primary);">🔥 Zapotrzebowanie Kcal</h3>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
-                        <input type="number" id="bmr-weight" placeholder="Waga kg">
-                        <input type="number" id="bmr-height" placeholder="Wzrost cm">
+                    <h3 style="color: var(--primary); margin-bottom: 10px;">💬 Czat & Wpisy</h3>
+                    <form onsubmit="handleForumSubmit(event)" style="margin-bottom: 15px;">
+                        <textarea id="forum-content" rows="2" placeholder="Co dziś było trenowane?" required></textarea>
+                        <button type="submit" class="btn btn-sm">Opublikuj Wpis</button>
+                    </form>
+                    <div id="forum-posts-list"></div>
+                </div>
+            </div>
+
+            <!-- ZAKŁADKA 5: PROGRESS -->
+            <div id="tab-progress" class="tab-content" style="display: none;">
+                <div class="card">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                        <h3 style="color: var(--primary);">🏆 Poziom Postępu Gracza</h3>
+                        <span id="player-level-text" style="font-weight: 900; color: var(--gold); font-size: 1.1rem;">LVL 1 (0/100 XP)</span>
                     </div>
-                    <input type="number" id="bmr-age" placeholder="Wiek">
-                    <select id="bmr-goal">
-                        <option value="maintain">Utrzymanie Wagi</option>
-                        <option value="bulk">Masa (+300 kcal)</option>
-                        <option value="cut">Redukcja (-400 kcal)</option>
-                    </select>
-                    <button class="btn btn-sm" style="width: 100%;" onclick="calculateCalories()">Oblicz Kalorie</button>
-                    <div id="calories-result" style="display: none; margin-top: 12px; text-align: center; background: rgba(0,0,0,0.3); padding: 10px; border-radius: 10px;">
-                        <h3 id="res-tdee" style="color: var(--gold);">0 kcal</h3>
+                    <div class="water-progress" style="height:18px;"><div id="xp-bar" class="water-bar" style="background: linear-gradient(90deg, #f472b6, #fbbf24);"></div></div>
+                    <p style="font-size:0.75rem; color:var(--text-muted); margin-top:6px; text-align:center;">Zdobywaj XP za bicie rekordów cięzarowych w ćwiczeniach! Im większy progres, tym więcej XP (Max LVL: 999) 🚀</p>
+
+                    <h3 style="color: var(--primary); margin: 20px 0 10px;">📊 Wykres Progresu Siłowego</h3>
+                    <div style="background: rgba(0,0,0,0.3); padding: 10px; border-radius: 12px; border: 1px solid var(--card-border);">
+                        <canvas id="progressChart" height="140"></canvas>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- ZAKŁADKA 7: PRZEPISY VIP -->
-        <div id="tab-vip" class="tab-content" style="display: none;">
-            <div class="card">
-                <h3 style="color: var(--gold); margin-bottom: 10px;">🌟 Przepisy VIP</h3>
-                <input id="recipe-search" type="search" placeholder="🔎 Szukaj posiłku..." oninput="renderRecipes()">
-                <div class="grid-3" id="recipes-container" style="margin-top: 10px;"></div>
-            </div>
-        </div>
-
-        <!-- ZAKŁADKA 8: PANEL ADMINA -->
-        <div id="tab-admin" class="tab-content" style="display: none;">
-            <div class="card card-admin">
-                <h3 style="color: var(--gold); margin-bottom: 12px;">👑 Panel Zarządzania Admina</h3>
-
-                <!-- Tworzenie Ćwiczeń do Atlasu -->
-                <div style="background: rgba(0,0,0,0.3); padding: 12px; border-radius: 12px; margin-bottom: 15px;">
-                    <h4 style="color: var(--primary); margin-bottom: 8px;">+ Dodaj Nowe Ćwiczenie do Atlasu</h4>
-                    <input type="text" id="admin-ex-name" placeholder="Nazwa ćwiczenia">
-                    <input type="text" id="admin-ex-part" placeholder="Partia (np. Klatka, Plecy)">
-                    <input type="text" id="admin-ex-desc" placeholder="Krótki opis / technika">
-                    <button class="btn btn-sm" onclick="adminAddAtlasItem()">Opublikuj w Atlasie</button>
-                </div>
-
-                <!-- Tworzenie Przepisów VIP -->
-                <div style="background: rgba(0,0,0,0.3); padding: 12px; border-radius: 12px; margin-bottom: 15px;">
-                    <h4 style="color: var(--gold); margin-bottom: 8px;">+ Dodaj Przepis VIP</h4>
-                    <input type="text" id="admin-rec-name" placeholder="Nazwa potrawy">
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
-                        <input type="number" id="admin-rec-kcal" placeholder="Kcal">
-                        <input type="number" id="admin-rec-protein" placeholder="Białko (g)">
+            <!-- ZAKŁADKA 6: KALORIE -->
+            <div id="tab-calc" class="tab-content" style="display: none;">
+                <div class="grid">
+                    <div class="card">
+                        <h3 style="color: var(--primary);">🧮 Kalkulator 1RM</h3>
+                        <label>Ciężar (kg)</label>
+                        <input type="number" id="calc-weight" placeholder="100" oninput="calculate1RM()">
+                        <label>Powtórzenia</label>
+                        <input type="number" id="calc-reps" placeholder="5" oninput="calculate1RM()">
+                        <div style="margin-top: 15px; text-align: center; background: rgba(0,0,0,0.3); padding: 12px; border-radius: 10px;">
+                            <span style="font-size: 0.8rem; color: var(--text-muted);">Szacowany Rekord:</span>
+                            <h2 id="calc-result" style="color: var(--primary);">0 kg</h2>
+                        </div>
                     </div>
-                    <input type="text" id="admin-rec-steps" placeholder="Składniki i przygotowanie">
-                    <button class="btn btn-sm" style="background: var(--gold); color: #000;" onclick="adminAddRecipeItem()">Opublikuj Przepis</button>
-                </div>
 
-                <h4 style="margin-bottom: 8px;">Użytkownicy w Bazię: (<span id="stat-users-count">0</span>):</h4>
-                <div id="admin-user-list"></div>
+                    <div class="card">
+                        <h3 style="color: var(--primary);">🔥 Zapotrzebowanie Kcal</h3>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                            <input type="number" id="bmr-weight" placeholder="Waga kg">
+                            <input type="number" id="bmr-height" placeholder="Wzrost cm">
+                        </div>
+                        <input type="number" id="bmr-age" placeholder="Wiek">
+                        <select id="bmr-goal">
+                            <option value="maintain">Utrzymanie Wagi</option>
+                            <option value="bulk">Masa (+300 kcal)</option>
+                            <option value="cut">Redukcja (-400 kcal)</option>
+                        </select>
+                        <button class="btn btn-sm" style="width: 100%;" onclick="calculateCalories()">Oblicz Kalorie</button>
+                        <div id="calories-result" style="display: none; margin-top: 12px; text-align: center; background: rgba(0,0,0,0.3); padding: 10px; border-radius: 10px;">
+                            <h3 id="res-tdee" style="color: var(--gold);">0 kcal</h3>
+                        </div>
+                    </div>
+                </div>
             </div>
+
+            <!-- ZAKŁADKA 7: PRZEPISY VIP -->
+            <div id="tab-vip" class="tab-content" style="display: none;">
+                <div class="card">
+                    <h3 style="color: var(--gold); margin-bottom: 10px;">🌟 Przepisy VIP</h3>
+                    <input id="recipe-search" type="search" placeholder="🔎 Szukaj posiłku..." oninput="renderRecipes()">
+                    <div class="grid-3" id="recipes-container" style="margin-top: 10px;"></div>
+                </div>
+            </div>
+
+            <!-- ZAKŁADKA 8: PANEL ADMINA -->
+            <div id="tab-admin" class="tab-content" style="display: none;">
+                <div class="card card-admin">
+                    <h3 style="color: var(--gold); margin-bottom: 12px;">👑 Panel Zarządzania Admina</h3>
+
+                    <!-- Tworzenie Ćwiczeń do Atlasu -->
+                    <div style="background: rgba(0,0,0,0.3); padding: 12px; border-radius: 12px; margin-bottom: 15px;">
+                        <h4 style="color: var(--primary); margin-bottom: 8px;">+ Dodaj Nowe Ćwiczenie do Atlasu</h4>
+                        <input type="text" id="admin-ex-name" placeholder="Nazwa ćwiczenia">
+                        <input type="text" id="admin-ex-part" placeholder="Partia (np. Klatka, Plecy)">
+                        <input type="text" id="admin-ex-desc" placeholder="Krótki opis / technika">
+                        <button class="btn btn-sm" onclick="adminAddAtlasItem()">Opublikuj w Atlasie</button>
+                    </div>
+
+                    <!-- Tworzenie Przepisów VIP -->
+                    <div style="background: rgba(0,0,0,0.3); padding: 12px; border-radius: 12px; margin-bottom: 15px;">
+                        <h4 style="color: var(--gold); margin-bottom: 8px;">+ Dodaj Przepis VIP</h4>
+                        <input type="text" id="admin-rec-name" placeholder="Nazwa potrawy">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                            <input type="number" id="admin-rec-kcal" placeholder="Kcal">
+                            <input type="number" id="admin-rec-protein" placeholder="Białko (g)">
+                        </div>
+                        <input type="text" id="admin-rec-steps" placeholder="Składniki i przygotowanie">
+                        <button class="btn btn-sm" style="background: var(--gold); color: #000;" onclick="adminAddRecipeItem()">Opublikuj Przepis</button>
+                    </div>
+
+                    <h4 style="margin-bottom: 8px;">Użytkownicy w Bazię (<span id="stat-users-count">0</span>):</h4>
+                    <div id="admin-user-list"></div>
+                </div>
+            </div>
+
         </div>
 
     </div>
@@ -550,19 +595,40 @@
         </div>
     </div>
 
-    <!-- MODAL AUTH -->
-    <div id="auth-modal" class="modal">
-        <div class="modal-content">
-            <h3 id="modal-title" style="margin-bottom: 15px; color: var(--primary);">Zaloguj się</h3>
-            <input type="email" id="auth-email" placeholder="E-mail">
-            <input type="password" id="auth-pass" placeholder="Hasło">
-            <button id="auth-submit" class="btn" style="width: 100%; margin-bottom: 8px;" onclick="handleAuth()">Zaloguj</button>
-            <button class="btn btn-outline" style="width: 100%; border: none;" onclick="toggleAuthMode()" id="auth-toggle">Nie masz konta? Zarejestruj</button>
-            <button class="btn btn-outline" style="width: 100%; margin-top: 5px; border: none; color: var(--text-muted);" onclick="closeAuthModal()">Anuluj</button>
-        </div>
-    </div>
-
     <script>
+        /* GENERATOR IKONY PNG DLA IPHONE / SAFARI (Apple Touch Icon) */
+        function generateAppleTouchIconPNG() {
+            try {
+                const canvas = document.createElement('canvas');
+                canvas.width = 180;
+                canvas.height = 180;
+                const ctx = canvas.getContext('2d');
+
+                // Czarny Tłok
+                ctx.fillStyle = '#0d0d12';
+                ctx.fillRect(0, 0, 180, 180);
+
+                // Różowy Hantel
+                ctx.fillStyle = '#f472b6';
+                ctx.fillRect(35, 75, 20, 30);
+                ctx.fillRect(125, 75, 20, 30);
+                ctx.fillRect(55, 83, 15, 14);
+                ctx.fillRect(110, 83, 15, 14);
+                ctx.fillRect(70, 87, 40, 6);
+
+                // Napis ADIS.GYM
+                ctx.fillStyle = '#ffffff';
+                ctx.font = '900 20px sans-serif';
+                ctx.textAlign = 'center';
+                ctx.fillText('ADIS.GYM', 90, 145);
+
+                const dataUrl = canvas.toDataURL('image/png');
+                document.getElementById('apple-icon').href = dataUrl;
+                document.getElementById('fav-icon').href = dataUrl;
+            } catch(e) { console.error("Icon Gen Error", e); }
+        }
+        generateAppleTouchIconPNG();
+
         window.gymData = JSON.parse(localStorage.getItem('adis_gym_data')) || { workouts: [], workoutPlan: {}, xp: 0, level: 1, water: 0, prs: {} };
         window.customAtlas = [];
         window.customRecipes = [];
@@ -582,13 +648,11 @@
             if (tabId === 'tab-vip') renderRecipes();
         }
 
-        function openAuthModal() { document.getElementById('auth-modal').classList.add('active'); }
-        function closeAuthModal() { document.getElementById('auth-modal').classList.remove('active'); }
-
         function toggleAuthMode() {
             isRegisterMode = !isRegisterMode;
-            document.getElementById('modal-title').innerText = isRegisterMode ? 'Utwórz konto' : 'Zaloguj się';
-            document.getElementById('auth-submit').innerText = isRegisterMode ? 'Zarejestruj' : 'Zaloguj';
+            document.getElementById('modal-title').innerText = isRegisterMode ? 'Utwórz konto w ADIS.GYM' : 'Zaloguj się do ADIS.GYM';
+            document.getElementById('auth-submit').innerText = isRegisterMode ? 'Zarejestruj się' : 'Zaloguj się';
+            document.getElementById('auth-toggle').innerText = isRegisterMode ? 'Masz już konto? Zaloguj się' : 'Nie masz konta? Zarejestruj się';
         }
 
         async function handleAuth() {
@@ -598,11 +662,9 @@
             try {
                 if (isRegisterMode) await window.authApi.reg(email, pass);
                 else await window.authApi.login(email, pass);
-                closeAuthModal();
             } catch (err) { alert('Błąd: ' + err.message); }
         }
 
-        /* AKTYWNY SYSTEM LEVELI (1 - 999 LEVEL) */
         function checkAndAddXPForPR(exName, weight) {
             if(!window.gymData.prs) window.gymData.prs = {};
             const cleanName = exName.trim().toLowerCase();
@@ -610,10 +672,21 @@
             const numWeight = parseFloat(weight);
 
             if(numWeight > currentPr) {
+                const diff = numWeight - currentPr;
                 window.gymData.prs[cleanName] = numWeight;
-                addXP(50);
-                alert(`🔥 NOWY REKORD OSOBISTY w ${exName}: ${numWeight} kg! (+50 XP)`);
+
+                let xpGain = 25;
+                if(diff >= 3 && diff < 6) xpGain = 50;
+                else if(diff >= 6 && diff < 10) xpGain = 100;
+                else if(diff >= 10) xpGain = 200;
+
+                addXP(xpGain);
+                alert(`🔥 NOWY REKORD OSOBISTY w ${exName}: ${numWeight} kg! (+${xpGain} XP)`);
             }
+        }
+
+        function getXpNeededForLevel(level) {
+            return Math.min(1000, 100 + (level - 1) * 25);
         }
 
         function addXP(amount) {
@@ -621,11 +694,12 @@
             if(!window.gymData.level) window.gymData.level = 1;
 
             window.gymData.xp += amount;
+            let needed = getXpNeededForLevel(window.gymData.level);
 
-            // Krok Poziomu: Każdy Poziom wymaga 100 XP
-            while(window.gymData.xp >= 100 && window.gymData.level < 999) {
-                window.gymData.xp -= 100;
+            while(window.gymData.xp >= needed && window.gymData.level < 999) {
+                window.gymData.xp -= needed;
                 window.gymData.level += 1;
+                needed = getXpNeededForLevel(window.gymData.level);
                 alert(`🎉 AWANS! Osiągnąłeś LEVEL ${window.gymData.level}! 🚀`);
             }
 
@@ -636,8 +710,11 @@
         function renderAchievements() {
             const xp = window.gymData.xp || 0;
             const level = window.gymData.level || 1;
-            document.getElementById('player-level-text').innerText = `LVL ${level} (${xp}/100 XP)`;
-            document.getElementById('xp-bar').style.width = xp + '%';
+            const needed = getXpNeededForLevel(level);
+            const pct = Math.min(100, Math.round((xp / needed) * 100));
+
+            document.getElementById('player-level-text').innerText = `LVL ${level} (${xp}/${needed} XP)`;
+            document.getElementById('xp-bar').style.width = pct + '%';
         }
 
         function addExercise(e) {
@@ -681,7 +758,6 @@
             `).join('');
         }
 
-        /* PLAN TRENINGOWY — DYNAMICZNE DODAWANIE/ODEJMOWANIE SERII */
         function addPlanExercise(e) {
             e.preventDefault();
             const day = document.getElementById('plan-day').value;
@@ -810,8 +886,13 @@
             const part = document.getElementById('admin-ex-part').value;
             const desc = document.getElementById('admin-ex-desc').value;
             if(!name || !part) return alert("Wpisz nazwę i partię!");
-            await addDoc(collection(window.db, 'projects', 'd1s-gym', 'custom_atlas'), { name, part, desc });
-            alert("Dodano ćwiczenie do Atlasu!");
+            try {
+                await addDoc(collection(window.db, 'projects', 'd1s-gym', 'custom_atlas'), { name, part, desc });
+                alert("Dodano ćwiczenie do Atlasu!");
+                document.getElementById('admin-ex-name').value = '';
+                document.getElementById('admin-ex-part').value = '';
+                document.getElementById('admin-ex-desc').value = '';
+            } catch(e) { alert("Błąd zapisu: " + e.message); }
         }
 
         async function adminAddRecipeItem() {
@@ -820,8 +901,14 @@
             const protein = document.getElementById('admin-rec-protein').value;
             const steps = document.getElementById('admin-rec-steps').value;
             if(!name) return alert("Wpisz nazwę!");
-            await addDoc(collection(window.db, 'projects', 'd1s-gym', 'custom_recipes'), { name, kcal, protein, steps });
-            alert("Dodano przepis VIP!");
+            try {
+                await addDoc(collection(window.db, 'projects', 'd1s-gym', 'custom_recipes'), { name, kcal, protein, steps });
+                alert("Dodano przepis VIP!");
+                document.getElementById('admin-rec-name').value = '';
+                document.getElementById('admin-rec-kcal').value = '';
+                document.getElementById('admin-rec-protein').value = '';
+                document.getElementById('admin-rec-steps').value = '';
+            } catch(e) { alert("Błąd zapisu: " + e.message); }
         }
 
         function renderAtlas() {
@@ -829,11 +916,15 @@
             const search = (document.getElementById('atlas-search')?.value || '').toLowerCase();
             const fullList = [...DEFAULT_ATLAS, ...(window.customAtlas || [])];
             let items = fullList.filter(x => x.name.toLowerCase().includes(search) || x.part.toLowerCase().includes(search));
+            const isAdmin = ['owner', 'admin'].includes(window.currentUserRole);
 
             container.innerHTML = items.map(a => `
                 <div class="atlas-item">
                     <div>
-                        <span class="role-badge role-staff">${a.part}</span>
+                        <div style="display:flex; justify-content:space-between;">
+                            <span class="role-badge role-staff">${a.part}</span>
+                            ${(isAdmin && a.id) ? `<button class="btn btn-outline btn-sm" style="color:var(--danger); padding:1px 4px;" onclick="window.deleteCustomAtlasItem('${a.id}')">🗑</button>` : ''}
+                        </div>
                         <h4 style="margin:6px 0; color:#fff;">${a.name}</h4>
                         <p style="font-size:0.8rem; color:var(--text-muted);">${a.desc}</p>
                     </div>
@@ -846,10 +937,14 @@
             const search = (document.getElementById('recipe-search')?.value || '').toLowerCase();
             const fullList = [...DEFAULT_RECIPES, ...(window.customRecipes || [])];
             let items = fullList.filter(x => x.name.toLowerCase().includes(search));
+            const isAdmin = ['owner', 'admin'].includes(window.currentUserRole);
 
             container.innerHTML = items.map(r => `
                 <div class="recipe-card">
-                    <h4 style="color:var(--gold); margin-bottom:4px;">${r.name}</h4>
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <h4 style="color:var(--gold); margin-bottom:4px;">${r.name}</h4>
+                        ${(isAdmin && r.id) ? `<button class="btn btn-outline btn-sm" style="color:var(--danger); padding:1px 4px;" onclick="window.deleteCustomRecipeItem('${r.id}')">🗑</button>` : ''}
+                    </div>
                     <div class="macro-row"><span>🔥 ${r.kcal} kcal</span><span>🥩 ${r.protein}g białka</span></div>
                     <p style="font-size:0.8rem; color:var(--text-muted); margin-top:4px;">${r.steps}</p>
                 </div>
@@ -874,7 +969,7 @@
                         <strong>${p.authorEmail}</strong>
                         <div>
                             <span>${new Date(p.timestamp).toLocaleTimeString('pl-PL')}</span>
-                            ${isAdmin ? `<button class="btn btn-outline btn-sm" style="color:var(--danger); padding:1px 4px; margin-left:6px;" onclick="window.deleteForumPostAdmin('${p.id}')">🗑</button>` : ''}
+                            ${isAdmin ? `<button class="btn btn-outline btn-sm" style="color:var(--danger); padding:1px 4px; margin-left:6px;" onclick="window.deleteForumPostAdmin('${p.id}')">🗑 Usunąć</button>` : ''}
                         </div>
                     </div>
                     <p style="font-size:0.85rem;">${p.content}</p>
