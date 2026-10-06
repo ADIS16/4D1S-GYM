@@ -90,6 +90,7 @@
         .role-user { background: #1e1b2e; color: #94a3b8; }
 
         #auth-lockscreen { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 60vh; text-align: center; }
+        #verification-screen { display: none; flex-direction: column; align-items: center; justify-content: center; min-height: 50vh; text-align: center; }
         
         .list-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: rgba(255,255,255,0.02); border-radius: 14px; margin-bottom: 10px; border: 1px solid var(--card-border); font-size: 0.88rem; }
         
@@ -121,7 +122,7 @@
     <!-- FIREBASE SDK ES6 MODULE -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
+        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged, sendEmailVerification } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
         import { getFirestore, doc, onSnapshot, setDoc, collection, getDocs, addDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
 
         const k1 = "AIzaSyDt4973oXRxuzS_";
@@ -142,6 +143,7 @@
             auth = getAuth(app);
             db = getFirestore(app);
             window.db = db;
+            window.auth = auth;
             
             window.fbAddDoc = addDoc;
             window.fbDeleteDoc = deleteDoc;
@@ -149,14 +151,29 @@
             window.fbDoc = doc;
             window.fbSetDoc = setDoc;
             window.fbGetDocs = getDocs;
+            window.fbSendEmailVerification = sendEmailVerification;
         } catch (e) { console.error("Firebase Init Error", e); }
 
         window.authApi = {
             login: (e, p) => signInWithEmailAndPassword(auth, e, p),
-            reg: (e, p) => createUserWithEmailAndPassword(auth, e, p),
+            reg: async (e, p) => {
+                const creds = await createUserWithEmailAndPassword(auth, e, p);
+                if (creds && creds.user) {
+                    await sendEmailVerification(creds.user);
+                }
+                return creds;
+            },
+            resendVerification: async () => {
+                if (auth && auth.currentUser) {
+                    await sendEmailVerification(auth.currentUser);
+                    alert("Wysłano ponownie e-mail z linkiem weryfikacyjnym! Sprawdź skrzynkę odbiorczą oraz folder SPAM.");
+                }
+            },
             out: async () => {
                 if (auth && auth.currentUser) {
-                    await setDoc(doc(db, 'projects', 'd1s-gym', 'users', auth.currentUser.uid), { isOnline: false }, { merge: true });
+                    try {
+                        await setDoc(doc(db, 'projects', 'd1s-gym', 'users', auth.currentUser.uid), { isOnline: false }, { merge: true });
+                    } catch(err) {}
                 }
                 if (auth) signOut(auth);
             }
@@ -168,8 +185,22 @@
                 const txt = document.getElementById('status-text');
                 const appContent = document.getElementById('app-main-content');
                 const lockScreen = document.getElementById('auth-lockscreen');
+                const verificationScreen = document.getElementById('verification-screen');
                 
                 if (user) {
+                    // Sprawdzenie czy adres e-mail został zweryfikowany
+                    // (możesz odkomentować linię poniżej, jeśli chcesz wymusić weryfikację)
+                    if (!user.emailVerified) {
+                        lockScreen.style.display = 'none';
+                        appContent.style.display = 'none';
+                        verificationScreen.style.display = 'flex';
+                        document.getElementById('user-profile').style.display = 'none';
+                        dot.className = "dot offline";
+                        txt.innerText = "Niezweryfikowany e-mail";
+                        return;
+                    }
+
+                    verificationScreen.style.display = 'none';
                     lockScreen.style.display = 'none';
                     appContent.style.display = 'block';
 
@@ -194,7 +225,7 @@
 
                         document.getElementById('user-username-display').innerText = window.currentUsername;
 
-                        window.gymData = userData.gym_data || { workouts: [], workoutPlan: {}, xp: 0, level: 1, water: 0, prs: {} };
+                        window.gymData = userData.gym_data || { workouts: [], workoutPlan: [], xp: 0, level: 1, water: 0, prs: {} };
 
                         document.getElementById('user-role-tag').innerHTML = getRoleBadgeHtml(window.currentUserRole);
 
@@ -212,6 +243,7 @@
                     window.listenToLiveBases();
                     window.listenToForumPosts();
                 } else {
+                    verificationScreen.style.display = 'none';
                     lockScreen.style.display = 'flex';
                     appContent.style.display = 'none';
 
@@ -295,10 +327,23 @@
             </div>
         </header>
 
+        <!-- EKRAN WERYFIKACJI E-MAILA -->
+        <div id="verification-screen" class="card">
+            <h2 style="margin-bottom: 8px; color: var(--primary);">Potwierdź swój adres e-mail</h2>
+            <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:20px; max-width: 380px;">
+                Na Twój adres e-mail została wysłana wiadomość z linkiem aktywacyjnym. Kliknij w niego, aby aktywować konto i uzyskać pełny dostęp do aplikacji.
+            </p>
+            <div style="display: flex; flex-direction: column; gap: 10px; width: 100%; max-width: 280px;">
+                <button class="btn" onclick="location.reload()">Sprawdzam / Odśwież</button>
+                <button class="btn btn-outline" onclick="window.authApi.resendVerification()">Wyślij e-mail ponownie</button>
+                <button class="btn btn-outline" style="color: var(--danger); border-color: rgba(244,63,94,0.3);" onclick="window.authApi.out()">Wyloguj się</button>
+            </div>
+        </div>
+
         <!-- EKRAN BLOKADY / LOGOWANIE -->
         <div id="auth-lockscreen" class="card">
             <h2 id="modal-title" style="margin-bottom: 8px; color: var(--primary);">Zaloguj się do ADIS.GYM</h2>
-            <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:20px;">Dostęp do aplikacji jest możliwy wyłącznie dla zalogowanych użytkowników.</p>
+            <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:20px;">Dostęp do aplikacji jest możliwy wyłącznie dla zweryfikowanych użytkowników.</p>
             
             <div style="width:100%; max-width:320px;">
                 <input type="text" id="auth-username" placeholder="Twój Nick w aplikacji" style="display: none;">
@@ -693,6 +738,7 @@
                             username: username,
                             role: 'user'
                         }, { merge: true });
+                        alert("Konto zostało utworzone! Wysłaliśmy link weryfikacyjny na Twój adres e-mail. Sprawdź skrzynkę.");
                     }
                 } else {
                     await window.authApi.login(email, pass);
