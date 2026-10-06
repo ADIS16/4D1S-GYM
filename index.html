@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>ADIS.GYM - Ultimate Fitness Suite</title>
     
-    <!-- PWA iOS i Android Config -->
+    <!-- PWA Config -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="ADIS.GYM">
     <meta name="theme-color" content="#0d0d12">
     
-    <!-- Custom Logo dla Ekranu Początkowego iPhone (Apple Touch Icon) -->
+    <!-- Custom Logo iOS App Icon -->
     <link rel="apple-touch-icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' width='512' height='512' style='background:%230d0d12;'><rect width='512' height='512' rx='100' fill='%230d0d12'/><path d='M120 210 h40 v92 h-40 z M352 210 h40 v92 h-40 z M160 236 h30 v40 h-30 z M322 236 h30 v40 h-30 z M190 246 h132 v20 h-132 z' fill='%23f472b6'/><text x='50%' y='410' text-anchor='middle' fill='%23ffffff' font-family='sans-serif' font-weight='900' font-size='42' letter-spacing='2'>ADIS.GYM</text></svg>">
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%230d0d12'/><path d='M25 40 h10 v20 h-10 z M65 40 h10 v20 h-10 z M35 46 h30 v8 h-30 z' fill='%23f472b6'/></svg>">
 
@@ -49,7 +49,7 @@
 
         .container { max-width: 1200px; margin: 0 auto; width: 100%; }
 
-        /* Header Mobile First */
+        /* Header */
         header { display: flex; justify-content: space-between; align-items: center; padding: 12px 0 18px; border-bottom: 1px solid var(--card-border); margin-bottom: 20px; flex-wrap: wrap; gap: 10px; }
         .logo { font-weight: 900; font-size: 1.6rem; background: linear-gradient(135deg, #f472b6 0%, #fb7185 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -0.5px; }
 
@@ -58,19 +58,18 @@
         .dot.online { background: var(--success); box-shadow: 0 0 10px var(--success); }
         .dot.offline { background: var(--danger); }
 
-        /* Tabs Mobile Navigation Scrollable */
+        /* Tabs Navigation */
         .nav-tabs { display: flex; gap: 8px; margin-bottom: 20px; border-bottom: 1px solid var(--card-border); padding-bottom: 8px; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
         .nav-tabs::-webkit-scrollbar { display: none; }
         .tab-btn { background: transparent; border: none; color: var(--text-muted); padding: 8px 14px; border-radius: 10px; font-weight: 700; cursor: pointer; transition: all 0.2s; white-space: nowrap; font-size: 0.85rem; }
         .tab-btn.active { background: rgba(244, 114, 182, 0.12); color: var(--primary); border: 1px solid var(--card-border); }
 
-        /* Buttons & Controls */
+        /* Buttons & Cards */
         .btn { background: var(--primary); color: #0d0d12; border: none; padding: 12px 18px; border-radius: 12px; font-weight: 800; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 14px var(--primary-glow); display: inline-flex; align-items: center; justify-content: center; gap: 6px; font-size: 0.9rem; }
         .btn:active { transform: scale(0.97); }
-        .btn-sm { padding: 6px 12px; font-size: 0.78rem; border-radius: 8px; }
+        .btn-sm { padding: 5px 10px; font-size: 0.75rem; border-radius: 8px; }
         .btn-outline { background: transparent; border: 1px solid var(--card-border); color: var(--text-main); box-shadow: none; }
 
-        /* Cards & Grids */
         .card { background: var(--bg-card); border: 1px solid var(--card-border); backdrop-filter: blur(16px); border-radius: 18px; padding: 20px; margin-bottom: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
         .card-admin { border: 1px solid rgba(251, 191, 36, 0.4); background: rgba(251, 191, 36, 0.02); }
 
@@ -80,7 +79,6 @@
         input, select, textarea { width: 100%; padding: 12px 14px; background: rgba(0,0,0,0.6); border: 1px solid var(--card-border); border-radius: 10px; color: white; margin-top: 5px; margin-bottom: 12px; font-size: 0.9rem; }
         input:focus, select:focus, textarea:focus { outline: none; border-color: var(--primary); }
 
-        /* Badges */
         .role-badge { padding: 4px 8px; border-radius: 6px; font-size: 0.7rem; font-weight: 800; text-transform: uppercase; }
         .role-owner { background: linear-gradient(135deg, #e879f9, #f472b6); color: #0d0d12; }
         .role-admin { background: #f87171; color: #fff; }
@@ -88,22 +86,19 @@
         .role-vip { background: #fbbf24; color: #000; }
         .role-user { background: #1e293b; color: #94a3b8; }
 
-        /* Modals */
         .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); justify-content: center; align-items: center; z-index: 100; padding: 15px; }
         .modal.active { display: flex; }
         .modal-content { background: #121018; border: 1px solid var(--card-border); padding: 24px; border-radius: 20px; width: 100%; max-width: 420px; }
 
         .list-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; background: rgba(255,255,255,0.02); border-radius: 12px; margin-bottom: 8px; border: 1px solid var(--card-border); font-size: 0.88rem; }
         
-        /* Plan Card Mobile UI */
         .day-card { background: rgba(255,255,255,0.02); border: 1px solid var(--card-border); border-radius: 14px; padding: 14px; }
         .day-header { font-weight: 800; color: var(--primary); border-bottom: 1px solid var(--card-border); padding-bottom: 8px; margin-bottom: 10px; display: flex; justify-content: space-between; }
-        .exercise-item { background: rgba(0,0,0,0.4); padding: 10px; border-radius: 10px; margin-bottom: 8px; border-left: 3px solid var(--primary); }
+        .exercise-item { background: rgba(0,0,0,0.4); padding: 12px; border-radius: 10px; margin-bottom: 10px; border-left: 3px solid var(--primary); }
 
-        .sets-grid { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
-        .set-chip { background: rgba(255,255,255,0.05); border: 1px solid var(--card-border); padding: 4px 8px; border-radius: 6px; font-size: 0.75rem; display: flex; align-items: center; gap: 4px; }
+        .sets-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+        .set-chip { background: rgba(255,255,255,0.05); border: 1px solid var(--card-border); padding: 5px 8px; border-radius: 8px; font-size: 0.75rem; display: flex; align-items: center; gap: 4px; }
 
-        /* Floating Timer Bar */
         .floating-timer { position: fixed; bottom: 15px; left: 15px; right: 15px; background: rgba(18, 16, 24, 0.95); border: 1px solid var(--card-border); border-radius: 20px; padding: 10px 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: space-between; z-index: 90; backdrop-filter: blur(12px); }
         
         .water-progress { width: 100%; height: 14px; background: rgba(0,0,0,0.5); border-radius: 8px; overflow: hidden; border: 1px solid var(--card-border); margin: 8px 0; }
@@ -179,7 +174,7 @@
                         userData.role = (user.email.toLowerCase() === OWNER_EMAIL.toLowerCase()) ? 'owner' : (userData.role || 'user');
 
                         window.currentUserRole = userData.role;
-                        window.gymData = userData.gym_data || { workouts: [], workoutPlan: {}, achievements: [], xp: 0, water: 0 };
+                        window.gymData = userData.gym_data || { workouts: [], workoutPlan: {}, xp: 0, level: 1, water: 0, prs: {} };
 
                         document.getElementById('user-role-tag').innerHTML = getRoleBadgeHtml(window.currentUserRole);
 
@@ -220,7 +215,6 @@
             localStorage.setItem('adis_gym_data', JSON.stringify(window.gymData));
         };
 
-        // Live Atlas & Live Przepisy Synchro
         window.listenToLiveBases = function() {
             if (!db) return;
             onSnapshot(collection(db, 'projects', 'd1s-gym', 'custom_atlas'), (snap) => {
@@ -255,7 +249,12 @@
                 content: content,
                 timestamp: Date.now()
             });
-            window.addXP(20);
+        };
+
+        window.deleteForumPostAdmin = async function(postId) {
+            if(confirm("Usunąć ten post jako Admin?")) {
+                await deleteDoc(doc(db, 'projects', 'd1s-gym', 'forum', postId));
+            }
         };
 
         window.changeUserRole = async function(targetUid, newRole) {
@@ -283,7 +282,7 @@
                             <option value="user" ${data.role==='user'?'selected':''}>Użytkownik</option>
                             <option value="vip" ${data.role==='vip'?'selected':''}>VIP 🌟</option>
                             <option value="staff" ${data.role==='staff'?'selected':''}>Obsługa 🛠️</option>
-                            <option value="admin" ${data.role==='admin'?'selected':''}>Admin 🛡️️</option>
+                            <option value="admin" ${data.role==='admin'?'selected':''}>Admin 🛡</option>
                             <option value="owner" ${data.role==='owner'?'selected':''}>Szef 👑</option>
                         </select>
                     </div>
@@ -358,7 +357,7 @@
                                 </div>
                             </div>
 
-                            <button type="submit" class="btn" style="width: 100%; margin-top: 5px;">Zapisz Serie (+15 XP)</button>
+                            <button type="submit" class="btn" style="width: 100%; margin-top: 5px;">Zapisz Serie</button>
                         </form>
                     </div>
 
@@ -388,34 +387,34 @@
         <div id="tab-plan" class="tab-content" style="display: none;">
             <div class="card">
                 <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 12px;">
-                    <h3 style="color: var(--primary);">📅 Plan Treningowy</h3>
-                    <button class="btn btn-outline btn-sm" onclick="generatePresetPlanPPL()">⚡ Wgraj Pełny Plan PPL (6 Dni)</button>
+                    <h3 style="color: var(--primary);">📅 Swobodny Plan Treningowy</h3>
+                    <button class="btn btn-outline btn-sm" onclick="generatePresetPlanPPL()">⚡ Załaduj Przykładowy PPL</button>
                 </div>
                 
                 <form id="plan-form" onsubmit="addPlanExercise(event)" style="background: rgba(0,0,0,0.3); padding: 12px; border-radius: 12px; margin-bottom: 15px;">
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 8px;">
                         <div>
-                            <label>Dzień</label>
+                            <label>Dzień Tygodnia</label>
                             <select id="plan-day" required>
-                                <option value="Poniedziałek (Push A)">Poniedziałek (Push A)</option>
-                                <option value="Wtorek (Pull A)">Wtorek (Pull A)</option>
-                                <option value="Środa (Legs A)">Środa (Legs A)</option>
-                                <option value="Czwartek (Push B)">Czwartek (Push B)</option>
-                                <option value="Piątek (Pull B)">Piątek (Pull B)</option>
-                                <option value="Sobota (Legs B)">Sobota (Legs B)</option>
-                                <option value="Niedziela (Regeneracja)">Niedziela</option>
+                                <option value="Poniedziałek">Poniedziałek</option>
+                                <option value="Wtorek">Wtorek</option>
+                                <option value="Środa">Środa</option>
+                                <option value="Czwartek">Czwartek</option>
+                                <option value="Piątek">Piątek</option>
+                                <option value="Sobota">Sobota</option>
+                                <option value="Niedziela">Niedziela</option>
                             </select>
                         </div>
                         <div>
-                            <label>Ćwiczenie</label>
-                            <input type="text" id="plan-ex-name" placeholder="np. Martwy Ciąg" required>
+                            <label>Nazwa Ćwiczenia</label>
+                            <input type="text" id="plan-ex-name" placeholder="np. Przysiad ze sztangą" required>
                         </div>
                         <div>
-                            <label>Ilość Seri</label>
-                            <input type="number" id="plan-sets-count" placeholder="4" value="4" required>
+                            <label>Ilość Seri na Start</label>
+                            <input type="number" id="plan-sets-count" placeholder="3" value="3" required>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-sm" style="margin-top: 5px;">+ Dodaj do Planu</button>
+                    <button type="submit" class="btn btn-sm" style="margin-top: 5px;">+ Dodaj Ćwiczenie do Dnia</button>
                 </form>
 
                 <div class="grid" id="week-plan-container"></div>
@@ -437,24 +436,23 @@
                 <h3 style="color: var(--primary); margin-bottom: 10px;">💬 Czat & Wpisy</h3>
                 <form onsubmit="handleForumSubmit(event)" style="margin-bottom: 15px;">
                     <textarea id="forum-content" rows="2" placeholder="Co dziś było trenowane?" required></textarea>
-                    <button type="submit" class="btn btn-sm">Opublikuj Wpis (+20 XP)</button>
+                    <button type="submit" class="btn btn-sm">Opublikuj Wpis</button>
                 </form>
                 <div id="forum-posts-list"></div>
             </div>
         </div>
 
-        <!-- ZAKŁADKA 5: PROGRESS -->
+        <!-- ZAKŁADKA 5: PROGRESS I POZIOM 1-999 LVL -->
         <div id="tab-progress" class="tab-content" style="display: none;">
             <div class="card">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                    <h3 style="color: var(--primary);">🏆 Poziom Gracza</h3>
-                    <span id="player-level-text" style="font-weight: 800; color: var(--gold); font-size: 0.85rem;">Poziom 1</span>
+                    <h3 style="color: var(--primary);">🏆 Poziom Postępu Gracza</h3>
+                    <span id="player-level-text" style="font-weight: 900; color: var(--gold); font-size: 1.1rem;">LVL 1 (0/100 XP)</span>
                 </div>
-                <div class="water-progress"><div id="xp-bar" class="water-bar" style="background: linear-gradient(90deg, #f472b6, #fbbf24);"></div></div>
+                <div class="water-progress" style="height:18px;"><div id="xp-bar" class="water-bar" style="background: linear-gradient(90deg, #f472b6, #fbbf24);"></div></div>
+                <p style="font-size:0.75rem; color:var(--text-muted); margin-top:4px; text-align:center;">Zdobywaj +50 XP za każde pobicie swojego rekordu ciężaru w jakimkolwiek ćwiczeniu! Max Level: 999 🚀</p>
 
-                <div class="grid-3" id="achievements-container" style="margin: 15px 0;"></div>
-
-                <h3 style="color: var(--primary); margin-bottom: 10px;">📊 Wykres Progresu Siłowego</h3>
+                <h3 style="color: var(--primary); margin: 20px 0 10px;">📊 Wykres Progresu Siłowego</h3>
                 <div style="background: rgba(0,0,0,0.3); padding: 10px; border-radius: 12px; border: 1px solid var(--card-border);">
                     <canvas id="progressChart" height="140"></canvas>
                 </div>
@@ -512,7 +510,7 @@
 
                 <!-- Tworzenie Ćwiczeń do Atlasu -->
                 <div style="background: rgba(0,0,0,0.3); padding: 12px; border-radius: 12px; margin-bottom: 15px;">
-                    <h4 style="color: var(--primary); margin-bottom: 8px;">+ Dodaj Nowe Ćwiczenie do Atlasu (Dla Każdego)</h4>
+                    <h4 style="color: var(--primary); margin-bottom: 8px;">+ Dodaj Nowe Ćwiczenie do Atlasu</h4>
                     <input type="text" id="admin-ex-name" placeholder="Nazwa ćwiczenia">
                     <input type="text" id="admin-ex-part" placeholder="Partia (np. Klatka, Plecy)">
                     <input type="text" id="admin-ex-desc" placeholder="Krótki opis / technika">
@@ -521,7 +519,7 @@
 
                 <!-- Tworzenie Przepisów VIP -->
                 <div style="background: rgba(0,0,0,0.3); padding: 12px; border-radius: 12px; margin-bottom: 15px;">
-                    <h4 style="color: var(--gold); margin-bottom: 8px;">+ Dodaj Przepis VIP (Dla Każdego)</h4>
+                    <h4 style="color: var(--gold); margin-bottom: 8px;">+ Dodaj Przepis VIP</h4>
                     <input type="text" id="admin-rec-name" placeholder="Nazwa potrawy">
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
                         <input type="number" id="admin-rec-kcal" placeholder="Kcal">
@@ -538,7 +536,7 @@
 
     </div>
 
-    <!-- PŁYWAJĄCY STOPER MOBILE -->
+    <!-- PŁYWAJĄCY STOPER -->
     <div class="floating-timer">
         <div>
             <div style="font-size: 0.65rem; color: var(--text-muted);">STOPER PRZERWY</div>
@@ -565,12 +563,12 @@
     </div>
 
     <script>
-        window.gymData = JSON.parse(localStorage.getItem('adis_gym_data')) || { workouts: [], workoutPlan: {}, achievements: [], xp: 0, water: 0 };
+        window.gymData = JSON.parse(localStorage.getItem('adis_gym_data')) || { workouts: [], workoutPlan: {}, xp: 0, level: 1, water: 0, prs: {} };
         window.customAtlas = [];
         window.customRecipes = [];
         let isRegisterMode = false, timerInterval = null;
 
-        const DEFAULT_ATLAS = [{"name": "Wyciskanie sztangi na ławce", "part": "Klatka", "desc": "Kontroluj opuszczanie sztangi do klatki."}, {"name": "Podciąganie nachwytem", "part": "Plecy", "desc": "Ściągaj łopatki w dół."}, {"name": "Przysiad ze sztangą", "part": "Nogi", "desc": "Prowadź kolana na zewnątrz."}];
+        const DEFAULT_ATLAS = [{"name": "Wyciskanie sztangi na ławce", "part": "Klatka", "desc": "Kontroluj opuszczanie sztangi."}, {"name": "Podciąganie nachwytem", "part": "Plecy", "desc": "Ściągaj łopatki w dół."}, {"name": "Przysiad ze sztangą", "part": "Nogi", "desc": "Prowadź kolana stabilnie."}];
         const DEFAULT_RECIPES = [{"name": "Owsianka proteinowa", "kcal": 500, "protein": 35, "steps": "Płatki owsiane, odżywka białkowa, banan."}, {"name": "Kurczak z ryżem i warzywami", "kcal": 650, "protein": 50, "steps": "Pierś z kurczaka, ryż parboiled, brokuły."}];
 
         function switchTab(tabId) {
@@ -604,18 +602,42 @@
             } catch (err) { alert('Błąd: ' + err.message); }
         }
 
+        /* AKTYWNY SYSTEM LEVELI (1 - 999 LEVEL) */
+        function checkAndAddXPForPR(exName, weight) {
+            if(!window.gymData.prs) window.gymData.prs = {};
+            const cleanName = exName.trim().toLowerCase();
+            const currentPr = window.gymData.prs[cleanName] || 0;
+            const numWeight = parseFloat(weight);
+
+            if(numWeight > currentPr) {
+                window.gymData.prs[cleanName] = numWeight;
+                addXP(50);
+                alert(`🔥 NOWY REKORD OSOBISTY w ${exName}: ${numWeight} kg! (+50 XP)`);
+            }
+        }
+
         function addXP(amount) {
-            window.gymData.xp = (window.gymData.xp || 0) + amount;
+            if(!window.gymData.xp) window.gymData.xp = 0;
+            if(!window.gymData.level) window.gymData.level = 1;
+
+            window.gymData.xp += amount;
+
+            // Krok Poziomu: Każdy Poziom wymaga 100 XP
+            while(window.gymData.xp >= 100 && window.gymData.level < 999) {
+                window.gymData.xp -= 100;
+                window.gymData.level += 1;
+                alert(`🎉 AWANS! Osiągnąłeś LEVEL ${window.gymData.level}! 🚀`);
+            }
+
             window.saveGymData();
             window.renderAchievements();
         }
-        window.addXP = addXP;
 
         function renderAchievements() {
             const xp = window.gymData.xp || 0;
-            const level = Math.floor(xp / 100) + 1;
-            document.getElementById('player-level-text').innerText = `Poziom ${level} (${xp % 100}/100 XP)`;
-            document.getElementById('xp-bar').style.width = (xp % 100) + '%';
+            const level = window.gymData.level || 1;
+            document.getElementById('player-level-text').innerText = `LVL ${level} (${xp}/100 XP)`;
+            document.getElementById('xp-bar').style.width = xp + '%';
         }
 
         function addExercise(e) {
@@ -627,7 +649,7 @@
             if (!window.gymData.workouts) window.gymData.workouts = [];
             window.gymData.workouts.unshift({ id: Date.now(), name, weight, reps, date: new Date().toLocaleDateString('pl-PL') });
 
-            window.addXP(15);
+            checkAndAddXPForPR(name, weight);
             window.saveGymData();
             window.renderAll();
             document.getElementById('workout-form').reset();
@@ -659,7 +681,7 @@
             `).join('');
         }
 
-        /* PLAN TRENINGOWY — SERIE I CIĘŻAR OSOBNO */
+        /* PLAN TRENINGOWY — DYNAMICZNE DODAWANIE/ODEJMOWANIE SERII */
         function addPlanExercise(e) {
             e.preventDefault();
             const day = document.getElementById('plan-day').value;
@@ -678,10 +700,31 @@
             document.getElementById('plan-form').reset();
         }
 
+        function addSingleSetToExercise(day, exId) {
+            const ex = window.gymData.workoutPlan[day].find(item => item.id === exId);
+            if (ex) {
+                const nextNum = ex.sets.length + 1;
+                ex.sets.push({ setNum: nextNum, weight: '', reps: '', done: false });
+                window.saveGymData();
+                window.renderPlan();
+            }
+        }
+
+        function removeSingleSetFromExercise(day, exId, setIndex) {
+            const ex = window.gymData.workoutPlan[day].find(item => item.id === exId);
+            if (ex && ex.sets.length > 0) {
+                ex.sets.splice(setIndex, 1);
+                ex.sets.forEach((s, i) => s.setNum = i + 1);
+                window.saveGymData();
+                window.renderPlan();
+            }
+        }
+
         function updatePlanSetData(day, exId, setIndex, field, value) {
             const ex = window.gymData.workoutPlan[day].find(item => item.id === exId);
             if (ex && ex.sets[setIndex]) {
                 ex.sets[setIndex][field] = value;
+                if(field === 'weight' && value) checkAndAddXPForPR(ex.name, value);
                 window.saveGymData();
             }
         }
@@ -690,7 +733,6 @@
             const ex = window.gymData.workoutPlan[day].find(item => item.id === exId);
             if (ex && ex.sets[setIndex]) {
                 ex.sets[setIndex].done = !ex.sets[setIndex].done;
-                if(ex.sets[setIndex].done) window.addXP(5);
                 window.saveGymData();
                 window.renderPlan();
             }
@@ -703,23 +745,18 @@
         }
 
         function generatePresetPlanPPL() {
-            if(!confirm("Załadować pełny, 6-dniowy plan PUSH / PULL / LEGS?")) return;
+            if(!confirm("Załadować przykładowy zestaw PPL do kalendarza?")) return;
             window.gymData.workoutPlan = {
-                'Poniedziałek (Push A)': [
-                    { id: 101, name: 'Wyciskanie Sztangi Poziomo', sets: [{setNum:1,weight:'80',reps:'8'},{setNum:2,weight:'80',reps:'8'},{setNum:3,weight:'80',reps:'8'},{setNum:4,weight:'85',reps:'6'}] },
-                    { id: 102, name: 'Wyciskanie Hantli Ławka Skos', sets: [{setNum:1,weight:'28',reps:'10'},{setNum:2,weight:'28',reps:'10'},{setNum:3,weight:'30',reps:'8'}] },
-                    { id: 103, name: 'OHP Wyciskanie Żołnierskie', sets: [{setNum:1,weight:'50',reps:'8'},{setNum:2,weight:'50',reps:'8'},{setNum:3,weight:'50',reps:'8'}] },
-                    { id: 104, name: 'Prostowanie Ramion na Wyciągu (Triceps)', sets: [{setNum:1,weight:'30',reps:'12'},{setNum:2,weight:'35',reps:'10'},{setNum:3,weight:'35',reps:'10'}] }
+                'Poniedziałek': [
+                    { id: 101, name: 'Wyciskanie Sztangi Poziomo', sets: [{setNum:1,weight:'80',reps:'8'},{setNum:2,weight:'80',reps:'8'},{setNum:3,weight:'85',reps:'6'}] },
+                    { id: 102, name: 'OHP Wyciskanie Żołnierskie', sets: [{setNum:1,weight:'50',reps:'8'},{setNum:2,weight:'50',reps:'8'}] }
                 ],
-                'Wtorek (Pull A)': [
-                    { id: 201, name: 'Podciąganie na Drążku Nachwytem', sets: [{setNum:1,weight:'0',reps:'8'},{setNum:2,weight:'0',reps:'8'},{setNum:3,weight:'0',reps:'6'}] },
-                    { id: 202, name: 'Wiosłowanie Sztangą w Opadzie', sets: [{setNum:1,weight:'70',reps:'10'},{setNum:2,weight:'75',reps:'8'},{setNum:3,weight:'75',reps:'8'}] },
-                    { id: 203, name: 'Uginanie Ramion z Hantlami (Biceps)', sets: [{setNum:1,weight:'14',reps:'12'},{setNum:2,weight:'16',reps:'10'},{setNum:3,weight:'16',reps:'10'}] }
+                'Wtorek': [
+                    { id: 201, name: 'Podciąganie na Drążku', sets: [{setNum:1,weight:'0',reps:'8'},{setNum:2,weight:'0',reps:'8'}] },
+                    { id: 202, name: 'Wiosłowanie Sztangą', sets: [{setNum:1,weight:'70',reps:'10'},{setNum:2,weight:'75',reps:'8'}] }
                 ],
-                'Środa (Legs A)': [
-                    { id: 301, name: 'Przysiad ze Sztangą z Tyłu', sets: [{setNum:1,weight:'100',reps:'8'},{setNum:2,weight:'105',reps:'8'},{setNum:3,weight:'110',reps:'6'},{setNum:4,weight:'110',reps:'6'}] },
-                    { id: 302, name: 'RUMUŃSKI MARTWY CIĄG (RDL)', sets: [{setNum:1,weight:'80',reps:'10'},{setNum:2,weight:'90',reps:'8'},{setNum:3,weight:'90',reps:'8'}] },
-                    { id: 303, name: 'Wspięcia na Palce (Łydki)', sets: [{setNum:1,weight:'50',reps:'15'},{setNum:2,weight:'60',reps:'12'},{setNum:3,weight:'60',reps:'12'}] }
+                'Środa': [
+                    { id: 301, name: 'Przysiad ze Sztangą', sets: [{setNum:1,weight:'100',reps:'8'},{setNum:2,weight:'110',reps:'6'}] }
                 ]
             };
             window.saveGymData();
@@ -729,7 +766,7 @@
         function renderPlan() {
             const container = document.getElementById('week-plan-container');
             const plan = window.gymData.workoutPlan || {};
-            const days = ['Poniedziałek (Push A)', 'Wtorek (Pull A)', 'Środa (Legs A)', 'Czwartek (Push B)', 'Piątek (Pull B)', 'Sobota (Legs B)', 'Niedziela (Regeneracja)'];
+            const days = ['Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota', 'Niedziela'];
 
             container.innerHTML = days.map(day => {
                 const list = plan[day] || [];
@@ -740,24 +777,26 @@
                             <span style="font-size:0.75rem; color:var(--text-muted);">${list.length} ćwiczeń</span>
                         </div>
                         <div>
-                            ${list.length===0?'<p style="font-size:0.8rem; color:var(--text-muted);">Brak zaplanowanych ćwiczeń.</p>':''}
+                            ${list.length===0?'<p style="font-size:0.8rem; color:var(--text-muted);">Brak ćwiczeń.</p>':''}
                             ${list.map(ex => `
                                 <div class="exercise-item">
                                     <div style="display:flex; justify-content:space-between; align-items:center;">
                                         <strong>${ex.name}</strong>
-                                        <button class="btn btn-outline btn-sm" style="color:var(--danger); padding:2px 6px;" onclick="deletePlanExercise('${day}',${ex.id})">✕</button>
+                                        <button class="btn btn-outline btn-sm" style="color:var(--danger); padding:2px 6px;" onclick="deletePlanExercise('${day}',${ex.id})">✕ Ćwiczenie</button>
                                     </div>
                                     <div class="sets-grid">
                                         ${(ex.sets||[]).map((s, idx) => `
-                                            <div class="set-chip ${s.done ? 'style="border-color:var(--success);"' : ''}">
+                                            <div class="set-chip">
                                                 <input type="checkbox" ${s.done?'checked':''} onchange="togglePlanSetDone('${day}',${ex.id},${idx})" style="margin:0;">
                                                 <span>S${s.setNum}:</span>
-                                                <input type="number" placeholder="kg" value="${s.weight||''}" onchange="updatePlanSetData('${day}',${ex.id},${idx},'weight',this.value)" style="width:42px; padding:2px; margin:0; font-size:0.7rem; text-align:center;">
+                                                <input type="number" placeholder="kg" value="${s.weight||''}" onchange="updatePlanSetData('${day}',${ex.id},${idx},'weight',this.value)" style="width:40px; padding:2px; margin:0; font-size:0.7rem; text-align:center;">
                                                 <span>x</span>
                                                 <input type="number" placeholder="pow" value="${s.reps||''}" onchange="updatePlanSetData('${day}',${ex.id},${idx},'reps',this.value)" style="width:36px; padding:2px; margin:0; font-size:0.7rem; text-align:center;">
+                                                <button style="background:transparent; border:none; color:var(--danger); font-size:0.75rem; cursor:pointer;" onclick="removeSingleSetFromExercise('${day}',${ex.id},${idx})">✕</button>
                                             </div>
                                         `).join('')}
                                     </div>
+                                    <button class="btn btn-outline btn-sm" style="margin-top:8px; font-size:0.7rem; padding:3px 8px;" onclick="addSingleSetToExercise('${day}',${ex.id})">+ Dodaj Serie</button>
                                 </div>
                             `).join('')}
                         </div>
@@ -766,13 +805,11 @@
             }).join('');
         }
 
-        /* DYNAMICZNY ADMIN: DODAWANIE DO ATLASU I PRZEPISÓW */
         async function adminAddAtlasItem() {
             const name = document.getElementById('admin-ex-name').value;
             const part = document.getElementById('admin-ex-part').value;
             const desc = document.getElementById('admin-ex-desc').value;
             if(!name || !part) return alert("Wpisz nazwę i partię!");
-            
             await addDoc(collection(window.db, 'projects', 'd1s-gym', 'custom_atlas'), { name, part, desc });
             alert("Dodano ćwiczenie do Atlasu!");
         }
@@ -783,7 +820,6 @@
             const protein = document.getElementById('admin-rec-protein').value;
             const steps = document.getElementById('admin-rec-steps').value;
             if(!name) return alert("Wpisz nazwę!");
-
             await addDoc(collection(window.db, 'projects', 'd1s-gym', 'custom_recipes'), { name, kcal, protein, steps });
             alert("Dodano przepis VIP!");
         }
@@ -830,11 +866,16 @@
         function renderForumPosts(posts) {
             const list = document.getElementById('forum-posts-list');
             if(!posts || posts.length===0) { list.innerHTML = '<p style="color:var(--text-muted); text-align:center;">Brak wpisów.</p>'; return; }
+            const isAdmin = ['owner', 'admin'].includes(window.currentUserRole);
+
             list.innerHTML = posts.map(p => `
                 <div style="background:rgba(255,255,255,0.02); border:1px solid var(--card-border); padding:10px; border-radius:10px; margin-bottom:8px;">
                     <div style="display:flex; justify-content:space-between; font-size:0.75rem; color:var(--text-muted); margin-bottom:4px;">
                         <strong>${p.authorEmail}</strong>
-                        <span>${new Date(p.timestamp).toLocaleTimeString('pl-PL')}</span>
+                        <div>
+                            <span>${new Date(p.timestamp).toLocaleTimeString('pl-PL')}</span>
+                            ${isAdmin ? `<button class="btn btn-outline btn-sm" style="color:var(--danger); padding:1px 4px; margin-left:6px;" onclick="window.deleteForumPostAdmin('${p.id}')">🗑</button>` : ''}
+                        </div>
                     </div>
                     <p style="font-size:0.85rem;">${p.content}</p>
                 </div>
