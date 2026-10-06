@@ -82,7 +82,7 @@
         input, select, textarea { width: 100%; padding: 12px 14px; background: rgba(10, 7, 18, 0.8); border: 1px solid var(--card-border); border-radius: 12px; color: white; margin-top: 5px; margin-bottom: 12px; font-size: 0.9rem; transition: border-color 0.2s; }
         input:focus, select:focus, textarea:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 10px var(--primary-glow); }
 
-        .role-badge { padding: 4px 10px; border-radius: 8px; font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; }
+        .role-badge { padding: 4px 10px; border-radius: 8px; font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; display: inline-block; }
         .role-owner { background: var(--grad-main); color: #fff; box-shadow: 0 0 10px var(--primary-glow); }
         .role-admin { background: #f43f5e; color: #fff; }
         .role-staff { background: #38bdf8; color: #0d0d12; }
@@ -163,8 +163,6 @@
             }
         };
 
-        const OWNER_EMAIL = "adrianniekil@gmail.com";
-
         if (auth) {
             onAuthStateChanged(auth, async (user) => {
                 const dot = document.getElementById('status-dot');
@@ -187,7 +185,8 @@
                         txt.innerText = "Zalogowano";
                         let userData = snap.exists() ? snap.data() : {};
                         
-                        userData.role = (user.email.toLowerCase() === OWNER_EMAIL.toLowerCase()) ? 'owner' : (userData.role || 'user');
+                        // Pobieranie rangi bezpośrednio z bazy danych z domyślną wartością 'user'
+                        userData.role = userData.role || 'user';
 
                         window.currentUserRole = userData.role;
                         window.gymData = userData.gym_data || { workouts: [], workoutPlan: {}, xp: 0, level: 1, water: 0, prs: {} };
@@ -433,7 +432,7 @@
                         <span id="player-level-text" style="font-weight: 900; color: var(--gold); font-size: 1.1rem;">LVL 1 (0/100 XP)</span>
                     </div>
                     <div class="water-progress" style="height:18px;"><div id="xp-bar" class="water-bar"></div></div>
-                    <p style="font-size:0.75rem; color:var(--text-muted); margin-top:6px; text-align:center;">Zdobywaj XP za bicie rekordów cięzarowych w ćwiczeniach! Im większy progres, tym więcej XP (Max LVL: 999) 🚀</p>
+                    <p style="font-size:0.75rem; color:var(--text-muted); margin-top:6px; text-align:center;">Zdobywaj XP za bicie rekordów ciężarowych w ćwiczeniach! Im większy progres, tym więcej XP (Max LVL: 999) 🚀</p>
 
                     <h3 style="color: var(--primary); margin: 20px 0 10px;">📊 Wykres Progresu Siłowego</h3>
                     <div style="background: rgba(10, 7, 18, 0.6); padding: 12px; border-radius: 14px; border: 1px solid var(--card-border);">
@@ -512,8 +511,8 @@
                         <button class="btn btn-sm" style="background: var(--gold); color: #000;" onclick="adminAddRecipeItem()">Opublikuj Przepis</button>
                     </div>
 
-                    <h4 style="margin-bottom: 8px;">Zarządzanie Użytkownikami w Bazię (<span id="stat-users-count">0</span>):</h4>
-                    <div id="admin-user-list"></div>
+                    <h4 style="margin-bottom: 10px; color: var(--gold);">👥 Zarządzanie Użytkownikami (<span id="stat-users-count">0</span>):</h4>
+                    <div id="admin-user-list">Pobieranie listy użytkowników...</div>
                 </div>
             </div>
 
@@ -617,7 +616,7 @@
         const DEFAULT_ATLAS = [{"name": "Wyciskanie sztangi na ławce", "part": "Klatka", "desc": "Kontroluj opuszczanie sztangi."}, {"name": "Podciąganie nachwytem", "part": "Plecy", "desc": "Ściągaj łopatki w dół."}, {"name": "Przysiad ze sztangą", "part": "Nogi", "desc": "Prowadź kolana stabilnie."}];
         const DEFAULT_RECIPES = [{"name": "Owsianka proteinowa", "kcal": 500, "protein": 35, "steps": "Płatki owsiane, odżywka białkowa, banan."}, {"name": "Kurczak z ryżem i warzywami", "kcal": 650, "protein": 50, "steps": "Pierś z kurczaka, ryż parboiled, brokuły."}];
 
-        /* DZWIEK PIKNIECIA STOPERA (SYNTEZATOR BEZPUDŁOWY AUDIO CONTEXT) */
+        /* DZWIEK PIKNIECIA STOPERA */
         function playBeep(freq = 800, duration = 0.1) {
             try {
                 const AudioCtx = window.AudioContext || window.webkitAudioContext;
@@ -648,6 +647,7 @@
             if (tabId === 'tab-progress') renderProgressChart();
             if (tabId === 'tab-atlas') renderAtlas();
             if (tabId === 'tab-vip') renderRecipes();
+            if (tabId === 'tab-admin') loadAdminUserList();
         }
 
         function toggleAuthMode() {
@@ -778,7 +778,7 @@
             document.getElementById('plan-form').reset();
         }
 
-        /* DODAWANIE Z ATLASU DO PLANU METODĄ MODALA */
+        /* MODAL ATLAS -> PLAN */
         function openAddAtlasToPlanModal(exName) {
             selectedAtlasName = exName;
             document.getElementById('modal-atlas-title').innerText = exName;
@@ -961,17 +961,68 @@
             }
         }
 
+        /* METODY ZARZĄDZANIA UŻYTKOWNIKAMI W ADMINIE */
         async function changeUserRole(targetUid, newRole) {
-            await window.fbSetDoc(window.fbDoc(window.db, 'projects', 'd1s-gym', 'users', targetUid), { role: newRole }, { merge: true });
-            alert("Ranga zaktualizowana!");
-            loadAdminUserList();
+            try {
+                await window.fbSetDoc(window.fbDoc(window.db, 'projects', 'd1s-gym', 'users', targetUid), { role: newRole }, { merge: true });
+                alert("Ranga została zmieniona na: " + newRole.toUpperCase());
+                loadAdminUserList();
+            } catch(e) { alert("Błąd aktualizacji rangi: " + e.message); }
         }
 
         async function deleteUserFromDatabase(targetUid) {
-            if(confirm("Usuń użytkownika z bazy danych?")) {
-                await window.fbDeleteDoc(window.fbDoc(window.db, 'projects', 'd1s-gym', 'users', targetUid));
-                alert("Użytkownik usunięty!");
-                loadAdminUserList();
+            if(confirm("Czy na pewno chcesz usunąć tego użytkownika z bazy?")) {
+                try {
+                    await window.fbDeleteDoc(window.fbDoc(window.db, 'projects', 'd1s-gym', 'users', targetUid));
+                    alert("Użytkownik usunięty!");
+                    loadAdminUserList();
+                } catch(e) { alert("Błąd usuwania: " + e.message); }
+            }
+        }
+
+        async function loadAdminUserList() {
+            if (!window.db) return;
+            try {
+                const snap = await window.fbGetDocs(window.fbCollection(window.db, 'projects', 'd1s-gym', 'users'));
+                const listEl = document.getElementById('admin-user-list');
+                let total = snap.size, html = '';
+
+                if (total === 0) {
+                    listEl.innerHTML = '<p style="color:var(--text-muted);">Brak użytkowników w bazie.</p>';
+                    return;
+                }
+
+                snap.forEach(userDoc => {
+                    const data = userDoc.data();
+                    const uLvl = data.gym_data?.level || 1;
+                    const uXp = data.gym_data?.xp || 0;
+                    const role = data.role || 'user';
+
+                    html += `
+                        <div class="list-item" style="flex-wrap:wrap; gap:10px; background:rgba(255,255,255,0.03);">
+                            <div style="flex:1; min-width:180px;">
+                                <strong style="color:#fff;">${data.email || 'Brak Emaila'}</strong>
+                                <div style="font-size:0.75rem; color:var(--gold); font-weight:700; margin-top:2px;">LVL ${uLvl} (${uXp} XP)</div>
+                                <div style="margin-top:6px;">${window.getRoleBadgeHtml(role)}</div>
+                            </div>
+                            <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+                                <select onchange="changeUserRole('${userDoc.id}', this.value)" style="width:auto; margin:0; padding:6px 10px; font-size:0.8rem; background:rgba(10, 7, 18, 0.9);">
+                                    <option value="user" ${role==='user'?'selected':''}>🏋 Gracz</option>
+                                    <option value="vip" ${role==='vip'?'selected':''}>🌟 VIP</option>
+                                    <option value="staff" ${role==='staff'?'selected':''}>🛠 Staff</option>
+                                    <option value="admin" ${role==='admin'?'selected':''}>🛡 Admin</option>
+                                    <option value="owner" ${role==='owner'?'selected':''}>👑 Szef</option>
+                                </select>
+                                <button class="btn btn-outline btn-sm" style="color:var(--danger); border-color:var(--danger);" onclick="deleteUserFromDatabase('${userDoc.id}')">🗑 Usunąć</button>
+                            </div>
+                        </div>
+                    `;
+                });
+                document.getElementById('stat-users-count').innerText = total;
+                listEl.innerHTML = html;
+            } catch (e) {
+                console.error("Błąd ładowania użytkowników:", e);
+                document.getElementById('admin-user-list').innerHTML = '<p style="color:var(--danger);">Nie udało się pobrać listy użytkowników.</p>';
             }
         }
 
@@ -982,43 +1033,6 @@
                 content: content,
                 timestamp: Date.now()
             });
-        }
-
-        async function loadAdminUserList() {
-            if (!window.db) return;
-            const snap = await window.fbGetDocs(window.fbCollection(window.db, 'projects', 'd1s-gym', 'users'));
-            const listEl = document.getElementById('admin-user-list');
-            let total = snap.size, active = 0, html = '';
-
-            snap.forEach(userDoc => {
-                const data = userDoc.data();
-                if (data.isOnline) active++;
-                const uLvl = data.gym_data?.level || 1;
-                const uXp = data.gym_data?.xp || 0;
-
-                html += `
-                    <div class="list-item" style="flex-wrap:wrap; gap:8px;">
-                        <div>
-                            <strong>${data.email || 'Brak Emaila'}</strong>
-                            <div style="font-size:0.75rem; color:var(--gold); font-weight:700;">LVL ${uLvl} (${uXp} XP)</div>
-                            <div style="margin-top:4px;">${window.getRoleBadgeHtml(data.role || 'user')}</div>
-                        </div>
-                        <div style="display:flex; gap:6px; align-items:center;">
-                            <select onchange="changeUserRole('${userDoc.id}', this.value)" style="width:auto; margin:0; padding:6px 10px;">
-                                <option value="user" ${data.role==='user'?'selected':''}>Użytkownik</option>
-                                <option value="vip" ${data.role==='vip'?'selected':''}>VIP 🌟</option>
-                                <option value="staff" ${data.role==='staff'?'selected':''}>Obsługa 🛠️</option>
-                                <option value="admin" ${data.role==='admin'?'selected':''}>Admin 🛡</option>
-                                <option value="owner" ${data.role==='owner'?'selected':''}>Szef 👑</option>
-                            </select>
-                            <button class="btn btn-outline btn-sm" style="color:var(--danger);" onclick="deleteUserFromDatabase('${userDoc.id}')">🗑 Usunąć</button>
-                        </div>
-                    </div>
-                `;
-            });
-            document.getElementById('stat-users-count').innerText = total;
-            document.getElementById('stat-active-count').innerText = active;
-            listEl.innerHTML = html;
         }
 
         function renderAtlas() {
@@ -1106,7 +1120,7 @@
             document.getElementById('water-bar').style.width = Math.min(100, (w/3000)*100) + '%';
         }
 
-        /* STOPER ZE SYGNAŁAMI NA 3, 2, 1 SEKUNDĘ ORAZ KOŃCOWYM */
+        /* STOPER ZE SYGNAŁAMI NA 3, 2, 1 SEKUNDĘ */
         function startTimer(seconds) {
             clearInterval(timerInterval);
             let left = seconds;
@@ -1115,14 +1129,13 @@
                 left--;
                 updateTimerDisplay(left);
 
-                // Piknięcia w ostatnich 3 sekundach
                 if (left === 3 || left === 2 || left === 1) {
                     playBeep(700, 0.12);
                 }
 
                 if(left <= 0) {
                     clearInterval(timerInterval);
-                    playBeep(1200, 0.4); // Wyższy sygnał końcowy
+                    playBeep(1200, 0.4);
                     if(navigator.vibrate) navigator.vibrate([200, 100, 200]);
                 }
             }, 1000);
@@ -1173,6 +1186,8 @@
             document.getElementById('res-tdee').innerText = tdee + ' kcal';
             document.getElementById('calories-result').style.display = 'block';
         }
+
+        window.loadAdminUserList = loadAdminUserList;
 
         renderAll();
         renderPlan();
