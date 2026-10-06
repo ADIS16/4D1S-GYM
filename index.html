@@ -109,7 +109,6 @@
         .macro-row { display:flex; gap:6px; flex-wrap:wrap; margin:8px 0; }
         .macro-row span { font-size:.72rem; font-weight:700; padding:4px 8px; border-radius:8px; background:rgba(255,255,255,.05); border: 1px solid var(--card-border); }
 
-        /* Modal Okienko */
         .modal-overlay { position: fixed; top:0; left:0; right:0; bottom:0; background: rgba(0,0,0,0.8); backdrop-filter: blur(8px); display:none; align-items:center; justify-content:center; z-index:999; padding:16px; }
         .modal-body { background: var(--bg-card); border: 1px solid var(--card-border); border-radius:20px; padding:22px; width:100%; max-width:400px; box-shadow: 0 10px 30px rgba(0,0,0,0.9); }
 
@@ -187,7 +186,6 @@
                         window.currentUserRole = userData.role;
                         window.currentUsername = userData.username || user.email.split('@')[0];
 
-                        // Domyślne zapisanie/aktualizacja danych użytkownika
                         await setDoc(userDocRef, { 
                             username: window.currentUsername,
                             isOnline: true, 
@@ -498,7 +496,6 @@
                 <div class="card card-admin">
                     <h3 style="color: var(--gold); margin-bottom: 12px;">👑 Panel Zarządzania Admina / Szefa</h3>
 
-                    <!-- Tworzenie Ćwiczeń do Atlasu (Tylko dla Szefa - Owner) -->
                     <div id="admin-atlas-form-container" style="display:none; background: rgba(10, 7, 18, 0.6); padding: 14px; border-radius: 14px; margin-bottom: 15px; border: 1px solid var(--card-border);">
                         <h4 style="color: var(--primary); margin-bottom: 8px;">+ Dodaj Nowe Ćwiczenie do Atlasu (Tylko Szef)</h4>
                         <input type="text" id="admin-ex-name" placeholder="Nazwa ćwiczenia">
@@ -507,7 +504,6 @@
                         <button class="btn btn-sm" onclick="adminAddAtlasItem()">Opublikuj w Atlasie</button>
                     </div>
 
-                    <!-- Tworzenie Przepisów VIP (Tylko dla Szefa - Owner) -->
                     <div id="admin-recipe-form-container" style="display:none; background: rgba(10, 7, 18, 0.6); padding: 14px; border-radius: 14px; margin-bottom: 15px; border: 1px solid var(--card-border);">
                         <h4 style="color: var(--gold); margin-bottom: 8px;">+ Dodaj Przepis VIP (Tylko Szef)</h4>
                         <input type="text" id="admin-rec-name" placeholder="Nazwa potrawy">
@@ -563,6 +559,23 @@
             <div style="display:flex; gap:8px; margin-top:10px;">
                 <button class="btn btn-sm" style="flex:1;" onclick="confirmAddAtlasToPlan()">+ Zapisz w Planie</button>
                 <button class="btn btn-outline btn-sm" style="color:var(--danger);" onclick="closeAtlasModal()">Anuluj</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL ZMIANY NICKU (TYLKO DLA OWNER / ADMIN) -->
+    <div id="admin-edit-nickname-modal" class="modal-overlay">
+        <div class="modal-body">
+            <h3 style="color:var(--gold); margin-bottom:12px;">✏️ Zmień Nick Użytkownika</h3>
+            <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:12px;">Funkcja dostępna wyłącznie dla rangi Owner oraz Admin.</p>
+            
+            <input type="hidden" id="modal-edit-uid">
+            <label>Nowy Pseudonim (Nick)</label>
+            <input type="text" id="modal-new-username" placeholder="Wpisz nowy nick...">
+
+            <div style="display:flex; gap:8px; margin-top:10px;">
+                <button class="btn btn-sm" style="flex:1;" onclick="confirmChangeUsername()">Zapisz Nowy Nick</button>
+                <button class="btn btn-outline btn-sm" style="color:var(--danger);" onclick="closeNicknameModal()">Anuluj</button>
             </div>
         </div>
     </div>
@@ -1008,10 +1021,48 @@
             }
         }
 
+        // --- FUNKCJE ZMIANY NICKU DLA OWNER I ADMIN ---
+        function openEditNicknameModal(targetUid, currentName) {
+            if (!['owner', 'admin'].includes(window.currentUserRole)) {
+                return alert("Tylko Owner oraz Administrator mogą zmieniać nicki użytkowników!");
+            }
+            document.getElementById('modal-edit-uid').value = targetUid;
+            document.getElementById('modal-new-username').value = currentName;
+            document.getElementById('admin-edit-nickname-modal').style.display = 'flex';
+        }
+
+        function closeNicknameModal() {
+            document.getElementById('admin-edit-nickname-modal').style.display = 'none';
+        }
+
+        async function confirmChangeUsername() {
+            if (!['owner', 'admin'].includes(window.currentUserRole)) {
+                return alert("Brak uprawnień!");
+            }
+            const targetUid = document.getElementById('modal-edit-uid').value;
+            const newName = document.getElementById('modal-new-username').value.trim();
+
+            if (!newName) return alert("Nick nie może być pusty!");
+
+            try {
+                await window.fbSetDoc(window.fbDoc(window.db, 'projects', 'd1s-gym', 'users', targetUid), { 
+                    username: newName 
+                }, { merge: true });
+                
+                alert("Nick użytkownika został pomyślnie zmieniony!");
+                closeNicknameModal();
+                loadAdminUserList();
+            } catch(e) { 
+                alert("Błąd zmiany nicku: " + e.message); 
+            }
+        }
+
         async function loadAdminUserList() {
             if (!window.db) return;
 
             const isOwner = window.currentUserRole === 'owner';
+            const isAdminOrOwner = ['owner', 'admin'].includes(window.currentUserRole);
+
             document.getElementById('admin-atlas-form-container').style.display = isOwner ? 'block' : 'none';
             document.getElementById('admin-recipe-form-container').style.display = isOwner ? 'block' : 'none';
 
@@ -1033,9 +1084,11 @@
                     const nameToDisplay = data.username || 'Użytkownik';
 
                     let actionControls = '';
-                    if (isOwner) {
-                        actionControls = `
-                            <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+                    if (isAdminOrOwner) {
+                        let roleSelectHtml = '';
+                        // Tylko Owner może zmieniać rangi, Admin może tylko zmieniać nicki (oraz usuwać jeśli chcesz, ale zostawiamy zabezpieczenia rangi pod Ownera)
+                        if (isOwner) {
+                            roleSelectHtml = `
                                 <select onchange="changeUserRole('${userDoc.id}', this.value)" style="width:auto; margin:0; padding:6px 10px; font-size:0.8rem; background:rgba(10, 7, 18, 0.9);">
                                     <option value="user" ${role==='user'?'selected':''}>🏋 Gracz</option>
                                     <option value="vip" ${role==='vip'?'selected':''}>🌟 VIP</option>
@@ -1043,7 +1096,14 @@
                                     <option value="admin" ${role==='admin'?'selected':''}>🛡 Admin</option>
                                     <option value="owner" ${role==='owner'?'selected':''}>👑 Szef</option>
                                 </select>
-                                <button class="btn btn-outline btn-sm" style="color:var(--danger); border-color:var(--danger);" onclick="deleteUserFromDatabase('${userDoc.id}')">🗑 Usunąć</button>
+                            `;
+                        }
+
+                        actionControls = `
+                            <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+                                <button class="btn btn-outline btn-sm" style="color:var(--gold); border-color:var(--gold);" onclick="openEditNicknameModal('${userDoc.id}', '${nameToDisplay}')">✏️ Zmień Nick</button>
+                                ${roleSelectHtml}
+                                ${isOwner ? `<button class="btn btn-outline btn-sm" style="color:var(--danger); border-color:var(--danger);" onclick="deleteUserFromDatabase('${userDoc.id}')">🗑 Usunąć</button>` : ''}
                             </div>
                         `;
                     }
