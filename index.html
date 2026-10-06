@@ -188,8 +188,7 @@
                 const verificationScreen = document.getElementById('verification-screen');
                 
                 if (user) {
-                    // Sprawdzenie czy adres e-mail został zweryfikowany
-                    // (możesz odkomentować linię poniżej, jeśli chcesz wymusić weryfikację)
+                    // Sprawdzamy czy mail został zweryfikowany
                     if (!user.emailVerified) {
                         lockScreen.style.display = 'none';
                         appContent.style.display = 'none';
