@@ -268,7 +268,7 @@
             switch(role) {
                 case 'owner': return '<span class="role-badge role-owner">👑 Szef</span>';
                 case 'admin': return '<span class="role-badge role-admin">🛡 Admin</span>';
-                case 'staff': return '<span class="role-badge role-staff">🛠️️ Staff</span>';
+                case 'staff': return '<span class="role-badge role-staff">🛠 Staff</span>';
                 case 'vip': return '<span class="role-badge role-vip">🌟 VIP</span>';
                 default: return '<span class="role-badge role-user">🏋 Gracz</span>';
             }
@@ -1128,9 +1128,11 @@
         async function createForumPost(content) {
             if (!content) return;
             const displayName = window.currentUsername || 'Użytkownik';
+            const currentRole = window.currentUserRole || 'user';
 
             await window.fbAddDoc(window.fbCollection(window.db, 'projects', 'd1s-gym', 'forum'), {
                 authorName: displayName,
+                authorRole: currentRole,
                 content: content,
                 timestamp: Date.now()
             });
@@ -1189,18 +1191,24 @@
             if(!posts || posts.length===0) { list.innerHTML = '<p style="color:var(--text-muted); text-align:center;">Brak wpisów.</p>'; return; }
             const canModerate = ['owner', 'admin'].includes(window.currentUserRole);
 
-            list.innerHTML = posts.map(p => `
-                <div style="background:rgba(255,255,255,0.02); border:1px solid var(--card-border); padding:10px; border-radius:10px; margin-bottom:8px;">
-                    <div style="display:flex; justify-content:space-between; font-size:0.75rem; color:var(--text-muted); margin-bottom:4px;">
-                        <strong style="color: var(--primary);">${p.authorName || 'Użytkownik'}</strong>
-                        <div>
-                            <span>${new Date(p.timestamp).toLocaleTimeString('pl-PL')}</span>
-                            ${canModerate ? `<button class="btn btn-outline btn-sm" style="color:var(--danger); padding:1px 4px; margin-left:6px;" onclick="deleteForumPostAdmin('${p.id}')">🗑 Usunąć</button>` : ''}
+            list.innerHTML = posts.map(p => {
+                const roleBadge = window.getRoleBadgeHtml ? window.getRoleBadgeHtml(p.authorRole || 'user') : '';
+                return `
+                    <div style="background:rgba(255,255,255,0.02); border:1px solid var(--card-border); padding:10px; border-radius:10px; margin-bottom:8px;">
+                        <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.75rem; color:var(--text-muted); margin-bottom:4px;">
+                            <div style="display:flex; align-items:center; gap:6px;">
+                                ${roleBadge}
+                                <strong style="color: var(--text-main);">${p.authorName || 'Użytkownik'}</strong>
+                            </div>
+                            <div>
+                                <span>${new Date(p.timestamp).toLocaleTimeString('pl-PL')}</span>
+                                ${canModerate ? `<button class="btn btn-outline btn-sm" style="color:var(--text-muted); border-color:var(--card-border); padding:2px 8px; margin-left:6px; font-size:0.7rem;" onclick="deleteForumPostAdmin('${p.id}')">Usuń</button>` : ''}
+                            </div>
                         </div>
+                        <p style="font-size:0.85rem; margin-top:4px;">${p.content}</p>
                     </div>
-                    <p style="font-size:0.85rem;">${p.content}</p>
-                </div>
-            `).join('');
+                `;
+            }).join('');
         }
 
         function addWater(amount) {
