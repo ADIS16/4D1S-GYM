@@ -268,7 +268,7 @@
             switch(role) {
                 case 'owner': return '<span class="role-badge role-owner">👑 Szef</span>';
                 case 'admin': return '<span class="role-badge role-admin">🛡 Admin</span>';
-                case 'staff': return '<span class="role-badge role-staff">🛠️ Staff</span>';
+                case 'staff': return '<span class="role-badge role-staff">🛠️️ Staff</span>';
                 case 'vip': return '<span class="role-badge role-vip">🌟 VIP</span>';
                 default: return '<span class="role-badge role-user">🏋 Gracz</span>';
             }
@@ -1021,7 +1021,6 @@
             }
         }
 
-        // --- FUNKCJE ZMIANY NICKU DLA OWNER I ADMIN ---
         function openEditNicknameModal(targetUid, currentName) {
             if (!['owner', 'admin'].includes(window.currentUserRole)) {
                 return alert("Tylko Owner oraz Administrator mogą zmieniać nicki użytkowników!");
@@ -1086,7 +1085,6 @@
                     let actionControls = '';
                     if (isAdminOrOwner) {
                         let roleSelectHtml = '';
-                        // Tylko Owner może zmieniać rangi, Admin może tylko zmieniać nicki (oraz usuwać jeśli chcesz, ale zostawiamy zabezpieczenia rangi pod Ownera)
                         if (isOwner) {
                             roleSelectHtml = `
                                 <select onchange="changeUserRole('${userDoc.id}', this.value)" style="width:auto; margin:0; padding:6px 10px; font-size:0.8rem; background:rgba(10, 7, 18, 0.9);">
