@@ -175,19 +175,27 @@
                     appContent.style.display = 'block';
 
                     document.getElementById('user-profile').style.display = 'flex';
-                    document.getElementById('user-email').innerText = user.email;
 
                     const userDocRef = doc(db, 'projects', 'd1s-gym', 'users', user.uid);
-                    await setDoc(userDocRef, { email: user.email, isOnline: true, lastSeen: new Date().toLocaleString('pl-PL') }, { merge: true });
 
-                    onSnapshot(userDocRef, (snap) => {
+                    onSnapshot(userDocRef, async (snap) => {
                         dot.className = "dot online";
                         txt.innerText = "Zalogowano";
                         let userData = snap.exists() ? snap.data() : {};
                         
                         userData.role = userData.role || 'user';
-
                         window.currentUserRole = userData.role;
+                        window.currentUsername = userData.username || user.email.split('@')[0];
+
+                        // Domyślne zapisanie/aktualizacja danych użytkownika
+                        await setDoc(userDocRef, { 
+                            username: window.currentUsername,
+                            isOnline: true, 
+                            lastSeen: new Date().toLocaleString('pl-PL') 
+                        }, { merge: true });
+
+                        document.getElementById('user-username-display').innerText = window.currentUsername;
+
                         window.gymData = userData.gym_data || { workouts: [], workoutPlan: {}, xp: 0, level: 1, water: 0, prs: {} };
 
                         document.getElementById('user-role-tag').innerHTML = getRoleBadgeHtml(window.currentUserRole);
@@ -222,7 +230,7 @@
             if (auth && auth.currentUser) {
                 try {
                     await setDoc(doc(db, 'projects', 'd1s-gym', 'users', auth.currentUser.uid), { 
-                        email: auth.currentUser.email,
+                        username: window.currentUsername || 'Użytkownik',
                         role: window.currentUserRole || 'user',
                         gym_data: window.gymData 
                     }, { merge: true });
@@ -283,7 +291,7 @@
                 </div>
                 <div id="user-profile" style="display: none; align-items: center; gap: 8px;">
                     <span id="user-role-tag"></span>
-                    <span id="user-email" style="font-size: 0.75rem; color: var(--text-muted); display: none;"></span>
+                    <span id="user-username-display" style="font-size: 0.85rem; font-weight: 800; color: var(--text-main);"></span>
                     <button class="btn btn-outline btn-sm" onclick="window.authApi.out()" title="Wyloguj">Wyloguj ✕</button>
                 </div>
             </div>
@@ -295,6 +303,7 @@
             <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:20px;">Dostęp do aplikacji jest możliwy wyłącznie dla zalogowanych użytkowników.</p>
             
             <div style="width:100%; max-width:320px;">
+                <input type="text" id="auth-username" placeholder="Twój Nick w aplikacji" style="display: none;">
                 <input type="email" id="auth-email" placeholder="E-mail">
                 <input type="password" id="auth-pass" placeholder="Hasło">
                 <button id="auth-submit" class="btn" style="width: 100%; margin-bottom: 10px;" onclick="handleAuth()">Zaloguj się</button>
@@ -652,15 +661,29 @@
             document.getElementById('modal-title').innerText = isRegisterMode ? 'Utwórz konto w ADIS.GYM' : 'Zaloguj się do ADIS.GYM';
             document.getElementById('auth-submit').innerText = isRegisterMode ? 'Zarejestruj się' : 'Zaloguj się';
             document.getElementById('auth-toggle').innerText = isRegisterMode ? 'Masz już konto? Zaloguj się' : 'Nie masz konta? Zarejestruj się';
+            document.getElementById('auth-username').style.display = isRegisterMode ? 'block' : 'none';
         }
 
         async function handleAuth() {
             const email = document.getElementById('auth-email').value;
             const pass = document.getElementById('auth-pass').value;
+            const username = document.getElementById('auth-username').value;
+
             if (!email || !pass) return alert('Wpisz e-mail i hasło!');
+            if (isRegisterMode && !username) return alert('Podaj swój Nick w aplikacji!');
+
             try {
-                if (isRegisterMode) await window.authApi.reg(email, pass);
-                else await window.authApi.login(email, pass);
+                if (isRegisterMode) {
+                    const res = await window.authApi.reg(email, pass);
+                    if (res && res.user) {
+                        await window.fbSetDoc(window.fbDoc(window.db, 'projects', 'd1s-gym', 'users', res.user.uid), {
+                            username: username,
+                            role: 'user'
+                        }, { merge: true });
+                    }
+                } else {
+                    await window.authApi.login(email, pass);
+                }
             } catch (err) { alert('Błąd: ' + err.message); }
         }
 
@@ -988,7 +1011,6 @@
         async function loadAdminUserList() {
             if (!window.db) return;
 
-            // Zapewnia widoczność formularzy tylko dla Szefa (owner)
             const isOwner = window.currentUserRole === 'owner';
             document.getElementById('admin-atlas-form-container').style.display = isOwner ? 'block' : 'none';
             document.getElementById('admin-recipe-form-container').style.display = isOwner ? 'block' : 'none';
@@ -1008,8 +1030,8 @@
                     const uLvl = data.gym_data?.level || 1;
                     const uXp = data.gym_data?.xp || 0;
                     const role = data.role || 'user';
+                    const nameToDisplay = data.username || 'Użytkownik';
 
-                    // Wyświetlanie przycisków akcji tylko dla rang 'owner'
                     let actionControls = '';
                     if (isOwner) {
                         actionControls = `
@@ -1029,7 +1051,7 @@
                     html += `
                         <div class="list-item" style="flex-wrap:wrap; gap:10px; background:rgba(255,255,255,0.03);">
                             <div style="flex:1; min-width:180px;">
-                                <strong style="color:#fff;">${data.email || 'Brak Emaila'}</strong>
+                                <strong style="color:#fff;">${nameToDisplay}</strong>
                                 <div style="font-size:0.75rem; color:var(--gold); font-weight:700; margin-top:2px;">LVL ${uLvl} (${uXp} XP)</div>
                                 <div style="margin-top:6px;">${window.getRoleBadgeHtml(role)}</div>
                             </div>
@@ -1047,9 +1069,7 @@
 
         async function createForumPost(content) {
             if (!content) return;
-            const fullEmail = document.getElementById('user-email').innerText || 'Anonim';
-            // Wyciąganie wyłącznie nazwy użytkownika (przed znakiem @), aby nie podawać pełnego maila
-            const displayName = fullEmail.includes('@') ? fullEmail.split('@')[0] : fullEmail;
+            const displayName = window.currentUsername || 'Użytkownik';
 
             await window.fbAddDoc(window.fbCollection(window.db, 'projects', 'd1s-gym', 'forum'), {
                 authorName: displayName,
@@ -1114,7 +1134,7 @@
             list.innerHTML = posts.map(p => `
                 <div style="background:rgba(255,255,255,0.02); border:1px solid var(--card-border); padding:10px; border-radius:10px; margin-bottom:8px;">
                     <div style="display:flex; justify-content:space-between; font-size:0.75rem; color:var(--text-muted); margin-bottom:4px;">
-                        <strong>${p.authorName || p.authorEmail || 'Anonim'}</strong>
+                        <strong style="color: var(--primary);">${p.authorName || 'Użytkownik'}</strong>
                         <div>
                             <span>${new Date(p.timestamp).toLocaleTimeString('pl-PL')}</span>
                             ${canModerate ? `<button class="btn btn-outline btn-sm" style="color:var(--danger); padding:1px 4px; margin-left:6px;" onclick="deleteForumPostAdmin('${p.id}')">🗑 Usunąć</button>` : ''}
