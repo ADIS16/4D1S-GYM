@@ -185,7 +185,6 @@
                         txt.innerText = "Zalogowano";
                         let userData = snap.exists() ? snap.data() : {};
                         
-                        // Pobieranie rangi bezpośrednio z bazy danych z domyślną wartością 'user'
                         userData.role = userData.role || 'user';
 
                         window.currentUserRole = userData.role;
@@ -488,20 +487,20 @@
             <!-- ZAKŁADKA 8: PANEL ADMINA -->
             <div id="tab-admin" class="tab-content" style="display: none;">
                 <div class="card card-admin">
-                    <h3 style="color: var(--gold); margin-bottom: 12px;">👑 Panel Zarządzania Admina</h3>
+                    <h3 style="color: var(--gold); margin-bottom: 12px;">👑 Panel Zarządzania Admina / Szefa</h3>
 
-                    <!-- Tworzenie Ćwiczeń do Atlasu -->
-                    <div style="background: rgba(10, 7, 18, 0.6); padding: 14px; border-radius: 14px; margin-bottom: 15px; border: 1px solid var(--card-border);">
-                        <h4 style="color: var(--primary); margin-bottom: 8px;">+ Dodaj Nowe Ćwiczenie do Atlasu</h4>
+                    <!-- Tworzenie Ćwiczeń do Atlasu (Tylko dla Szefa - Owner) -->
+                    <div id="admin-atlas-form-container" style="display:none; background: rgba(10, 7, 18, 0.6); padding: 14px; border-radius: 14px; margin-bottom: 15px; border: 1px solid var(--card-border);">
+                        <h4 style="color: var(--primary); margin-bottom: 8px;">+ Dodaj Nowe Ćwiczenie do Atlasu (Tylko Szef)</h4>
                         <input type="text" id="admin-ex-name" placeholder="Nazwa ćwiczenia">
                         <input type="text" id="admin-ex-part" placeholder="Partia (np. Klatka, Plecy)">
                         <input type="text" id="admin-ex-desc" placeholder="Krótki opis / technika">
                         <button class="btn btn-sm" onclick="adminAddAtlasItem()">Opublikuj w Atlasie</button>
                     </div>
 
-                    <!-- Tworzenie Przepisów VIP -->
-                    <div style="background: rgba(10, 7, 18, 0.6); padding: 14px; border-radius: 14px; margin-bottom: 15px; border: 1px solid var(--card-border);">
-                        <h4 style="color: var(--gold); margin-bottom: 8px;">+ Dodaj Przepis VIP</h4>
+                    <!-- Tworzenie Przepisów VIP (Tylko dla Szefa - Owner) -->
+                    <div id="admin-recipe-form-container" style="display:none; background: rgba(10, 7, 18, 0.6); padding: 14px; border-radius: 14px; margin-bottom: 15px; border: 1px solid var(--card-border);">
+                        <h4 style="color: var(--gold); margin-bottom: 8px;">+ Dodaj Przepis VIP (Tylko Szef)</h4>
                         <input type="text" id="admin-rec-name" placeholder="Nazwa potrawy">
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
                             <input type="number" id="admin-rec-kcal" placeholder="Kcal">
@@ -511,7 +510,7 @@
                         <button class="btn btn-sm" style="background: var(--gold); color: #000;" onclick="adminAddRecipeItem()">Opublikuj Przepis</button>
                     </div>
 
-                    <h4 style="margin-bottom: 10px; color: var(--gold);">👥 Zarządzanie Użytkownikami (<span id="stat-users-count">0</span>):</h4>
+                    <h4 style="margin-bottom: 10px; color: var(--gold);">👥 Podgląd Użytkowników (<span id="stat-users-count">0</span>):</h4>
                     <div id="admin-user-list">Pobieranie listy użytkowników...</div>
                 </div>
             </div>
@@ -574,7 +573,6 @@
     </div>
 
     <script>
-        /* GENERATOR IKONY PNG DLA IPHONE / SAFARI */
         function generateAppleTouchIconPNG() {
             try {
                 const canvas = document.createElement('canvas');
@@ -616,7 +614,6 @@
         const DEFAULT_ATLAS = [{"name": "Wyciskanie sztangi na ławce", "part": "Klatka", "desc": "Kontroluj opuszczanie sztangi."}, {"name": "Podciąganie nachwytem", "part": "Plecy", "desc": "Ściągaj łopatki w dół."}, {"name": "Przysiad ze sztangą", "part": "Nogi", "desc": "Prowadź kolana stabilnie."}];
         const DEFAULT_RECIPES = [{"name": "Owsianka proteinowa", "kcal": 500, "protein": 35, "steps": "Płatki owsiane, odżywka białkowa, banan."}, {"name": "Kurczak z ryżem i warzywami", "kcal": 650, "protein": 50, "steps": "Pierś z kurczaka, ryż parboiled, brokuły."}];
 
-        /* DZWIEK PIKNIECIA STOPERA */
         function playBeep(freq = 800, duration = 0.1) {
             try {
                 const AudioCtx = window.AudioContext || window.webkitAudioContext;
@@ -778,7 +775,6 @@
             document.getElementById('plan-form').reset();
         }
 
-        /* MODAL ATLAS -> PLAN */
         function openAddAtlasToPlanModal(exName) {
             selectedAtlasName = exName;
             document.getElementById('modal-atlas-title').innerText = exName;
@@ -914,6 +910,7 @@
         }
 
         async function adminAddAtlasItem() {
+            if (window.currentUserRole !== 'owner') return alert("Tylko Szef (Owner) może dodawać ćwiczenia!");
             const name = document.getElementById('admin-ex-name').value;
             const part = document.getElementById('admin-ex-part').value;
             const desc = document.getElementById('admin-ex-desc').value;
@@ -928,6 +925,7 @@
         }
 
         async function adminAddRecipeItem() {
+            if (window.currentUserRole !== 'owner') return alert("Tylko Szef (Owner) może dodawać przepisy!");
             const name = document.getElementById('admin-rec-name').value;
             const kcal = document.getElementById('admin-rec-kcal').value;
             const protein = document.getElementById('admin-rec-protein').value;
@@ -944,25 +942,31 @@
         }
 
         async function deleteForumPostAdmin(postId) {
-            if(confirm("Usunąć ten post z czatu?")) {
-                await window.fbDeleteDoc(window.fbDoc(window.db, 'projects', 'd1s-gym', 'forum', postId));
+            if(['owner', 'admin'].includes(window.currentUserRole)) {
+                if(confirm("Usunąć ten post z czatu?")) {
+                    await window.fbDeleteDoc(window.fbDoc(window.db, 'projects', 'd1s-gym', 'forum', postId));
+                }
+            } else {
+                alert("Nie masz uprawnień do usuwania komentarzy!");
             }
         }
 
         async function deleteCustomAtlasItem(itemId) {
+            if(window.currentUserRole !== 'owner') return alert("Tylko Szef (Owner) może usuwać z Atlasu!");
             if(confirm("Usunąć to ćwiczenie z Atlasu?")) {
                 await window.fbDeleteDoc(window.fbDoc(window.db, 'projects', 'd1s-gym', 'custom_atlas', itemId));
             }
         }
 
         async function deleteCustomRecipeItem(itemId) {
+            if(window.currentUserRole !== 'owner') return alert("Tylko Szef (Owner) może usuwać Przepisy VIP!");
             if(confirm("Usunąć ten przepis VIP?")) {
                 await window.fbDeleteDoc(window.fbDoc(window.db, 'projects', 'd1s-gym', 'custom_recipes', itemId));
             }
         }
 
-        /* METODY ZARZĄDZANIA UŻYTKOWNIKAMI W ADMINIE */
         async function changeUserRole(targetUid, newRole) {
+            if(window.currentUserRole !== 'owner') return alert("Tylko Szef (Owner) może zmieniać rangi!");
             try {
                 await window.fbSetDoc(window.fbDoc(window.db, 'projects', 'd1s-gym', 'users', targetUid), { role: newRole }, { merge: true });
                 alert("Ranga została zmieniona na: " + newRole.toUpperCase());
@@ -971,6 +975,7 @@
         }
 
         async function deleteUserFromDatabase(targetUid) {
+            if(window.currentUserRole !== 'owner') return alert("Tylko Szef (Owner) może usuwać użytkowników z bazy!");
             if(confirm("Czy na pewno chcesz usunąć tego użytkownika z bazy?")) {
                 try {
                     await window.fbDeleteDoc(window.fbDoc(window.db, 'projects', 'd1s-gym', 'users', targetUid));
@@ -982,6 +987,12 @@
 
         async function loadAdminUserList() {
             if (!window.db) return;
+
+            // Zapewnia widoczność formularzy tylko dla Szefa (owner)
+            const isOwner = window.currentUserRole === 'owner';
+            document.getElementById('admin-atlas-form-container').style.display = isOwner ? 'block' : 'none';
+            document.getElementById('admin-recipe-form-container').style.display = isOwner ? 'block' : 'none';
+
             try {
                 const snap = await window.fbGetDocs(window.fbCollection(window.db, 'projects', 'd1s-gym', 'users'));
                 const listEl = document.getElementById('admin-user-list');
@@ -998,13 +1009,10 @@
                     const uXp = data.gym_data?.xp || 0;
                     const role = data.role || 'user';
 
-                    html += `
-                        <div class="list-item" style="flex-wrap:wrap; gap:10px; background:rgba(255,255,255,0.03);">
-                            <div style="flex:1; min-width:180px;">
-                                <strong style="color:#fff;">${data.email || 'Brak Emaila'}</strong>
-                                <div style="font-size:0.75rem; color:var(--gold); font-weight:700; margin-top:2px;">LVL ${uLvl} (${uXp} XP)</div>
-                                <div style="margin-top:6px;">${window.getRoleBadgeHtml(role)}</div>
-                            </div>
+                    // Wyświetlanie przycisków akcji tylko dla rang 'owner'
+                    let actionControls = '';
+                    if (isOwner) {
+                        actionControls = `
                             <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
                                 <select onchange="changeUserRole('${userDoc.id}', this.value)" style="width:auto; margin:0; padding:6px 10px; font-size:0.8rem; background:rgba(10, 7, 18, 0.9);">
                                     <option value="user" ${role==='user'?'selected':''}>🏋 Gracz</option>
@@ -1015,6 +1023,17 @@
                                 </select>
                                 <button class="btn btn-outline btn-sm" style="color:var(--danger); border-color:var(--danger);" onclick="deleteUserFromDatabase('${userDoc.id}')">🗑 Usunąć</button>
                             </div>
+                        `;
+                    }
+
+                    html += `
+                        <div class="list-item" style="flex-wrap:wrap; gap:10px; background:rgba(255,255,255,0.03);">
+                            <div style="flex:1; min-width:180px;">
+                                <strong style="color:#fff;">${data.email || 'Brak Emaila'}</strong>
+                                <div style="font-size:0.75rem; color:var(--gold); font-weight:700; margin-top:2px;">LVL ${uLvl} (${uXp} XP)</div>
+                                <div style="margin-top:6px;">${window.getRoleBadgeHtml(role)}</div>
+                            </div>
+                            ${actionControls}
                         </div>
                     `;
                 });
@@ -1028,8 +1047,12 @@
 
         async function createForumPost(content) {
             if (!content) return;
+            const fullEmail = document.getElementById('user-email').innerText || 'Anonim';
+            // Wyciąganie wyłącznie nazwy użytkownika (przed znakiem @), aby nie podawać pełnego maila
+            const displayName = fullEmail.includes('@') ? fullEmail.split('@')[0] : fullEmail;
+
             await window.fbAddDoc(window.fbCollection(window.db, 'projects', 'd1s-gym', 'forum'), {
-                authorEmail: document.getElementById('user-email').innerText || 'Anonim',
+                authorName: displayName,
                 content: content,
                 timestamp: Date.now()
             });
@@ -1040,14 +1063,14 @@
             const search = (document.getElementById('atlas-search')?.value || '').toLowerCase();
             const fullList = [...DEFAULT_ATLAS, ...(window.customAtlas || [])];
             let items = fullList.filter(x => x.name.toLowerCase().includes(search) || x.part.toLowerCase().includes(search));
-            const isAdmin = ['owner', 'admin'].includes(window.currentUserRole);
+            const isOwner = window.currentUserRole === 'owner';
 
             container.innerHTML = items.map(a => `
                 <div class="atlas-item">
                     <div>
                         <div style="display:flex; justify-content:space-between;">
                             <span class="role-badge role-staff">${a.part}</span>
-                            ${(isAdmin && a.id) ? `<button class="btn btn-outline btn-sm" style="color:var(--danger); padding:1px 4px;" onclick="deleteCustomAtlasItem('${a.id}')">🗑</button>` : ''}
+                            ${(isOwner && a.id) ? `<button class="btn btn-outline btn-sm" style="color:var(--danger); padding:1px 4px;" onclick="deleteCustomAtlasItem('${a.id}')">🗑</button>` : ''}
                         </div>
                         <h4 style="margin:6px 0; color:#fff;">${a.name}</h4>
                         <p style="font-size:0.8rem; color:var(--text-muted);">${a.desc}</p>
@@ -1062,13 +1085,13 @@
             const search = (document.getElementById('recipe-search')?.value || '').toLowerCase();
             const fullList = [...DEFAULT_RECIPES, ...(window.customRecipes || [])];
             let items = fullList.filter(x => x.name.toLowerCase().includes(search));
-            const isAdmin = ['owner', 'admin'].includes(window.currentUserRole);
+            const isOwner = window.currentUserRole === 'owner';
 
             container.innerHTML = items.map(r => `
                 <div class="recipe-card">
                     <div style="display:flex; justify-content:space-between; align-items:center;">
                         <h4 style="color:var(--gold); margin-bottom:4px;">${r.name}</h4>
-                        ${(isAdmin && r.id) ? `<button class="btn btn-outline btn-sm" style="color:var(--danger); padding:1px 4px;" onclick="deleteCustomRecipeItem('${r.id}')">🗑</button>` : ''}
+                        ${(isOwner && r.id) ? `<button class="btn btn-outline btn-sm" style="color:var(--danger); padding:1px 4px;" onclick="deleteCustomRecipeItem('${r.id}')">🗑</button>` : ''}
                     </div>
                     <div class="macro-row"><span>🔥 ${r.kcal} kcal</span><span>🥩 ${r.protein}g białka</span></div>
                     <p style="font-size:0.8rem; color:var(--text-muted); margin-top:4px;">${r.steps}</p>
@@ -1086,15 +1109,15 @@
         function renderForumPosts(posts) {
             const list = document.getElementById('forum-posts-list');
             if(!posts || posts.length===0) { list.innerHTML = '<p style="color:var(--text-muted); text-align:center;">Brak wpisów.</p>'; return; }
-            const isAdmin = ['owner', 'admin'].includes(window.currentUserRole);
+            const canModerate = ['owner', 'admin'].includes(window.currentUserRole);
 
             list.innerHTML = posts.map(p => `
                 <div style="background:rgba(255,255,255,0.02); border:1px solid var(--card-border); padding:10px; border-radius:10px; margin-bottom:8px;">
                     <div style="display:flex; justify-content:space-between; font-size:0.75rem; color:var(--text-muted); margin-bottom:4px;">
-                        <strong>${p.authorEmail}</strong>
+                        <strong>${p.authorName || p.authorEmail || 'Anonim'}</strong>
                         <div>
                             <span>${new Date(p.timestamp).toLocaleTimeString('pl-PL')}</span>
-                            ${isAdmin ? `<button class="btn btn-outline btn-sm" style="color:var(--danger); padding:1px 4px; margin-left:6px;" onclick="deleteForumPostAdmin('${p.id}')">🗑 Usunąć</button>` : ''}
+                            ${canModerate ? `<button class="btn btn-outline btn-sm" style="color:var(--danger); padding:1px 4px; margin-left:6px;" onclick="deleteForumPostAdmin('${p.id}')">🗑 Usunąć</button>` : ''}
                         </div>
                     </div>
                     <p style="font-size:0.85rem;">${p.content}</p>
@@ -1120,7 +1143,6 @@
             document.getElementById('water-bar').style.width = Math.min(100, (w/3000)*100) + '%';
         }
 
-        /* STOPER ZE SYGNAŁAMI NA 3, 2, 1 SEKUNDĘ */
         function startTimer(seconds) {
             clearInterval(timerInterval);
             let left = seconds;
