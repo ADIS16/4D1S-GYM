@@ -86,6 +86,7 @@
         .role-staff { background: #38bdf8; color: #0d0d12; }
         .role-vip { background: var(--gold); color: #000; box-shadow: 0 0 10px var(--gold-glow); }
         .role-user { background: #1e1b2e; color: #94a3b8; }
+        .role-custom { background: var(--purple); color: #fff; box-shadow: 0 0 10px var(--purple-glow); }
 
         #auth-lockscreen { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 60vh; text-align: center; }
         #verification-screen { display: none; flex-direction: column; align-items: center; justify-content: center; min-height: 50vh; text-align: center; }
@@ -113,12 +114,6 @@
         .modal-body { background: var(--bg-card); border: 1px solid var(--card-border); border-radius: 20px; padding: 22px; width: 100%; max-width: 420px; box-shadow: 0 10px 30px rgba(0,0,0,0.9); max-height: 90vh; overflow-y: auto; }
 
         .chat-img-preview { max-width: 100%; max-height: 240px; border-radius: 12px; margin-top: 8px; border: 1px solid var(--card-border); object-fit: cover; display: block; }
-        
-        /* Styl animowanego wskaźnika i animacji w atlasie */
-        .anim-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(168, 85, 247, 0.18); border: 1px solid var(--purple); color: #d8b4fe; padding: 4px 10px; border-radius: 8px; font-size: 0.72rem; font-weight: 800; margin-bottom: 8px; box-shadow: 0 0 12px var(--purple-glow); }
-        .pulse-dot { width: 7px; height: 7px; border-radius: 50%; background: #fff; animation: pulseAnim 1.2s infinite ease-in-out; }
-        @keyframes pulseAnim { 0% { transform: scale(1); opacity: 1; box-shadow: 0 0 0 0 rgba(255,255,255,0.7); } 70% { transform: scale(1.5); opacity: 0.5; box-shadow: 0 0 0 6px rgba(255,255,255,0); } 100% { transform: scale(1); opacity: 1; } }
-
         .stat-box { background: rgba(255,255,255,0.03); border: 1px solid var(--card-border); padding: 12px; border-radius: 14px; text-align: center; }
         
         @media (max-width: 600px) {
@@ -237,7 +232,10 @@
                         document.getElementById('tab-admin-btn').style.display = ['owner', 'admin'].includes(window.currentUserRole) ? 'inline-block' : 'none';
                         document.getElementById('tab-vip-btn').style.display = ['owner', 'admin', 'vip'].includes(window.currentUserRole) ? 'inline-block' : 'none';
 
-                        if (['owner', 'admin'].includes(window.currentUserRole)) window.loadAdminUserList();
+                        if (['owner', 'admin'].includes(window.currentUserRole)) {
+                            window.loadCustomRoles();
+                            window.loadAdminUserList();
+                        }
 
                         window.renderAll();
                         window.renderPlan();
@@ -290,6 +288,15 @@
                 window.customRecipes = items;
                 window.renderRecipes();
             });
+
+            onSnapshot(collection(db, 'projects', 'd1s-gym', 'custom_roles_list'), (snap) => {
+                let roles = [];
+                snap.forEach(d => roles.push({ id: d.id, ...d.data() }));
+                window.customRolesList = roles;
+                if (['owner', 'admin'].includes(window.currentUserRole)) {
+                    window.loadAdminUserList();
+                }
+            });
         };
 
         window.listenToForumPosts = function() {
@@ -308,7 +315,8 @@
                 case 'admin': return '<span class="role-badge role-admin">🛡 Admin</span>';
                 case 'staff': return '<span class="role-badge role-staff">🛠 Staff</span>';
                 case 'vip': return '<span class="role-badge role-vip">🌟 VIP</span>';
-                default: return '<span class="role-badge role-user">🏋 Gracz</span>';
+                case 'user': return '<span class="role-badge role-user">🏋 Gracz</span>';
+                default: return `<span class="role-badge role-custom">⭐ ${role}</span>`;
             }
         }
         window.getRoleBadgeHtml = getRoleBadgeHtml;
@@ -427,7 +435,6 @@
                     </div>
 
                     <div>
-                        <!-- Statystyki sesji (Nowość) -->
                         <div class="card" style="margin-bottom: 20px;">
                             <h4 style="color: var(--primary); margin-bottom: 10px;">⚡ Statystyki Treningowe</h4>
                             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
@@ -491,8 +498,8 @@
             <!-- ZAKŁADKA 3: ATLAS -->
             <div id="tab-atlas" class="tab-content" style="display: none;">
                 <div class="card">
-                    <h3 style="color: var(--primary); margin-bottom: 6px;">📚 Profesjonalny Atlas z Instruktażem i Animacją</h3>
-                    <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:12px;">Wizualne aspekty techniczne i kluczowe wskazówki do prawidłowego wykonania.</p>
+                    <h3 style="color: var(--primary); margin-bottom: 6px;">📚 Profesjonalny Atlas Ćwiczeń</h3>
+                    <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:12px;">Kluczowe aspekty techniczne i wskazówki do prawidłowego wykonania.</p>
                     <div style="display:flex; gap:8px; margin-bottom:12px; flex-wrap:wrap;">
                         <input id="atlas-search" type="search" placeholder="🔎 Szukaj ćwiczenia lub partii..." oninput="renderAtlas()" style="margin:0; flex:1; min-width:200px;">
                         <select id="atlas-filter-level" onchange="renderAtlas()" style="width:auto; margin:0; background:rgba(10, 7, 18, 0.9);">
@@ -619,6 +626,16 @@
                 <div class="card card-admin">
                     <h3 style="color: var(--gold); margin-bottom: 12px;">👑 Panel Administratora & Szefa</h3>
 
+                    <!-- SEKCJA TWORZENIA NOWYCH RANG -->
+                    <div style="background: rgba(10, 7, 18, 0.6); padding: 14px; border-radius: 14px; margin-bottom: 15px; border: 1px solid var(--card-border);">
+                        <h4 style="color: var(--gold); margin-bottom: 8px;">✨ Utwórz Nową Własną Rangę</h4>
+                        <p style="font-size:0.75rem; color:var(--text-muted); margin-bottom:8px;">Dodaj unikalną rangę (np. Silacz, Weteran, Trener), którą będziesz mógł przypisać użytkownikom.</p>
+                        <div style="display:flex; gap:8px;">
+                            <input type="text" id="new-role-input" placeholder="Nazwa nowej rangi (np. Silacz)" style="margin:0; flex:1;">
+                            <button class="btn btn-sm" style="background: var(--gold); color: #000; margin:0;" onclick="createNewCustomRole()">+ Stwórz Rangę</button>
+                        </div>
+                    </div>
+
                     <div id="admin-atlas-form-container" style="background: rgba(10, 7, 18, 0.6); padding: 14px; border-radius: 14px; margin-bottom: 15px; border: 1px solid var(--card-border);">
                         <h4 style="color: var(--primary); margin-bottom: 8px;">+ Dodaj Nowe Ćwiczenie do Atlasu</h4>
                         <input type="text" id="admin-ex-name" placeholder="Nazwa ćwiczenia">
@@ -628,7 +645,7 @@
                             <option value="Średniozaawansowany">Średniozaawansowany</option>
                             <option value="Zaawansowany">Zaawansowany</option>
                         </select>
-                        <textarea id="admin-ex-desc" rows="2" placeholder="Technika i kluczowe aspekty (np. Trzymaj łokcie pod kątem 45 stopni...)"></textarea>
+                        <textarea id="admin-ex-desc" rows="2" placeholder="Technika i kluczowe aspekty..."></textarea>
                         <button class="btn btn-sm" onclick="adminAddAtlasItem()">Opublikuj w Atlasie</button>
                     </div>
 
@@ -720,13 +737,16 @@
         </div>
     </div>
 
-    <!-- PŁYWAJĄCY STOPER -->
-    <div class="floating-timer" onclick="unlockAudioContext()">
+    <!-- PŁYWAJĄCY STOPER Z PRZYCISKIEM DŹWIĘKU -->
+    <div class="floating-timer">
         <div>
-            <div style="font-size: 0.65rem; color: var(--text-muted);">STOPER PRZERWY (KLIKNIJ ABY AKTYWOWAĆ DŹWIĘK)</div>
+            <div style="display:flex; align-items:center; gap:8px;">
+                <span style="font-size: 0.65rem; color: var(--text-muted);">STOPER PRZERWY</span>
+                <button id="sound-toggle-btn" class="btn btn-outline btn-sm" style="padding:2px 6px; font-size:0.65rem;" onclick="toggleSoundMaster()">🔊 Dźwięk: WŁ</button>
+            </div>
             <div id="timer-display" style="font-size: 1.2rem; font-weight: 800; color: var(--primary);">00:00</div>
         </div>
-        <div style="display: flex; gap: 4px;" onclick="event.stopPropagation()">
+        <div style="display: flex; gap: 4px;">
             <button class="btn btn-outline btn-sm" onclick="startTimer(30)">30s</button>
             <button class="btn btn-outline btn-sm" onclick="startTimer(60)">60s</button>
             <button class="btn btn-outline btn-sm" onclick="startTimer(90)">90s</button>
@@ -771,54 +791,32 @@
         window.gymData = JSON.parse(localStorage.getItem('adis_gym_data')) || { workouts: [], workoutPlan: {}, xp: 0, level: 1, water: 0, prs: {} };
         window.customAtlas = [];
         window.customRecipes = [];
+        window.customRolesList = [];
         let isRegisterMode = false, timerInterval = null, selectedAtlasName = "", tempForumImageBase64 = null;
+        let soundEnabled = true;
         let globalAudioCtx = null;
 
-        function unlockAudioContext() {
+        function toggleSoundMaster() {
+            soundEnabled = !soundEnabled;
+            const btn = document.getElementById('sound-toggle-btn');
+            if (soundEnabled) {
+                btn.innerText = "🔊 Dźwięk: WŁ";
+                btn.style.borderColor = "var(--primary)";
+                playBeep(600, 0.1);
+            } else {
+                btn.innerText = "🔇 Dźwięk: WYŁ";
+                btn.style.borderColor = "var(--card-border)";
+            }
+        }
+
+        function playBeep(freq = 880, duration = 0.2) {
+            if (!soundEnabled) return;
             try {
                 const AudioCtx = window.AudioContext || window.webkitAudioContext;
                 if (!globalAudioCtx && AudioCtx) {
                     globalAudioCtx = new AudioCtx();
                 }
-                if (globalAudioCtx && globalAudioCtx.state === 'suspended') {
-                    globalAudioCtx.resume();
-                }
-                playBeep(520, 0.1);
-            } catch(e) {}
-        }
-        window.addEventListener('click', unlockAudioContext, { once: true });
-        window.addEventListener('touchstart', unlockAudioContext, { once: true });
-
-        const DEFAULT_ATLAS = [
-            {
-                name: "Wyciskanie sztangi na ławce poziomej", 
-                part: "Klatka", 
-                level: "Średniozaawansowany",
-                desc: "Ustawienie: Łopatki ściągnięte i wciśnięte w ławkę, stopy stabilnie na ziemi. Ruch: Prowadź sztangę do linii środka klatki piersiowej, łokcie lekko pod kątem 45 stopni."
-            }, 
-            {
-                name: "Podciąganie na drążku nachwytem", 
-                part: "Plecy", 
-                level: "Zaawansowany",
-                desc: "Ustawienie: Szeroki chwyt, klatka wypchnięta ku górze. Ruch: Inicjuj ruch z łopatek, ciągnąc łokcie w dół do bioder, klatką dotknij lub zbliż się do drążka."
-            }, 
-            {
-                name: "Przysiad ze sztangą na plecach", 
-                part: "Nogi", 
-                level: "Średniozaawansowany",
-                desc: "Ustawienie: Sztanga stabilnie na trapezie, stopy na szerokość barków. Ruch: Zasuń biodra w tył, kolana prowadź zgodnie z linią palców stóp, zejdź przynajmniej do kąta prostego."
-            }
-        ];
-
-        const DEFAULT_RECIPES = [
-            {name: "Owsianka proteinowa z bananem", kcal: 500, protein: 35, steps: "Płatki owsiane gotowane na mleku, miarka odżywki białkowej, masło orzechowe i plasterki bananów."}, 
-            {name: "Kurczak z ryżem i warzywami na parze", kcal: 650, protein: 50, steps: "Soczysta pierś z kurczaka w przyprawach, ryż parboiled oraz mix chrupiących warzyw polanych oliwą z oliwek."}
-        ];
-
-        function playBeep(freq = 880, duration = 0.2) {
-            try {
-                const AudioCtx = window.AudioContext || window.webkitAudioContext;
-                const ctx = globalAudioCtx || (AudioCtx ? new AudioCtx() : null);
+                const ctx = globalAudioCtx;
                 if (!ctx) return;
                 if (ctx.state === 'suspended') { ctx.resume(); }
                 
@@ -827,7 +825,7 @@
 
                 osc.type = 'sine';
                 osc.frequency.setValueAtTime(freq, ctx.currentTime);
-                gain.gain.setValueAtTime(0.6, ctx.currentTime);
+                gain.gain.setValueAtTime(0.5, ctx.currentTime);
                 gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
 
                 osc.connect(gain);
@@ -847,7 +845,7 @@
             if (tabId === 'tab-progress') { renderProgressChart(); updateStrengthRank(); }
             if (tabId === 'tab-atlas') renderAtlas();
             if (tabId === 'tab-vip') renderRecipes();
-            if (tabId === 'tab-admin') loadAdminUserList();
+            if (tabId === 'tab-admin') { loadCustomRoles(); loadAdminUserList(); }
             if (tabId === 'tab-workout') updateWorkoutStats();
         }
 
@@ -1175,6 +1173,36 @@
             }).join('');
         }
 
+        async function createNewCustomRole() {
+            if (window.currentUserRole !== 'owner') return alert("Tylko Szef może tworzyć nowe rangi!");
+            const roleNameInput = document.getElementById('new-role-input');
+            const roleName = roleNameInput.value.trim();
+            if (!roleName) return alert("Wpisz nazwę nowej rangi!");
+
+            try {
+                await window.fbAddDoc(window.fbCollection(window.db, 'projects', 'd1s-gym', 'custom_roles_list'), {
+                    name: roleName,
+                    createdAt: Date.now()
+                });
+                alert(`Utworzono nową rangę: "${roleName}"! Teraz możesz ją przydzielić użytkownikom.`);
+                roleNameInput.value = '';
+                loadCustomRoles();
+            } catch(e) {
+                alert("Błąd tworzenia rangi: " + e.message);
+            }
+        }
+
+        async function loadCustomRoles() {
+            try {
+                const snap = await window.fbGetDocs(window.fbCollection(window.db, 'projects', 'd1s-gym', 'custom_roles_list'));
+                let roles = [];
+                snap.forEach(d => roles.push(d.data().name));
+                window.customRolesListNames = roles;
+            } catch(e) {
+                window.customRolesListNames = [];
+            }
+        }
+
         async function adminAddAtlasItem() {
             if (!['owner', 'admin'].includes(window.currentUserRole)) return alert("Brak uprawnień!");
             const name = document.getElementById('admin-ex-name').value;
@@ -1306,6 +1334,10 @@
             document.getElementById('admin-recipe-form-container').style.display = isAdminOrOwner ? 'block' : 'none';
 
             try {
+                const rolesSnap = await window.fbGetDocs(window.fbCollection(window.db, 'projects', 'd1s-gym', 'custom_roles_list'));
+                let customRoles = [];
+                rolesSnap.forEach(d => customRoles.push(d.data().name));
+
                 const snap = await window.fbGetDocs(window.fbCollection(window.db, 'projects', 'd1s-gym', 'users'));
                 const listEl = document.getElementById('admin-user-list');
                 let total = snap.size, html = '';
@@ -1327,6 +1359,7 @@
                     if (isAdminOrOwner) {
                         let roleSelectHtml = '';
                         if (isOwner) {
+                            let customOptionsHtml = customRoles.map(cr => `<option value="${cr}" ${role===cr?'selected':''}>⭐ ${cr}</option>`).join('');
                             roleSelectHtml = `
                                 <select onchange="changeUserRole('${userDoc.id}', this.value)" style="width:auto; margin:0; padding:6px 10px; font-size:0.8rem; background:rgba(10, 7, 18, 0.9);">
                                     <option value="user" ${role==='user'?'selected':''}>🏋 Gracz</option>
@@ -1334,6 +1367,7 @@
                                     <option value="staff" ${role==='staff'?'selected':''}>🛠 Staff</option>
                                     <option value="admin" ${role==='admin'?'selected':''}>🛡 Admin</option>
                                     <option value="owner" ${role==='owner'?'selected':''}>👑 Szef</option>
+                                    ${customOptionsHtml}
                                 </select>
                             `;
                         }
@@ -1403,7 +1437,8 @@
                 content: content || '',
                 imageBase64: tempForumImageBase64 || null,
                 timestamp: Date.now(),
-                likes: 0
+                likes: 0,
+                likedBy: []
             });
 
             clearForumImage();
@@ -1416,10 +1451,20 @@
             createForumPost(content);
         }
 
-        async function likeForumPost(postId, currentLikes) {
+        async function likeForumPost(postId, currentLikes, likedByArr) {
+            if (!window.auth || !window.auth.currentUser) return alert("Musisz być zalogowany, aby polubić post!");
+            const uid = window.auth.currentUser.uid;
+            let list = likedByArr || [];
+
+            if (list.includes(uid)) {
+                return alert("Już polubiłeś ten post!");
+            }
+
+            list.push(uid);
             try {
                 await window.fbSetDoc(window.fbDoc(window.db, 'projects', 'd1s-gym', 'forum', postId), {
-                    likes: (currentLikes || 0) + 1
+                    likes: (currentLikes || 0) + 1,
+                    likedBy: list
                 }, { merge: true });
             } catch(e) {}
         }
@@ -1428,10 +1473,14 @@
             const list = document.getElementById('forum-posts-list');
             if(!posts || posts.length===0) { list.innerHTML = '<p style="color:var(--text-muted); text-align:center;">Brak wpisów na czacie.</p>'; return; }
             const canModerate = ['owner', 'admin'].includes(window.currentUserRole) && (window.permissions?.canDeletePosts !== false || window.currentUserRole === 'owner');
+            const currentUid = window.auth?.currentUser?.uid || '';
 
             list.innerHTML = posts.map(p => {
                 const roleBadge = window.getRoleBadgeHtml ? window.getRoleBadgeHtml(p.authorRole || 'user') : '';
                 const likes = p.likes || 0;
+                const likedBy = p.likedBy || [];
+                const hasLiked = likedBy.includes(currentUid);
+
                 return `
                     <div style="background:rgba(255,255,255,0.02); border:1px solid var(--card-border); padding:12px; border-radius:12px; margin-bottom:10px;">
                         <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.75rem; color:var(--text-muted); margin-bottom:6px;">
@@ -1448,12 +1497,38 @@
                         ${p.content ? `<p style="font-size:0.88rem; margin-top:4px; line-height:1.4;">${p.content}</p>` : ''}
                         ${p.imageBase64 ? `<img src="${p.imageBase64}" class="chat-img-preview" alt="Zdjęcie progresu">` : ''}
                         <div style="margin-top:8px; display:flex; align-items:center; gap:6px;">
-                            <button class="btn btn-outline btn-sm" style="padding:4px 10px; font-size:0.75rem;" onclick="likeForumPost('${p.id}', ${likes})">❤️ ${likes}</button>
+                            <button class="btn btn-outline btn-sm" style="padding:4px 10px; font-size:0.75rem; ${hasLiked?'border-color:var(--primary); color:var(--primary);':''}" onclick="likeForumPost('${p.id}', ${likes}, ${JSON.stringify(likedBy).replace(/"/g, '&quot;')})">❤️ ${likes}</button>
                         </div>
                     </div>
                 `;
             }).join('');
         }
+
+        const DEFAULT_ATLAS = [
+            {
+                name: "Wyciskanie sztangi na ławce poziomej", 
+                part: "Klatka", 
+                level: "Średniozaawansowany",
+                desc: "Ustawienie: Łopatki ściągnięte i wciśnięte w ławkę, stopy stabilnie na ziemi. Ruch: Prowadź sztangę do linii środka klatki piersiowej, łokcie lekko pod kątem 45 stopni."
+            }, 
+            {
+                name: "Podciąganie na drążku nachwytem", 
+                part: "Plecy", 
+                level: "Zaawansowany",
+                desc: "Ustawienie: Szeroki chwyt, klatka wypchnięta ku górze. Ruch: Inicjuj ruch z łopatek, ciągnąc łokcie w dół do bioder, klatką dotknij lub zbliż się do drążka."
+            }, 
+            {
+                name: "Przysiad ze sztangą na plecach", 
+                part: "Nogi", 
+                level: "Średniozaawansowany",
+                desc: "Ustawienie: Sztanga stabilnie na trapezie, stopy na szerokość barków. Ruch: Zasuń biodra w tył, kolana prowadź zgodnie z linią palców stóp, zejdź przynajmniej do kąta prostego."
+            }
+        ];
+
+        const DEFAULT_RECIPES = [
+            {name: "Owsianka proteinowa z bananem", kcal: 500, protein: 35, steps: "Płatki owsiane gotowane na mleku, miarka odżywki białkowej, masło orzechowe i plasterki bananów."}, 
+            {name: "Kurczak z ryżem i warzywami na parze", kcal: 650, protein: 50, steps: "Soczysta pierś z kurczaka w przyprawach, ryż parboiled oraz mix chrupiących warzyw polanych oliwą z oliwek."}
+        ];
 
         function renderAtlas() {
             const container = document.getElementById('atlas-container');
@@ -1475,9 +1550,8 @@
                             <span class="role-badge role-staff">${a.part}</span>
                             ${(isAdmin && a.id) ? `<button class="btn btn-outline btn-sm" style="color:var(--danger); padding:1px 6px;" onclick="deleteCustomAtlasItem('${a.id}')">🗑</button>` : ''}
                         </div>
-                        <div class="anim-badge" style="margin-top:8px;"><div class="pulse-dot"></div> Instruktaż & Animacja (Live)</div>
-                        <h4 style="margin:6px 0; color:#fff; font-size:1rem;">${a.name}</h4>
-                        <div style="font-size:0.7rem; color:var(--gold); margin-bottom:4px; font-weight:700;">Poziom: ${a.level || 'Średniozaawansowany'}</div>
+                        <h4 style="margin:8px 0; color:#fff; font-size:1rem;">${a.name}</h4>
+                        <div style="font-size:0.7rem; color:var(--gold); margin-bottom:6px; font-weight:700;">Poziom: ${a.level || 'Średniozaawansowany'}</div>
                         <p style="font-size:0.8rem; color:var(--text-muted); line-height:1.4;">${a.desc}</p>
                     </div>
                     <button class="btn btn-sm" style="margin-top:12px; font-size:0.75rem; width:100%;" onclick="openAddAtlasToPlanModal('${a.name}')">+ Dodaj do Planu</button>
@@ -1536,7 +1610,6 @@
             let left = seconds;
             updateTimerDisplay(left);
             
-            unlockAudioContext();
             playBeep(440, 0.08);
 
             timerInterval = setInterval(() => {
@@ -1550,7 +1623,7 @@
                 if(left <= 0) {
                     clearInterval(timerInterval);
                     playBeep(1046, 0.6);
-                    if(navigator.vibrate) navigator.vibrate([300, 100, 300, 100, 400]);
+                    if(soundEnabled && navigator.vibrate) navigator.vibrate([300, 100, 300, 100, 400]);
                 }
             }, 1000);
         }
@@ -1607,6 +1680,7 @@
         }
 
         window.loadAdminUserList = loadAdminUserList;
+        window.loadCustomRoles = loadCustomRoles;
 
         renderAll();
         renderPlan();
