@@ -5,13 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>ADIS.GYM - Ultimate Fitness Suite</title>
     
-    <!-- PWA Config dla iOS & Android -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="ADIS.GYM">
     <meta name="theme-color" content="#09070f">
     
-    <!-- Dynamiczne Logo Apple Touch Icon dla iPhone -->
     <link id="apple-icon" rel="apple-touch-icon" href="">
     <link id="fav-icon" rel="icon" type="image/png" href="">
 
@@ -114,6 +112,11 @@
         .modal-body { background: var(--bg-card); border: 1px solid var(--card-border); border-radius: 20px; padding: 22px; width: 100%; max-width: 420px; box-shadow: 0 10px 30px rgba(0,0,0,0.9); max-height: 90vh; overflow-y: auto; }
 
         .chat-img-preview { max-width: 100%; max-height: 220px; border-radius: 12px; margin-top: 8px; border: 1px solid var(--card-border); object-fit: cover; display: block; }
+        
+        /* Styl animowanego wskaźnika w atlasie */
+        .anim-badge { display: inline-flex; align-items: center; gap: 4px; background: rgba(168, 85, 247, 0.15); border: 1px solid var(--purple); color: #d8b4fe; padding: 3px 8px; border-radius: 6px; font-size: 0.7rem; font-weight: 800; margin-bottom: 6px; }
+        .pulse-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--purple); animation: pulseAnim 1.5s infinite; }
+        @keyframes pulseAnim { 0% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.6); opacity: 0.4; } 100% { transform: scale(1); opacity: 1; } }
 
         @media (max-width: 600px) {
             body { padding: 10px; padding-bottom: 120px; }
@@ -467,8 +470,8 @@
             <!-- ZAKŁADKA 3: ATLAS -->
             <div id="tab-atlas" class="tab-content" style="display: none;">
                 <div class="card">
-                    <h3 style="color: var(--primary); margin-bottom: 6px;">📚 Profesjonalny Atlas Ćwiczeń</h3>
-                    <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:12px;">Sprawdź technikę i kluczowe aspekty wykonania każdego ćwiczenia.</p>
+                    <h3 style="color: var(--primary); margin-bottom: 6px;">📚 Profesjonalny Atlas z Instruktażem i Animacją</h3>
+                    <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:12px;">Wizualne aspekty techniczne i kluczowe wskazówki do prawidłowego wykonania.</p>
                     <input id="atlas-search" type="search" placeholder="🔎 Szukaj ćwiczenia lub partii..." oninput="renderAtlas()">
                     <div class="grid-3" id="atlas-container" style="margin-top: 10px;"></div>
                 </div>
@@ -478,10 +481,10 @@
             <div id="tab-forum" class="tab-content" style="display: none;">
                 <div class="card">
                     <h3 style="color: var(--primary); margin-bottom: 10px;">💬 Czat & Pochwal się Progresem</h3>
-                    <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:12px;">Kliknij ikonę aparatu, aby zrobić zdjęcie bezpośrednio telefonem / kamerą lub wrzuć fotkę formy i podziel się wynikiem ze społecznością!</p>
+                    <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:12px;">Kliknij ikonę aparatu, aby zrobić zdjęcie bezpośrednio telefonem / kamerą lub wrzuć fotkę formy wraz z opisem treningu!</p>
                     
                     <form onsubmit="handleForumSubmit(event)" style="margin-bottom: 15px;">
-                        <textarea id="forum-content" rows="2" placeholder="Co dzisiaj wpadło na treningu? Podziel się formą..." required></textarea>
+                        <textarea id="forum-content" rows="2" placeholder="Co dzisiaj wpadło na treningu? Podziel się formą..."></textarea>
                         
                         <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 8px; flex-wrap: wrap;">
                             <label class="btn btn-outline btn-sm" style="cursor: pointer; margin:0; display: inline-flex; align-items: center; gap: 6px;">
@@ -568,7 +571,7 @@
                 <div class="card card-admin">
                     <h3 style="color: var(--gold); margin-bottom: 12px;">👑 Panel Administratora & Szefa</h3>
 
-                    <div id="admin-atlas-form-container" style="display:none; background: rgba(10, 7, 18, 0.6); padding: 14px; border-radius: 14px; margin-bottom: 15px; border: 1px solid var(--card-border);">
+                    <div id="admin-atlas-form-container" style="background: rgba(10, 7, 18, 0.6); padding: 14px; border-radius: 14px; margin-bottom: 15px; border: 1px solid var(--card-border);">
                         <h4 style="color: var(--primary); margin-bottom: 8px;">+ Dodaj Nowe Ćwiczenie do Atlasu</h4>
                         <input type="text" id="admin-ex-name" placeholder="Nazwa ćwiczenia">
                         <input type="text" id="admin-ex-part" placeholder="Partia (np. Klatka, Plecy)">
@@ -576,7 +579,7 @@
                         <button class="btn btn-sm" onclick="adminAddAtlasItem()">Opublikuj w Atlasie</button>
                     </div>
 
-                    <div id="admin-recipe-form-container" style="display:none; background: rgba(10, 7, 18, 0.6); padding: 14px; border-radius: 14px; margin-bottom: 15px; border: 1px solid var(--card-border);">
+                    <div id="admin-recipe-form-container" style="background: rgba(10, 7, 18, 0.6); padding: 14px; border-radius: 14px; margin-bottom: 15px; border: 1px solid var(--card-border);">
                         <h4 style="color: var(--gold); margin-bottom: 8px;">+ Dodaj Przepis VIP</h4>
                         <input type="text" id="admin-rec-name" placeholder="Nazwa potrawy">
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
@@ -587,7 +590,7 @@
                         <button class="btn btn-sm" style="background: var(--gold); color: #000;" onclick="adminAddRecipeItem()">Opublikuj Przepis</button>
                     </div>
 
-                    <h4 style="margin-bottom: 10px; color: var(--gold);">👥 Zarządzanie Użytkownikami (<span id="stat-users-count">0</span>):</h4>
+                    <h4 style="margin-bottom: 10px; color: var(--gold);">👥 Zarządzanie Użytkownikami i Rolami (<span id="stat-users-count">0</span>):</h4>
                     <div id="admin-user-list">Pobieranie listy użytkowników...</div>
                 </div>
             </div>
@@ -638,8 +641,8 @@
     <!-- MODAL ZMIANY NICKU I KONTROLI UPRAWNIEN -->
     <div id="admin-edit-nickname-modal" class="modal-overlay">
         <div class="modal-body">
-            <h3 style="color:var(--gold); margin-bottom:8px;">⚙️ Zarządzanie Użytkownikiem</h3>
-            <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:12px;">Edycja nicku oraz kontrola uprawnień administratora.</p>
+            <h3 style="color:var(--gold); margin-bottom:8px;">⚙️ Zarządzanie Użytkownikiem i Rolami</h3>
+            <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:12px;">Edycja nicku oraz pełna kontrola uprawnień.</p>
             
             <input type="hidden" id="modal-edit-uid">
             <label>Pseudonim (Nick)</label>
@@ -740,18 +743,21 @@
             {name: "Kurczak z ryżem i warzywami na parze", kcal: 650, protein: 50, steps: "Soczysta pierś z kurczaka w przyprawach, ryż parboiled oraz mix chrupiących warzyw polanych oliwą z oliwek."}
         ];
 
-        function playBeep(freq = 880, duration = 0.15) {
+        // Naprawiona obsługa dźwięku na telefonach (AudioContext z aktywacją przez interakcję)
+        function playBeep(freq = 880, duration = 0.2) {
             try {
-                const AudioCtx = window.AudioContext || window.webkitAudioContext;
-                if (!AudioCtx) return;
-                const ctx = new AudioCtx();
-                if (ctx.state === 'suspended') { ctx.resume(); }
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                if (!AudioContext) return;
+                const ctx = new AudioContext();
+                if (ctx.state === 'suspended') {
+                    ctx.resume();
+                }
                 const osc = ctx.createOscillator();
                 const gain = ctx.createGain();
 
                 osc.type = 'sine';
                 osc.frequency.setValueAtTime(freq, ctx.currentTime);
-                gain.gain.setValueAtTime(0.4, ctx.currentTime);
+                gain.gain.setValueAtTime(0.5, ctx.currentTime);
                 gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
 
                 osc.connect(gain);
@@ -828,7 +834,6 @@
         }
 
         function getXpNeededForLevel(level) {
-            // Zbalansowana krzywa poziomu: Lvl 1->2 = 200 XP, Lvl 2->3 = 280 XP, rośnie progresywnie
             return Math.min(25000, 200 + (level - 1) * 85 + Math.floor(Math.pow(level, 1.3) * 15));
         }
 
@@ -891,7 +896,7 @@
             }
             list.innerHTML = window.gymData.workouts.map(w => `
                 <div class="list-item" style="flex-direction:column; align-items:flex-start; gap:4px;">
-                    <div style="display:flex; justify-content:space-width; width:100%; justify-content:space-between; align-items:center;">
+                    <div style="display:flex; width:100%; justify-content:space-between; align-items:center;">
                         <strong>${w.name}</strong>
                         <div style="display: flex; align-items: center; gap: 8px;">
                             <span style="font-weight: 800; color: var(--primary);">${w.weight} kg × ${w.reps} pow (RIR: ${w.rir})</span>
@@ -1297,13 +1302,13 @@
             });
 
             clearForumImage();
+            document.getElementById('forum-content').value = '';
         }
 
         function handleForumSubmit(e) {
             e.preventDefault();
             const content = document.getElementById('forum-content').value;
             createForumPost(content);
-            document.getElementById('forum-content').value = '';
         }
 
         function renderForumPosts(posts) {
@@ -1346,7 +1351,8 @@
                             <span class="role-badge role-staff">${a.part}</span>
                             ${(isAdmin && a.id) ? `<button class="btn btn-outline btn-sm" style="color:var(--danger); padding:1px 6px;" onclick="deleteCustomAtlasItem('${a.id}')">🗑</button>` : ''}
                         </div>
-                        <h4 style="margin:8px 0; color:#fff; font-size:1rem;">${a.name}</h4>
+                        <div class="anim-badge" style="margin-top:6px;"><div class="pulse-dot"></div> Instruktaż & Animacja</div>
+                        <h4 style="margin:6px 0; color:#fff; font-size:1rem;">${a.name}</h4>
                         <p style="font-size:0.8rem; color:var(--text-muted); line-height:1.4;">${a.desc}</p>
                     </div>
                     <button class="btn btn-sm" style="margin-top:12px; font-size:0.75rem; width:100%;" onclick="openAddAtlasToPlanModal('${a.name}')">+ Dodaj do Planu</button>
@@ -1396,7 +1402,7 @@
             let left = seconds;
             updateTimerDisplay(left);
             
-            // Inicjalizacja Audio Context przy starcie stopera (wymóg przeglądarek mobilnych)
+            // Inicjalizacja dźwięku w geście użytkownika
             playBeep(440, 0.05);
 
             timerInterval = setInterval(() => {
@@ -1404,13 +1410,13 @@
                 updateTimerDisplay(left);
 
                 if (left === 3 || left === 2 || left === 1) {
-                    playBeep(700, 0.12);
+                    playBeep(700, 0.15);
                 }
 
                 if(left <= 0) {
                     clearInterval(timerInterval);
-                    playBeep(1200, 0.5);
-                    if(navigator.vibrate) navigator.vibrate([250, 100, 250, 100, 300]);
+                    playBeep(1046, 0.6);
+                    if(navigator.vibrate) navigator.vibrate([300, 100, 300, 100, 400]);
                 }
             }, 1000);
         }
@@ -1433,7 +1439,7 @@
                 type: 'line',
                 data: {
                     labels: workouts.map(w => w.date).reverse(),
-                    datasets: [{ label: 'Cężar (kg)', data: workouts.map(w => parseFloat(w.weight)).reverse(), borderColor: '#ec4899', backgroundColor: 'rgba(236, 72, 153, 0.2)', fill: true, tension: 0.2 }]
+                    datasets: [{ label: 'Ciężar (kg)', data: workouts.map(w => parseFloat(w.weight)).reverse(), borderColor: '#ec4899', backgroundColor: 'rgba(236, 72, 153, 0.2)', fill: true, tension: 0.2 }]
                 },
                 options: { responsive: true }
             });
