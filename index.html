@@ -44,7 +44,7 @@
             color: var(--text-main); 
             min-height: 100vh; 
             padding: 16px; 
-            padding-bottom: 120px; 
+            padding-bottom: 130px; 
             background-image: 
                 radial-gradient(circle at 10% 0%, rgba(236, 72, 153, 0.15), transparent 45%),
                 radial-gradient(circle at 90% 20%, rgba(168, 85, 247, 0.15), transparent 45%);
@@ -94,27 +94,29 @@
         
         .list-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: rgba(255,255,255,0.02); border-radius: 14px; margin-bottom: 10px; border: 1px solid var(--card-border); font-size: 0.88rem; }
         
-        .day-card { background: rgba(255,255,255,0.02); border: 1px solid var(--card-border); border-radius: 16px; padding: 16px; }
+        .day-card { background: rgba(255,255,255,0.02); border: 1px solid var(--card-border); border-radius: 16px; padding: 16px; margin-bottom: 12px; }
         .day-header { font-weight: 800; color: var(--primary); border-bottom: 1px solid var(--card-border); padding-bottom: 8px; margin-bottom: 12px; display: flex; justify-content: space-between; }
         .exercise-item { background: rgba(10, 7, 18, 0.6); padding: 14px; border-radius: 12px; margin-bottom: 10px; border-left: 4px solid var(--primary); }
 
-        .sets-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
-        .set-chip { background: rgba(255,255,255,0.04); border: 1px solid var(--card-border); padding: 6px 10px; border-radius: 10px; font-size: 0.75rem; display: flex; align-items: center; gap: 4px; }
+        .sets-grid { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
+        .set-row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; background: rgba(255,255,255,0.03); border: 1px solid var(--card-border); padding: 8px; border-radius: 10px; font-size: 0.8rem; }
 
         .floating-timer { position: fixed; bottom: 15px; left: 15px; right: 15px; background: rgba(14, 10, 24, 0.95); border: 1px solid var(--card-border); border-radius: 22px; padding: 12px 18px; box-shadow: 0 10px 35px rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: space-between; z-index: 90; backdrop-filter: blur(14px); }
         
         .water-progress { width: 100%; height: 16px; background: rgba(0,0,0,0.6); border-radius: 10px; overflow: hidden; border: 1px solid var(--card-border); margin: 8px 0; }
         .water-bar { height: 100%; width: 0%; background: var(--grad-main); transition: width 0.3s; }
 
-        .atlas-item,.recipe-card { background:rgba(10, 7, 18, 0.6); border:1px solid var(--card-border); border-radius:16px; padding:16px; display:flex; flex-direction:column; justify-content:space-between; }
-        .macro-row { display:flex; gap:6px; flex-wrap:wrap; margin:8px 0; }
-        .macro-row span { font-size:.72rem; font-weight:700; padding:4px 8px; border-radius:8px; background:rgba(255,255,255,.05); border: 1px solid var(--card-border); }
+        .atlas-item, .recipe-card { background: rgba(10, 7, 18, 0.6); border: 1px solid var(--card-border); border-radius: 16px; padding: 16px; display: flex; flex-direction: column; justify-content: space-between; }
+        .macro-row { display: flex; gap: 6px; flex-wrap: wrap; margin: 8px 0; }
+        .macro-row span { font-size: .72rem; font-weight: 700; padding: 4px 8px; border-radius: 8px; background: rgba(255,255,255,.05); border: 1px solid var(--card-border); }
 
-        .modal-overlay { position: fixed; top:0; left:0; right:0; bottom:0; background: rgba(0,0,0,0.8); backdrop-filter: blur(8px); display:none; align-items:center; justify-content:center; z-index:999; padding:16px; }
-        .modal-body { background: var(--bg-card); border: 1px solid var(--card-border); border-radius:20px; padding:22px; width:100%; max-width:400px; box-shadow: 0 10px 30px rgba(0,0,0,0.9); }
+        .modal-overlay { position: fixed; top:0; left:0; right:0; bottom:0; background: rgba(0,0,0,0.8); backdrop-filter: blur(8px); display: none; align-items: center; justify-content: center; z-index: 999; padding: 16px; }
+        .modal-body { background: var(--bg-card); border: 1px solid var(--card-border); border-radius: 20px; padding: 22px; width: 100%; max-width: 420px; box-shadow: 0 10px 30px rgba(0,0,0,0.9); max-height: 90vh; overflow-y: auto; }
+
+        .chat-img-preview { max-width: 100%; max-height: 220px; border-radius: 12px; margin-top: 8px; border: 1px solid var(--card-border); object-fit: cover; display: block; }
 
         @media (max-width: 600px) {
-            body { padding: 10px; padding-bottom: 110px; }
+            body { padding: 10px; padding-bottom: 120px; }
             .card { padding: 16px; border-radius: 16px; }
         }
     </style>
@@ -166,7 +168,7 @@
             resendVerification: async () => {
                 if (auth && auth.currentUser) {
                     await sendEmailVerification(auth.currentUser);
-                    alert("Wysłano ponownie e-mail z linkiem weryfikacyjnym! Sprawdź skrzynkę odbiorczą oraz folder SPAM.");
+                    alert("Wysłano ponownie e-mail weryfikacyjny! Sprawdź skrzynkę odbiorczą oraz folder SPAM.");
                 }
             },
             out: async () => {
@@ -188,7 +190,6 @@
                 const verificationScreen = document.getElementById('verification-screen');
                 
                 if (user) {
-                    // Sprawdzamy czy mail został zweryfikowany
                     if (!user.emailVerified) {
                         lockScreen.style.display = 'none';
                         appContent.style.display = 'none';
@@ -202,7 +203,6 @@
                     verificationScreen.style.display = 'none';
                     lockScreen.style.display = 'none';
                     appContent.style.display = 'block';
-
                     document.getElementById('user-profile').style.display = 'flex';
 
                     const userDocRef = doc(db, 'projects', 'd1s-gym', 'users', user.uid);
@@ -215,6 +215,7 @@
                         userData.role = userData.role || 'user';
                         window.currentUserRole = userData.role;
                         window.currentUsername = userData.username || user.email.split('@')[0];
+                        window.permissions = userData.permissions || { canBlock: true, canDeletePosts: true };
 
                         await setDoc(userDocRef, { 
                             username: window.currentUsername,
@@ -223,8 +224,7 @@
                         }, { merge: true });
 
                         document.getElementById('user-username-display').innerText = window.currentUsername;
-
-                        window.gymData = userData.gym_data || { workouts: [], workoutPlan: [], xp: 0, level: 1, water: 0, prs: {} };
+                        window.gymData = userData.gym_data || { workouts: [], workoutPlan: {}, xp: 0, level: 1, water: 0, prs: {} };
 
                         document.getElementById('user-role-tag').innerHTML = getRoleBadgeHtml(window.currentUserRole);
 
@@ -330,7 +330,7 @@
         <div id="verification-screen" class="card">
             <h2 style="margin-bottom: 8px; color: var(--primary);">Potwierdź swój adres e-mail</h2>
             <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:20px; max-width: 380px;">
-                Na Twój adres e-mail została wysłana wiadomość z linkiem aktywacyjnym. Kliknij w niego, aby aktywować konto i uzyskać pełny dostęp do aplikacji.
+                Na Twój adres e-mail została wysłana wiadomość z linkiem aktywacyjnym. Kliknij w niego, aby aktywować konto.
             </p>
             <div style="display: flex; flex-direction: column; gap: 10px; width: 100%; max-width: 280px;">
                 <button class="btn" onclick="location.reload()">Sprawdzam / Odśwież</button>
@@ -361,8 +361,8 @@
                 <button class="tab-btn active" onclick="switchTab('tab-workout')">💪 Dziennik</button>
                 <button class="tab-btn" onclick="switchTab('tab-plan')">📅 Plan Treningowy</button>
                 <button class="tab-btn" onclick="switchTab('tab-atlas')">📚 Atlas</button>
-                <button class="tab-btn" onclick="switchTab('tab-forum')">💬 Czat</button>
-                <button class="tab-btn" onclick="switchTab('tab-progress')">📊 Progress & LVL</button>
+                <button class="tab-btn" onclick="switchTab('tab-forum')">💬 Czat i Progres</button>
+                <button class="tab-btn" onclick="switchTab('tab-progress')">📊 Wyniki & LVL</button>
                 <button class="tab-btn" onclick="switchTab('tab-calc')">🧮 Kalorie</button>
                 <button id="tab-vip-btn" class="tab-btn" style="display: none; color: var(--gold);" onclick="switchTab('tab-vip')">🌟 VIP Przepisy</button>
                 <button id="tab-admin-btn" class="tab-btn" style="display: none; color: var(--owner-color);" onclick="switchTab('tab-admin')">👑 Admin</button>
@@ -373,7 +373,7 @@
                 <div class="grid">
                     <div>
                         <div class="card">
-                            <h3 style="margin-bottom: 12px; color: var(--primary);">Dodaj Serie</h3>
+                            <h3 style="margin-bottom: 12px; color: var(--primary);">Dodaj Serię w Dzienniku</h3>
                             <form id="workout-form" onsubmit="addExercise(event)">
                                 <label>Ćwiczenie</label>
                                 <input type="text" id="ex-name" placeholder="np. Wyciskanie na ławce" required>
@@ -389,7 +389,18 @@
                                     </div>
                                 </div>
 
-                                <button type="submit" class="btn" style="width: 100%; margin-top: 5px;">Zapisz Serie</button>
+                                <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 8px;">
+                                    <div>
+                                        <label>RIR (Zapas)</label>
+                                        <input type="number" id="ex-rir" min="0" max="5" placeholder="2">
+                                    </div>
+                                    <div>
+                                        <label>Notatki / Uwagi</label>
+                                        <input type="text" id="ex-note" placeholder="np. Dobra technika">
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn" style="width: 100%; margin-top: 5px;">Zapisz Serię</button>
                             </form>
                         </div>
 
@@ -419,7 +430,7 @@
             <div id="tab-plan" class="tab-content" style="display: none;">
                 <div class="card">
                     <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 12px;">
-                        <h3 style="color: var(--primary);">📅 Swobodny Plan Treningowy</h3>
+                        <h3 style="color: var(--primary);">📅 Plan Treningowy z RIR</h3>
                         <button class="btn btn-outline btn-sm" onclick="generatePresetPlanPPL()">⚡ Wgraj Przykładowy PPL</button>
                     </div>
                     
@@ -442,11 +453,11 @@
                                 <input type="text" id="plan-ex-name" placeholder="np. Przysiad ze sztangą" required>
                             </div>
                             <div>
-                                <label>Ilość Seri na Start</label>
+                                <label>Ilość Serii</label>
                                 <input type="number" id="plan-sets-count" placeholder="3" value="3" required>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-sm" style="margin-top: 5px;">+ Dodaj Ćwiczenie do Dnia</button>
+                        <button type="submit" class="btn btn-sm" style="margin-top: 5px;">+ Dodaj Ćwiczenie do Planu</button>
                     </form>
 
                     <div class="grid" id="week-plan-container"></div>
@@ -456,35 +467,52 @@
             <!-- ZAKŁADKA 3: ATLAS -->
             <div id="tab-atlas" class="tab-content" style="display: none;">
                 <div class="card">
-                    <h3 style="color: var(--primary); margin-bottom: 10px;">📚 Atlas Ćwiczeń</h3>
-                    <input id="atlas-search" type="search" placeholder="🔎 Szukaj ćwiczenia..." oninput="renderAtlas()">
+                    <h3 style="color: var(--primary); margin-bottom: 6px;">📚 Profesjonalny Atlas Ćwiczeń</h3>
+                    <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:12px;">Sprawdź technikę i kluczowe aspekty wykonania każdego ćwiczenia.</p>
+                    <input id="atlas-search" type="search" placeholder="🔎 Szukaj ćwiczenia lub partii..." oninput="renderAtlas()">
                     <div class="grid-3" id="atlas-container" style="margin-top: 10px;"></div>
                 </div>
             </div>
 
-            <!-- ZAKŁADKA 4: CZAT SPOŁECZNOŚCI -->
+            <!-- ZAKŁADKA 4: CZAT SPOŁECZNOŚCI I PROGRES Z APARATEM -->
             <div id="tab-forum" class="tab-content" style="display: none;">
                 <div class="card">
-                    <h3 style="color: var(--primary); margin-bottom: 10px;">💬 Czat & Wpisy</h3>
+                    <h3 style="color: var(--primary); margin-bottom: 10px;">💬 Czat & Pochwal się Progresem</h3>
+                    <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:12px;">Kliknij ikonę aparatu, aby zrobić zdjęcie bezpośrednio telefonem / kamerą lub wrzuć fotkę formy i podziel się wynikiem ze społecznością!</p>
+                    
                     <form onsubmit="handleForumSubmit(event)" style="margin-bottom: 15px;">
-                        <textarea id="forum-content" rows="2" placeholder="Co dziś było trenowane?" required></textarea>
-                        <button type="submit" class="btn btn-sm">Opublikuj Wpis</button>
+                        <textarea id="forum-content" rows="2" placeholder="Co dzisiaj wpadło na treningu? Podziel się formą..." required></textarea>
+                        
+                        <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 8px; flex-wrap: wrap;">
+                            <label class="btn btn-outline btn-sm" style="cursor: pointer; margin:0; display: inline-flex; align-items: center; gap: 6px;">
+                                📷 Zrób / Wybierz Zdjęcie
+                                <input type="file" id="forum-img-input" accept="image/*" capture="environment" style="display: none;" onchange="previewForumImage(event)">
+                            </label>
+                            <span id="forum-img-name" style="font-size: 0.75rem; color: var(--text-muted);">Brak zdjęcia</span>
+                            <button type="button" id="forum-img-clear" class="btn btn-outline btn-sm" style="color: var(--danger); display: none; padding: 2px 6px;" onclick="clearForumImage()">Usuń fotkę</button>
+                        </div>
+                        
+                        <div id="forum-img-preview-container" style="display: none; margin-bottom: 10px;">
+                            <img id="forum-img-tag-preview" class="chat-img-preview" alt="Podgląd progresu">
+                        </div>
+
+                        <button type="submit" class="btn btn-sm" style="width: 100%;">Opublikuj na Czat</button>
                     </form>
                     <div id="forum-posts-list"></div>
                 </div>
             </div>
 
-            <!-- ZAKŁADKA 5: PROGRESS -->
+            <!-- ZAKŁADKA 5: PROGRESS & LVL -->
             <div id="tab-progress" class="tab-content" style="display: none;">
                 <div class="card">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap:wrap; gap:8px;">
                         <h3 style="color: var(--primary);">🏆 Poziom Postępu Gracza</h3>
-                        <span id="player-level-text" style="font-weight: 900; color: var(--gold); font-size: 1.1rem;">LVL 1 (0/100 XP)</span>
+                        <span id="player-level-text" style="font-weight: 900; color: var(--gold); font-size: 1.1rem;">LVL 1 (0/200 XP)</span>
                     </div>
                     <div class="water-progress" style="height:18px;"><div id="xp-bar" class="water-bar"></div></div>
-                    <p style="font-size:0.75rem; color:var(--text-muted); margin-top:6px; text-align:center;">Zdobywaj XP za bicie rekordów ciężarowych w ćwiczeniach! Im większy progres, tym więcej XP (Max LVL: 999) 🚀</p>
+                    <p style="font-size:0.75rem; color:var(--text-muted); margin-top:6px; text-align:center;">Zdobywaj XP za bicie rekordów ciężarowych (PR) w ćwiczeniach! Im wyższy poziom, tym większe wymagania punktowe (zbalansowane, brak możliwości oszustwa). 🚀</p>
 
-                    <h3 style="color: var(--primary); margin: 20px 0 10px;">📊 Wykres Progresu Siłowego</h3>
+                    <h3 style="color: var(--primary); margin: 20px 0 10px;">📊 Wykres Progresu Ciężaru</h3>
                     <div style="background: rgba(10, 7, 18, 0.6); padding: 12px; border-radius: 14px; border: 1px solid var(--card-border);">
                         <canvas id="progressChart" height="140"></canvas>
                     </div>
@@ -538,18 +566,18 @@
             <!-- ZAKŁADKA 8: PANEL ADMINA -->
             <div id="tab-admin" class="tab-content" style="display: none;">
                 <div class="card card-admin">
-                    <h3 style="color: var(--gold); margin-bottom: 12px;">👑 Panel Zarządzania Admina / Szefa</h3>
+                    <h3 style="color: var(--gold); margin-bottom: 12px;">👑 Panel Administratora & Szefa</h3>
 
                     <div id="admin-atlas-form-container" style="display:none; background: rgba(10, 7, 18, 0.6); padding: 14px; border-radius: 14px; margin-bottom: 15px; border: 1px solid var(--card-border);">
-                        <h4 style="color: var(--primary); margin-bottom: 8px;">+ Dodaj Nowe Ćwiczenie do Atlasu (Tylko Szef)</h4>
+                        <h4 style="color: var(--primary); margin-bottom: 8px;">+ Dodaj Nowe Ćwiczenie do Atlasu</h4>
                         <input type="text" id="admin-ex-name" placeholder="Nazwa ćwiczenia">
                         <input type="text" id="admin-ex-part" placeholder="Partia (np. Klatka, Plecy)">
-                        <input type="text" id="admin-ex-desc" placeholder="Krótki opis / technika">
+                        <textarea id="admin-ex-desc" rows="2" placeholder="Technika i kluczowe aspekty (np. Trzymaj łokcie pod kątem 45 stopni...)"></textarea>
                         <button class="btn btn-sm" onclick="adminAddAtlasItem()">Opublikuj w Atlasie</button>
                     </div>
 
                     <div id="admin-recipe-form-container" style="display:none; background: rgba(10, 7, 18, 0.6); padding: 14px; border-radius: 14px; margin-bottom: 15px; border: 1px solid var(--card-border);">
-                        <h4 style="color: var(--gold); margin-bottom: 8px;">+ Dodaj Przepis VIP (Tylko Szef)</h4>
+                        <h4 style="color: var(--gold); margin-bottom: 8px;">+ Dodaj Przepis VIP</h4>
                         <input type="text" id="admin-rec-name" placeholder="Nazwa potrawy">
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
                             <input type="number" id="admin-rec-kcal" placeholder="Kcal">
@@ -559,7 +587,7 @@
                         <button class="btn btn-sm" style="background: var(--gold); color: #000;" onclick="adminAddRecipeItem()">Opublikuj Przepis</button>
                     </div>
 
-                    <h4 style="margin-bottom: 10px; color: var(--gold);">👥 Podgląd Użytkowników (<span id="stat-users-count">0</span>):</h4>
+                    <h4 style="margin-bottom: 10px; color: var(--gold);">👥 Zarządzanie Użytkownikami (<span id="stat-users-count">0</span>):</h4>
                     <div id="admin-user-list">Pobieranie listy użytkowników...</div>
                 </div>
             </div>
@@ -571,7 +599,7 @@
     <!-- MODAL DODAWANIA ĆWICZENIA Z ATLASU DO PLANU -->
     <div id="atlas-to-plan-modal" class="modal-overlay">
         <div class="modal-body">
-            <h3 style="color:var(--primary); margin-bottom:12px;">Dodaj do Planu Treningowego</h3>
+            <h3 style="color:var(--primary); margin-bottom:8px;">Dodaj do Planu Treningowego</h3>
             <p id="modal-atlas-title" style="font-weight:800; font-size:1rem; margin-bottom:12px; color:#fff;"></p>
             
             <label>Wybierz Dzień Tygodnia</label>
@@ -591,7 +619,7 @@
                     <input type="number" id="modal-sets-count" value="3" placeholder="3">
                 </div>
                 <div>
-                    <label>Ciężar (kg)</label>
+                    <label>Ciężar</label>
                     <input type="number" id="modal-weight" placeholder="np. 60">
                 </div>
                 <div>
@@ -607,18 +635,30 @@
         </div>
     </div>
 
-    <!-- MODAL ZMIANY NICKU (TYLKO DLA OWNER / ADMIN) -->
+    <!-- MODAL ZMIANY NICKU I KONTROLI UPRAWNIEN -->
     <div id="admin-edit-nickname-modal" class="modal-overlay">
         <div class="modal-body">
-            <h3 style="color:var(--gold); margin-bottom:12px;">✏️ Zmień Nick Użytkownika</h3>
-            <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:12px;">Funkcja dostępna wyłącznie dla rangi Owner oraz Admin.</p>
+            <h3 style="color:var(--gold); margin-bottom:8px;">⚙️ Zarządzanie Użytkownikiem</h3>
+            <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:12px;">Edycja nicku oraz kontrola uprawnień administratora.</p>
             
             <input type="hidden" id="modal-edit-uid">
-            <label>Nowy Pseudonim (Nick)</label>
-            <input type="text" id="modal-new-username" placeholder="Wpisz nowy nick...">
+            <label>Pseudonim (Nick)</label>
+            <input type="text" id="modal-new-username" placeholder="Nowy nick...">
+
+            <div style="background: rgba(255,255,255,0.03); border:1px solid var(--card-border); padding:10px; border-radius:12px; margin: 10px 0;">
+                <label style="font-size:0.8rem; color:var(--gold); display:block; margin-bottom:6px;">Kontrola Uprawnień:</label>
+                <div style="display:flex; flex-direction:column; gap:6px; font-size:0.85rem;">
+                    <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
+                        <input type="checkbox" id="perm-block" style="width:auto; margin:0;"> Może blokować / moderować
+                    </label>
+                    <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
+                        <input type="checkbox" id="perm-delete" style="width:auto; margin:0;"> Może usuwać posty / wpisy
+                    </label>
+                </div>
+            </div>
 
             <div style="display:flex; gap:8px; margin-top:10px;">
-                <button class="btn btn-sm" style="flex:1;" onclick="confirmChangeUsername()">Zapisz Nowy Nick</button>
+                <button class="btn btn-sm" style="flex:1;" onclick="confirmChangeUserPermissions()">Zapisz Zmiany</button>
                 <button class="btn btn-outline btn-sm" style="color:var(--danger);" onclick="closeNicknameModal()">Anuluj</button>
             </div>
         </div>
@@ -675,30 +715,51 @@
         window.gymData = JSON.parse(localStorage.getItem('adis_gym_data')) || { workouts: [], workoutPlan: {}, xp: 0, level: 1, water: 0, prs: {} };
         window.customAtlas = [];
         window.customRecipes = [];
-        let isRegisterMode = false, timerInterval = null, selectedAtlasName = "";
+        let isRegisterMode = false, timerInterval = null, selectedAtlasName = "", tempForumImageBase64 = null;
 
-        const DEFAULT_ATLAS = [{"name": "Wyciskanie sztangi na ławce", "part": "Klatka", "desc": "Kontroluj opuszczanie sztangi."}, {"name": "Podciąganie nachwytem", "part": "Plecy", "desc": "Ściągaj łopatki w dół."}, {"name": "Przysiad ze sztangą", "part": "Nogi", "desc": "Prowadź kolana stabilnie."}];
-        const DEFAULT_RECIPES = [{"name": "Owsianka proteinowa", "kcal": 500, "protein": 35, "steps": "Płatki owsiane, odżywka białkowa, banan."}, {"name": "Kurczak z ryżem i warzywami", "kcal": 650, "protein": 50, "steps": "Pierś z kurczaka, ryż parboiled, brokuły."}];
+        const DEFAULT_ATLAS = [
+            {
+                name: "Wyciskanie sztangi na ławce poziomej", 
+                part: "Klatka", 
+                desc: "Ustawienie: Łopatki ściągnięte i wciśnięte w ławkę, stopy stabilnie na ziemi. Ruch: Prowadź sztangę do linii środka klatki piersiowej, łokcie lekko pod kątem 45 stopni od tułowia."
+            }, 
+            {
+                name: "Podciąganie na drążku nachwytem", 
+                part: "Plecy", 
+                desc: "Ustawienie: Szeroki chwyt, klatka wypchnięta ku górze. Ruch: Inicjuj ruch z łopatek, ciągnąc łokcie w dół do bioder, klatką dotknij lub zbliż się do drążka."
+            }, 
+            {
+                name: "Przysiad ze sztangą na plecach", 
+                part: "Nogi", 
+                desc: "Ustawienie: Sztanga stabilnie na trapezie, stopy na szerokość barków. Ruch: Zandsuń biodra w tył, kolana prowadź zgodnie z linią palców stóp, zejdź przynajmniej do kąta prostego."
+            }
+        ];
 
-        function playBeep(freq = 800, duration = 0.1) {
+        const DEFAULT_RECIPES = [
+            {name: "Owsianka proteinowa z bananem", kcal: 500, protein: 35, steps: "Płatki owsiane gotowane na mleku, miarka odżywki białkowej, masło orzechowe i plasterki bananów."}, 
+            {name: "Kurczak z ryżem i warzywami na parze", kcal: 650, protein: 50, steps: "Soczysta pierś z kurczaka w przyprawach, ryż parboiled oraz mix chrupiących warzyw polanych oliwą z oliwek."}
+        ];
+
+        function playBeep(freq = 880, duration = 0.15) {
             try {
                 const AudioCtx = window.AudioContext || window.webkitAudioContext;
                 if (!AudioCtx) return;
                 const ctx = new AudioCtx();
+                if (ctx.state === 'suspended') { ctx.resume(); }
                 const osc = ctx.createOscillator();
                 const gain = ctx.createGain();
 
                 osc.type = 'sine';
-                osc.frequency.value = freq;
-                gain.gain.setValueAtTime(0.3, ctx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + duration);
+                osc.frequency.setValueAtTime(freq, ctx.currentTime);
+                gain.gain.setValueAtTime(0.4, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
 
                 osc.connect(gain);
                 gain.connect(ctx.destination);
 
                 osc.start();
                 osc.stop(ctx.currentTime + duration);
-            } catch(e) {}
+            } catch(e) { console.error("Audio beep error", e); }
         }
 
         function switchTab(tabId) {
@@ -735,7 +796,8 @@
                     if (res && res.user) {
                         await window.fbSetDoc(window.fbDoc(window.db, 'projects', 'd1s-gym', 'users', res.user.uid), {
                             username: username,
-                            role: 'user'
+                            role: 'user',
+                            permissions: { canBlock: true, canDeletePosts: true }
                         }, { merge: true });
                         alert("Konto zostało utworzone! Wysłaliśmy link weryfikacyjny na Twój adres e-mail. Sprawdź skrzynkę.");
                     }
@@ -751,22 +813,23 @@
             const currentPr = window.gymData.prs[cleanName] || 0;
             const numWeight = parseFloat(weight);
 
-            if(numWeight > currentPr) {
+            if(numWeight > currentPr && numWeight > 0) {
                 const diff = numWeight - currentPr;
                 window.gymData.prs[cleanName] = numWeight;
 
-                let xpGain = 25;
-                if(diff >= 3 && diff < 6) xpGain = 50;
-                else if(diff >= 6 && diff < 10) xpGain = 100;
-                else if(diff >= 10) xpGain = 200;
+                let xpGain = 30;
+                if(diff >= 3 && diff < 7) xpGain = 60;
+                else if(diff >= 7 && diff < 12) xpGain = 120;
+                else if(diff >= 12) xpGain = 250;
 
                 addXP(xpGain);
-                alert(`🔥 NOWY REKORD OSOBISTY w ${exName}: ${numWeight} kg! (+${xpGain} XP)`);
+                alert(`🔥 NOWY REKORD OSOBISTY (PR) w ${exName}: ${numWeight} kg! (+${xpGain} XP)`);
             }
         }
 
         function getXpNeededForLevel(level) {
-            return Math.min(1000, 100 + (level - 1) * 25);
+            // Zbalansowana krzywa poziomu: Lvl 1->2 = 200 XP, Lvl 2->3 = 280 XP, rośnie progresywnie
+            return Math.min(25000, 200 + (level - 1) * 85 + Math.floor(Math.pow(level, 1.3) * 15));
         }
 
         function addXP(amount) {
@@ -780,7 +843,7 @@
                 window.gymData.xp -= needed;
                 window.gymData.level += 1;
                 needed = getXpNeededForLevel(window.gymData.level);
-                alert(`🎉 AWANS! Osiągnąłeś LEVEL ${window.gymData.level}! 🚀`);
+                alert(`🎉 AWANS! Osiągnąłeś LEVEL ${window.gymData.level}! Jesteś coraz silniejszy! 🚀`);
             }
 
             window.saveGymData();
@@ -802,9 +865,11 @@
             const name = document.getElementById('ex-name').value;
             const weight = document.getElementById('ex-weight').value;
             const reps = document.getElementById('ex-reps').value;
+            const rir = document.getElementById('ex-rir').value || '-';
+            const note = document.getElementById('ex-note').value || '';
 
             if (!window.gymData.workouts) window.gymData.workouts = [];
-            window.gymData.workouts.unshift({ id: Date.now(), name, weight, reps, date: new Date().toLocaleDateString('pl-PL') });
+            window.gymData.workouts.unshift({ id: Date.now(), name, weight, reps, rir, note, date: new Date().toLocaleDateString('pl-PL') });
 
             checkAndAddXPForPR(name, weight);
             window.saveGymData();
@@ -821,18 +886,21 @@
         function renderAll() {
             const list = document.getElementById('workout-list');
             if (!window.gymData.workouts || window.gymData.workouts.length === 0) {
-                list.innerHTML = '<p style="color: var(--text-muted); text-align: center;">Brak wpisów.</p>';
+                list.innerHTML = '<p style="color: var(--text-muted); text-align: center;">Brak serii w dzienniku.</p>';
                 return;
             }
             list.innerHTML = window.gymData.workouts.map(w => `
-                <div class="list-item">
-                    <div>
+                <div class="list-item" style="flex-direction:column; align-items:flex-start; gap:4px;">
+                    <div style="display:flex; justify-content:space-width; width:100%; justify-content:space-between; align-items:center;">
                         <strong>${w.name}</strong>
-                        <div style="font-size: 0.75rem; color: var(--text-muted);">${w.date}</div>
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <span style="font-weight: 800; color: var(--primary);">${w.weight} kg × ${w.reps} pow (RIR: ${w.rir})</span>
+                            <button class="btn btn-outline btn-sm" style="color:var(--danger); padding:2px 6px;" onclick="deleteWorkoutItem(${w.id})">✕</button>
+                        </div>
                     </div>
-                    <div style="display: flex; align-items: center; gap: 8px;">
-                        <span style="font-weight: 800; color: var(--primary);">${w.weight} kg × ${w.reps}</span>
-                        <button class="btn btn-outline btn-sm" style="color:var(--danger); padding:2px 6px;" onclick="deleteWorkoutItem(${w.id})">✕</button>
+                    <div style="display:flex; justify-content:space-between; width:100%; font-size: 0.75rem; color: var(--text-muted);">
+                        <span>${w.date}</span>
+                        ${w.note ? `<span>Notatka: ${w.note}</span>` : ''}
                     </div>
                 </div>
             `).join('');
@@ -848,7 +916,7 @@
             if (!window.gymData.workoutPlan[day]) window.gymData.workoutPlan[day] = [];
 
             let setsArr = [];
-            for(let i=1; i<=count; i++) setsArr.push({ setNum: i, weight: '', reps: '', done: false });
+            for(let i=1; i<=count; i++) setsArr.push({ setNum: i, weight: '', reps: '', rir: '2', done: false });
 
             window.gymData.workoutPlan[day].push({ id: Date.now(), name, sets: setsArr });
             window.saveGymData();
@@ -876,7 +944,7 @@
             if (!window.gymData.workoutPlan[day]) window.gymData.workoutPlan[day] = [];
 
             let setsArr = [];
-            for(let i=1; i<=setsCount; i++) setsArr.push({ setNum: i, weight: weight, reps: reps, done: false });
+            for(let i=1; i<=setsCount; i++) setsArr.push({ setNum: i, weight: weight, reps: reps, rir: '2', done: false });
 
             window.gymData.workoutPlan[day].push({ id: Date.now(), name: selectedAtlasName, sets: setsArr });
             window.saveGymData();
@@ -889,7 +957,7 @@
             const ex = window.gymData.workoutPlan[day].find(item => item.id === exId);
             if (ex) {
                 const nextNum = ex.sets.length + 1;
-                ex.sets.push({ setNum: nextNum, weight: '', reps: '', done: false });
+                ex.sets.push({ setNum: nextNum, weight: '', reps: '', rir: '2', done: false });
                 window.saveGymData();
                 window.renderPlan();
             }
@@ -930,18 +998,18 @@
         }
 
         function generatePresetPlanPPL() {
-            if(!confirm("Załadować przykładowy zestaw PPL do kalendarza?")) return;
+            if(!confirm("Wgrać przykładowy profesjonalny plan Push/Pull/Legs?")) return;
             window.gymData.workoutPlan = {
                 'Poniedziałek': [
-                    { id: 101, name: 'Wyciskanie Sztangi Poziomo', sets: [{setNum:1,weight:'80',reps:'8'},{setNum:2,weight:'80',reps:'8'},{setNum:3,weight:'85',reps:'6'}] },
-                    { id: 102, name: 'OHP Wyciskanie Żołnierskie', sets: [{setNum:1,weight:'50',reps:'8'},{setNum:2,weight:'50',reps:'8'}] }
+                    { id: 101, name: 'Wyciskanie Sztangi Poziomo', sets: [{setNum:1,weight:'80',reps:'8',rir:'2',done:false},{setNum:2,weight:'80',reps:'8',rir:'1',done:false},{setNum:3,weight:'85',reps:'6',rir:'0',done:false}] },
+                    { id: 102, name: 'Wyciskanie Żołnierskie (OHP)', sets: [{setNum:1,weight:'50',reps:'8',rir:'2',done:false},{setNum:2,weight:'50',reps:'8',rir:'1',done:false}] }
                 ],
                 'Wtorek': [
-                    { id: 201, name: 'Podciąganie na Drążku', sets: [{setNum:1,weight:'0',reps:'8'},{setNum:2,weight:'0',reps:'8'}] },
-                    { id: 202, name: 'Wiosłowanie Sztangą', sets: [{setNum:1,weight:'70',reps:'10'},{setNum:2,weight:'75',reps:'8'}] }
+                    { id: 201, name: 'Podciąganie na Drążku', sets: [{setNum:1,weight:'0',reps:'8',rir:'2',done:false},{setNum:2,weight:'0',reps:'8',rir:'1',done:false}] },
+                    { id: 202, name: 'Wiosłowanie Sztangą w Opadzie', sets: [{setNum:1,weight:'70',reps:'10',rir:'2',done:false},{setNum:2,weight:'75',reps:'8',rir:'1',done:false}] }
                 ],
                 'Środa': [
-                    { id: 301, name: 'Przysiad ze Sztangą', sets: [{setNum:1,weight:'100',reps:'8'},{setNum:2,weight:'110',reps:'6'}] }
+                    { id: 301, name: 'Przysiad ze Sztangą', sets: [{setNum:1,weight:'100',reps:'8',rir:'2',done:false},{setNum:2,weight:'110',reps:'6',rir:'1',done:false}] }
                 ]
             };
             window.saveGymData();
@@ -962,26 +1030,35 @@
                             <span style="font-size:0.75rem; color:var(--text-muted);">${list.length} ćwiczeń</span>
                         </div>
                         <div>
-                            ${list.length===0?'<p style="font-size:0.8rem; color:var(--text-muted);">Brak ćwiczeń.</p>':''}
+                            ${list.length===0?'<p style="font-size:0.8rem; color:var(--text-muted);">Brak ćwiczeń w tym dniu.</p>':''}
                             ${list.map(ex => `
                                 <div class="exercise-item">
-                                    <div style="display:flex; justify-content:space-between; align-items:center;">
-                                        <strong>${ex.name}</strong>
-                                        <button class="btn btn-outline btn-sm" style="color:var(--danger); padding:2px 6px;" onclick="deletePlanExercise('${day}',${ex.id})">✕ Ćwiczenie</button>
+                                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                                        <strong style="color:#fff;">${ex.name}</strong>
+                                        <button class="btn btn-outline btn-sm" style="color:var(--danger); padding:2px 6px;" onclick="deletePlanExercise('${day}',${ex.id})">✕ Usuń</button>
                                     </div>
                                     <div class="sets-grid">
                                         ${(ex.sets||[]).map((s, idx) => `
-                                            <div class="set-chip">
-                                                <input type="checkbox" ${s.done?'checked':''} onchange="togglePlanSetDone('${day}',${ex.id},${idx})" style="margin:0;">
-                                                <span>S${s.setNum}:</span>
-                                                <input type="number" placeholder="kg" value="${s.weight||''}" onchange="updatePlanSetData('${day}',${ex.id},${idx},'weight',this.value)" style="width:40px; padding:2px; margin:0; font-size:0.7rem; text-align:center;">
-                                                <span>x</span>
-                                                <input type="number" placeholder="pow" value="${s.reps||''}" onchange="updatePlanSetData('${day}',${ex.id},${idx},'reps',this.value)" style="width:36px; padding:2px; margin:0; font-size:0.7rem; text-align:center;">
-                                                <button style="background:transparent; border:none; color:var(--danger); font-size:0.75rem; cursor:pointer;" onclick="removeSingleSetFromExercise('${day}',${ex.id},${idx})">✕</button>
+                                            <div class="set-row">
+                                                <input type="checkbox" ${s.done?'checked':''} onchange="togglePlanSetDone('${day}',${ex.id},${idx})" style="width:18px; height:18px; margin:0; cursor:pointer;" title="Zaliczone">
+                                                <span style="font-weight:800; color:var(--primary); min-width:24px;">S${s.setNum}</span>
+                                                <div style="display:flex; align-items:center; gap:3px; flex:1; min-width:70px;">
+                                                    <input type="number" placeholder="kg" value="${s.weight||''}" onchange="updatePlanSetData('${day}',${ex.id},${idx},'weight',this.value)" style="width:100%; padding:4px; margin:0; font-size:0.8rem; text-align:center;">
+                                                    <span style="font-size:0.75rem; color:var(--text-muted);">kg</span>
+                                                </div>
+                                                <div style="display:flex; align-items:center; gap:3px; flex:1; min-width:60px;">
+                                                    <input type="number" placeholder="pow" value="${s.reps||''}" onchange="updatePlanSetData('${day}',${ex.id},${idx},'reps',this.value)" style="width:100%; padding:4px; margin:0; font-size:0.8rem; text-align:center;">
+                                                    <span style="font-size:0.75rem; color:var(--text-muted);">pow</span>
+                                                </div>
+                                                <div style="display:flex; align-items:center; gap:3px; min-width:70px;">
+                                                    <span style="font-size:0.7rem; color:var(--gold);">RIR:</span>
+                                                    <input type="number" min="0" max="5" placeholder="rir" value="${s.rir||'2'}" onchange="updatePlanSetData('${day}',${ex.id},${idx},'rir',this.value)" style="width:40px; padding:4px; margin:0; font-size:0.8rem; text-align:center;">
+                                                </div>
+                                                <button style="background:transparent; border:none; color:var(--danger); font-size:1rem; cursor:pointer; padding:0 4px;" onclick="removeSingleSetFromExercise('${day}',${ex.id},${idx})">✕</button>
                                             </div>
                                         `).join('')}
                                     </div>
-                                    <button class="btn btn-outline btn-sm" style="margin-top:8px; font-size:0.7rem; padding:3px 8px;" onclick="addSingleSetToExercise('${day}',${ex.id})">+ Dodaj Serie</button>
+                                    <button class="btn btn-outline btn-sm" style="margin-top:8px; font-size:0.75rem; padding:4px 10px;" onclick="addSingleSetToExercise('${day}',${ex.id})">+ Dodaj Serię</button>
                                 </div>
                             `).join('')}
                         </div>
@@ -991,11 +1068,11 @@
         }
 
         async function adminAddAtlasItem() {
-            if (window.currentUserRole !== 'owner') return alert("Tylko Szef (Owner) może dodawać ćwiczenia!");
+            if (!['owner', 'admin'].includes(window.currentUserRole)) return alert("Brak uprawnień!");
             const name = document.getElementById('admin-ex-name').value;
             const part = document.getElementById('admin-ex-part').value;
             const desc = document.getElementById('admin-ex-desc').value;
-            if(!name || !part) return alert("Wpisz nazwę i partię!");
+            if(!name || !part) return alert("Wpisz nazwę i partię mięśniową!");
             try {
                 await window.fbAddDoc(window.fbCollection(window.db, 'projects', 'd1s-gym', 'custom_atlas'), { name, part, desc });
                 alert("Dodano ćwiczenie do Atlasu!");
@@ -1006,12 +1083,12 @@
         }
 
         async function adminAddRecipeItem() {
-            if (window.currentUserRole !== 'owner') return alert("Tylko Szef (Owner) może dodawać przepisy!");
+            if (!['owner', 'admin'].includes(window.currentUserRole)) return alert("Brak uprawnień!");
             const name = document.getElementById('admin-rec-name').value;
             const kcal = document.getElementById('admin-rec-kcal').value;
             const protein = document.getElementById('admin-rec-protein').value;
             const steps = document.getElementById('admin-rec-steps').value;
-            if(!name) return alert("Wpisz nazwę!");
+            if(!name) return alert("Wpisz nazwę przepisu!");
             try {
                 await window.fbAddDoc(window.fbCollection(window.db, 'projects', 'd1s-gym', 'custom_recipes'), { name, kcal, protein, steps });
                 alert("Dodano przepis VIP!");
@@ -1024,30 +1101,33 @@
 
         async function deleteForumPostAdmin(postId) {
             if(['owner', 'admin'].includes(window.currentUserRole)) {
+                if(window.permissions?.canDeletePosts === false && window.currentUserRole !== 'owner') {
+                    return alert("Twoje uprawnienia do usuwania postów zostały wyłączone przez Szefa!");
+                }
                 if(confirm("Usunąć ten post z czatu?")) {
                     await window.fbDeleteDoc(window.fbDoc(window.db, 'projects', 'd1s-gym', 'forum', postId));
                 }
             } else {
-                alert("Nie masz uprawnień do usuwania komentarzy!");
+                alert("Brak uprawnień do moderacji!");
             }
         }
 
         async function deleteCustomAtlasItem(itemId) {
-            if(window.currentUserRole !== 'owner') return alert("Tylko Szef (Owner) może usuwać z Atlasu!");
+            if(!['owner', 'admin'].includes(window.currentUserRole)) return alert("Brak uprawnień!");
             if(confirm("Usunąć to ćwiczenie z Atlasu?")) {
                 await window.fbDeleteDoc(window.fbDoc(window.db, 'projects', 'd1s-gym', 'custom_atlas', itemId));
             }
         }
 
         async function deleteCustomRecipeItem(itemId) {
-            if(window.currentUserRole !== 'owner') return alert("Tylko Szef (Owner) może usuwać Przepisy VIP!");
+            if(!['owner', 'admin'].includes(window.currentUserRole)) return alert("Brak uprawnień!");
             if(confirm("Usunąć ten przepis VIP?")) {
                 await window.fbDeleteDoc(window.fbDoc(window.db, 'projects', 'd1s-gym', 'custom_recipes', itemId));
             }
         }
 
         async function changeUserRole(targetUid, newRole) {
-            if(window.currentUserRole !== 'owner') return alert("Tylko Szef (Owner) może zmieniać rangi!");
+            if(window.currentUserRole !== 'owner') return alert("Tylko Szef (Owner) może zmieniać rangi w systemie!");
             try {
                 await window.fbSetDoc(window.fbDoc(window.db, 'projects', 'd1s-gym', 'users', targetUid), { role: newRole }, { merge: true });
                 alert("Ranga została zmieniona na: " + newRole.toUpperCase());
@@ -1056,22 +1136,27 @@
         }
 
         async function deleteUserFromDatabase(targetUid) {
-            if(window.currentUserRole !== 'owner') return alert("Tylko Szef (Owner) może usuwać użytkowników z bazy!");
-            if(confirm("Czy na pewno chcesz usunąć tego użytkownika z bazy?")) {
+            if(window.currentUserRole !== 'owner') return alert("Tylko Szef (Owner) może usuwać użytkowników!");
+            if(confirm("Czy na pewno chcesz usunąć tego użytkownika z bazy danych?")) {
                 try {
                     await window.fbDeleteDoc(window.fbDoc(window.db, 'projects', 'd1s-gym', 'users', targetUid));
-                    alert("Użytkownik usunięty!");
+                    alert("Użytkownik został usunięty!");
                     loadAdminUserList();
                 } catch(e) { alert("Błąd usuwania: " + e.message); }
             }
         }
 
-        function openEditNicknameModal(targetUid, currentName) {
-            if (!['owner', 'admin'].includes(window.currentUserRole)) {
-                return alert("Tylko Owner oraz Administrator mogą zmieniać nicki użytkowników!");
-            }
+        function openEditNicknameModal(targetUid, currentName, currentPerms, role) {
+            if (!['owner', 'admin'].includes(window.currentUserRole)) return alert("Brak uprawnień!");
+            if (role === 'owner' && window.currentUserRole !== 'owner') return alert("Nie możesz edytować konta Szefa!");
+
             document.getElementById('modal-edit-uid').value = targetUid;
             document.getElementById('modal-new-username').value = currentName;
+            
+            const perms = currentPerms || { canBlock: true, canDeletePosts: true };
+            document.getElementById('perm-block').checked = perms.canBlock !== false;
+            document.getElementById('perm-delete').checked = perms.canDeletePosts !== false;
+
             document.getElementById('admin-edit-nickname-modal').style.display = 'flex';
         }
 
@@ -1079,25 +1164,26 @@
             document.getElementById('admin-edit-nickname-modal').style.display = 'none';
         }
 
-        async function confirmChangeUsername() {
-            if (!['owner', 'admin'].includes(window.currentUserRole)) {
-                return alert("Brak uprawnień!");
-            }
+        async function confirmChangeUserPermissions() {
+            if (!['owner', 'admin'].includes(window.currentUserRole)) return alert("Brak uprawnień!");
             const targetUid = document.getElementById('modal-edit-uid').value;
             const newName = document.getElementById('modal-new-username').value.trim();
+            const canBlock = document.getElementById('perm-block').checked;
+            const canDeletePosts = document.getElementById('perm-delete').checked;
 
             if (!newName) return alert("Nick nie może być pusty!");
 
             try {
                 await window.fbSetDoc(window.fbDoc(window.db, 'projects', 'd1s-gym', 'users', targetUid), { 
-                    username: newName 
+                    username: newName,
+                    permissions: { canBlock, canDeletePosts }
                 }, { merge: true });
                 
-                alert("Nick użytkownika został pomyślnie zmieniony!");
+                alert("Zapisano zmiany użytkownika!");
                 closeNicknameModal();
                 loadAdminUserList();
             } catch(e) { 
-                alert("Błąd zmiany nicku: " + e.message); 
+                alert("Błąd zapisu: " + e.message); 
             }
         }
 
@@ -1107,8 +1193,8 @@
             const isOwner = window.currentUserRole === 'owner';
             const isAdminOrOwner = ['owner', 'admin'].includes(window.currentUserRole);
 
-            document.getElementById('admin-atlas-form-container').style.display = isOwner ? 'block' : 'none';
-            document.getElementById('admin-recipe-form-container').style.display = isOwner ? 'block' : 'none';
+            document.getElementById('admin-atlas-form-container').style.display = isAdminOrOwner ? 'block' : 'none';
+            document.getElementById('admin-recipe-form-container').style.display = isAdminOrOwner ? 'block' : 'none';
 
             try {
                 const snap = await window.fbGetDocs(window.fbCollection(window.db, 'projects', 'd1s-gym', 'users'));
@@ -1126,6 +1212,7 @@
                     const uXp = data.gym_data?.xp || 0;
                     const role = data.role || 'user';
                     const nameToDisplay = data.username || 'Użytkownik';
+                    const perms = data.permissions || { canBlock: true, canDeletePosts: true };
 
                     let actionControls = '';
                     if (isAdminOrOwner) {
@@ -1144,9 +1231,9 @@
 
                         actionControls = `
                             <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
-                                <button class="btn btn-outline btn-sm" style="color:var(--gold); border-color:var(--gold);" onclick="openEditNicknameModal('${userDoc.id}', '${nameToDisplay}')">✏️ Zmień Nick</button>
+                                <button class="btn btn-outline btn-sm" style="color:var(--gold); border-color:var(--gold);" onclick='openEditNicknameModal("${userDoc.id}", "${nameToDisplay}", ${JSON.stringify(perms)}, "${role}")'>⚙️ Uprawnienia & Nick</button>
                                 ${roleSelectHtml}
-                                ${isOwner ? `<button class="btn btn-outline btn-sm" style="color:var(--danger); border-color:var(--danger);" onclick="deleteUserFromDatabase('${userDoc.id}')">🗑 Usunąć</button>` : ''}
+                                ${isOwner ? `<button class="btn btn-outline btn-sm" style="color:var(--danger); border-color:var(--danger);" onclick="deleteUserFromDatabase('${userDoc.id}')">🗑 Usuń</button>` : ''}
                             </div>
                         `;
                     }
@@ -1156,7 +1243,10 @@
                             <div style="flex:1; min-width:180px;">
                                 <strong style="color:#fff;">${nameToDisplay}</strong>
                                 <div style="font-size:0.75rem; color:var(--gold); font-weight:700; margin-top:2px;">LVL ${uLvl} (${uXp} XP)</div>
-                                <div style="margin-top:6px;">${window.getRoleBadgeHtml(role)}</div>
+                                <div style="margin-top:6px; display:flex; gap:6px; align-items:center;">
+                                    ${window.getRoleBadgeHtml(role)}
+                                    <span style="font-size:0.68rem; color:var(--text-muted);">Blokady: ${perms.canBlock!==false?'TAK':'NIE'} | Usuwanie: ${perms.canDeletePosts!==false?'TAK':'NIE'}</span>
+                                </div>
                             </div>
                             ${actionControls}
                         </div>
@@ -1170,77 +1260,62 @@
             }
         }
 
+        function previewForumImage(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                tempForumImageBase64 = e.target.result;
+                document.getElementById('forum-img-tag-preview').src = tempForumImageBase64;
+                document.getElementById('forum-img-preview-container').style.display = 'block';
+                document.getElementById('forum-img-name').innerText = file.name || 'Wybrano zdjęcie';
+                document.getElementById('forum-img-clear').style.display = 'inline-block';
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function clearForumImage() {
+            tempForumImageBase64 = null;
+            document.getElementById('forum-img-input').value = '';
+            document.getElementById('forum-img-preview-container').style.display = 'none';
+            document.getElementById('forum-img-tag-preview').src = '';
+            document.getElementById('forum-img-name').innerText = 'Brak zdjęcia';
+            document.getElementById('forum-img-clear').style.display = 'none';
+        }
+
         async function createForumPost(content) {
-            if (!content) return;
+            if (!content && !tempForumImageBase64) return;
             const displayName = window.currentUsername || 'Użytkownik';
             const currentRole = window.currentUserRole || 'user';
 
             await window.fbAddDoc(window.fbCollection(window.db, 'projects', 'd1s-gym', 'forum'), {
                 authorName: displayName,
                 authorRole: currentRole,
-                content: content,
+                content: content || '',
+                imageBase64: tempForumImageBase64 || null,
                 timestamp: Date.now()
             });
-        }
 
-        function renderAtlas() {
-            const container = document.getElementById('atlas-container');
-            const search = (document.getElementById('atlas-search')?.value || '').toLowerCase();
-            const fullList = [...DEFAULT_ATLAS, ...(window.customAtlas || [])];
-            let items = fullList.filter(x => x.name.toLowerCase().includes(search) || x.part.toLowerCase().includes(search));
-            const isOwner = window.currentUserRole === 'owner';
-
-            container.innerHTML = items.map(a => `
-                <div class="atlas-item">
-                    <div>
-                        <div style="display:flex; justify-content:space-between;">
-                            <span class="role-badge role-staff">${a.part}</span>
-                            ${(isOwner && a.id) ? `<button class="btn btn-outline btn-sm" style="color:var(--danger); padding:1px 4px;" onclick="deleteCustomAtlasItem('${a.id}')">🗑</button>` : ''}
-                        </div>
-                        <h4 style="margin:6px 0; color:#fff;">${a.name}</h4>
-                        <p style="font-size:0.8rem; color:var(--text-muted);">${a.desc}</p>
-                    </div>
-                    <button class="btn btn-sm" style="margin-top:10px; font-size:0.75rem; width:100%;" onclick="openAddAtlasToPlanModal('${a.name}')">+ Dodaj do Planu</button>
-                </div>
-            `).join('');
-        }
-
-        function renderRecipes() {
-            const container = document.getElementById('recipes-container');
-            const search = (document.getElementById('recipe-search')?.value || '').toLowerCase();
-            const fullList = [...DEFAULT_RECIPES, ...(window.customRecipes || [])];
-            let items = fullList.filter(x => x.name.toLowerCase().includes(search));
-            const isOwner = window.currentUserRole === 'owner';
-
-            container.innerHTML = items.map(r => `
-                <div class="recipe-card">
-                    <div style="display:flex; justify-content:space-between; align-items:center;">
-                        <h4 style="color:var(--gold); margin-bottom:4px;">${r.name}</h4>
-                        ${(isOwner && r.id) ? `<button class="btn btn-outline btn-sm" style="color:var(--danger); padding:1px 4px;" onclick="deleteCustomRecipeItem('${r.id}')">🗑</button>` : ''}
-                    </div>
-                    <div class="macro-row"><span>🔥 ${r.kcal} kcal</span><span>🥩 ${r.protein}g białka</span></div>
-                    <p style="font-size:0.8rem; color:var(--text-muted); margin-top:4px;">${r.steps}</p>
-                </div>
-            `).join('');
+            clearForumImage();
         }
 
         function handleForumSubmit(e) {
             e.preventDefault();
             const content = document.getElementById('forum-content').value;
             createForumPost(content);
-            e.target.reset();
+            document.getElementById('forum-content').value = '';
         }
 
         function renderForumPosts(posts) {
             const list = document.getElementById('forum-posts-list');
-            if(!posts || posts.length===0) { list.innerHTML = '<p style="color:var(--text-muted); text-align:center;">Brak wpisów.</p>'; return; }
-            const canModerate = ['owner', 'admin'].includes(window.currentUserRole);
+            if(!posts || posts.length===0) { list.innerHTML = '<p style="color:var(--text-muted); text-align:center;">Brak wpisów na czacie.</p>'; return; }
+            const canModerate = ['owner', 'admin'].includes(window.currentUserRole) && (window.permissions?.canDeletePosts !== false || window.currentUserRole === 'owner');
 
             list.innerHTML = posts.map(p => {
                 const roleBadge = window.getRoleBadgeHtml ? window.getRoleBadgeHtml(p.authorRole || 'user') : '';
                 return `
-                    <div style="background:rgba(255,255,255,0.02); border:1px solid var(--card-border); padding:10px; border-radius:10px; margin-bottom:8px;">
-                        <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.75rem; color:var(--text-muted); margin-bottom:4px;">
+                    <div style="background:rgba(255,255,255,0.02); border:1px solid var(--card-border); padding:12px; border-radius:12px; margin-bottom:10px;">
+                        <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.75rem; color:var(--text-muted); margin-bottom:6px;">
                             <div style="display:flex; align-items:center; gap:6px;">
                                 ${roleBadge}
                                 <strong style="color: var(--text-main);">${p.authorName || 'Użytkownik'}</strong>
@@ -1250,10 +1325,52 @@
                                 ${canModerate ? `<button class="btn btn-outline btn-sm" style="color:var(--text-muted); border-color:var(--card-border); padding:2px 8px; margin-left:6px; font-size:0.7rem;" onclick="deleteForumPostAdmin('${p.id}')">Usuń</button>` : ''}
                             </div>
                         </div>
-                        <p style="font-size:0.85rem; margin-top:4px;">${p.content}</p>
+                        ${p.content ? `<p style="font-size:0.88rem; margin-top:4px; line-height:1.4;">${p.content}</p>` : ''}
+                        ${p.imageBase64 ? `<img src="${p.imageBase64}" class="chat-img-preview" alt="Zdjęcie progresu">` : ''}
                     </div>
                 `;
             }).join('');
+        }
+
+        function renderAtlas() {
+            const container = document.getElementById('atlas-container');
+            const search = (document.getElementById('atlas-search')?.value || '').toLowerCase();
+            const fullList = [...DEFAULT_ATLAS, ...(window.customAtlas || [])];
+            let items = fullList.filter(x => x.name.toLowerCase().includes(search) || x.part.toLowerCase().includes(search));
+            const isAdmin = ['owner', 'admin'].includes(window.currentUserRole);
+
+            container.innerHTML = items.map(a => `
+                <div class="atlas-item">
+                    <div>
+                        <div style="display:flex; justify-content:space-between; align-items:center;">
+                            <span class="role-badge role-staff">${a.part}</span>
+                            ${(isAdmin && a.id) ? `<button class="btn btn-outline btn-sm" style="color:var(--danger); padding:1px 6px;" onclick="deleteCustomAtlasItem('${a.id}')">🗑</button>` : ''}
+                        </div>
+                        <h4 style="margin:8px 0; color:#fff; font-size:1rem;">${a.name}</h4>
+                        <p style="font-size:0.8rem; color:var(--text-muted); line-height:1.4;">${a.desc}</p>
+                    </div>
+                    <button class="btn btn-sm" style="margin-top:12px; font-size:0.75rem; width:100%;" onclick="openAddAtlasToPlanModal('${a.name}')">+ Dodaj do Planu</button>
+                </div>
+            `).join('');
+        }
+
+        function renderRecipes() {
+            const container = document.getElementById('recipes-container');
+            const search = (document.getElementById('recipe-search')?.value || '').toLowerCase();
+            const fullList = [...DEFAULT_RECIPES, ...(window.customRecipes || [])];
+            let items = fullList.filter(x => x.name.toLowerCase().includes(search));
+            const isAdmin = ['owner', 'admin'].includes(window.currentUserRole);
+
+            container.innerHTML = items.map(r => `
+                <div class="recipe-card">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <h4 style="color:var(--gold); margin-bottom:4px; font-size:1rem;">${r.name}</h4>
+                        ${(isAdmin && r.id) ? `<button class="btn btn-outline btn-sm" style="color:var(--danger); padding:1px 6px;" onclick="deleteCustomRecipeItem('${r.id}')">🗑</button>` : ''}
+                    </div>
+                    <div class="macro-row"><span>🔥 ${r.kcal} kcal</span><span>🥩 ${r.protein}g białka</span></div>
+                    <p style="font-size:0.8rem; color:var(--text-muted); margin-top:6px; line-height:1.4;">${r.steps}</p>
+                </div>
+            `).join('');
         }
 
         function addWater(amount) {
@@ -1278,6 +1395,10 @@
             clearInterval(timerInterval);
             let left = seconds;
             updateTimerDisplay(left);
+            
+            // Inicjalizacja Audio Context przy starcie stopera (wymóg przeglądarek mobilnych)
+            playBeep(440, 0.05);
+
             timerInterval = setInterval(() => {
                 left--;
                 updateTimerDisplay(left);
@@ -1288,8 +1409,8 @@
 
                 if(left <= 0) {
                     clearInterval(timerInterval);
-                    playBeep(1200, 0.4);
-                    if(navigator.vibrate) navigator.vibrate([200, 100, 200]);
+                    playBeep(1200, 0.5);
+                    if(navigator.vibrate) navigator.vibrate([250, 100, 250, 100, 300]);
                 }
             }, 1000);
         }
@@ -1312,7 +1433,7 @@
                 type: 'line',
                 data: {
                     labels: workouts.map(w => w.date).reverse(),
-                    datasets: [{ label: 'Ciężar (kg)', data: workouts.map(w => parseFloat(w.weight)).reverse(), borderColor: '#ec4899', backgroundColor: 'rgba(236, 72, 153, 0.2)', fill: true }]
+                    datasets: [{ label: 'Cężar (kg)', data: workouts.map(w => parseFloat(w.weight)).reverse(), borderColor: '#ec4899', backgroundColor: 'rgba(236, 72, 153, 0.2)', fill: true, tension: 0.2 }]
                 },
                 options: { responsive: true }
             });
@@ -1330,7 +1451,7 @@
             const age = parseFloat(document.getElementById('bmr-age').value);
             const goal = document.getElementById('bmr-goal').value;
 
-            if(!weight || !height || !age) return alert("Uzupełnij dane!");
+            if(!weight || !height || !age) return alert("Uzupełnij wszystkie dane w kalkulatorze kalorii!");
             let bmr = (10 * weight) + (6.25 * height) - (5 * age) + 5;
             let tdee = Math.round(bmr * 1.55);
             if(goal==='bulk') tdee += 300;
