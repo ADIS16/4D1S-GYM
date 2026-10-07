@@ -19,19 +19,19 @@
     <style>
         :root {
             --bg-dark: #09070f;
-            --bg-card: rgba(22, 17, 36, 0.88);
-            --card-border: rgba(236, 72, 153, 0.18);
+            --bg-card: rgba(22, 17, 36, 0.92);
+            --card-border: rgba(236, 72, 153, 0.22);
             --primary: #ec4899;
-            --primary-glow: rgba(236, 72, 153, 0.35);
+            --primary-glow: rgba(236, 72, 153, 0.38);
             --purple: #a855f7;
-            --purple-glow: rgba(168, 85, 247, 0.35);
+            --purple-glow: rgba(168, 85, 247, 0.38);
             --grad-main: linear-gradient(135deg, #ec4899 0%, #a855f7 100%);
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
             --success: #10b981;
             --danger: #f43f5e;
             --gold: #fbbf24;
-            --gold-glow: rgba(251, 191, 36, 0.25);
+            --gold-glow: rgba(251, 191, 36, 0.28);
             --owner-color: #f472b6;
         }
 
@@ -42,10 +42,10 @@
             color: var(--text-main); 
             min-height: 100vh; 
             padding: 16px; 
-            padding-bottom: 130px; 
+            padding-bottom: 140px; 
             background-image: 
-                radial-gradient(circle at 10% 0%, rgba(236, 72, 153, 0.15), transparent 45%),
-                radial-gradient(circle at 90% 20%, rgba(168, 85, 247, 0.15), transparent 45%);
+                radial-gradient(circle at 10% 0%, rgba(236, 72, 153, 0.18), transparent 45%),
+                radial-gradient(circle at 90% 20%, rgba(168, 85, 247, 0.18), transparent 45%);
             max-width: 100vw;
             overflow-x: hidden;
         }
@@ -53,7 +53,7 @@
         .container { max-width: 1200px; margin: 0 auto; width: 100%; }
 
         header { display: flex; justify-content: space-between; align-items: center; padding: 12px 0 18px; border-bottom: 1px solid var(--card-border); margin-bottom: 20px; flex-wrap: wrap; gap: 10px; }
-        .logo { font-weight: 900; font-size: 1.7rem; background: var(--grad-main); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -0.5px; filter: drop-shadow(0 0 12px var(--primary-glow)); }
+        .logo { font-weight: 900; font-size: 1.8rem; background: var(--grad-main); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -0.5px; filter: drop-shadow(0 0 14px var(--primary-glow)); }
 
         .status-badge { display: flex; align-items: center; gap: 6px; font-size: 0.75rem; background: rgba(255,255,255,0.03); padding: 6px 14px; border-radius: 30px; border: 1px solid var(--card-border); }
         .dot { width: 8px; height: 8px; border-radius: 50%; background: #64748b; }
@@ -63,7 +63,7 @@
         .nav-tabs { display: flex; gap: 8px; margin-bottom: 20px; border-bottom: 1px solid var(--card-border); padding-bottom: 10px; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
         .nav-tabs::-webkit-scrollbar { display: none; }
         .tab-btn { background: rgba(255,255,255,0.02); border: 1px solid transparent; color: var(--text-muted); padding: 9px 16px; border-radius: 12px; font-weight: 700; cursor: pointer; transition: all 0.25s ease; white-space: nowrap; font-size: 0.85rem; }
-        .tab-btn.active { background: rgba(236, 72, 153, 0.15); color: #fff; border-color: var(--primary); box-shadow: 0 0 15px var(--primary-glow); }
+        .tab-btn.active { background: rgba(236, 72, 153, 0.18); color: #fff; border-color: var(--primary); box-shadow: 0 0 18px var(--primary-glow); }
 
         .btn { background: var(--grad-main); color: #fff; border: none; padding: 12px 20px; border-radius: 12px; font-weight: 800; cursor: pointer; transition: all 0.2s ease; box-shadow: 0 4px 18px var(--primary-glow); display: inline-flex; align-items: center; justify-content: center; gap: 6px; font-size: 0.9rem; }
         .btn:active { transform: scale(0.96); }
@@ -77,7 +77,7 @@
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 18px; }
         .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
         
-        input, select, textarea { width: 100%; padding: 12px 14px; background: rgba(10, 7, 18, 0.8); border: 1px solid var(--card-border); border-radius: 12px; color: white; margin-top: 5px; margin-bottom: 12px; font-size: 0.9rem; transition: border-color 0.2s; }
+        input, select, textarea { width: 100%; padding: 12px 14px; background: rgba(10, 7, 18, 0.85); border: 1px solid var(--card-border); border-radius: 12px; color: white; margin-top: 5px; margin-bottom: 12px; font-size: 0.9rem; transition: border-color 0.2s; }
         input:focus, select:focus, textarea:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 10px var(--primary-glow); }
 
         .role-badge { padding: 4px 10px; border-radius: 8px; font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; display: inline-block; }
@@ -104,22 +104,25 @@
         .water-progress { width: 100%; height: 16px; background: rgba(0,0,0,0.6); border-radius: 10px; overflow: hidden; border: 1px solid var(--card-border); margin: 8px 0; }
         .water-bar { height: 100%; width: 0%; background: var(--grad-main); transition: width 0.3s; }
 
-        .atlas-item, .recipe-card { background: rgba(10, 7, 18, 0.6); border: 1px solid var(--card-border); border-radius: 16px; padding: 16px; display: flex; flex-direction: column; justify-content: space-between; }
+        .atlas-item, .recipe-card { background: rgba(10, 7, 18, 0.6); border: 1px solid var(--card-border); border-radius: 16px; padding: 16px; display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.2s; }
+        .atlas-item:hover { transform: translateY(-2px); border-color: var(--primary); }
         .macro-row { display: flex; gap: 6px; flex-wrap: wrap; margin: 8px 0; }
         .macro-row span { font-size: .72rem; font-weight: 700; padding: 4px 8px; border-radius: 8px; background: rgba(255,255,255,.05); border: 1px solid var(--card-border); }
 
-        .modal-overlay { position: fixed; top:0; left:0; right:0; bottom:0; background: rgba(0,0,0,0.8); backdrop-filter: blur(8px); display: none; align-items: center; justify-content: center; z-index: 999; padding: 16px; }
+        .modal-overlay { position: fixed; top:0; left:0; right:0; bottom:0; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); display: none; align-items: center; justify-content: center; z-index: 999; padding: 16px; }
         .modal-body { background: var(--bg-card); border: 1px solid var(--card-border); border-radius: 20px; padding: 22px; width: 100%; max-width: 420px; box-shadow: 0 10px 30px rgba(0,0,0,0.9); max-height: 90vh; overflow-y: auto; }
 
-        .chat-img-preview { max-width: 100%; max-height: 220px; border-radius: 12px; margin-top: 8px; border: 1px solid var(--card-border); object-fit: cover; display: block; }
+        .chat-img-preview { max-width: 100%; max-height: 240px; border-radius: 12px; margin-top: 8px; border: 1px solid var(--card-border); object-fit: cover; display: block; }
         
-        /* Styl animowanego wskaźnika w atlasie */
-        .anim-badge { display: inline-flex; align-items: center; gap: 4px; background: rgba(168, 85, 247, 0.15); border: 1px solid var(--purple); color: #d8b4fe; padding: 3px 8px; border-radius: 6px; font-size: 0.7rem; font-weight: 800; margin-bottom: 6px; }
-        .pulse-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--purple); animation: pulseAnim 1.5s infinite; }
-        @keyframes pulseAnim { 0% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.6); opacity: 0.4; } 100% { transform: scale(1); opacity: 1; } }
+        /* Styl animowanego wskaźnika i animacji w atlasie */
+        .anim-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(168, 85, 247, 0.18); border: 1px solid var(--purple); color: #d8b4fe; padding: 4px 10px; border-radius: 8px; font-size: 0.72rem; font-weight: 800; margin-bottom: 8px; box-shadow: 0 0 12px var(--purple-glow); }
+        .pulse-dot { width: 7px; height: 7px; border-radius: 50%; background: #fff; animation: pulseAnim 1.2s infinite ease-in-out; }
+        @keyframes pulseAnim { 0% { transform: scale(1); opacity: 1; box-shadow: 0 0 0 0 rgba(255,255,255,0.7); } 70% { transform: scale(1.5); opacity: 0.5; box-shadow: 0 0 0 6px rgba(255,255,255,0); } 100% { transform: scale(1); opacity: 1; } }
 
+        .stat-box { background: rgba(255,255,255,0.03); border: 1px solid var(--card-border); padding: 12px; border-radius: 14px; text-align: center; }
+        
         @media (max-width: 600px) {
-            body { padding: 10px; padding-bottom: 120px; }
+            body { padding: 10px; padding-bottom: 130px; }
             .card { padding: 16px; border-radius: 16px; }
         }
     </style>
@@ -240,6 +243,7 @@
                         window.renderPlan();
                         window.renderAchievements();
                         window.updateWaterUI();
+                        window.updateWorkoutStats();
                     });
 
                     window.listenToLiveBases();
@@ -422,9 +426,26 @@
                         </div>
                     </div>
 
-                    <div class="card">
-                        <h3 style="margin-bottom: 12px; color: var(--primary);">Ostatnia Aktywność</h3>
-                        <div id="workout-list"><p style="color: var(--text-muted); text-align: center;">Brak serii.</p></div>
+                    <div>
+                        <!-- Statystyki sesji (Nowość) -->
+                        <div class="card" style="margin-bottom: 20px;">
+                            <h4 style="color: var(--primary); margin-bottom: 10px;">⚡ Statystyki Treningowe</h4>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                                <div class="stat-box">
+                                    <div style="font-size: 0.7rem; color: var(--text-muted);">Łączny Tonaż</div>
+                                    <div id="stat-total-tonnage" style="font-size: 1.1rem; font-weight: 900; color: var(--gold);">0 kg</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div style="font-size: 0.7rem; color: var(--text-muted);">Zapisane Serie</div>
+                                    <div id="stat-total-sets" style="font-size: 1.1rem; font-weight: 900; color: var(--primary);">0</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <h3 style="margin-bottom: 12px; color: var(--primary);">Ostatnia Aktywność</h3>
+                            <div id="workout-list"><p style="color: var(--text-muted); text-align: center;">Brak serii.</p></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -433,7 +454,7 @@
             <div id="tab-plan" class="tab-content" style="display: none;">
                 <div class="card">
                     <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 12px;">
-                        <h3 style="color: var(--primary);">📅 Plan Treningowy z RIR</h3>
+                        <h3 style="color: var(--primary);">📅 Plan Treningowy z RIR i Typem Serii</h3>
                         <button class="btn btn-outline btn-sm" onclick="generatePresetPlanPPL()">⚡ Wgraj Przykładowy PPL</button>
                     </div>
                     
@@ -472,7 +493,15 @@
                 <div class="card">
                     <h3 style="color: var(--primary); margin-bottom: 6px;">📚 Profesjonalny Atlas z Instruktażem i Animacją</h3>
                     <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:12px;">Wizualne aspekty techniczne i kluczowe wskazówki do prawidłowego wykonania.</p>
-                    <input id="atlas-search" type="search" placeholder="🔎 Szukaj ćwiczenia lub partii..." oninput="renderAtlas()">
+                    <div style="display:flex; gap:8px; margin-bottom:12px; flex-wrap:wrap;">
+                        <input id="atlas-search" type="search" placeholder="🔎 Szukaj ćwiczenia lub partii..." oninput="renderAtlas()" style="margin:0; flex:1; min-width:200px;">
+                        <select id="atlas-filter-level" onchange="renderAtlas()" style="width:auto; margin:0; background:rgba(10, 7, 18, 0.9);">
+                            <option value="all">Wszystkie poziomy</option>
+                            <option value="Początkujący">Początkujący</option>
+                            <option value="Średniozaawansowany">Średniozaawansowany</option>
+                            <option value="Zaawansowany">Zaawansowany</option>
+                        </select>
+                    </div>
                     <div class="grid-3" id="atlas-container" style="margin-top: 10px;"></div>
                 </div>
             </div>
@@ -515,6 +544,17 @@
                     <div class="water-progress" style="height:18px;"><div id="xp-bar" class="water-bar"></div></div>
                     <p style="font-size:0.75rem; color:var(--text-muted); margin-top:6px; text-align:center;">Zdobywaj XP za bicie rekordów ciężarowych (PR) w ćwiczeniach! Im wyższy poziom, tym większe wymagania punktowe (zbalansowane, brak możliwości oszustwa). 🚀</p>
 
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-top: 20px;">
+                        <div class="stat-box">
+                            <div style="font-size: 0.75rem; color: var(--text-muted);">Twoja Ranga Siłowa</div>
+                            <div id="player-strength-rank" style="font-size: 1.1rem; font-weight: 900; color: var(--primary); margin-top: 4px;">🏋 Początkujący</div>
+                        </div>
+                        <div class="stat-box">
+                            <div style="font-size: 0.75rem; color: var(--text-muted);">Pobite Rekordy (PR)</div>
+                            <div id="player-prs-count" style="font-size: 1.1rem; font-weight: 900; color: var(--gold); margin-top: 4px;">0</div>
+                        </div>
+                    </div>
+
                     <h3 style="color: var(--primary); margin: 20px 0 10px;">📊 Wykres Progresu Ciężaru</h3>
                     <div style="background: rgba(10, 7, 18, 0.6); padding: 12px; border-radius: 14px; border: 1px solid var(--card-border);">
                         <canvas id="progressChart" height="140"></canvas>
@@ -538,7 +578,7 @@
                     </div>
 
                     <div class="card">
-                        <h3 style="color: var(--primary);">🔥 Zapotrzebowanie Kcal</h3>
+                        <h3 style="color: var(--primary);">🔥 Zapotrzebowanie Kcal & Makro</h3>
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
                             <input type="number" id="bmr-weight" placeholder="Waga kg">
                             <input type="number" id="bmr-height" placeholder="Wzrost cm">
@@ -549,9 +589,10 @@
                             <option value="bulk">Masa (+300 kcal)</option>
                             <option value="cut">Redukcja (-400 kcal)</option>
                         </select>
-                        <button class="btn btn-sm" style="width: 100%;" onclick="calculateCalories()">Oblicz Kalorie</button>
+                        <button class="btn btn-sm" style="width: 100%;" onclick="calculateCalories()">Oblicz Kalorie i Makro</button>
                         <div id="calories-result" style="display: none; margin-top: 12px; text-align: center; background: rgba(10, 7, 18, 0.6); padding: 12px; border-radius: 12px; border: 1px solid var(--card-border);">
-                            <h3 id="res-tdee" style="color: var(--gold);">0 kcal</h3>
+                            <h3 id="res-tdee" style="color: var(--gold); margin-bottom:6px;">0 kcal</h3>
+                            <div id="res-macros" style="font-size: 0.8rem; color: var(--text-muted);">Białko: 0g | Tłuszcze: 0g | Węglowodany: 0g</div>
                         </div>
                     </div>
                 </div>
@@ -561,7 +602,14 @@
             <div id="tab-vip" class="tab-content" style="display: none;">
                 <div class="card">
                     <h3 style="color: var(--gold); margin-bottom: 10px;">🌟 Przepisy VIP</h3>
-                    <input id="recipe-search" type="search" placeholder="🔎 Szukaj posiłku..." oninput="renderRecipes()">
+                    <div style="display:flex; gap:8px; margin-bottom:12px; flex-wrap:wrap;">
+                        <input id="recipe-search" type="search" placeholder="🔎 Szukaj posiłku..." oninput="renderRecipes()" style="margin:0; flex:1; min-width:200px;">
+                        <select id="recipe-filter-kcal" onchange="renderRecipes()" style="width:auto; margin:0; background:rgba(10, 7, 18, 0.9);">
+                            <option value="all">Wszystkie kalorie</option>
+                            <option value="low">Niskokaloryczne (&lt; 500 kcal)</option>
+                            <option value="high">Wysokokaloryczne (&gt;= 500 kcal)</option>
+                        </select>
+                    </div>
                     <div class="grid-3" id="recipes-container" style="margin-top: 10px;"></div>
                 </div>
             </div>
@@ -575,6 +623,11 @@
                         <h4 style="color: var(--primary); margin-bottom: 8px;">+ Dodaj Nowe Ćwiczenie do Atlasu</h4>
                         <input type="text" id="admin-ex-name" placeholder="Nazwa ćwiczenia">
                         <input type="text" id="admin-ex-part" placeholder="Partia (np. Klatka, Plecy)">
+                        <select id="admin-ex-level">
+                            <option value="Początkujący">Początkujący</option>
+                            <option value="Średniozaawansowany">Średniozaawansowany</option>
+                            <option value="Zaawansowany">Zaawansowany</option>
+                        </select>
                         <textarea id="admin-ex-desc" rows="2" placeholder="Technika i kluczowe aspekty (np. Trzymaj łokcie pod kątem 45 stopni...)"></textarea>
                         <button class="btn btn-sm" onclick="adminAddAtlasItem()">Opublikuj w Atlasie</button>
                     </div>
@@ -668,12 +721,12 @@
     </div>
 
     <!-- PŁYWAJĄCY STOPER -->
-    <div class="floating-timer">
+    <div class="floating-timer" onclick="unlockAudioContext()">
         <div>
-            <div style="font-size: 0.65rem; color: var(--text-muted);">STOPER PRZERWY</div>
+            <div style="font-size: 0.65rem; color: var(--text-muted);">STOPER PRZERWY (KLIKNIJ ABY AKTYWOWAĆ DŹWIĘK)</div>
             <div id="timer-display" style="font-size: 1.2rem; font-weight: 800; color: var(--primary);">00:00</div>
         </div>
-        <div style="display: flex; gap: 4px;">
+        <div style="display: flex; gap: 4px;" onclick="event.stopPropagation()">
             <button class="btn btn-outline btn-sm" onclick="startTimer(30)">30s</button>
             <button class="btn btn-outline btn-sm" onclick="startTimer(60)">60s</button>
             <button class="btn btn-outline btn-sm" onclick="startTimer(90)">90s</button>
@@ -719,22 +772,41 @@
         window.customAtlas = [];
         window.customRecipes = [];
         let isRegisterMode = false, timerInterval = null, selectedAtlasName = "", tempForumImageBase64 = null;
+        let globalAudioCtx = null;
+
+        function unlockAudioContext() {
+            try {
+                const AudioCtx = window.AudioContext || window.webkitAudioContext;
+                if (!globalAudioCtx && AudioCtx) {
+                    globalAudioCtx = new AudioCtx();
+                }
+                if (globalAudioCtx && globalAudioCtx.state === 'suspended') {
+                    globalAudioCtx.resume();
+                }
+                playBeep(520, 0.1);
+            } catch(e) {}
+        }
+        window.addEventListener('click', unlockAudioContext, { once: true });
+        window.addEventListener('touchstart', unlockAudioContext, { once: true });
 
         const DEFAULT_ATLAS = [
             {
                 name: "Wyciskanie sztangi na ławce poziomej", 
                 part: "Klatka", 
-                desc: "Ustawienie: Łopatki ściągnięte i wciśnięte w ławkę, stopy stabilnie na ziemi. Ruch: Prowadź sztangę do linii środka klatki piersiowej, łokcie lekko pod kątem 45 stopni od tułowia."
+                level: "Średniozaawansowany",
+                desc: "Ustawienie: Łopatki ściągnięte i wciśnięte w ławkę, stopy stabilnie na ziemi. Ruch: Prowadź sztangę do linii środka klatki piersiowej, łokcie lekko pod kątem 45 stopni."
             }, 
             {
                 name: "Podciąganie na drążku nachwytem", 
                 part: "Plecy", 
+                level: "Zaawansowany",
                 desc: "Ustawienie: Szeroki chwyt, klatka wypchnięta ku górze. Ruch: Inicjuj ruch z łopatek, ciągnąc łokcie w dół do bioder, klatką dotknij lub zbliż się do drążka."
             }, 
             {
                 name: "Przysiad ze sztangą na plecach", 
                 part: "Nogi", 
-                desc: "Ustawienie: Sztanga stabilnie na trapezie, stopy na szerokość barków. Ruch: Zandsuń biodra w tył, kolana prowadź zgodnie z linią palców stóp, zejdź przynajmniej do kąta prostego."
+                level: "Średniozaawansowany",
+                desc: "Ustawienie: Sztanga stabilnie na trapezie, stopy na szerokość barków. Ruch: Zasuń biodra w tył, kolana prowadź zgodnie z linią palców stóp, zejdź przynajmniej do kąta prostego."
             }
         ];
 
@@ -743,21 +815,19 @@
             {name: "Kurczak z ryżem i warzywami na parze", kcal: 650, protein: 50, steps: "Soczysta pierś z kurczaka w przyprawach, ryż parboiled oraz mix chrupiących warzyw polanych oliwą z oliwek."}
         ];
 
-        // Naprawiona obsługa dźwięku na telefonach (AudioContext z aktywacją przez interakcję)
         function playBeep(freq = 880, duration = 0.2) {
             try {
-                const AudioContext = window.AudioContext || window.webkitAudioContext;
-                if (!AudioContext) return;
-                const ctx = new AudioContext();
-                if (ctx.state === 'suspended') {
-                    ctx.resume();
-                }
+                const AudioCtx = window.AudioContext || window.webkitAudioContext;
+                const ctx = globalAudioCtx || (AudioCtx ? new AudioCtx() : null);
+                if (!ctx) return;
+                if (ctx.state === 'suspended') { ctx.resume(); }
+                
                 const osc = ctx.createOscillator();
                 const gain = ctx.createGain();
 
                 osc.type = 'sine';
                 osc.frequency.setValueAtTime(freq, ctx.currentTime);
-                gain.gain.setValueAtTime(0.5, ctx.currentTime);
+                gain.gain.setValueAtTime(0.6, ctx.currentTime);
                 gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
 
                 osc.connect(gain);
@@ -774,10 +844,11 @@
             document.getElementById(tabId).style.display = 'block';
             if (window.event && window.event.target) window.event.target.classList.add('active');
 
-            if (tabId === 'tab-progress') renderProgressChart();
+            if (tabId === 'tab-progress') { renderProgressChart(); updateStrengthRank(); }
             if (tabId === 'tab-atlas') renderAtlas();
             if (tabId === 'tab-vip') renderRecipes();
             if (tabId === 'tab-admin') loadAdminUserList();
+            if (tabId === 'tab-workout') updateWorkoutStats();
         }
 
         function toggleAuthMode() {
@@ -865,6 +936,31 @@
             document.getElementById('xp-bar').style.width = pct + '%';
         }
 
+        function updateWorkoutStats() {
+            const workouts = window.gymData.workouts || [];
+            let totalTonnage = 0;
+            workouts.forEach(w => {
+                totalTonnage += (parseFloat(w.weight) || 0) * (parseFloat(w.reps) || 0);
+            });
+            document.getElementById('stat-total-tonnage').innerText = totalTonnage + ' kg';
+            document.getElementById('stat-total-sets').innerText = workouts.length;
+        }
+
+        function updateStrengthRank() {
+            const prs = window.gymData.prs || {};
+            const prValues = Object.values(prs);
+            const prsCount = prValues.length;
+            document.getElementById('player-prs-count').innerText = prsCount;
+
+            const maxPr = prValues.length > 0 ? Math.max(...prValues) : 0;
+            let rank = "🏋 Początkujący";
+            if (maxPr >= 140) rank = "🔥 Elite / Beast";
+            else if (maxPr >= 100) rank = "⚡ Zaawansowany";
+            else if (maxPr >= 70) rank = "💪 Średniozaawansowany";
+
+            document.getElementById('player-strength-rank').innerText = rank;
+        }
+
         function addExercise(e) {
             e.preventDefault();
             const name = document.getElementById('ex-name').value;
@@ -879,6 +975,7 @@
             checkAndAddXPForPR(name, weight);
             window.saveGymData();
             window.renderAll();
+            updateWorkoutStats();
             document.getElementById('workout-form').reset();
         }
 
@@ -886,6 +983,7 @@
             window.gymData.workouts = window.gymData.workouts.filter(w => w.id !== id);
             window.saveGymData();
             window.renderAll();
+            updateWorkoutStats();
         }
 
         function renderAll() {
@@ -921,7 +1019,7 @@
             if (!window.gymData.workoutPlan[day]) window.gymData.workoutPlan[day] = [];
 
             let setsArr = [];
-            for(let i=1; i<=count; i++) setsArr.push({ setNum: i, weight: '', reps: '', rir: '2', done: false });
+            for(let i=1; i<=count; i++) setsArr.push({ setNum: i, type: 'Robocza', weight: '', reps: '', rir: '2', done: false });
 
             window.gymData.workoutPlan[day].push({ id: Date.now(), name, sets: setsArr });
             window.saveGymData();
@@ -949,7 +1047,7 @@
             if (!window.gymData.workoutPlan[day]) window.gymData.workoutPlan[day] = [];
 
             let setsArr = [];
-            for(let i=1; i<=setsCount; i++) setsArr.push({ setNum: i, weight: weight, reps: reps, rir: '2', done: false });
+            for(let i=1; i<=setsCount; i++) setsArr.push({ setNum: i, type: 'Robocza', weight: weight, reps: reps, rir: '2', done: false });
 
             window.gymData.workoutPlan[day].push({ id: Date.now(), name: selectedAtlasName, sets: setsArr });
             window.saveGymData();
@@ -962,7 +1060,7 @@
             const ex = window.gymData.workoutPlan[day].find(item => item.id === exId);
             if (ex) {
                 const nextNum = ex.sets.length + 1;
-                ex.sets.push({ setNum: nextNum, weight: '', reps: '', rir: '2', done: false });
+                ex.sets.push({ setNum: nextNum, type: 'Robocza', weight: '', reps: '', rir: '2', done: false });
                 window.saveGymData();
                 window.renderPlan();
             }
@@ -1006,15 +1104,15 @@
             if(!confirm("Wgrać przykładowy profesjonalny plan Push/Pull/Legs?")) return;
             window.gymData.workoutPlan = {
                 'Poniedziałek': [
-                    { id: 101, name: 'Wyciskanie Sztangi Poziomo', sets: [{setNum:1,weight:'80',reps:'8',rir:'2',done:false},{setNum:2,weight:'80',reps:'8',rir:'1',done:false},{setNum:3,weight:'85',reps:'6',rir:'0',done:false}] },
-                    { id: 102, name: 'Wyciskanie Żołnierskie (OHP)', sets: [{setNum:1,weight:'50',reps:'8',rir:'2',done:false},{setNum:2,weight:'50',reps:'8',rir:'1',done:false}] }
+                    { id: 101, name: 'Wyciskanie Sztangi Poziomo', sets: [{setNum:1,type:'Rozgrzewka',weight:'50',reps:'12',rir:'4',done:false},{setNum:2,type:'Robocza',weight:'80',reps:'8',rir:'2',done:false},{setNum:3,type:'Robocza',weight:'85',reps:'6',rir:'0',done:false}] },
+                    { id: 102, name: 'Wyciskanie Żołnierskie (OHP)', sets: [{setNum:1,type:'Robocza',weight:'50',reps:'8',rir:'2',done:false}] }
                 ],
                 'Wtorek': [
-                    { id: 201, name: 'Podciąganie na Drążku', sets: [{setNum:1,weight:'0',reps:'8',rir:'2',done:false},{setNum:2,weight:'0',reps:'8',rir:'1',done:false}] },
-                    { id: 202, name: 'Wiosłowanie Sztangą w Opadzie', sets: [{setNum:1,weight:'70',reps:'10',rir:'2',done:false},{setNum:2,weight:'75',reps:'8',rir:'1',done:false}] }
+                    { id: 201, name: 'Podciąganie na Drążku', sets: [{setNum:1,type:'Robocza',weight:'0',reps:'8',rir:'2',done:false}] },
+                    { id: 202, name: 'Wiosłowanie Sztangą', sets: [{setNum:1,type:'Robocza',weight:'70',reps:'10',rir:'2',done:false}] }
                 ],
                 'Środa': [
-                    { id: 301, name: 'Przysiad ze Sztangą', sets: [{setNum:1,weight:'100',reps:'8',rir:'2',done:false},{setNum:2,weight:'110',reps:'6',rir:'1',done:false}] }
+                    { id: 301, name: 'Przysiad ze Sztangą', sets: [{setNum:1,type:'Robocza',weight:'100',reps:'8',rir:'2',done:false}] }
                 ]
             };
             window.saveGymData();
@@ -1047,17 +1145,22 @@
                                             <div class="set-row">
                                                 <input type="checkbox" ${s.done?'checked':''} onchange="togglePlanSetDone('${day}',${ex.id},${idx})" style="width:18px; height:18px; margin:0; cursor:pointer;" title="Zaliczone">
                                                 <span style="font-weight:800; color:var(--primary); min-width:24px;">S${s.setNum}</span>
-                                                <div style="display:flex; align-items:center; gap:3px; flex:1; min-width:70px;">
-                                                    <input type="number" placeholder="kg" value="${s.weight||''}" onchange="updatePlanSetData('${day}',${ex.id},${idx},'weight',this.value)" style="width:100%; padding:4px; margin:0; font-size:0.8rem; text-align:center;">
-                                                    <span style="font-size:0.75rem; color:var(--text-muted);">kg</span>
+                                                <select onchange="updatePlanSetData('${day}',${ex.id},${idx},'type',this.value)" style="width:75px; padding:3px; margin:0; font-size:0.7rem; background:rgba(10,7,18,0.9);">
+                                                    <option value="Robocza" ${s.type==='Robocza'?'selected':''}>Robocza</option>
+                                                    <option value="Rozgrzewka" ${s.type==='Rozgrzewka'?'selected':''}>Rozgrzewka</option>
+                                                    <option value="Drop-set" ${s.type==='Drop-set'?'selected':''}>Drop-set</option>
+                                                </select>
+                                                <div style="display:flex; align-items:center; gap:2px; flex:1; min-width:65px;">
+                                                    <input type="number" placeholder="kg" value="${s.weight||''}" onchange="updatePlanSetData('${day}',${ex.id},${idx},'weight',this.value)" style="width:100%; padding:3px; margin:0; font-size:0.8rem; text-align:center;">
+                                                    <span style="font-size:0.7rem; color:var(--text-muted);">kg</span>
                                                 </div>
-                                                <div style="display:flex; align-items:center; gap:3px; flex:1; min-width:60px;">
-                                                    <input type="number" placeholder="pow" value="${s.reps||''}" onchange="updatePlanSetData('${day}',${ex.id},${idx},'reps',this.value)" style="width:100%; padding:4px; margin:0; font-size:0.8rem; text-align:center;">
-                                                    <span style="font-size:0.75rem; color:var(--text-muted);">pow</span>
+                                                <div style="display:flex; align-items:center; gap:2px; flex:1; min-width:55px;">
+                                                    <input type="number" placeholder="pow" value="${s.reps||''}" onchange="updatePlanSetData('${day}',${ex.id},${idx},'reps',this.value)" style="width:100%; padding:3px; margin:0; font-size:0.8rem; text-align:center;">
+                                                    <span style="font-size:0.7rem; color:var(--text-muted);">pow</span>
                                                 </div>
-                                                <div style="display:flex; align-items:center; gap:3px; min-width:70px;">
-                                                    <span style="font-size:0.7rem; color:var(--gold);">RIR:</span>
-                                                    <input type="number" min="0" max="5" placeholder="rir" value="${s.rir||'2'}" onchange="updatePlanSetData('${day}',${ex.id},${idx},'rir',this.value)" style="width:40px; padding:4px; margin:0; font-size:0.8rem; text-align:center;">
+                                                <div style="display:flex; align-items:center; gap:2px; min-width:60px;">
+                                                    <span style="font-size:0.65rem; color:var(--gold);">RIR:</span>
+                                                    <input type="number" min="0" max="5" placeholder="rir" value="${s.rir||'2'}" onchange="updatePlanSetData('${day}',${ex.id},${idx},'rir',this.value)" style="width:36px; padding:3px; margin:0; font-size:0.8rem; text-align:center;">
                                                 </div>
                                                 <button style="background:transparent; border:none; color:var(--danger); font-size:1rem; cursor:pointer; padding:0 4px;" onclick="removeSingleSetFromExercise('${day}',${ex.id},${idx})">✕</button>
                                             </div>
@@ -1076,10 +1179,11 @@
             if (!['owner', 'admin'].includes(window.currentUserRole)) return alert("Brak uprawnień!");
             const name = document.getElementById('admin-ex-name').value;
             const part = document.getElementById('admin-ex-part').value;
+            const level = document.getElementById('admin-ex-level').value;
             const desc = document.getElementById('admin-ex-desc').value;
             if(!name || !part) return alert("Wpisz nazwę i partię mięśniową!");
             try {
-                await window.fbAddDoc(window.fbCollection(window.db, 'projects', 'd1s-gym', 'custom_atlas'), { name, part, desc });
+                await window.fbAddDoc(window.fbCollection(window.db, 'projects', 'd1s-gym', 'custom_atlas'), { name, part, level, desc });
                 alert("Dodano ćwiczenie do Atlasu!");
                 document.getElementById('admin-ex-name').value = '';
                 document.getElementById('admin-ex-part').value = '';
@@ -1298,7 +1402,8 @@
                 authorRole: currentRole,
                 content: content || '',
                 imageBase64: tempForumImageBase64 || null,
-                timestamp: Date.now()
+                timestamp: Date.now(),
+                likes: 0
             });
 
             clearForumImage();
@@ -1311,6 +1416,14 @@
             createForumPost(content);
         }
 
+        async function likeForumPost(postId, currentLikes) {
+            try {
+                await window.fbSetDoc(window.fbDoc(window.db, 'projects', 'd1s-gym', 'forum', postId), {
+                    likes: (currentLikes || 0) + 1
+                }, { merge: true });
+            } catch(e) {}
+        }
+
         function renderForumPosts(posts) {
             const list = document.getElementById('forum-posts-list');
             if(!posts || posts.length===0) { list.innerHTML = '<p style="color:var(--text-muted); text-align:center;">Brak wpisów na czacie.</p>'; return; }
@@ -1318,12 +1431,14 @@
 
             list.innerHTML = posts.map(p => {
                 const roleBadge = window.getRoleBadgeHtml ? window.getRoleBadgeHtml(p.authorRole || 'user') : '';
+                const likes = p.likes || 0;
                 return `
                     <div style="background:rgba(255,255,255,0.02); border:1px solid var(--card-border); padding:12px; border-radius:12px; margin-bottom:10px;">
                         <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.75rem; color:var(--text-muted); margin-bottom:6px;">
                             <div style="display:flex; align-items:center; gap:6px;">
                                 ${roleBadge}
                                 <strong style="color: var(--text-main);">${p.authorName || 'Użytkownik'}</strong>
+                                <span style="background:rgba(236,72,153,0.15); color:var(--primary); padding:2px 6px; border-radius:6px; font-size:0.65rem;">📸 Forma Dnia</span>
                             </div>
                             <div>
                                 <span>${new Date(p.timestamp).toLocaleTimeString('pl-PL')}</span>
@@ -1332,6 +1447,9 @@
                         </div>
                         ${p.content ? `<p style="font-size:0.88rem; margin-top:4px; line-height:1.4;">${p.content}</p>` : ''}
                         ${p.imageBase64 ? `<img src="${p.imageBase64}" class="chat-img-preview" alt="Zdjęcie progresu">` : ''}
+                        <div style="margin-top:8px; display:flex; align-items:center; gap:6px;">
+                            <button class="btn btn-outline btn-sm" style="padding:4px 10px; font-size:0.75rem;" onclick="likeForumPost('${p.id}', ${likes})">❤️ ${likes}</button>
+                        </div>
                     </div>
                 `;
             }).join('');
@@ -1340,8 +1458,14 @@
         function renderAtlas() {
             const container = document.getElementById('atlas-container');
             const search = (document.getElementById('atlas-search')?.value || '').toLowerCase();
+            const filterLevel = document.getElementById('atlas-filter-level')?.value || 'all';
             const fullList = [...DEFAULT_ATLAS, ...(window.customAtlas || [])];
-            let items = fullList.filter(x => x.name.toLowerCase().includes(search) || x.part.toLowerCase().includes(search));
+            
+            let items = fullList.filter(x => {
+                const matchSearch = x.name.toLowerCase().includes(search) || x.part.toLowerCase().includes(search);
+                const matchLevel = filterLevel === 'all' || x.level === filterLevel;
+                return matchSearch && matchLevel;
+            });
             const isAdmin = ['owner', 'admin'].includes(window.currentUserRole);
 
             container.innerHTML = items.map(a => `
@@ -1351,8 +1475,9 @@
                             <span class="role-badge role-staff">${a.part}</span>
                             ${(isAdmin && a.id) ? `<button class="btn btn-outline btn-sm" style="color:var(--danger); padding:1px 6px;" onclick="deleteCustomAtlasItem('${a.id}')">🗑</button>` : ''}
                         </div>
-                        <div class="anim-badge" style="margin-top:6px;"><div class="pulse-dot"></div> Instruktaż & Animacja</div>
+                        <div class="anim-badge" style="margin-top:8px;"><div class="pulse-dot"></div> Instruktaż & Animacja (Live)</div>
                         <h4 style="margin:6px 0; color:#fff; font-size:1rem;">${a.name}</h4>
+                        <div style="font-size:0.7rem; color:var(--gold); margin-bottom:4px; font-weight:700;">Poziom: ${a.level || 'Średniozaawansowany'}</div>
                         <p style="font-size:0.8rem; color:var(--text-muted); line-height:1.4;">${a.desc}</p>
                     </div>
                     <button class="btn btn-sm" style="margin-top:12px; font-size:0.75rem; width:100%;" onclick="openAddAtlasToPlanModal('${a.name}')">+ Dodaj do Planu</button>
@@ -1363,8 +1488,17 @@
         function renderRecipes() {
             const container = document.getElementById('recipes-container');
             const search = (document.getElementById('recipe-search')?.value || '').toLowerCase();
+            const filterKcal = document.getElementById('recipe-filter-kcal')?.value || 'all';
             const fullList = [...DEFAULT_RECIPES, ...(window.customRecipes || [])];
-            let items = fullList.filter(x => x.name.toLowerCase().includes(search));
+
+            let items = fullList.filter(x => {
+                const matchSearch = x.name.toLowerCase().includes(search);
+                const kcalNum = parseFloat(x.kcal) || 0;
+                let matchKcal = true;
+                if (filterKcal === 'low') matchKcal = kcalNum < 500;
+                if (filterKcal === 'high') matchKcal = kcalNum >= 500;
+                return matchSearch && matchKcal;
+            });
             const isAdmin = ['owner', 'admin'].includes(window.currentUserRole);
 
             container.innerHTML = items.map(r => `
@@ -1402,8 +1536,8 @@
             let left = seconds;
             updateTimerDisplay(left);
             
-            // Inicjalizacja dźwięku w geście użytkownika
-            playBeep(440, 0.05);
+            unlockAudioContext();
+            playBeep(440, 0.08);
 
             timerInterval = setInterval(() => {
                 left--;
@@ -1463,7 +1597,12 @@
             if(goal==='bulk') tdee += 300;
             if(goal==='cut') tdee -= 400;
 
+            const proteinGrams = Math.round(weight * 2.0);
+            const fatGrams = Math.round((tdee * 0.25) / 9);
+            const carbGrams = Math.round((tdee - (proteinGrams * 4 + fatGrams * 9)) / 4);
+
             document.getElementById('res-tdee').innerText = tdee + ' kcal';
+            document.getElementById('res-macros').innerText = `Białko: ${proteinGrams}g | Tłuszcze: ${fatGrams}g | Węglowodany: ${carbGrams}g`;
             document.getElementById('calories-result').style.display = 'block';
         }
 
@@ -1473,6 +1612,7 @@
         renderPlan();
         renderAchievements();
         updateWaterUI();
+        updateWorkoutStats();
     </script>
 </body>
 </html>
