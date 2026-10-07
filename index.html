@@ -86,15 +86,16 @@
         .role-staff { background: #38bdf8; color: #0d0d12; }
         .role-vip { background: var(--gold); color: #000; box-shadow: 0 0 10px var(--gold-glow); }
         .role-user { background: #1e1b2e; color: #94a3b8; }
-        .role-custom { background: var(--purple); color: #fff; box-shadow: 0 0 10px var(--purple-glow); }
 
         #auth-lockscreen { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 60vh; text-align: center; }
         #verification-screen { display: none; flex-direction: column; align-items: center; justify-content: center; min-height: 50vh; text-align: center; }
         
         .list-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: rgba(255,255,255,0.02); border-radius: 14px; margin-bottom: 10px; border: 1px solid var(--card-border); font-size: 0.88rem; }
         
-        .day-card { background: rgba(255,255,255,0.02); border: 1px solid var(--card-border); border-radius: 16px; padding: 16px; margin-bottom: 12px; }
-        .day-header { font-weight: 800; color: var(--primary); border-bottom: 1px solid var(--card-border); padding-bottom: 8px; margin-bottom: 12px; display: flex; justify-content: space-between; }
+        .day-card { background: rgba(255,255,255,0.02); border: 1px solid var(--card-border); border-radius: 16px; padding: 16px; margin-bottom: 12px; transition: border-color 0.3s; }
+        .day-card.active-workout-day { border: 2px solid var(--primary); box-shadow: 0 0 20px var(--primary-glow); background: rgba(236, 72, 153, 0.04); }
+        
+        .day-header { font-weight: 800; color: var(--primary); border-bottom: 1px solid var(--card-border); padding-bottom: 8px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; }
         .exercise-item { background: rgba(10, 7, 18, 0.6); padding: 14px; border-radius: 12px; margin-bottom: 10px; border-left: 4px solid var(--primary); }
 
         .sets-grid { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
@@ -113,7 +114,7 @@
         .modal-overlay { position: fixed; top:0; left:0; right:0; bottom:0; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); display: none; align-items: center; justify-content: center; z-index: 999; padding: 16px; }
         .modal-body { background: var(--bg-card); border: 1px solid var(--card-border); border-radius: 20px; padding: 22px; width: 100%; max-width: 420px; box-shadow: 0 10px 30px rgba(0,0,0,0.9); max-height: 90vh; overflow-y: auto; }
 
-        .chat-img-preview { max-width: 100%; max-height: 240px; border-radius: 12px; margin-top: 8px; border: 1px solid var(--card-border); object-fit: cover; display: block; }
+        .chat-img-preview { max-width: 100%; max-height: 280px; border-radius: 12px; margin-top: 8px; border: 1px solid var(--card-border); object-fit: contain; background: #000; display: block; }
         .stat-box { background: rgba(255,255,255,0.03); border: 1px solid var(--card-border); padding: 12px; border-radius: 14px; text-align: center; }
         
         @media (max-width: 600px) {
@@ -225,19 +226,15 @@
                         }, { merge: true });
 
                         document.getElementById('user-username-display').innerText = window.currentUsername;
-                        window.gymData = userData.gym_data || { workouts: [], workoutPlan: {}, xp: 0, level: 1, water: 0, prs: {} };
+                        window.gymData = userData.gym_data || { workouts: [], workoutPlan: {}, activeWorkoutDay: null, xp: 0, level: 1, water: 0, prs: {} };
 
                         document.getElementById('user-role-tag').innerHTML = getRoleBadgeHtml(window.currentUserRole);
 
                         document.getElementById('tab-admin-btn').style.display = ['owner', 'admin'].includes(window.currentUserRole) ? 'inline-block' : 'none';
                         document.getElementById('tab-vip-btn').style.display = ['owner', 'admin', 'vip'].includes(window.currentUserRole) ? 'inline-block' : 'none';
 
-                        if (['owner', 'admin'].includes(window.currentUserRole)) {
-                            window.loadCustomRoles();
-                            window.loadAdminUserList();
-                        }
+                        if (['owner', 'admin'].includes(window.currentUserRole)) window.loadAdminUserList();
 
-                        window.renderAll();
                         window.renderPlan();
                         window.renderAchievements();
                         window.updateWaterUI();
@@ -288,15 +285,6 @@
                 window.customRecipes = items;
                 window.renderRecipes();
             });
-
-            onSnapshot(collection(db, 'projects', 'd1s-gym', 'custom_roles_list'), (snap) => {
-                let roles = [];
-                snap.forEach(d => roles.push({ id: d.id, ...d.data() }));
-                window.customRolesList = roles;
-                if (['owner', 'admin'].includes(window.currentUserRole)) {
-                    window.loadAdminUserList();
-                }
-            });
         };
 
         window.listenToForumPosts = function() {
@@ -315,8 +303,7 @@
                 case 'admin': return '<span class="role-badge role-admin">🛡 Admin</span>';
                 case 'staff': return '<span class="role-badge role-staff">🛠 Staff</span>';
                 case 'vip': return '<span class="role-badge role-vip">🌟 VIP</span>';
-                case 'user': return '<span class="role-badge role-user">🏋 Gracz</span>';
-                default: return `<span class="role-badge role-custom">⭐ ${role}</span>`;
+                default: return '<span class="role-badge role-user">🏋 Gracz</span>';
             }
         }
         window.getRoleBadgeHtml = getRoleBadgeHtml;
@@ -373,8 +360,7 @@
 
             <!-- Nawigacja Zakładek -->
             <div class="nav-tabs">
-                <button class="tab-btn active" onclick="switchTab('tab-workout')">💪 Dziennik</button>
-                <button class="tab-btn" onclick="switchTab('tab-plan')">📅 Plan Treningowy</button>
+                <button class="tab-btn active" onclick="switchTab('tab-plan')">📅 Plan i Trening</button>
                 <button class="tab-btn" onclick="switchTab('tab-atlas')">📚 Atlas</button>
                 <button class="tab-btn" onclick="switchTab('tab-forum')">💬 Czat i Progres</button>
                 <button class="tab-btn" onclick="switchTab('tab-progress')">📊 Wyniki & LVL</button>
@@ -383,119 +369,83 @@
                 <button id="tab-admin-btn" class="tab-btn" style="display: none; color: var(--owner-color);" onclick="switchTab('tab-admin')">👑 Admin</button>
             </div>
 
-            <!-- ZAKŁADKA 1: DZIENNIK TRENINGOWY -->
-            <div id="tab-workout" class="tab-content">
-                <div class="grid">
+            <!-- ZAKŁADKA 1: PLAN TRENINGOWY I CENTRUM TRENINGU -->
+            <div id="tab-plan" class="tab-content">
+                <div class="grid" style="grid-template-columns: 1fr 300px; gap: 20px;">
                     <div>
                         <div class="card">
-                            <h3 style="margin-bottom: 12px; color: var(--primary);">Dodaj Serię w Dzienniku</h3>
-                            <form id="workout-form" onsubmit="addExercise(event)">
-                                <label>Ćwiczenie</label>
-                                <input type="text" id="ex-name" placeholder="np. Wyciskanie na ławce" required>
-
-                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
-                                    <div>
-                                        <label>Ciężar (kg)</label>
-                                        <input type="number" id="ex-weight" step="0.5" placeholder="80" required>
-                                    </div>
-                                    <div>
-                                        <label>Powtórzenia</label>
-                                        <input type="number" id="ex-reps" placeholder="10" required>
-                                    </div>
-                                </div>
-
-                                <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 8px;">
-                                    <div>
-                                        <label>RIR (Zapas)</label>
-                                        <input type="number" id="ex-rir" min="0" max="5" placeholder="2">
-                                    </div>
-                                    <div>
-                                        <label>Notatki / Uwagi</label>
-                                        <input type="text" id="ex-note" placeholder="np. Dobra technika">
-                                    </div>
-                                </div>
-
-                                <button type="submit" class="btn" style="width: 100%; margin-top: 5px;">Zapisz Serię</button>
-                            </form>
-                        </div>
-
-                        <!-- Water Tracker -->
-                        <div class="card">
-                            <div style="display: flex; justify-content: space-between; align-items: center;">
-                                <h4>💧 Nawodnienie</h4>
-                                <span id="water-text" style="font-weight: 800; color: var(--primary); font-size: 0.9rem;">0 / 3000 ml</span>
+                            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 12px;">
+                                <h3 style="color: var(--primary);">📅 Tygodniowy Plan Treningowy</h3>
+                                <button class="btn btn-outline btn-sm" onclick="generatePresetPlanPPL()">⚡ Wgraj Przykładowy PPL</button>
                             </div>
+                            
+                            <form id="plan-form" onsubmit="addPlanExercise(event)" style="background: rgba(10, 7, 18, 0.6); padding: 14px; border-radius: 14px; margin-bottom: 15px; border: 1px solid var(--card-border);">
+                                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 8px;">
+                                    <div>
+                                        <label>Dzień Tygodnia</label>
+                                        <select id="plan-day" required>
+                                            <option value="Poniedziałek">Poniedziałek</option>
+                                            <option value="Wtorek">Wtorek</option>
+                                            <option value="Środa">Środa</option>
+                                            <option value="Czwartek">Czwartek</option>
+                                            <option value="Piątek">Piątek</option>
+                                            <option value="Sobota">Sobota</option>
+                                            <option value="Niedziela">Niedziela</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label>Nazwa Ćwiczenia</label>
+                                        <input type="text" id="plan-ex-name" placeholder="np. Przysiad ze sztangą" required>
+                                    </div>
+                                    <div>
+                                        <label>Ilość Serii</label>
+                                        <input type="number" id="plan-sets-count" placeholder="3" value="3" required>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-sm" style="margin-top: 5px;">+ Dodaj Ćwiczenie do Planu</button>
+                            </form>
+
+                            <div id="week-plan-container"></div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <!-- Statystyki aktywnego treningu -->
+                        <div class="card" style="position: sticky; top: 15px;">
+                            <h4 style="color: var(--primary); margin-bottom: 10px;">⚡ Statystyki Treningu</h4>
+                            <div id="active-day-badge" style="font-size: 0.8rem; font-weight: 800; color: var(--gold); margin-bottom: 12px; background: rgba(251,191,36,0.1); padding: 6px 10px; border-radius: 8px; border: 1px solid rgba(251,191,36,0.3); text-align:center;">
+                                Brak wybranego dnia
+                            </div>
+                            <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px;">
+                                <div class="stat-box">
+                                    <div style="font-size: 0.7rem; color: var(--text-muted);">Łączny Tonaż Sesji</div>
+                                    <div id="stat-total-tonnage" style="font-size: 1.1rem; font-weight: 900; color: var(--gold);">0 kg</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div style="font-size: 0.7rem; color: var(--text-muted);">Zaliczone Serie</div>
+                                    <div id="stat-total-sets" style="font-size: 1.1rem; font-weight: 900; color: var(--primary);">0</div>
+                                </div>
+                            </div>
+
+                            <h4 style="color: var(--primary); margin-bottom: 10px; font-size: 0.9rem;">💧 Nawodnienie</h4>
+                            <span id="water-text" style="font-weight: 800; color: var(--primary); font-size: 0.8rem;">0 / 3000 ml</span>
                             <div class="water-progress"><div id="water-bar" class="water-bar"></div></div>
                             <div style="display: flex; gap: 6px; margin-top: 8px;">
                                 <button class="btn btn-outline btn-sm" style="flex:1;" onclick="addWater(250)">+250ml</button>
                                 <button class="btn btn-outline btn-sm" style="flex:1;" onclick="addWater(500)">+500ml</button>
                                 <button class="btn btn-outline btn-sm" style="color: var(--danger);" onclick="resetWater()">↺</button>
                             </div>
-                        </div>
-                    </div>
 
-                    <div>
-                        <div class="card" style="margin-bottom: 20px;">
-                            <h4 style="color: var(--primary); margin-bottom: 10px;">⚡ Statystyki Treningowe</h4>
-                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                                <div class="stat-box">
-                                    <div style="font-size: 0.7rem; color: var(--text-muted);">Łączny Tonaż</div>
-                                    <div id="stat-total-tonnage" style="font-size: 1.1rem; font-weight: 900; color: var(--gold);">0 kg</div>
-                                </div>
-                                <div class="stat-box">
-                                    <div style="font-size: 0.7rem; color: var(--text-muted);">Zapisane Serie</div>
-                                    <div id="stat-total-sets" style="font-size: 1.1rem; font-weight: 900; color: var(--primary);">0</div>
-                                </div>
+                            <div style="margin-top: 20px;">
+                                <h4 style="color: var(--primary); margin-bottom: 8px; font-size: 0.9rem;">Ostatnia Aktywność</h4>
+                                <div id="workout-list" style="max-height: 200px; overflow-y:auto;"><p style="font-size: 0.75rem; color: var(--text-muted); text-align: center;">Brak zapisanych treningów.</p></div>
                             </div>
-                        </div>
-
-                        <div class="card">
-                            <h3 style="margin-bottom: 12px; color: var(--primary);">Ostatnia Aktywność</h3>
-                            <div id="workout-list"><p style="color: var(--text-muted); text-align: center;">Brak serii.</p></div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- ZAKŁADKA 2: TYGODNIOWY PLAN TRENINGOWY -->
-            <div id="tab-plan" class="tab-content" style="display: none;">
-                <div class="card">
-                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 12px;">
-                        <h3 style="color: var(--primary);">📅 Plan Treningowy z RIR i Typem Serii</h3>
-                        <button class="btn btn-outline btn-sm" onclick="generatePresetPlanPPL()">⚡ Wgraj Przykładowy PPL</button>
-                    </div>
-                    
-                    <form id="plan-form" onsubmit="addPlanExercise(event)" style="background: rgba(10, 7, 18, 0.6); padding: 14px; border-radius: 14px; margin-bottom: 15px; border: 1px solid var(--card-border);">
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 8px;">
-                            <div>
-                                <label>Dzień Tygodnia</label>
-                                <select id="plan-day" required>
-                                    <option value="Poniedziałek">Poniedziałek</option>
-                                    <option value="Wtorek">Wtorek</option>
-                                    <option value="Środa">Środa</option>
-                                    <option value="Czwartek">Czwartek</option>
-                                    <option value="Piątek">Piątek</option>
-                                    <option value="Sobota">Sobota</option>
-                                    <option value="Niedziela">Niedziela</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label>Nazwa Ćwiczenia</label>
-                                <input type="text" id="plan-ex-name" placeholder="np. Przysiad ze sztangą" required>
-                            </div>
-                            <div>
-                                <label>Ilość Serii</label>
-                                <input type="number" id="plan-sets-count" placeholder="3" value="3" required>
-                            </div>
-                        </div>
-                        <button type="submit" class="btn btn-sm" style="margin-top: 5px;">+ Dodaj Ćwiczenie do Planu</button>
-                    </form>
-
-                    <div class="grid" id="week-plan-container"></div>
-                </div>
-            </div>
-
-            <!-- ZAKŁADKA 3: ATLAS -->
+            <!-- ZAKŁADKA 2: ATLAS -->
             <div id="tab-atlas" class="tab-content" style="display: none;">
                 <div class="card">
                     <h3 style="color: var(--primary); margin-bottom: 6px;">📚 Profesjonalny Atlas Ćwiczeń</h3>
@@ -513,19 +463,19 @@
                 </div>
             </div>
 
-            <!-- ZAKŁADKA 4: CZAT SPOŁECZNOŚCI I PROGRES Z APARATEM -->
+            <!-- ZAKŁADKA 3: CZAT SPOŁECZNOŚCI I PROGRES Z APARATEM -->
             <div id="tab-forum" class="tab-content" style="display: none;">
                 <div class="card">
                     <h3 style="color: var(--primary); margin-bottom: 10px;">💬 Czat & Pochwal się Progresem</h3>
-                    <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:12px;">Kliknij ikonę aparatu, aby zrobić zdjęcie bezpośrednio telefonem / kamerą lub wrzuć fotkę formy wraz z opisem treningu!</p>
+                    <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:12px;">Zrób zdjęcie formy telefonem lub wybierz plik z galerii. Zdjęcie zostanie trwale zapisane na czacie wraz z Twoim wpisem!</p>
                     
                     <form onsubmit="handleForumSubmit(event)" style="margin-bottom: 15px;">
                         <textarea id="forum-content" rows="2" placeholder="Co dzisiaj wpadło na treningu? Podziel się formą..."></textarea>
                         
                         <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 8px; flex-wrap: wrap;">
                             <label class="btn btn-outline btn-sm" style="cursor: pointer; margin:0; display: inline-flex; align-items: center; gap: 6px;">
-                                📷 Zrób / Wybierz Zdjęcie
-                                <input type="file" id="forum-img-input" accept="image/*" capture="environment" style="display: none;" onchange="previewForumImage(event)">
+                                📷 Wybierz lub zrób zdjęcie
+                                <input type="file" id="forum-img-input" accept="image/*" style="display: none;" onchange="previewForumImage(event)">
                             </label>
                             <span id="forum-img-name" style="font-size: 0.75rem; color: var(--text-muted);">Brak zdjęcia</span>
                             <button type="button" id="forum-img-clear" class="btn btn-outline btn-sm" style="color: var(--danger); display: none; padding: 2px 6px;" onclick="clearForumImage()">Usuń fotkę</button>
@@ -541,7 +491,7 @@
                 </div>
             </div>
 
-            <!-- ZAKŁADKA 5: PROGRESS & LVL -->
+            <!-- ZAKŁADKA 4: PROGRESS & LVL -->
             <div id="tab-progress" class="tab-content" style="display: none;">
                 <div class="card">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap:wrap; gap:8px;">
@@ -549,7 +499,7 @@
                         <span id="player-level-text" style="font-weight: 900; color: var(--gold); font-size: 1.1rem;">LVL 1 (0/200 XP)</span>
                     </div>
                     <div class="water-progress" style="height:18px;"><div id="xp-bar" class="water-bar"></div></div>
-                    <p style="font-size:0.75rem; color:var(--text-muted); margin-top:6px; text-align:center;">Zdobywaj XP za bicie rekordów ciężarowych (PR) w ćwiczeniach! Im wyższy poziom, tym większe wymagania punktowe (zbalansowane, brak możliwości oszustwa). 🚀</p>
+                    <p style="font-size:0.75rem; color:var(--text-muted); margin-top:6px; text-align:center;">Zdobywaj XP za bicie rekordów ciężarowych (PR) w planie treningowym! 🚀</p>
 
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-top: 20px;">
                         <div class="stat-box">
@@ -569,7 +519,7 @@
                 </div>
             </div>
 
-            <!-- ZAKŁADKA 6: KALORIE -->
+            <!-- ZAKŁADKA 5: KALORIE -->
             <div id="tab-calc" class="tab-content" style="display: none;">
                 <div class="grid">
                     <div class="card">
@@ -605,7 +555,7 @@
                 </div>
             </div>
 
-            <!-- ZAKŁADKA 7: PRZEPISY VIP -->
+            <!-- ZAKŁADKA 6: PRZEPISY VIP -->
             <div id="tab-vip" class="tab-content" style="display: none;">
                 <div class="card">
                     <h3 style="color: var(--gold); margin-bottom: 10px;">🌟 Przepisy VIP</h3>
@@ -621,20 +571,10 @@
                 </div>
             </div>
 
-            <!-- ZAKŁADKA 8: PANEL ADMINA -->
+            <!-- ZAKŁADKA 7: PANEL ADMINA -->
             <div id="tab-admin" class="tab-content" style="display: none;">
                 <div class="card card-admin">
                     <h3 style="color: var(--gold); margin-bottom: 12px;">👑 Panel Administratora & Szefa</h3>
-
-                    <!-- SEKCJA TWORZENIA NOWYCH RANG -->
-                    <div style="background: rgba(10, 7, 18, 0.6); padding: 14px; border-radius: 14px; margin-bottom: 15px; border: 1px solid var(--card-border);">
-                        <h4 style="color: var(--gold); margin-bottom: 8px;">✨ Utwórz Nową Własną Rangę</h4>
-                        <p style="font-size:0.75rem; color:var(--text-muted); margin-bottom:8px;">Dodaj unikalną rangę (np. Silacz, Weteran, Trener), którą będziesz mógł przypisać użytkownikom.</p>
-                        <div style="display:flex; gap:8px;">
-                            <input type="text" id="new-role-input" placeholder="Nazwa nowej rangi (np. Silacz)" style="margin:0; flex:1;">
-                            <button class="btn btn-sm" style="background: var(--gold); color: #000; margin:0;" onclick="createNewCustomRole()">+ Stwórz Rangę</button>
-                        </div>
-                    </div>
 
                     <div id="admin-atlas-form-container" style="background: rgba(10, 7, 18, 0.6); padding: 14px; border-radius: 14px; margin-bottom: 15px; border: 1px solid var(--card-border);">
                         <h4 style="color: var(--primary); margin-bottom: 8px;">+ Dodaj Nowe Ćwiczenie do Atlasu</h4>
@@ -660,7 +600,7 @@
                         <button class="btn btn-sm" style="background: var(--gold); color: #000;" onclick="adminAddRecipeItem()">Opublikuj Przepis</button>
                     </div>
 
-                    <h4 style="margin-bottom: 10px; color: var(--gold);">👥 Zarządzanie Użytkownikami i Rolami (<span id="stat-users-count">0</span>):</h4>
+                    <h4 style="margin-bottom: 10px; color: var(--gold);">👥 Zarządzanie Użytkownikami (<span id="stat-users-count">0</span>):</h4>
                     <div id="admin-user-list">Pobieranie listy użytkowników...</div>
                 </div>
             </div>
@@ -711,8 +651,8 @@
     <!-- MODAL ZMIANY NICKU I KONTROLI UPRAWNIEN -->
     <div id="admin-edit-nickname-modal" class="modal-overlay">
         <div class="modal-body">
-            <h3 style="color:var(--gold); margin-bottom:8px;">⚙️ Zarządzanie Użytkownikiem i Rolami</h3>
-            <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:12px;">Edycja nicku oraz pełna kontrola uprawnień.</p>
+            <h3 style="color:var(--gold); margin-bottom:8px;">⚙️ Zarządzanie Użytkownikiem</h3>
+            <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:12px;">Edycja nicku oraz uprawnień.</p>
             
             <input type="hidden" id="modal-edit-uid">
             <label>Pseudonim (Nick)</label>
@@ -788,10 +728,9 @@
         }
         generateAppleTouchIconPNG();
 
-        window.gymData = JSON.parse(localStorage.getItem('adis_gym_data')) || { workouts: [], workoutPlan: {}, xp: 0, level: 1, water: 0, prs: {} };
+        window.gymData = JSON.parse(localStorage.getItem('adis_gym_data')) || { workouts: [], workoutPlan: {}, activeWorkoutDay: null, xp: 0, level: 1, water: 0, prs: {} };
         window.customAtlas = [];
         window.customRecipes = [];
-        window.customRolesList = [];
         let isRegisterMode = false, timerInterval = null, selectedAtlasName = "", tempForumImageBase64 = null;
         let soundEnabled = true;
         let globalAudioCtx = null;
@@ -845,8 +784,8 @@
             if (tabId === 'tab-progress') { renderProgressChart(); updateStrengthRank(); }
             if (tabId === 'tab-atlas') renderAtlas();
             if (tabId === 'tab-vip') renderRecipes();
-            if (tabId === 'tab-admin') { loadCustomRoles(); loadAdminUserList(); }
-            if (tabId === 'tab-workout') updateWorkoutStats();
+            if (tabId === 'tab-admin') loadAdminUserList();
+            if (tabId === 'tab-plan') { renderPlan(); updateWorkoutStats(); }
         }
 
         function toggleAuthMode() {
@@ -934,14 +873,65 @@
             document.getElementById('xp-bar').style.width = pct + '%';
         }
 
+        function startActiveWorkoutDay(dayName) {
+            window.gymData.activeWorkoutDay = dayName;
+            window.saveGymData();
+            window.renderPlan();
+            updateWorkoutStats();
+            alert(`Rozpoczęto trening na dzisiaj: ${dayName}! Odhaczaj wykonane serie.`);
+        }
+
         function updateWorkoutStats() {
-            const workouts = window.gymData.workouts || [];
+            const plan = window.gymData.workoutPlan || {};
+            const activeDay = window.gymData.activeWorkoutDay;
+            const badgeEl = document.getElementById('active-day-badge');
+            
+            if (activeDay) {
+                badgeEl.innerText = `🟢 Aktywny dzień: ${activeDay}`;
+                badgeEl.style.color = "var(--success)";
+                badgeEl.style.borderColor = "rgba(16,185,129,0.4)";
+                badgeEl.style.background = "rgba(16,185,129,0.1)";
+            } else {
+                badgeEl.innerText = "⚠️ Wybierz dzień przyciskiem 'Start Treningu'";
+                badgeEl.style.color = "var(--gold)";
+                badgeEl.style.borderColor = "rgba(251,191,36,0.3)";
+                badgeEl.style.background = "rgba(251,191,36,0.1)";
+            }
+
             let totalTonnage = 0;
-            workouts.forEach(w => {
-                totalTonnage += (parseFloat(w.weight) || 0) * (parseFloat(w.reps) || 0);
+            let totalDoneSets = 0;
+
+            Object.keys(plan).forEach(day => {
+                (plan[day] || []).forEach(ex => {
+                    (ex.sets || []).forEach(s => {
+                        if (s.done) {
+                            totalDoneSets++;
+                            const w = parseFloat(s.weight) || 0;
+                            const r = parseFloat(s.reps) || 0;
+                            totalTonnage += w * r;
+                        }
+                    });
+                });
             });
+
             document.getElementById('stat-total-tonnage').innerText = totalTonnage + ' kg';
-            document.getElementById('stat-total-sets').innerText = workouts.length;
+            document.getElementById('stat-total-sets').innerText = totalDoneSets;
+            renderWorkoutsHistory();
+        }
+
+        function renderWorkoutsHistory() {
+            const list = document.getElementById('workout-list');
+            const workouts = window.gymData.workouts || [];
+            if (workouts.length === 0) {
+                list.innerHTML = '<p style="font-size: 0.75rem; color: var(--text-muted); text-align: center;">Brak zakończonych treningów.</p>';
+                return;
+            }
+            list.innerHTML = workouts.slice(0, 5).map(w => `
+                <div style="background:rgba(255,255,255,0.02); border:1px solid var(--card-border); padding:8px; border-radius:10px; margin-bottom:6px; font-size:0.78rem;">
+                    <div style="font-weight:800; color:var(--primary);">${w.dayName} (${w.date})</div>
+                    <div style="color:var(--text-muted); margin-top:2px;">Łączny Tonaż: <strong style="color:var(--gold);">${w.tonnage} kg</strong> (${w.setsCount} serii)</div>
+                </div>
+            `).join('');
         }
 
         function updateStrengthRank() {
@@ -957,54 +947,6 @@
             else if (maxPr >= 70) rank = "💪 Średniozaawansowany";
 
             document.getElementById('player-strength-rank').innerText = rank;
-        }
-
-        function addExercise(e) {
-            e.preventDefault();
-            const name = document.getElementById('ex-name').value;
-            const weight = document.getElementById('ex-weight').value;
-            const reps = document.getElementById('ex-reps').value;
-            const rir = document.getElementById('ex-rir').value || '-';
-            const note = document.getElementById('ex-note').value || '';
-
-            if (!window.gymData.workouts) window.gymData.workouts = [];
-            window.gymData.workouts.unshift({ id: Date.now(), name, weight, reps, rir, note, date: new Date().toLocaleDateString('pl-PL') });
-
-            checkAndAddXPForPR(name, weight);
-            window.saveGymData();
-            window.renderAll();
-            updateWorkoutStats();
-            document.getElementById('workout-form').reset();
-        }
-
-        function deleteWorkoutItem(id) {
-            window.gymData.workouts = window.gymData.workouts.filter(w => w.id !== id);
-            window.saveGymData();
-            window.renderAll();
-            updateWorkoutStats();
-        }
-
-        function renderAll() {
-            const list = document.getElementById('workout-list');
-            if (!window.gymData.workouts || window.gymData.workouts.length === 0) {
-                list.innerHTML = '<p style="color: var(--text-muted); text-align: center;">Brak serii w dzienniku.</p>';
-                return;
-            }
-            list.innerHTML = window.gymData.workouts.map(w => `
-                <div class="list-item" style="flex-direction:column; align-items:flex-start; gap:4px;">
-                    <div style="display:flex; width:100%; justify-content:space-between; align-items:center;">
-                        <strong>${w.name}</strong>
-                        <div style="display: flex; align-items: center; gap: 8px;">
-                            <span style="font-weight: 800; color: var(--primary);">${w.weight} kg × ${w.reps} pow (RIR: ${w.rir})</span>
-                            <button class="btn btn-outline btn-sm" style="color:var(--danger); padding:2px 6px;" onclick="deleteWorkoutItem(${w.id})">✕</button>
-                        </div>
-                    </div>
-                    <div style="display:flex; justify-content:space-between; width:100%; font-size: 0.75rem; color: var(--text-muted);">
-                        <span>${w.date}</span>
-                        ${w.note ? `<span>Notatka: ${w.note}</span>` : ''}
-                    </div>
-                </div>
-            `).join('');
         }
 
         function addPlanExercise(e) {
@@ -1071,6 +1013,7 @@
                 ex.sets.forEach((s, i) => s.setNum = i + 1);
                 window.saveGymData();
                 window.renderPlan();
+                updateWorkoutStats();
             }
         }
 
@@ -1080,6 +1023,7 @@
                 ex.sets[setIndex][field] = value;
                 if(field === 'weight' && value) checkAndAddXPForPR(ex.name, value);
                 window.saveGymData();
+                updateWorkoutStats();
             }
         }
 
@@ -1087,8 +1031,45 @@
             const ex = window.gymData.workoutPlan[day].find(item => item.id === exId);
             if (ex && ex.sets[setIndex]) {
                 ex.sets[setIndex].done = !ex.sets[setIndex].done;
+                
+                checkAndLogCompletedWorkout(day);
+
                 window.saveGymData();
                 window.renderPlan();
+                updateWorkoutStats();
+            }
+        }
+
+        function checkAndLogCompletedWorkout(dayName) {
+            const plan = window.gymData.workoutPlan[dayName] || [];
+            if (plan.length === 0) return;
+
+            let allDone = true;
+            let totalTonnage = 0;
+            let totalSets = 0;
+
+            plan.forEach(ex => {
+                (ex.sets || []).forEach(s => {
+                    totalSets++;
+                    if (!s.done) allDone = false;
+                    else totalTonnage += (parseFloat(s.weight) || 0) * (parseFloat(s.reps) || 0);
+                });
+            });
+
+            if (allDone && totalSets > 0) {
+                if(!window.gymData.workouts) window.gymData.workouts = [];
+                const todayStr = new Date().toLocaleDateString('pl-PL');
+                const existing = window.gymData.workouts.find(w => w.dayName === dayName && w.date === todayStr);
+                if (!existing) {
+                    window.gymData.workouts.unshift({
+                        id: Date.now(),
+                        dayName: dayName,
+                        date: todayStr,
+                        tonnage: totalTonnage,
+                        setsCount: totalSets
+                    });
+                    alert(`🏆 GRATULACJE! Ukończyłeś cały trening na ${dayName}! Tonaż sesji: ${totalTonnage} kg.`);
+                }
             }
         }
 
@@ -1096,6 +1077,7 @@
             window.gymData.workoutPlan[day] = window.gymData.workoutPlan[day].filter(item => item.id !== exId);
             window.saveGymData();
             window.renderPlan();
+            updateWorkoutStats();
         }
 
         function generatePresetPlanPPL() {
@@ -1115,20 +1097,26 @@
             };
             window.saveGymData();
             window.renderPlan();
+            updateWorkoutStats();
         }
 
         function renderPlan() {
             const container = document.getElementById('week-plan-container');
             const plan = window.gymData.workoutPlan || {};
             const days = ['Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota', 'Niedziela'];
+            const activeDay = window.gymData.activeWorkoutDay;
 
             container.innerHTML = days.map(day => {
                 const list = plan[day] || [];
+                const isActive = activeDay === day;
                 return `
-                    <div class="day-card">
+                    <div class="day-card ${isActive ? 'active-workout-day' : ''}">
                         <div class="day-header">
-                            <span>${day}</span>
-                            <span style="font-size:0.75rem; color:var(--text-muted);">${list.length} ćwiczeń</span>
+                            <span>${day} ${isActive ? '👑 (AKTYWNY)' : ''}</span>
+                            <div style="display:flex; gap:6px; align-items:center;">
+                                <button class="btn btn-sm" style="padding:4px 10px; font-size:0.7rem; background:${isActive?'var(--success)':'var(--grad-main)'};" onclick="startActiveWorkoutDay('${day}')">▶ ${isActive ? 'Trening w toku' : 'Start Treningu'}</button>
+                                <span style="font-size:0.75rem; color:var(--text-muted);">${list.length} ćw.</span>
+                            </div>
                         </div>
                         <div>
                             ${list.length===0?'<p style="font-size:0.8rem; color:var(--text-muted);">Brak ćwiczeń w tym dniu.</p>':''}
@@ -1171,36 +1159,6 @@
                     </div>
                 `;
             }).join('');
-        }
-
-        async function createNewCustomRole() {
-            if (window.currentUserRole !== 'owner') return alert("Tylko Szef może tworzyć nowe rangi!");
-            const roleNameInput = document.getElementById('new-role-input');
-            const roleName = roleNameInput.value.trim();
-            if (!roleName) return alert("Wpisz nazwę nowej rangi!");
-
-            try {
-                await window.fbAddDoc(window.fbCollection(window.db, 'projects', 'd1s-gym', 'custom_roles_list'), {
-                    name: roleName,
-                    createdAt: Date.now()
-                });
-                alert(`Utworzono nową rangę: "${roleName}"! Teraz możesz ją przydzielić użytkownikom.`);
-                roleNameInput.value = '';
-                loadCustomRoles();
-            } catch(e) {
-                alert("Błąd tworzenia rangi: " + e.message);
-            }
-        }
-
-        async function loadCustomRoles() {
-            try {
-                const snap = await window.fbGetDocs(window.fbCollection(window.db, 'projects', 'd1s-gym', 'custom_roles_list'));
-                let roles = [];
-                snap.forEach(d => roles.push(d.data().name));
-                window.customRolesListNames = roles;
-            } catch(e) {
-                window.customRolesListNames = [];
-            }
         }
 
         async function adminAddAtlasItem() {
@@ -1334,10 +1292,6 @@
             document.getElementById('admin-recipe-form-container').style.display = isAdminOrOwner ? 'block' : 'none';
 
             try {
-                const rolesSnap = await window.fbGetDocs(window.fbCollection(window.db, 'projects', 'd1s-gym', 'custom_roles_list'));
-                let customRoles = [];
-                rolesSnap.forEach(d => customRoles.push(d.data().name));
-
                 const snap = await window.fbGetDocs(window.fbCollection(window.db, 'projects', 'd1s-gym', 'users'));
                 const listEl = document.getElementById('admin-user-list');
                 let total = snap.size, html = '';
@@ -1359,7 +1313,6 @@
                     if (isAdminOrOwner) {
                         let roleSelectHtml = '';
                         if (isOwner) {
-                            let customOptionsHtml = customRoles.map(cr => `<option value="${cr}" ${role===cr?'selected':''}>⭐ ${cr}</option>`).join('');
                             roleSelectHtml = `
                                 <select onchange="changeUserRole('${userDoc.id}', this.value)" style="width:auto; margin:0; padding:6px 10px; font-size:0.8rem; background:rgba(10, 7, 18, 0.9);">
                                     <option value="user" ${role==='user'?'selected':''}>🏋 Gracz</option>
@@ -1367,7 +1320,6 @@
                                     <option value="staff" ${role==='staff'?'selected':''}>🛠 Staff</option>
                                     <option value="admin" ${role==='admin'?'selected':''}>🛡 Admin</option>
                                     <option value="owner" ${role==='owner'?'selected':''}>👑 Szef</option>
-                                    ${customOptionsHtml}
                                 </select>
                             `;
                         }
@@ -1408,11 +1360,38 @@
             if (!file) return;
             const reader = new FileReader();
             reader.onload = function(e) {
-                tempForumImageBase64 = e.target.result;
-                document.getElementById('forum-img-tag-preview').src = tempForumImageBase64;
-                document.getElementById('forum-img-preview-container').style.display = 'block';
-                document.getElementById('forum-img-name').innerText = file.name || 'Wybrano zdjęcie';
-                document.getElementById('forum-img-clear').style.display = 'inline-block';
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    const MAX_WIDTH = 800;
+                    const MAX_HEIGHT = 800;
+                    let width = img.width;
+                    let height = img.height;
+
+                    if (width > height) {
+                        if (width > MAX_WIDTH) {
+                            height *= MAX_WIDTH / width;
+                            width = MAX_WIDTH;
+                        }
+                    } else {
+                        if (height > MAX_HEIGHT) {
+                            width *= MAX_HEIGHT / height;
+                            height = MAX_HEIGHT;
+                        }
+                    }
+
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, width, height);
+                    
+                    tempForumImageBase64 = canvas.toDataURL('image/jpeg', 0.8);
+                    document.getElementById('forum-img-tag-preview').src = tempForumImageBase64;
+                    document.getElementById('forum-img-preview-container').style.display = 'block';
+                    document.getElementById('forum-img-name').innerText = file.name || 'Wybrano zdjęcie';
+                    document.getElementById('forum-img-clear').style.display = 'inline-block';
+                };
+                img.src = e.target.result;
             };
             reader.readAsDataURL(file);
         }
@@ -1431,18 +1410,22 @@
             const displayName = window.currentUsername || 'Użytkownik';
             const currentRole = window.currentUserRole || 'user';
 
-            await window.fbAddDoc(window.fbCollection(window.db, 'projects', 'd1s-gym', 'forum'), {
-                authorName: displayName,
-                authorRole: currentRole,
-                content: content || '',
-                imageBase64: tempForumImageBase64 || null,
-                timestamp: Date.now(),
-                likes: 0,
-                likedBy: []
-            });
+            try {
+                await window.fbAddDoc(window.fbCollection(window.db, 'projects', 'd1s-gym', 'forum'), {
+                    authorName: displayName,
+                    authorRole: currentRole,
+                    content: content || '',
+                    imageBase64: tempForumImageBase64 || null,
+                    timestamp: Date.now(),
+                    likes: 0,
+                    likedBy: []
+                });
 
-            clearForumImage();
-            document.getElementById('forum-content').value = '';
+                clearForumImage();
+                document.getElementById('forum-content').value = '';
+            } catch(e) {
+                alert("Błąd publikacji wpisu: " + e.message);
+            }
         }
 
         function handleForumSubmit(e) {
@@ -1646,7 +1629,7 @@
                 type: 'line',
                 data: {
                     labels: workouts.map(w => w.date).reverse(),
-                    datasets: [{ label: 'Ciężar (kg)', data: workouts.map(w => parseFloat(w.weight)).reverse(), borderColor: '#ec4899', backgroundColor: 'rgba(236, 72, 153, 0.2)', fill: true, tension: 0.2 }]
+                    datasets: [{ label: 'Tonaż Sesji (kg)', data: workouts.map(w => w.tonnage).reverse(), borderColor: '#ec4899', backgroundColor: 'rgba(236, 72, 153, 0.2)', fill: true, tension: 0.2 }]
                 },
                 options: { responsive: true }
             });
@@ -1680,9 +1663,7 @@
         }
 
         window.loadAdminUserList = loadAdminUserList;
-        window.loadCustomRoles = loadCustomRoles;
 
-        renderAll();
         renderPlan();
         renderAchievements();
         updateWaterUI();
