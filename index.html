@@ -41,86 +41,90 @@
             background: var(--bg-dark); 
             color: var(--text-main); 
             min-height: 100vh; 
-            padding: 16px; 
+            padding: 12px; 
             padding-bottom: 140px; 
             background-image: 
                 radial-gradient(circle at 10% 0%, rgba(236, 72, 153, 0.18), transparent 45%),
                 radial-gradient(circle at 90% 20%, rgba(168, 85, 247, 0.18), transparent 45%);
             max-width: 100vw;
             overflow-x: hidden;
+            -webkit-text-size-adjust: 100%;
         }
 
         .container { max-width: 1200px; margin: 0 auto; width: 100%; }
 
-        header { display: flex; justify-content: space-between; align-items: center; padding: 12px 0 18px; border-bottom: 1px solid var(--card-border); margin-bottom: 20px; flex-wrap: wrap; gap: 10px; }
-        .logo { font-weight: 900; font-size: 1.8rem; background: var(--grad-main); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -0.5px; filter: drop-shadow(0 0 14px var(--primary-glow)); }
+        header { display: flex; justify-content: space-between; align-items: center; padding: 8px 0 14px; border-bottom: 1px solid var(--card-border); margin-bottom: 15px; flex-wrap: wrap; gap: 10px; }
+        .logo { font-weight: 900; font-size: 1.5rem; background: var(--grad-main); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -0.5px; filter: drop-shadow(0 0 14px var(--primary-glow)); }
 
-        .status-badge { display: flex; align-items: center; gap: 6px; font-size: 0.75rem; background: rgba(255,255,255,0.03); padding: 6px 14px; border-radius: 30px; border: 1px solid var(--card-border); }
-        .dot { width: 8px; height: 8px; border-radius: 50%; background: #64748b; }
-        .dot.online { background: var(--success); box-shadow: 0 0 10px var(--success); }
+        .status-badge { display: flex; align-items: center; gap: 6px; font-size: 0.7rem; background: rgba(255,255,255,0.03); padding: 5px 10px; border-radius: 30px; border: 1px solid var(--card-border); }
+        .dot { width: 7px; height: 7px; border-radius: 50%; background: #64748b; }
+        .dot.online { background: var(--success); box-shadow: 0 0 8px var(--success); }
         .dot.offline { background: var(--danger); }
 
-        .nav-tabs { display: flex; gap: 8px; margin-bottom: 20px; border-bottom: 1px solid var(--card-border); padding-bottom: 10px; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+        .nav-tabs { display: flex; gap: 6px; margin-bottom: 15px; border-bottom: 1px solid var(--card-border); padding-bottom: 8px; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
         .nav-tabs::-webkit-scrollbar { display: none; }
-        .tab-btn { background: rgba(255,255,255,0.02); border: 1px solid transparent; color: var(--text-muted); padding: 9px 16px; border-radius: 12px; font-weight: 700; cursor: pointer; transition: all 0.25s ease; white-space: nowrap; font-size: 0.85rem; }
-        .tab-btn.active { background: rgba(236, 72, 153, 0.18); color: #fff; border-color: var(--primary); box-shadow: 0 0 18px var(--primary-glow); }
+        .tab-btn { background: rgba(255,255,255,0.02); border: 1px solid transparent; color: var(--text-muted); padding: 8px 14px; border-radius: 10px; font-weight: 700; cursor: pointer; transition: all 0.25s ease; white-space: nowrap; font-size: 0.8rem; }
+        .tab-btn.active { background: rgba(236, 72, 153, 0.18); color: #fff; border-color: var(--primary); box-shadow: 0 0 15px var(--primary-glow); }
 
-        .btn { background: var(--grad-main); color: #fff; border: none; padding: 12px 20px; border-radius: 12px; font-weight: 800; cursor: pointer; transition: all 0.2s ease; box-shadow: 0 4px 18px var(--primary-glow); display: inline-flex; align-items: center; justify-content: center; gap: 6px; font-size: 0.9rem; }
+        .btn { background: var(--grad-main); color: #fff; border: none; padding: 10px 16px; border-radius: 12px; font-weight: 800; cursor: pointer; transition: all 0.2s ease; box-shadow: 0 4px 15px var(--primary-glow); display: inline-flex; align-items: center; justify-content: center; gap: 6px; font-size: 0.85rem; }
         .btn:active { transform: scale(0.96); }
-        .btn-sm { padding: 6px 12px; font-size: 0.75rem; border-radius: 8px; }
+        .btn-sm { padding: 5px 10px; font-size: 0.7rem; border-radius: 8px; }
         .btn-outline { background: transparent; border: 1px solid var(--card-border); color: var(--text-main); box-shadow: none; }
         .btn-outline:active { background: rgba(236, 72, 153, 0.1); }
 
-        .card { background: var(--bg-card); border: 1px solid var(--card-border); backdrop-filter: blur(20px); border-radius: 20px; padding: 22px; margin-bottom: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .card { background: var(--bg-card); border: 1px solid var(--card-border); backdrop-filter: blur(20px); border-radius: 18px; padding: 16px; margin-bottom: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.5); width: 100%; overflow: hidden; }
         .card-admin { border: 1px solid rgba(251, 191, 36, 0.4); background: rgba(251, 191, 36, 0.02); }
 
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 18px; }
-        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
+        .grid { display: flex; flex-direction: column; gap: 15px; width: 100%; }
+        @media (min-width: 800px) {
+            .grid { display: grid; grid-template-columns: 1fr 320px; gap: 18px; }
+        }
+        .grid-3 { display: grid; grid-template-columns: 1fr; gap: 12px; }
+        @media (min-width: 600px) {
+            .grid-3 { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+        }
         
-        input, select, textarea { width: 100%; padding: 12px 14px; background: rgba(10, 7, 18, 0.85); border: 1px solid var(--card-border); border-radius: 12px; color: white; margin-top: 5px; margin-bottom: 12px; font-size: 0.9rem; transition: border-color 0.2s; }
+        input, select, textarea { width: 100%; padding: 11px 12px; background: rgba(10, 7, 18, 0.85); border: 1px solid var(--card-border); border-radius: 12px; color: white; margin-top: 4px; margin-bottom: 10px; font-size: 16px; transition: border-color 0.2s; -webkit-appearance: none; }
         input:focus, select:focus, textarea:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 10px var(--primary-glow); }
 
-        .role-badge { padding: 4px 10px; border-radius: 8px; font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; display: inline-block; }
-        .role-owner { background: var(--grad-main); color: #fff; box-shadow: 0 0 10px var(--primary-glow); }
+        .role-badge { padding: 3px 8px; border-radius: 6px; font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; display: inline-block; }
+        .role-owner { background: var(--grad-main); color: #fff; box-shadow: 0 0 8px var(--primary-glow); }
         .role-admin { background: #f43f5e; color: #fff; }
         .role-staff { background: #38bdf8; color: #0d0d12; }
-        .role-vip { background: var(--gold); color: #000; box-shadow: 0 0 10px var(--gold-glow); }
+        .role-vip { background: var(--gold); color: #000; box-shadow: 0 0 8px var(--gold-glow); }
         .role-user { background: #1e1b2e; color: #94a3b8; }
 
         #auth-lockscreen { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 60vh; text-align: center; }
         #verification-screen { display: none; flex-direction: column; align-items: center; justify-content: center; min-height: 50vh; text-align: center; }
         
-        .list-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: rgba(255,255,255,0.02); border-radius: 14px; margin-bottom: 10px; border: 1px solid var(--card-border); font-size: 0.88rem; }
+        .list-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 12px; background: rgba(255,255,255,0.02); border-radius: 12px; margin-bottom: 8px; border: 1px solid var(--card-border); font-size: 0.82rem; }
         
-        .day-card { background: rgba(255,255,255,0.02); border: 1px solid var(--card-border); border-radius: 16px; padding: 16px; margin-bottom: 12px; transition: border-color 0.3s; }
-        .day-card.active-workout-day { border: 2px solid var(--primary); box-shadow: 0 0 20px var(--primary-glow); background: rgba(236, 72, 153, 0.04); }
+        .day-card { background: rgba(255,255,255,0.02); border: 1px solid var(--card-border); border-radius: 14px; padding: 12px; margin-bottom: 10px; transition: border-color 0.3s; width: 100%; overflow: hidden; }
+        .day-card.active-workout-day { border: 2px solid var(--primary); box-shadow: 0 0 15px var(--primary-glow); background: rgba(236, 72, 153, 0.04); }
         
-        .day-header { font-weight: 800; color: var(--primary); border-bottom: 1px solid var(--card-border); padding-bottom: 8px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; }
-        .exercise-item { background: rgba(10, 7, 18, 0.6); padding: 14px; border-radius: 12px; margin-bottom: 10px; border-left: 4px solid var(--primary); }
+        .day-header { font-weight: 800; color: var(--primary); border-bottom: 1px solid var(--card-border); padding-bottom: 6px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; font-size: 0.95rem; }
+        .exercise-item { background: rgba(10, 7, 18, 0.6); padding: 10px; border-radius: 10px; margin-bottom: 8px; border-left: 3px solid var(--primary); }
 
-        .sets-grid { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
-        .set-row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; background: rgba(255,255,255,0.03); border: 1px solid var(--card-border); padding: 8px; border-radius: 10px; font-size: 0.8rem; }
+        .sets-grid { display: flex; flex-direction: column; gap: 6px; margin-top: 8px; width: 100%; }
+        .set-row { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; background: rgba(255,255,255,0.03); border: 1px solid var(--card-border); padding: 6px; border-radius: 8px; font-size: 0.75rem; width: 100%; }
 
-        .floating-timer { position: fixed; bottom: 15px; left: 15px; right: 15px; background: rgba(14, 10, 24, 0.95); border: 1px solid var(--card-border); border-radius: 22px; padding: 12px 18px; box-shadow: 0 10px 35px rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: space-between; z-index: 90; backdrop-filter: blur(14px); }
+        .floating-timer { position: fixed; bottom: 12px; left: 12px; right: 12px; background: rgba(14, 10, 24, 0.96); border: 1px solid var(--card-border); border-radius: 18px; padding: 10px 14px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: space-between; z-index: 90; backdrop-filter: blur(14px); }
         
-        .water-progress { width: 100%; height: 16px; background: rgba(0,0,0,0.6); border-radius: 10px; overflow: hidden; border: 1px solid var(--card-border); margin: 8px 0; }
+        .water-progress { width: 100%; height: 14px; background: rgba(0,0,0,0.6); border-radius: 8px; overflow: hidden; border: 1px solid var(--card-border); margin: 6px 0; }
         .water-bar { height: 100%; width: 0%; background: var(--grad-main); transition: width 0.3s; }
 
-        .atlas-item, .recipe-card { background: rgba(10, 7, 18, 0.6); border: 1px solid var(--card-border); border-radius: 16px; padding: 16px; display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.2s; }
-        .atlas-item:hover { transform: translateY(-2px); border-color: var(--primary); }
-        .macro-row { display: flex; gap: 6px; flex-wrap: wrap; margin: 8px 0; }
-        .macro-row span { font-size: .72rem; font-weight: 700; padding: 4px 8px; border-radius: 8px; background: rgba(255,255,255,.05); border: 1px solid var(--card-border); }
+        .atlas-item, .recipe-card { background: rgba(10, 7, 18, 0.6); border: 1px solid var(--card-border); border-radius: 14px; padding: 14px; display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.2s; }
+        .macro-row { display: flex; gap: 6px; flex-wrap: wrap; margin: 6px 0; }
+        .macro-row span { font-size: .68rem; font-weight: 700; padding: 3px 6px; border-radius: 6px; background: rgba(255,255,255,.05); border: 1px solid var(--card-border); }
 
-        .modal-overlay { position: fixed; top:0; left:0; right:0; bottom:0; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); display: none; align-items: center; justify-content: center; z-index: 999; padding: 16px; }
-        .modal-body { background: var(--bg-card); border: 1px solid var(--card-border); border-radius: 20px; padding: 22px; width: 100%; max-width: 420px; box-shadow: 0 10px 30px rgba(0,0,0,0.9); max-height: 90vh; overflow-y: auto; }
+        .modal-overlay { position: fixed; top:0; left:0; right:0; bottom:0; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); display: none; align-items: center; justify-content: center; z-index: 999; padding: 12px; }
+        .modal-body { background: var(--bg-card); border: 1px solid var(--card-border); border-radius: 18px; padding: 18px; width: 100%; max-width: 400px; box-shadow: 0 10px 30px rgba(0,0,0,0.9); max-height: 90vh; overflow-y: auto; }
 
-        .chat-img-preview { max-width: 100%; max-height: 280px; border-radius: 12px; margin-top: 8px; border: 1px solid var(--card-border); object-fit: contain; background: #000; display: block; }
-        .stat-box { background: rgba(255,255,255,0.03); border: 1px solid var(--card-border); padding: 12px; border-radius: 14px; text-align: center; }
+        .chat-img-preview { max-width: 100%; max-height: 240px; border-radius: 10px; margin-top: 6px; border: 1px solid var(--card-border); object-fit: contain; background: #000; display: block; }
+        .stat-box { background: rgba(255,255,255,0.03); border: 1px solid var(--card-border); padding: 10px; border-radius: 12px; text-align: center; }
         
-        @media (max-width: 600px) {
-            body { padding: 10px; padding-bottom: 130px; }
-            .card { padding: 16px; border-radius: 16px; }
-        }
+        details > summary { list-style: none; cursor: pointer; }
+        details > summary::-webkit-details-marker { display: none; }
     </style>
 
     <!-- FIREBASE SDK ES6 MODULE -->
@@ -217,7 +221,8 @@
                         userData.role = userData.role || 'user';
                         window.currentUserRole = userData.role;
                         window.currentUsername = userData.username || user.email.split('@')[0];
-                        window.permissions = userData.permissions || { canBlock: true, canDeletePosts: true };
+                        // Domyślnie odznaczone uprawnienia dla nowych/zwykłych użytkowników
+                        window.permissions = userData.permissions || { canBlock: false, canDeletePosts: false };
 
                         await setDoc(userDocRef, { 
                             username: window.currentUsername,
@@ -315,26 +320,26 @@
         <!-- Header -->
         <header>
             <div class="logo">ADIS.GYM</div>
-            <div style="display: flex; gap: 8px; align-items: center;">
+            <div style="display: flex; gap: 6px; align-items: center;">
                 <div class="status-badge">
                     <div id="status-dot" class="dot offline"></div>
                     <span id="status-text">Łączenie...</span>
                 </div>
-                <div id="user-profile" style="display: none; align-items: center; gap: 8px;">
+                <div id="user-profile" style="display: none; align-items: center; gap: 6px;">
                     <span id="user-role-tag"></span>
-                    <span id="user-username-display" style="font-size: 0.85rem; font-weight: 800; color: var(--text-main);"></span>
-                    <button class="btn btn-outline btn-sm" onclick="window.authApi.out()" title="Wyloguj">Wyloguj ✕</button>
+                    <span id="user-username-display" style="font-size: 0.8rem; font-weight: 800; color: var(--text-main);"></span>
+                    <button class="btn btn-outline btn-sm" onclick="window.authApi.out()" title="Wyloguj">✕</button>
                 </div>
             </div>
         </header>
 
         <!-- EKRAN WERYFIKACJI E-MAILA -->
         <div id="verification-screen" class="card">
-            <h2 style="margin-bottom: 8px; color: var(--primary);">Potwierdź swój adres e-mail</h2>
-            <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:20px; max-width: 380px;">
+            <h2 style="margin-bottom: 8px; color: var(--primary); font-size: 1.2rem;">Potwierdź swój adres e-mail</h2>
+            <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:15px; max-width: 340px;">
                 Na Twój adres e-mail została wysłana wiadomość z linkiem aktywacyjnym. Kliknij w niego, aby aktywować konto.
             </p>
-            <div style="display: flex; flex-direction: column; gap: 10px; width: 100%; max-width: 280px;">
+            <div style="display: flex; flex-direction: column; gap: 8px; width: 100%; max-width: 260px;">
                 <button class="btn" onclick="location.reload()">Sprawdzam / Odśwież</button>
                 <button class="btn btn-outline" onclick="window.authApi.resendVerification()">Wyślij e-mail ponownie</button>
                 <button class="btn btn-outline" style="color: var(--danger); border-color: rgba(244,63,94,0.3);" onclick="window.authApi.out()">Wyloguj się</button>
@@ -343,15 +348,15 @@
 
         <!-- EKRAN BLOKADY / LOGOWANIE -->
         <div id="auth-lockscreen" class="card">
-            <h2 id="modal-title" style="margin-bottom: 8px; color: var(--primary);">Zaloguj się do ADIS.GYM</h2>
-            <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:20px;">Dostęp do aplikacji jest możliwy wyłącznie dla zweryfikowanych użytkowników.</p>
+            <h2 id="modal-title" style="margin-bottom: 8px; color: var(--primary); font-size: 1.2rem;">Zaloguj się do ADIS.GYM</h2>
+            <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:15px;">Dostęp do aplikacji jest możliwy wyłącznie dla zweryfikowanych użytkowników.</p>
             
-            <div style="width:100%; max-width:320px;">
+            <div style="width:100%; max-width:300px;">
                 <input type="text" id="auth-username" placeholder="Twój Nick w aplikacji" style="display: none;">
                 <input type="email" id="auth-email" placeholder="E-mail">
                 <input type="password" id="auth-pass" placeholder="Hasło">
-                <button id="auth-submit" class="btn" style="width: 100%; margin-bottom: 10px;" onclick="handleAuth()">Zaloguj się</button>
-                <button class="btn btn-outline" style="width: 100%; border: none; font-size:0.8rem;" onclick="toggleAuthMode()" id="auth-toggle">Nie masz konta? Zarejestruj się</button>
+                <button id="auth-submit" class="btn" style="width: 100%; margin-bottom: 8px;" onclick="handleAuth()">Zaloguj się</button>
+                <button class="btn btn-outline" style="width: 100%; border: none; font-size:0.75rem;" onclick="toggleAuthMode()" id="auth-toggle">Nie masz konta? Zarejestruj się</button>
             </div>
         </div>
 
@@ -371,19 +376,19 @@
 
             <!-- ZAKŁADKA 1: PLAN TRENINGOWY I CENTRUM TRENINGU -->
             <div id="tab-plan" class="tab-content">
-                <div class="grid" style="grid-template-columns: 1fr 300px; gap: 20px;">
+                <div class="grid">
                     <div>
                         <div class="card">
                             <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 12px;">
-                                <h3 style="color: var(--primary);">📅 Tygodniowy Plan Treningowy</h3>
-                                <button class="btn btn-outline btn-sm" onclick="generatePresetPlanPPL()">⚡ Wgraj Przykładowy PPL</button>
+                                <h3 style="color: var(--primary); font-size: 1.1rem;">📅 Tygodniowy Plan Treningowy</h3>
+                                <button class="btn btn-outline btn-sm" onclick="generatePresetPlanPPL()">⚡ Przykładowy PPL</button>
                             </div>
                             
-                            <form id="plan-form" onsubmit="addPlanExercise(event)" style="background: rgba(10, 7, 18, 0.6); padding: 14px; border-radius: 14px; margin-bottom: 15px; border: 1px solid var(--card-border);">
-                                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 8px;">
+                            <form id="plan-form" onsubmit="addPlanExercise(event)" style="background: rgba(10, 7, 18, 0.6); padding: 12px; border-radius: 12px; margin-bottom: 12px; border: 1px solid var(--card-border);">
+                                <div style="display: flex; flex-direction: column; gap: 6px;">
                                     <div>
-                                        <label>Dzień Tygodnia</label>
-                                        <select id="plan-day" required>
+                                        <label style="font-size: 0.75rem;">Dzień Tygodnia</label>
+                                        <select id="plan-day" required style="margin-bottom:6px;">
                                             <option value="Poniedziałek">Poniedziałek</option>
                                             <option value="Wtorek">Wtorek</option>
                                             <option value="Środa">Środa</option>
@@ -394,15 +399,15 @@
                                         </select>
                                     </div>
                                     <div>
-                                        <label>Nazwa Ćwiczenia</label>
-                                        <input type="text" id="plan-ex-name" placeholder="np. Przysiad ze sztangą" required>
+                                        <label style="font-size: 0.75rem;">Nazwa Ćwiczenia</label>
+                                        <input type="text" id="plan-ex-name" placeholder="np. Przysiad ze sztangą" required style="margin-bottom:6px;">
                                     </div>
                                     <div>
-                                        <label>Ilość Serii</label>
-                                        <input type="number" id="plan-sets-count" placeholder="3" value="3" required>
+                                        <label style="font-size: 0.75rem;">Ilość Serii</label>
+                                        <input type="number" id="plan-sets-count" placeholder="3" value="3" required style="margin-bottom:6px;">
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-sm" style="margin-top: 5px;">+ Dodaj Ćwiczenie do Planu</button>
+                                <button type="submit" class="btn btn-sm" style="width:100%; margin-top: 4px;">+ Dodaj Ćwiczenie do Planu</button>
                             </form>
 
                             <div id="week-plan-container"></div>
@@ -411,34 +416,36 @@
 
                     <div>
                         <!-- Statystyki aktywnego treningu -->
-                        <div class="card" style="position: sticky; top: 15px;">
-                            <h4 style="color: var(--primary); margin-bottom: 10px;">⚡ Statystyki Treningu</h4>
-                            <div id="active-day-badge" style="font-size: 0.8rem; font-weight: 800; color: var(--gold); margin-bottom: 12px; background: rgba(251,191,36,0.1); padding: 6px 10px; border-radius: 8px; border: 1px solid rgba(251,191,36,0.3); text-align:center;">
+                        <div class="card">
+                            <h4 style="color: var(--primary); margin-bottom: 8px; font-size: 0.95rem;">⚡ Statystyki Treningu</h4>
+                            <div id="active-day-badge" style="font-size: 0.75rem; font-weight: 800; color: var(--gold); margin-bottom: 10px; background: rgba(251,191,36,0.1); padding: 6px 8px; border-radius: 8px; border: 1px solid rgba(251,191,36,0.3); text-align:center;">
                                 Brak wybranego dnia
                             </div>
-                            <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px;">
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px;">
                                 <div class="stat-box">
-                                    <div style="font-size: 0.7rem; color: var(--text-muted);">Łączny Tonaż Sesji</div>
-                                    <div id="stat-total-tonnage" style="font-size: 1.1rem; font-weight: 900; color: var(--gold);">0 kg</div>
+                                    <div style="font-size: 0.65rem; color: var(--text-muted);">Łączny Tonaż</div>
+                                    <div id="stat-total-tonnage" style="font-size: 0.95rem; font-weight: 900; color: var(--gold);">0 kg</div>
                                 </div>
                                 <div class="stat-box">
-                                    <div style="font-size: 0.7rem; color: var(--text-muted);">Zaliczone Serie</div>
-                                    <div id="stat-total-sets" style="font-size: 1.1rem; font-weight: 900; color: var(--primary);">0</div>
+                                    <div style="font-size: 0.65rem; color: var(--text-muted);">Zaliczone Serie</div>
+                                    <div id="stat-total-sets" style="font-size: 0.95rem; font-weight: 900; color: var(--primary);">0</div>
                                 </div>
                             </div>
 
-                            <h4 style="color: var(--primary); margin-bottom: 10px; font-size: 0.9rem;">💧 Nawodnienie</h4>
-                            <span id="water-text" style="font-weight: 800; color: var(--primary); font-size: 0.8rem;">0 / 3000 ml</span>
+                            <h4 style="color: var(--primary); margin-bottom: 6px; font-size: 0.85rem;">💧 Nawodnienie</h4>
+                            <div style="display: flex; justify-content: space-between; align-items:center;">
+                                <span id="water-text" style="font-weight: 800; color: var(--primary); font-size: 0.75rem;">0 / 3000 ml</span>
+                            </div>
                             <div class="water-progress"><div id="water-bar" class="water-bar"></div></div>
-                            <div style="display: flex; gap: 6px; margin-top: 8px;">
-                                <button class="btn btn-outline btn-sm" style="flex:1;" onclick="addWater(250)">+250ml</button>
-                                <button class="btn btn-outline btn-sm" style="flex:1;" onclick="addWater(500)">+500ml</button>
-                                <button class="btn btn-outline btn-sm" style="color: var(--danger);" onclick="resetWater()">↺</button>
+                            <div style="display: flex; gap: 6px; margin-top: 6px;">
+                                <button class="btn btn-outline btn-sm" style="flex:1; padding:4px;" onclick="addWater(250)">+250ml</button>
+                                <button class="btn btn-outline btn-sm" style="flex:1; padding:4px;" onclick="addWater(500)">+500ml</button>
+                                <button class="btn btn-outline btn-sm" style="color: var(--danger); padding:4px;" onclick="resetWater()">↺</button>
                             </div>
 
-                            <div style="margin-top: 20px;">
-                                <h4 style="color: var(--primary); margin-bottom: 8px; font-size: 0.9rem;">Ostatnia Aktywność</h4>
-                                <div id="workout-list" style="max-height: 200px; overflow-y:auto;"><p style="font-size: 0.75rem; color: var(--text-muted); text-align: center;">Brak zapisanych treningów.</p></div>
+                            <div style="margin-top: 15px;">
+                                <h4 style="color: var(--primary); margin-bottom: 6px; font-size: 0.85rem;">Ostatnia Aktywność</h4>
+                                <div id="workout-list" style="max-height: 220px; overflow-y:auto;"><p style="font-size: 0.75rem; color: var(--text-muted); text-align: center;">Brak zakończonych treningów.</p></div>
                             </div>
                         </div>
                     </div>
@@ -448,10 +455,10 @@
             <!-- ZAKŁADKA 2: ATLAS -->
             <div id="tab-atlas" class="tab-content" style="display: none;">
                 <div class="card">
-                    <h3 style="color: var(--primary); margin-bottom: 6px;">📚 Profesjonalny Atlas Ćwiczeń</h3>
-                    <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:12px;">Kluczowe aspekty techniczne i wskazówki do prawidłowego wykonania.</p>
-                    <div style="display:flex; gap:8px; margin-bottom:12px; flex-wrap:wrap;">
-                        <input id="atlas-search" type="search" placeholder="🔎 Szukaj ćwiczenia lub partii..." oninput="renderAtlas()" style="margin:0; flex:1; min-width:200px;">
+                    <h3 style="color: var(--primary); margin-bottom: 4px; font-size: 1.1rem;">📚 Profesjonalny Atlas Ćwiczeń</h3>
+                    <p style="font-size:0.75rem; color:var(--text-muted); margin-bottom:10px;">Kluczowe aspekty techniczne i wskazówki.</p>
+                    <div style="display:flex; gap:6px; margin-bottom:10px; flex-wrap:wrap;">
+                        <input id="atlas-search" type="search" placeholder="🔎 Szukaj..." oninput="renderAtlas()" style="margin:0; flex:1; min-width:160px;">
                         <select id="atlas-filter-level" onchange="renderAtlas()" style="width:auto; margin:0; background:rgba(10, 7, 18, 0.9);">
                             <option value="all">Wszystkie poziomy</option>
                             <option value="Początkujący">Początkujący</option>
@@ -459,30 +466,30 @@
                             <option value="Zaawansowany">Zaawansowany</option>
                         </select>
                     </div>
-                    <div class="grid-3" id="atlas-container" style="margin-top: 10px;"></div>
+                    <div class="grid-3" id="atlas-container" style="margin-top: 8px;"></div>
                 </div>
             </div>
 
             <!-- ZAKŁADKA 3: CZAT SPOŁECZNOŚCI I PROGRES Z APARATEM -->
             <div id="tab-forum" class="tab-content" style="display: none;">
                 <div class="card">
-                    <h3 style="color: var(--primary); margin-bottom: 10px;">💬 Czat & Pochwal się Progresem</h3>
-                    <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:12px;">Zrób zdjęcie formy telefonem lub wybierz plik z galerii. Zdjęcie zostanie trwale zapisane na czacie wraz z Twoim wpisem!</p>
+                    <h3 style="color: var(--primary); margin-bottom: 6px; font-size: 1.1rem;">💬 Czat & Progres</h3>
+                    <p style="font-size:0.75rem; color:var(--text-muted); margin-bottom:10px;">Zrób zdjęcie formy telefonem lub wybierz z galerii. Zdjęcia zapisują się trwale na czacie!</p>
                     
-                    <form onsubmit="handleForumSubmit(event)" style="margin-bottom: 15px;">
-                        <textarea id="forum-content" rows="2" placeholder="Co dzisiaj wpadło na treningu? Podziel się formą..."></textarea>
+                    <form onsubmit="handleForumSubmit(event)" style="margin-bottom: 12px;">
+                        <textarea id="forum-content" rows="2" placeholder="Podziel się formą lub wynikiem..."></textarea>
                         
-                        <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 8px; flex-wrap: wrap;">
-                            <label class="btn btn-outline btn-sm" style="cursor: pointer; margin:0; display: inline-flex; align-items: center; gap: 6px;">
-                                📷 Wybierz lub zrób zdjęcie
+                        <div style="display: flex; gap: 6px; align-items: center; margin-bottom: 6px; flex-wrap: wrap;">
+                            <label class="btn btn-outline btn-sm" style="cursor: pointer; margin:0; display: inline-flex; align-items: center; gap: 4px;">
+                                📷 Dodaj zdjęcie
                                 <input type="file" id="forum-img-input" accept="image/*" style="display: none;" onchange="previewForumImage(event)">
                             </label>
-                            <span id="forum-img-name" style="font-size: 0.75rem; color: var(--text-muted);">Brak zdjęcia</span>
-                            <button type="button" id="forum-img-clear" class="btn btn-outline btn-sm" style="color: var(--danger); display: none; padding: 2px 6px;" onclick="clearForumImage()">Usuń fotkę</button>
+                            <span id="forum-img-name" style="font-size: 0.7rem; color: var(--text-muted);">Brak zdjęcia</span>
+                            <button type="button" id="forum-img-clear" class="btn btn-outline btn-sm" style="color: var(--danger); display: none; padding: 2px 5px;" onclick="clearForumImage()">Usuń</button>
                         </div>
                         
-                        <div id="forum-img-preview-container" style="display: none; margin-bottom: 10px;">
-                            <img id="forum-img-tag-preview" class="chat-img-preview" alt="Podgląd progresu">
+                        <div id="forum-img-preview-container" style="display: none; margin-bottom: 8px;">
+                            <img id="forum-img-tag-preview" class="chat-img-preview" alt="Podgląd">
                         </div>
 
                         <button type="submit" class="btn btn-sm" style="width: 100%;">Opublikuj na Czat</button>
@@ -494,49 +501,49 @@
             <!-- ZAKŁADKA 4: PROGRESS & LVL -->
             <div id="tab-progress" class="tab-content" style="display: none;">
                 <div class="card">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap:wrap; gap:8px;">
-                        <h3 style="color: var(--primary);">🏆 Poziom Postępu Gracza</h3>
-                        <span id="player-level-text" style="font-weight: 900; color: var(--gold); font-size: 1.1rem;">LVL 1 (0/200 XP)</span>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap:wrap; gap:6px;">
+                        <h3 style="color: var(--primary); font-size: 1.1rem;">🏆 Poziom Postępu</h3>
+                        <span id="player-level-text" style="font-weight: 900; color: var(--gold); font-size: 0.95rem;">LVL 1 (0/200 XP)</span>
                     </div>
-                    <div class="water-progress" style="height:18px;"><div id="xp-bar" class="water-bar"></div></div>
-                    <p style="font-size:0.75rem; color:var(--text-muted); margin-top:6px; text-align:center;">Zdobywaj XP za bicie rekordów ciężarowych (PR) w planie treningowym! 🚀</p>
+                    <div class="water-progress" style="height:14px;"><div id="xp-bar" class="water-bar"></div></div>
+                    <p style="font-size:0.7rem; color:var(--text-muted); margin-top:4px; text-align:center;">Zdobywaj XP za bicie rekordów ciężarowych (PR) w planie! 🚀</p>
 
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-top: 20px;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 15px;">
                         <div class="stat-box">
-                            <div style="font-size: 0.75rem; color: var(--text-muted);">Twoja Ranga Siłowa</div>
-                            <div id="player-strength-rank" style="font-size: 1.1rem; font-weight: 900; color: var(--primary); margin-top: 4px;">🏋 Początkujący</div>
+                            <div style="font-size: 0.65rem; color: var(--text-muted);">Ranga Siłowa</div>
+                            <div id="player-strength-rank" style="font-size: 0.9rem; font-weight: 900; color: var(--primary); margin-top: 2px;">🏋 Początkujący</div>
                         </div>
                         <div class="stat-box">
-                            <div style="font-size: 0.75rem; color: var(--text-muted);">Pobite Rekordy (PR)</div>
-                            <div id="player-prs-count" style="font-size: 1.1rem; font-weight: 900; color: var(--gold); margin-top: 4px;">0</div>
+                            <div style="font-size: 0.65rem; color: var(--text-muted);">Pobite PR</div>
+                            <div id="player-prs-count" style="font-size: 0.9rem; font-weight: 900; color: var(--gold); margin-top: 2px;">0</div>
                         </div>
                     </div>
 
-                    <h3 style="color: var(--primary); margin: 20px 0 10px;">📊 Wykres Progresu Ciężaru</h3>
-                    <div style="background: rgba(10, 7, 18, 0.6); padding: 12px; border-radius: 14px; border: 1px solid var(--card-border);">
-                        <canvas id="progressChart" height="140"></canvas>
+                    <h3 style="color: var(--primary); margin: 15px 0 8px; font-size: 0.95rem;">📊 Wykres Progresu Ciężaru</h3>
+                    <div style="background: rgba(10, 7, 18, 0.6); padding: 10px; border-radius: 12px; border: 1px solid var(--card-border);">
+                        <canvas id="progressChart" height="130"></canvas>
                     </div>
                 </div>
             </div>
 
             <!-- ZAKŁADKA 5: KALORIE -->
             <div id="tab-calc" class="tab-content" style="display: none;">
-                <div class="grid">
+                <div class="grid" style="grid-template-columns: 1fr;">
                     <div class="card">
-                        <h3 style="color: var(--primary);">🧮 Kalkulator 1RM</h3>
-                        <label>Ciężar (kg)</label>
+                        <h3 style="color: var(--primary); font-size: 1.1rem;">🧮 Kalkulator 1RM</h3>
+                        <label style="font-size: 0.75rem;">Ciężar (kg)</label>
                         <input type="number" id="calc-weight" placeholder="100" oninput="calculate1RM()">
-                        <label>Powtórzenia</label>
+                        <label style="font-size: 0.75rem;">Powtórzenia</label>
                         <input type="number" id="calc-reps" placeholder="5" oninput="calculate1RM()">
-                        <div style="margin-top: 15px; text-align: center; background: rgba(10, 7, 18, 0.6); padding: 12px; border-radius: 12px; border: 1px solid var(--card-border);">
-                            <span style="font-size: 0.8rem; color: var(--text-muted);">Szacowany Rekord:</span>
-                            <h2 id="calc-result" style="color: var(--primary);">0 kg</h2>
+                        <div style="margin-top: 12px; text-align: center; background: rgba(10, 7, 18, 0.6); padding: 10px; border-radius: 10px; border: 1px solid var(--card-border);">
+                            <span style="font-size: 0.75rem; color: var(--text-muted);">Szacowany Rekord:</span>
+                            <h3 id="calc-result" style="color: var(--primary); font-size: 1.1rem;">0 kg</h3>
                         </div>
                     </div>
 
                     <div class="card">
-                        <h3 style="color: var(--primary);">🔥 Zapotrzebowanie Kcal & Makro</h3>
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                        <h3 style="color: var(--primary); font-size: 1.1rem;">🔥 Kalorie & Makro</h3>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
                             <input type="number" id="bmr-weight" placeholder="Waga kg">
                             <input type="number" id="bmr-height" placeholder="Wzrost cm">
                         </div>
@@ -546,10 +553,10 @@
                             <option value="bulk">Masa (+300 kcal)</option>
                             <option value="cut">Redukcja (-400 kcal)</option>
                         </select>
-                        <button class="btn btn-sm" style="width: 100%;" onclick="calculateCalories()">Oblicz Kalorie i Makro</button>
-                        <div id="calories-result" style="display: none; margin-top: 12px; text-align: center; background: rgba(10, 7, 18, 0.6); padding: 12px; border-radius: 12px; border: 1px solid var(--card-border);">
-                            <h3 id="res-tdee" style="color: var(--gold); margin-bottom:6px;">0 kcal</h3>
-                            <div id="res-macros" style="font-size: 0.8rem; color: var(--text-muted);">Białko: 0g | Tłuszcze: 0g | Węglowodany: 0g</div>
+                        <button class="btn btn-sm" style="width: 100%;" onclick="calculateCalories()">Oblicz</button>
+                        <div id="calories-result" style="display: none; margin-top: 10px; text-align: center; background: rgba(10, 7, 18, 0.6); padding: 10px; border-radius: 10px; border: 1px solid var(--card-border);">
+                            <h4 id="res-tdee" style="color: var(--gold); margin-bottom:4px; font-size: 1rem;">0 kcal</h4>
+                            <div id="res-macros" style="font-size: 0.75rem; color: var(--text-muted);">Białko: 0g | Tłuszcze: 0g | Węgle: 0g</div>
                         </div>
                     </div>
                 </div>
@@ -558,50 +565,50 @@
             <!-- ZAKŁADKA 6: PRZEPISY VIP -->
             <div id="tab-vip" class="tab-content" style="display: none;">
                 <div class="card">
-                    <h3 style="color: var(--gold); margin-bottom: 10px;">🌟 Przepisy VIP</h3>
-                    <div style="display:flex; gap:8px; margin-bottom:12px; flex-wrap:wrap;">
-                        <input id="recipe-search" type="search" placeholder="🔎 Szukaj posiłku..." oninput="renderRecipes()" style="margin:0; flex:1; min-width:200px;">
+                    <h3 style="color: var(--gold); margin-bottom: 8px; font-size: 1.1rem;">🌟 Przepisy VIP</h3>
+                    <div style="display:flex; gap:6px; margin-bottom:10px; flex-wrap:wrap;">
+                        <input id="recipe-search" type="search" placeholder="🔎 Szukaj..." oninput="renderRecipes()" style="margin:0; flex:1; min-width:160px;">
                         <select id="recipe-filter-kcal" onchange="renderRecipes()" style="width:auto; margin:0; background:rgba(10, 7, 18, 0.9);">
                             <option value="all">Wszystkie kalorie</option>
-                            <option value="low">Niskokaloryczne (&lt; 500 kcal)</option>
-                            <option value="high">Wysokokaloryczne (&gt;= 500 kcal)</option>
+                            <option value="low">&lt; 500 kcal</option>
+                            <option value="high">&gt;= 500 kcal</option>
                         </select>
                     </div>
-                    <div class="grid-3" id="recipes-container" style="margin-top: 10px;"></div>
+                    <div class="grid-3" id="recipes-container" style="margin-top: 8px;"></div>
                 </div>
             </div>
 
             <!-- ZAKŁADKA 7: PANEL ADMINA -->
             <div id="tab-admin" class="tab-content" style="display: none;">
                 <div class="card card-admin">
-                    <h3 style="color: var(--gold); margin-bottom: 12px;">👑 Panel Administratora & Szefa</h3>
+                    <h3 style="color: var(--gold); margin-bottom: 10px; font-size: 1.1rem;">👑 Panel Administratora</h3>
 
-                    <div id="admin-atlas-form-container" style="background: rgba(10, 7, 18, 0.6); padding: 14px; border-radius: 14px; margin-bottom: 15px; border: 1px solid var(--card-border);">
-                        <h4 style="color: var(--primary); margin-bottom: 8px;">+ Dodaj Nowe Ćwiczenie do Atlasu</h4>
+                    <div id="admin-atlas-form-container" style="background: rgba(10, 7, 18, 0.6); padding: 12px; border-radius: 12px; margin-bottom: 12px; border: 1px solid var(--card-border);">
+                        <h4 style="color: var(--primary); margin-bottom: 6px; font-size: 0.9rem;">+ Dodaj do Atlasu</h4>
                         <input type="text" id="admin-ex-name" placeholder="Nazwa ćwiczenia">
-                        <input type="text" id="admin-ex-part" placeholder="Partia (np. Klatka, Plecy)">
+                        <input type="text" id="admin-ex-part" placeholder="Partia (np. Klatka)">
                         <select id="admin-ex-level">
                             <option value="Początkujący">Początkujący</option>
                             <option value="Średniozaawansowany">Średniozaawansowany</option>
                             <option value="Zaawansowany">Zaawansowany</option>
                         </select>
-                        <textarea id="admin-ex-desc" rows="2" placeholder="Technika i kluczowe aspekty..."></textarea>
-                        <button class="btn btn-sm" onclick="adminAddAtlasItem()">Opublikuj w Atlasie</button>
+                        <textarea id="admin-ex-desc" rows="2" placeholder="Technika..."></textarea>
+                        <button class="btn btn-sm" onclick="adminAddAtlasItem()">Opublikuj</button>
                     </div>
 
-                    <div id="admin-recipe-form-container" style="background: rgba(10, 7, 18, 0.6); padding: 14px; border-radius: 14px; margin-bottom: 15px; border: 1px solid var(--card-border);">
-                        <h4 style="color: var(--gold); margin-bottom: 8px;">+ Dodaj Przepis VIP</h4>
+                    <div id="admin-recipe-form-container" style="background: rgba(10, 7, 18, 0.6); padding: 12px; border-radius: 12px; margin-bottom: 12px; border: 1px solid var(--card-border);">
+                        <h4 style="color: var(--gold); margin-bottom: 6px; font-size: 0.9rem;">+ Dodaj Przepis VIP</h4>
                         <input type="text" id="admin-rec-name" placeholder="Nazwa potrawy">
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
                             <input type="number" id="admin-rec-kcal" placeholder="Kcal">
                             <input type="number" id="admin-rec-protein" placeholder="Białko (g)">
                         </div>
-                        <input type="text" id="admin-rec-steps" placeholder="Składniki i przygotowanie">
+                        <input type="text" id="admin-rec-steps" placeholder="Przygotowanie">
                         <button class="btn btn-sm" style="background: var(--gold); color: #000;" onclick="adminAddRecipeItem()">Opublikuj Przepis</button>
                     </div>
 
-                    <h4 style="margin-bottom: 10px; color: var(--gold);">👥 Zarządzanie Użytkownikami (<span id="stat-users-count">0</span>):</h4>
-                    <div id="admin-user-list">Pobieranie listy użytkowników...</div>
+                    <h4 style="margin-bottom: 8px; color: var(--gold); font-size: 0.9rem;">👥 Użytkownicy (<span id="stat-users-count">0</span>):</h4>
+                    <div id="admin-user-list">Pobieranie listy...</div>
                 </div>
             </div>
 
@@ -612,10 +619,10 @@
     <!-- MODAL DODAWANIA ĆWICZENIA Z ATLASU DO PLANU -->
     <div id="atlas-to-plan-modal" class="modal-overlay">
         <div class="modal-body">
-            <h3 style="color:var(--primary); margin-bottom:8px;">Dodaj do Planu Treningowego</h3>
-            <p id="modal-atlas-title" style="font-weight:800; font-size:1rem; margin-bottom:12px; color:#fff;"></p>
+            <h3 style="color:var(--primary); margin-bottom:6px; font-size: 1.1rem;">Dodaj do Planu</h3>
+            <p id="modal-atlas-title" style="font-weight:800; font-size:0.9rem; margin-bottom:10px; color:#fff;"></p>
             
-            <label>Wybierz Dzień Tygodnia</label>
+            <label style="font-size: 0.75rem;">Wybierz Dzień Tygodnia</label>
             <select id="modal-plan-day">
                 <option value="Poniedziałek">Poniedziałek</option>
                 <option value="Wtorek">Wtorek</option>
@@ -626,24 +633,24 @@
                 <option value="Niedziela">Niedziela</option>
             </select>
 
-            <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px;">
+            <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:6px;">
                 <div>
-                    <label>Serie</label>
+                    <label style="font-size: 0.7rem;">Serie</label>
                     <input type="number" id="modal-sets-count" value="3" placeholder="3">
                 </div>
                 <div>
-                    <label>Ciężar</label>
-                    <input type="number" id="modal-weight" placeholder="np. 60">
+                    <label style="font-size: 0.7rem;">Ciężar</label>
+                    <input type="number" id="modal-weight" placeholder="kg">
                 </div>
                 <div>
-                    <label>Powtórzenia</label>
-                    <input type="number" id="modal-reps" placeholder="np. 10">
+                    <label style="font-size: 0.7rem;">Powt.</label>
+                    <input type="number" id="modal-reps" placeholder="pow">
                 </div>
             </div>
 
-            <div style="display:flex; gap:8px; margin-top:10px;">
-                <button class="btn btn-sm" style="flex:1;" onclick="confirmAddAtlasToPlan()">+ Zapisz w Planie</button>
-                <button class="btn btn-outline btn-sm" style="color:var(--danger);" onclick="closeAtlasModal()">Anuluj</button>
+            <div style="display:flex; gap:6px; margin-top:8px;">
+                <button class="btn btn-sm" style="flex:1;" onclick="confirmAddAtlasToPlan()">+ Zapisz</button>
+                <button class="btn btn-outline btn-sm" style="color:var(--danger);" onclick="closeAtlasModal()">✕</button>
             </div>
         </div>
     </div>
@@ -651,46 +658,45 @@
     <!-- MODAL ZMIANY NICKU I KONTROLI UPRAWNIEN -->
     <div id="admin-edit-nickname-modal" class="modal-overlay">
         <div class="modal-body">
-            <h3 style="color:var(--gold); margin-bottom:8px;">⚙️ Zarządzanie Użytkownikiem</h3>
-            <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:12px;">Edycja nicku oraz uprawnień.</p>
+            <h3 style="color:var(--gold); margin-bottom:6px; font-size: 1.1rem;">⚙️ Uprawnienia Użytkownika</h3>
             
             <input type="hidden" id="modal-edit-uid">
-            <label>Pseudonim (Nick)</label>
+            <label style="font-size: 0.75rem;">Pseudonim (Nick)</label>
             <input type="text" id="modal-new-username" placeholder="Nowy nick...">
 
-            <div style="background: rgba(255,255,255,0.03); border:1px solid var(--card-border); padding:10px; border-radius:12px; margin: 10px 0;">
-                <label style="font-size:0.8rem; color:var(--gold); display:block; margin-bottom:6px;">Kontrola Uprawnień:</label>
-                <div style="display:flex; flex-direction:column; gap:6px; font-size:0.85rem;">
-                    <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
+            <div style="background: rgba(255,255,255,0.03); border:1px solid var(--card-border); padding:8px; border-radius:10px; margin: 8px 0;">
+                <label style="font-size:0.75rem; color:var(--gold); display:block; margin-bottom:4px;">Uprawnienia moderatora:</label>
+                <div style="display:flex; flex-direction:column; gap:4px; font-size:0.8rem;">
+                    <label style="display:flex; align-items:center; gap:6px; cursor:pointer;">
                         <input type="checkbox" id="perm-block" style="width:auto; margin:0;"> Może blokować / moderować
                     </label>
-                    <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
+                    <label style="display:flex; align-items:center; gap:6px; cursor:pointer;">
                         <input type="checkbox" id="perm-delete" style="width:auto; margin:0;"> Może usuwać posty / wpisy
                     </label>
                 </div>
             </div>
 
-            <div style="display:flex; gap:8px; margin-top:10px;">
-                <button class="btn btn-sm" style="flex:1;" onclick="confirmChangeUserPermissions()">Zapisz Zmiany</button>
-                <button class="btn btn-outline btn-sm" style="color:var(--danger);" onclick="closeNicknameModal()">Anuluj</button>
+            <div style="display:flex; gap:6px; margin-top:8px;">
+                <button class="btn btn-sm" style="flex:1;" onclick="confirmChangeUserPermissions()">Zapisz</button>
+                <button class="btn btn-outline btn-sm" style="color:var(--danger);" onclick="closeNicknameModal()">✕</button>
             </div>
         </div>
     </div>
 
-    <!-- PŁYWAJĄCY STOPER Z PRZYCISKIEM DŹWIĘKU -->
+    <!-- PŁYWAJĄCY STOPER -->
     <div class="floating-timer">
         <div>
-            <div style="display:flex; align-items:center; gap:8px;">
-                <span style="font-size: 0.65rem; color: var(--text-muted);">STOPER PRZERWY</span>
-                <button id="sound-toggle-btn" class="btn btn-outline btn-sm" style="padding:2px 6px; font-size:0.65rem;" onclick="toggleSoundMaster()">🔊 Dźwięk: WŁ</button>
+            <div style="display:flex; align-items:center; gap:6px;">
+                <span style="font-size: 0.6rem; color: var(--text-muted);">STOPER</span>
+                <button id="sound-toggle-btn" class="btn btn-outline btn-sm" style="padding:2px 4px; font-size:0.6rem;" onclick="toggleSoundMaster()">🔊 WŁ</button>
             </div>
-            <div id="timer-display" style="font-size: 1.2rem; font-weight: 800; color: var(--primary);">00:00</div>
+            <div id="timer-display" style="font-size: 1.1rem; font-weight: 800; color: var(--primary);">00:00</div>
         </div>
         <div style="display: flex; gap: 4px;">
-            <button class="btn btn-outline btn-sm" onclick="startTimer(30)">30s</button>
-            <button class="btn btn-outline btn-sm" onclick="startTimer(60)">60s</button>
-            <button class="btn btn-outline btn-sm" onclick="startTimer(90)">90s</button>
-            <button class="btn btn-sm" style="background: var(--danger); color: white; padding: 4px 8px;" onclick="stopTimer()">✕</button>
+            <button class="btn btn-outline btn-sm" style="padding:4px 8px; font-size:0.7rem;" onclick="startTimer(30)">30s</button>
+            <button class="btn btn-outline btn-sm" style="padding:4px 8px; font-size:0.7rem;" onclick="startTimer(60)">60s</button>
+            <button class="btn btn-outline btn-sm" style="padding:4px 8px; font-size:0.7rem;" onclick="startTimer(90)">90s</button>
+            <button class="btn btn-sm" style="background: var(--danger); color: white; padding: 4px 6px; font-size:0.7rem;" onclick="stopTimer()">✕</button>
         </div>
     </div>
 
@@ -701,30 +707,25 @@
                 canvas.width = 180;
                 canvas.height = 180;
                 const ctx = canvas.getContext('2d');
-
                 ctx.fillStyle = '#09070f';
                 ctx.fillRect(0, 0, 180, 180);
-
                 const grad = ctx.createLinearGradient(0, 0, 180, 180);
                 grad.addColorStop(0, '#ec4899');
                 grad.addColorStop(1, '#a855f7');
                 ctx.fillStyle = grad;
-
                 ctx.fillRect(35, 75, 20, 30);
                 ctx.fillRect(125, 75, 20, 30);
                 ctx.fillRect(55, 83, 15, 14);
                 ctx.fillRect(110, 83, 15, 14);
                 ctx.fillRect(70, 87, 40, 6);
-
                 ctx.fillStyle = '#ffffff';
                 ctx.font = '900 20px sans-serif';
                 ctx.textAlign = 'center';
                 ctx.fillText('ADIS.GYM', 90, 145);
-
                 const dataUrl = canvas.toDataURL('image/png');
                 document.getElementById('apple-icon').href = dataUrl;
                 document.getElementById('fav-icon').href = dataUrl;
-            } catch(e) { console.error("Icon Gen Error", e); }
+            } catch(e) {}
         }
         generateAppleTouchIconPNG();
 
@@ -739,11 +740,11 @@
             soundEnabled = !soundEnabled;
             const btn = document.getElementById('sound-toggle-btn');
             if (soundEnabled) {
-                btn.innerText = "🔊 Dźwięk: WŁ";
+                btn.innerText = "🔊 WŁ";
                 btn.style.borderColor = "var(--primary)";
                 playBeep(600, 0.1);
             } else {
-                btn.innerText = "🔇 Dźwięk: WYŁ";
+                btn.innerText = "🔇 WYŁ";
                 btn.style.borderColor = "var(--card-border)";
             }
         }
@@ -752,27 +753,21 @@
             if (!soundEnabled) return;
             try {
                 const AudioCtx = window.AudioContext || window.webkitAudioContext;
-                if (!globalAudioCtx && AudioCtx) {
-                    globalAudioCtx = new AudioCtx();
-                }
+                if (!globalAudioCtx && AudioCtx) { globalAudioCtx = new AudioCtx(); }
                 const ctx = globalAudioCtx;
                 if (!ctx) return;
                 if (ctx.state === 'suspended') { ctx.resume(); }
-                
                 const osc = ctx.createOscillator();
                 const gain = ctx.createGain();
-
                 osc.type = 'sine';
                 osc.frequency.setValueAtTime(freq, ctx.currentTime);
                 gain.gain.setValueAtTime(0.5, ctx.currentTime);
                 gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
-
                 osc.connect(gain);
                 gain.connect(ctx.destination);
-
                 osc.start();
                 osc.stop(ctx.currentTime + duration);
-            } catch(e) { console.error("Audio beep error", e); }
+            } catch(e) {}
         }
 
         function switchTab(tabId) {
@@ -808,12 +803,13 @@
                 if (isRegisterMode) {
                     const res = await window.authApi.reg(email, pass);
                     if (res && res.user) {
+                        // Domyślnie odznaczone uprawnienia dla nowego konta
                         await window.fbSetDoc(window.fbDoc(window.db, 'projects', 'd1s-gym', 'users', res.user.uid), {
                             username: username,
                             role: 'user',
-                            permissions: { canBlock: true, canDeletePosts: true }
+                            permissions: { canBlock: false, canDeletePosts: false }
                         }, { merge: true });
-                        alert("Konto zostało utworzone! Wysłaliśmy link weryfikacyjny na Twój adres e-mail. Sprawdź skrzynkę.");
+                        alert("Konto zostało utworzone! Wysłaliśmy link weryfikacyjny na Twój adres e-mail.");
                     }
                 } else {
                     await window.authApi.login(email, pass);
@@ -837,7 +833,7 @@
                 else if(diff >= 12) xpGain = 250;
 
                 addXP(xpGain);
-                alert(`🔥 NOWY REKORD OSOBISTY (PR) w ${exName}: ${numWeight} kg! (+${xpGain} XP)`);
+                alert(`🔥 NOWY REKORD (PR) w ${exName}: ${numWeight} kg! (+${xpGain} XP)`);
             }
         }
 
@@ -856,7 +852,7 @@
                 window.gymData.xp -= needed;
                 window.gymData.level += 1;
                 needed = getXpNeededForLevel(window.gymData.level);
-                alert(`🎉 AWANS! Osiągnąłeś LEVEL ${window.gymData.level}! Jesteś coraz silniejszy! 🚀`);
+                alert(`🎉 AWANS! Osiągnąłeś LEVEL ${window.gymData.level}! 🚀`);
             }
 
             window.saveGymData();
@@ -878,7 +874,7 @@
             window.saveGymData();
             window.renderPlan();
             updateWorkoutStats();
-            alert(`Rozpoczęto trening na dzisiaj: ${dayName}! Odhaczaj wykonane serie.`);
+            // Okno potwierdzające zostało usunięte zgodnie z życzeniem
         }
 
         function updateWorkoutStats() {
@@ -887,12 +883,12 @@
             const badgeEl = document.getElementById('active-day-badge');
             
             if (activeDay) {
-                badgeEl.innerText = `🟢 Aktywny dzień: ${activeDay}`;
+                badgeEl.innerText = `🟢 Aktywny: ${activeDay}`;
                 badgeEl.style.color = "var(--success)";
                 badgeEl.style.borderColor = "rgba(16,185,129,0.4)";
                 badgeEl.style.background = "rgba(16,185,129,0.1)";
             } else {
-                badgeEl.innerText = "⚠️ Wybierz dzień przyciskiem 'Start Treningu'";
+                badgeEl.innerText = "⚠️ Wybierz dzień (Start Treningu)";
                 badgeEl.style.color = "var(--gold)";
                 badgeEl.style.borderColor = "rgba(251,191,36,0.3)";
                 badgeEl.style.background = "rgba(251,191,36,0.1)";
@@ -926,12 +922,29 @@
                 list.innerHTML = '<p style="font-size: 0.75rem; color: var(--text-muted); text-align: center;">Brak zakończonych treningów.</p>';
                 return;
             }
-            list.innerHTML = workouts.slice(0, 5).map(w => `
-                <div style="background:rgba(255,255,255,0.02); border:1px solid var(--card-border); padding:8px; border-radius:10px; margin-bottom:6px; font-size:0.78rem;">
-                    <div style="font-weight:800; color:var(--primary);">${w.dayName} (${w.date})</div>
-                    <div style="color:var(--text-muted); margin-top:2px;">Łączny Tonaż: <strong style="color:var(--gold);">${w.tonnage} kg</strong> (${w.setsCount} serii)</div>
-                </div>
-            `).join('');
+            list.innerHTML = workouts.slice(0, 5).map(w => {
+                const exercisesHtml = (w.exercises || []).map(ex => `
+                    <div style="margin-top: 4px; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 4px;">
+                        <span style="font-weight:700; color:var(--text-main);">${ex.name}</span>
+                        <div style="font-size:0.7rem; color:var(--text-muted);">
+                            ${ex.setsSummary}
+                        </div>
+                    </div>
+                `).join('');
+
+                return `
+                    <details style="background:rgba(255,255,255,0.02); border:1px solid var(--card-border); padding:8px; border-radius:10px; margin-bottom:6px; font-size:0.75rem;">
+                        <summary style="font-weight:800; color:var(--primary); display:flex; justify-content:space-between; align-items:center;">
+                            <span>${w.dayName} (${w.date})</span>
+                            <span style="color:var(--gold); font-size:0.7rem;">${w.tonnage} kg ▾</span>
+                        </summary>
+                        <div style="margin-top: 6px;">
+                            <div style="color:var(--text-muted); margin-bottom:4px;">Łączny Tonaż: <strong style="color:var(--gold);">${w.tonnage} kg</strong> | Zaliczone serie: ${w.setsCount}</div>
+                            ${exercisesHtml}
+                        </div>
+                    </details>
+                `;
+            }).join('');
         }
 
         function updateStrengthRank() {
@@ -993,7 +1006,6 @@
             window.saveGymData();
             window.renderPlan();
             closeAtlasModal();
-            alert(`Dodano "${selectedAtlasName}" do planu na ${day}!`);
         }
 
         function addSingleSetToExercise(day, exId) {
@@ -1047,12 +1059,25 @@
             let allDone = true;
             let totalTonnage = 0;
             let totalSets = 0;
+            let exercisesSummary = [];
 
             plan.forEach(ex => {
+                let exTonnage = 0;
+                let detailsArr = [];
                 (ex.sets || []).forEach(s => {
                     totalSets++;
                     if (!s.done) allDone = false;
-                    else totalTonnage += (parseFloat(s.weight) || 0) * (parseFloat(s.reps) || 0);
+                    else {
+                        const w = parseFloat(s.weight) || 0;
+                        const r = parseFloat(s.reps) || 0;
+                        const t = w * r;
+                        totalTonnage += t;
+                        detailsArr.push(`S${s.setNum}: ${w}kg × ${r}pow (RIR: ${s.rir || '2'})`);
+                    }
+                });
+                exercisesSummary.push({
+                    name: ex.name,
+                    setsSummary: detailsArr.length > 0 ? detailsArr.join(' | ') : 'Brak zaliczonych serii'
                 });
             });
 
@@ -1066,9 +1091,9 @@
                         dayName: dayName,
                         date: todayStr,
                         tonnage: totalTonnage,
-                        setsCount: totalSets
+                        setsCount: totalSets,
+                        exercises: exercisesSummary
                     });
-                    alert(`🏆 GRATULACJE! Ukończyłeś cały trening na ${dayName}! Tonaż sesji: ${totalTonnage} kg.`);
                 }
             }
         }
@@ -1081,10 +1106,10 @@
         }
 
         function generatePresetPlanPPL() {
-            if(!confirm("Wgrać przykładowy profesjonalny plan Push/Pull/Legs?")) return;
+            if(!confirm("Wgrać przykładowy plan Push/Pull/Legs?")) return;
             window.gymData.workoutPlan = {
                 'Poniedziałek': [
-                    { id: 101, name: 'Wyciskanie Sztangi Poziomo', sets: [{setNum:1,type:'Rozgrzewka',weight:'50',reps:'12',rir:'4',done:false},{setNum:2,type:'Robocza',weight:'80',reps:'8',rir:'2',done:false},{setNum:3,type:'Robocza',weight:'85',reps:'6',rir:'0',done:false}] },
+                    { id: 101, name: 'Wyciskanie Sztangi Poziomo', sets: [{setNum:1,type:'Rozgrzewka',weight:'50',reps:'12',rir:'4',done:false},{setNum:2,type:'Robocza',weight:'80',reps:'8',rir:'2',done:false}] },
                     { id: 102, name: 'Wyciskanie Żołnierskie (OHP)', sets: [{setNum:1,type:'Robocza',weight:'50',reps:'8',rir:'2',done:false}] }
                 ],
                 'Wtorek': [
@@ -1112,47 +1137,47 @@
                 return `
                     <div class="day-card ${isActive ? 'active-workout-day' : ''}">
                         <div class="day-header">
-                            <span>${day} ${isActive ? '👑 (AKTYWNY)' : ''}</span>
-                            <div style="display:flex; gap:6px; align-items:center;">
-                                <button class="btn btn-sm" style="padding:4px 10px; font-size:0.7rem; background:${isActive?'var(--success)':'var(--grad-main)'};" onclick="startActiveWorkoutDay('${day}')">▶ ${isActive ? 'Trening w toku' : 'Start Treningu'}</button>
-                                <span style="font-size:0.75rem; color:var(--text-muted);">${list.length} ćw.</span>
+                            <span>${day} ${isActive ? '👑' : ''}</span>
+                            <div style="display:flex; gap:4px; align-items:center;">
+                                <button class="btn btn-sm" style="padding:3px 8px; font-size:0.65rem; background:${isActive?'var(--success)':'var(--grad-main)'};" onclick="startActiveWorkoutDay('${day}')">▶ ${isActive ? 'W toku' : 'Start'}</button>
+                                <span style="font-size:0.7rem; color:var(--text-muted);">${list.length} ćw.</span>
                             </div>
                         </div>
                         <div>
-                            ${list.length===0?'<p style="font-size:0.8rem; color:var(--text-muted);">Brak ćwiczeń w tym dniu.</p>':''}
+                            ${list.length===0?'<p style="font-size:0.75rem; color:var(--text-muted);">Brak ćwiczeń.</p>':''}
                             ${list.map(ex => `
                                 <div class="exercise-item">
-                                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
-                                        <strong style="color:#fff;">${ex.name}</strong>
-                                        <button class="btn btn-outline btn-sm" style="color:var(--danger); padding:2px 6px;" onclick="deletePlanExercise('${day}',${ex.id})">✕ Usuń</button>
+                                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                                        <strong style="color:#fff; font-size:0.82rem;">${ex.name}</strong>
+                                        <button class="btn btn-outline btn-sm" style="color:var(--danger); padding:1px 4px; font-size:0.65rem;" onclick="deletePlanExercise('${day}',${ex.id})">✕</button>
                                     </div>
                                     <div class="sets-grid">
                                         ${(ex.sets||[]).map((s, idx) => `
                                             <div class="set-row">
-                                                <input type="checkbox" ${s.done?'checked':''} onchange="togglePlanSetDone('${day}',${ex.id},${idx})" style="width:18px; height:18px; margin:0; cursor:pointer;" title="Zaliczone">
-                                                <span style="font-weight:800; color:var(--primary); min-width:24px;">S${s.setNum}</span>
-                                                <select onchange="updatePlanSetData('${day}',${ex.id},${idx},'type',this.value)" style="width:75px; padding:3px; margin:0; font-size:0.7rem; background:rgba(10,7,18,0.9);">
+                                                <input type="checkbox" ${s.done?'checked':''} onchange="togglePlanSetDone('${day}',${ex.id},${idx})" style="width:16px; height:16px; margin:0; cursor:pointer;">
+                                                <span style="font-weight:800; color:var(--primary); font-size:0.7rem; min-width:18px;">S${s.setNum}</span>
+                                                <select onchange="updatePlanSetData('${day}',${ex.id},${idx},'type',this.value)" style="width:65px; padding:2px; margin:0; font-size:0.65rem; background:rgba(10,7,18,0.9);">
                                                     <option value="Robocza" ${s.type==='Robocza'?'selected':''}>Robocza</option>
-                                                    <option value="Rozgrzewka" ${s.type==='Rozgrzewka'?'selected':''}>Rozgrzewka</option>
+                                                    <option value="Rozgrzewka" ${s.type==='Rozgrzewka'?'selected':''}>Rozgrzew.</option>
                                                     <option value="Drop-set" ${s.type==='Drop-set'?'selected':''}>Drop-set</option>
                                                 </select>
-                                                <div style="display:flex; align-items:center; gap:2px; flex:1; min-width:65px;">
-                                                    <input type="number" placeholder="kg" value="${s.weight||''}" onchange="updatePlanSetData('${day}',${ex.id},${idx},'weight',this.value)" style="width:100%; padding:3px; margin:0; font-size:0.8rem; text-align:center;">
-                                                    <span style="font-size:0.7rem; color:var(--text-muted);">kg</span>
+                                                <div style="display:flex; align-items:center; gap:1px; flex:1; min-width:55px;">
+                                                    <input type="number" placeholder="kg" value="${s.weight||''}" onchange="updatePlanSetData('${day}',${ex.id},${idx},'weight',this.value)" style="width:100%; padding:2px; margin:0; font-size:0.75rem; text-align:center;">
+                                                    <span style="font-size:0.6rem; color:var(--text-muted);">kg</span>
                                                 </div>
-                                                <div style="display:flex; align-items:center; gap:2px; flex:1; min-width:55px;">
-                                                    <input type="number" placeholder="pow" value="${s.reps||''}" onchange="updatePlanSetData('${day}',${ex.id},${idx},'reps',this.value)" style="width:100%; padding:3px; margin:0; font-size:0.8rem; text-align:center;">
-                                                    <span style="font-size:0.7rem; color:var(--text-muted);">pow</span>
+                                                <div style="display:flex; align-items:center; gap:1px; flex:1; min-width:45px;">
+                                                    <input type="number" placeholder="pow" value="${s.reps||''}" onchange="updatePlanSetData('${day}',${ex.id},${idx},'reps',this.value)" style="width:100%; padding:2px; margin:0; font-size:0.75rem; text-align:center;">
+                                                    <span style="font-size:0.6rem; color:var(--text-muted);">pow</span>
                                                 </div>
-                                                <div style="display:flex; align-items:center; gap:2px; min-width:60px;">
-                                                    <span style="font-size:0.65rem; color:var(--gold);">RIR:</span>
-                                                    <input type="number" min="0" max="5" placeholder="rir" value="${s.rir||'2'}" onchange="updatePlanSetData('${day}',${ex.id},${idx},'rir',this.value)" style="width:36px; padding:3px; margin:0; font-size:0.8rem; text-align:center;">
+                                                <div style="display:flex; align-items:center; gap:1px; min-width:45px;">
+                                                    <span style="font-size:0.6rem; color:var(--gold);">RIR:</span>
+                                                    <input type="number" min="0" max="5" placeholder="rir" value="${s.rir||'2'}" onchange="updatePlanSetData('${day}',${ex.id},${idx},'rir',this.value)" style="width:30px; padding:2px; margin:0; font-size:0.75rem; text-align:center;">
                                                 </div>
-                                                <button style="background:transparent; border:none; color:var(--danger); font-size:1rem; cursor:pointer; padding:0 4px;" onclick="removeSingleSetFromExercise('${day}',${ex.id},${idx})">✕</button>
+                                                <button style="background:transparent; border:none; color:var(--danger); font-size:0.85rem; cursor:pointer; padding:0 2px;" onclick="removeSingleSetFromExercise('${day}',${ex.id},${idx})">✕</button>
                                             </div>
                                         `).join('')}
                                     </div>
-                                    <button class="btn btn-outline btn-sm" style="margin-top:8px; font-size:0.75rem; padding:4px 10px;" onclick="addSingleSetToExercise('${day}',${ex.id})">+ Dodaj Serię</button>
+                                    <button class="btn btn-outline btn-sm" style="margin-top:6px; font-size:0.68rem; padding:3px 8px;" onclick="addSingleSetToExercise('${day}',${ex.id})">+ Seria</button>
                                 </div>
                             `).join('')}
                         </div>
@@ -1167,14 +1192,14 @@
             const part = document.getElementById('admin-ex-part').value;
             const level = document.getElementById('admin-ex-level').value;
             const desc = document.getElementById('admin-ex-desc').value;
-            if(!name || !part) return alert("Wpisz nazwę i partię mięśniową!");
+            if(!name || !part) return alert("Wpisz nazwę i partię!");
             try {
                 await window.fbAddDoc(window.fbCollection(window.db, 'projects', 'd1s-gym', 'custom_atlas'), { name, part, level, desc });
-                alert("Dodano ćwiczenie do Atlasu!");
+                alert("Dodano do Atlasu!");
                 document.getElementById('admin-ex-name').value = '';
                 document.getElementById('admin-ex-part').value = '';
                 document.getElementById('admin-ex-desc').value = '';
-            } catch(e) { alert("Błąd zapisu: " + e.message); }
+            } catch(e) { alert("Błąd: " + e.message); }
         }
 
         async function adminAddRecipeItem() {
@@ -1183,7 +1208,7 @@
             const kcal = document.getElementById('admin-rec-kcal').value;
             const protein = document.getElementById('admin-rec-protein').value;
             const steps = document.getElementById('admin-rec-steps').value;
-            if(!name) return alert("Wpisz nazwę przepisu!");
+            if(!name) return alert("Wpisz nazwę!");
             try {
                 await window.fbAddDoc(window.fbCollection(window.db, 'projects', 'd1s-gym', 'custom_recipes'), { name, kcal, protein, steps });
                 alert("Dodano przepis VIP!");
@@ -1191,53 +1216,53 @@
                 document.getElementById('admin-rec-kcal').value = '';
                 document.getElementById('admin-rec-protein').value = '';
                 document.getElementById('admin-rec-steps').value = '';
-            } catch(e) { alert("Błąd zapisu: " + e.message); }
+            } catch(e) { alert("Błąd: " + e.message); }
         }
 
         async function deleteForumPostAdmin(postId) {
             if(['owner', 'admin'].includes(window.currentUserRole)) {
                 if(window.permissions?.canDeletePosts === false && window.currentUserRole !== 'owner') {
-                    return alert("Twoje uprawnienia do usuwania postów zostały wyłączone przez Szefa!");
+                    return alert("Brak uprawnień do usuwania postów!");
                 }
-                if(confirm("Usunąć ten post z czatu?")) {
+                if(confirm("Usunąć post?")) {
                     await window.fbDeleteDoc(window.fbDoc(window.db, 'projects', 'd1s-gym', 'forum', postId));
                 }
             } else {
-                alert("Brak uprawnień do moderacji!");
+                alert("Brak uprawnień!");
             }
         }
 
         async function deleteCustomAtlasItem(itemId) {
             if(!['owner', 'admin'].includes(window.currentUserRole)) return alert("Brak uprawnień!");
-            if(confirm("Usunąć to ćwiczenie z Atlasu?")) {
+            if(confirm("Usunąć z Atlasu?")) {
                 await window.fbDeleteDoc(window.fbDoc(window.db, 'projects', 'd1s-gym', 'custom_atlas', itemId));
             }
         }
 
         async function deleteCustomRecipeItem(itemId) {
             if(!['owner', 'admin'].includes(window.currentUserRole)) return alert("Brak uprawnień!");
-            if(confirm("Usunąć ten przepis VIP?")) {
+            if(confirm("Usunąć przepis?")) {
                 await window.fbDeleteDoc(window.fbDoc(window.db, 'projects', 'd1s-gym', 'custom_recipes', itemId));
             }
         }
 
         async function changeUserRole(targetUid, newRole) {
-            if(window.currentUserRole !== 'owner') return alert("Tylko Szef (Owner) może zmieniać rangi w systemie!");
+            if(window.currentUserRole !== 'owner') return alert("Tylko Szef może zmieniać rangi!");
             try {
                 await window.fbSetDoc(window.fbDoc(window.db, 'projects', 'd1s-gym', 'users', targetUid), { role: newRole }, { merge: true });
-                alert("Ranga została zmieniona na: " + newRole.toUpperCase());
+                alert("Zmieniono rangę!");
                 loadAdminUserList();
-            } catch(e) { alert("Błąd aktualizacji rangi: " + e.message); }
+            } catch(e) { alert("Błąd: " + e.message); }
         }
 
         async function deleteUserFromDatabase(targetUid) {
-            if(window.currentUserRole !== 'owner') return alert("Tylko Szef (Owner) może usuwać użytkowników!");
-            if(confirm("Czy na pewno chcesz usunąć tego użytkownika z bazy danych?")) {
+            if(window.currentUserRole !== 'owner') return alert("Tylko Szef może usuwać użytkowników!");
+            if(confirm("Usunąć użytkownika z bazy?")) {
                 try {
                     await window.fbDeleteDoc(window.fbDoc(window.db, 'projects', 'd1s-gym', 'users', targetUid));
-                    alert("Użytkownik został usunięty!");
+                    alert("Usunięto!");
                     loadAdminUserList();
-                } catch(e) { alert("Błąd usuwania: " + e.message); }
+                } catch(e) { alert("Błąd: " + e.message); }
             }
         }
 
@@ -1248,9 +1273,9 @@
             document.getElementById('modal-edit-uid').value = targetUid;
             document.getElementById('modal-new-username').value = currentName;
             
-            const perms = currentPerms || { canBlock: true, canDeletePosts: true };
-            document.getElementById('perm-block').checked = perms.canBlock !== false;
-            document.getElementById('perm-delete').checked = perms.canDeletePosts !== false;
+            const perms = currentPerms || { canBlock: false, canDeletePosts: false };
+            document.getElementById('perm-block').checked = perms.canBlock === true;
+            document.getElementById('perm-delete').checked = perms.canDeletePosts === true;
 
             document.getElementById('admin-edit-nickname-modal').style.display = 'flex';
         }
@@ -1274,17 +1299,14 @@
                     permissions: { canBlock, canDeletePosts }
                 }, { merge: true });
                 
-                alert("Zapisano zmiany użytkownika!");
+                alert("Zapisano zmiany!");
                 closeNicknameModal();
                 loadAdminUserList();
-            } catch(e) { 
-                alert("Błąd zapisu: " + e.message); 
-            }
+            } catch(e) { alert("Błąd: " + e.message); }
         }
 
         async function loadAdminUserList() {
             if (!window.db) return;
-
             const isOwner = window.currentUserRole === 'owner';
             const isAdminOrOwner = ['owner', 'admin'].includes(window.currentUserRole);
 
@@ -1297,7 +1319,7 @@
                 let total = snap.size, html = '';
 
                 if (total === 0) {
-                    listEl.innerHTML = '<p style="color:var(--text-muted);">Brak użytkowników w bazie.</p>';
+                    listEl.innerHTML = '<p style="color:var(--text-muted); font-size:0.75rem;">Brak użytkowników.</p>';
                     return;
                 }
 
@@ -1307,42 +1329,39 @@
                     const uXp = data.gym_data?.xp || 0;
                     const role = data.role || 'user';
                     const nameToDisplay = data.username || 'Użytkownik';
-                    const perms = data.permissions || { canBlock: true, canDeletePosts: true };
+                    const perms = data.permissions || { canBlock: false, canDeletePosts: false };
 
                     let actionControls = '';
                     if (isAdminOrOwner) {
                         let roleSelectHtml = '';
                         if (isOwner) {
                             roleSelectHtml = `
-                                <select onchange="changeUserRole('${userDoc.id}', this.value)" style="width:auto; margin:0; padding:6px 10px; font-size:0.8rem; background:rgba(10, 7, 18, 0.9);">
-                                    <option value="user" ${role==='user'?'selected':''}>🏋 Gracz</option>
-                                    <option value="vip" ${role==='vip'?'selected':''}>🌟 VIP</option>
-                                    <option value="staff" ${role==='staff'?'selected':''}>🛠 Staff</option>
-                                    <option value="admin" ${role==='admin'?'selected':''}>🛡 Admin</option>
-                                    <option value="owner" ${role==='owner'?'selected':''}>👑 Szef</option>
+                                <select onchange="changeUserRole('${userDoc.id}', this.value)" style="width:auto; margin:0; padding:4px 6px; font-size:0.7rem; background:rgba(10, 7, 18, 0.9);">
+                                    <option value="user" ${role==='user'?'selected':''}>Gracz</option>
+                                    <option value="vip" ${role==='vip'?'selected':''}>VIP</option>
+                                    <option value="staff" ${role==='staff'?'selected':''}>Staff</option>
+                                    <option value="admin" ${role==='admin'?'selected':''}>Admin</option>
+                                    <option value="owner" ${role==='owner'?'selected':''}>Szef</option>
                                 </select>
                             `;
                         }
 
                         actionControls = `
-                            <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
-                                <button class="btn btn-outline btn-sm" style="color:var(--gold); border-color:var(--gold);" onclick='openEditNicknameModal("${userDoc.id}", "${nameToDisplay}", ${JSON.stringify(perms)}, "${role}")'>⚙️ Uprawnienia & Nick</button>
+                            <div style="display:flex; gap:4px; align-items:center; flex-wrap:wrap; margin-top:4px;">
+                                <button class="btn btn-outline btn-sm" style="color:var(--gold); border-color:var(--gold); font-size:0.65rem; padding:3px 6px;" onclick='openEditNicknameModal("${userDoc.id}", "${nameToDisplay}", ${JSON.stringify(perms)}, "${role}")'>⚙️ Uprawnienia</button>
                                 ${roleSelectHtml}
-                                ${isOwner ? `<button class="btn btn-outline btn-sm" style="color:var(--danger); border-color:var(--danger);" onclick="deleteUserFromDatabase('${userDoc.id}')">🗑 Usuń</button>` : ''}
+                                ${isOwner ? `<button class="btn btn-outline btn-sm" style="color:var(--danger); border-color:var(--danger); font-size:0.65rem; padding:3px 6px;" onclick="deleteUserFromDatabase('${userDoc.id}')">🗑</button>` : ''}
                             </div>
                         `;
                     }
 
                     html += `
-                        <div class="list-item" style="flex-wrap:wrap; gap:10px; background:rgba(255,255,255,0.03);">
-                            <div style="flex:1; min-width:180px;">
-                                <strong style="color:#fff;">${nameToDisplay}</strong>
-                                <div style="font-size:0.75rem; color:var(--gold); font-weight:700; margin-top:2px;">LVL ${uLvl} (${uXp} XP)</div>
-                                <div style="margin-top:6px; display:flex; gap:6px; align-items:center;">
-                                    ${window.getRoleBadgeHtml(role)}
-                                    <span style="font-size:0.68rem; color:var(--text-muted);">Blokady: ${perms.canBlock!==false?'TAK':'NIE'} | Usuwanie: ${perms.canDeletePosts!==false?'TAK':'NIE'}</span>
-                                </div>
+                        <div class="list-item" style="flex-direction:column; align-items:flex-start; background:rgba(255,255,255,0.03);">
+                            <div style="display:flex; justify-content:space-between; width:100%; align-items:center;">
+                                <strong style="color:#fff; font-size:0.8rem;">${nameToDisplay}</strong>
+                                ${window.getRoleBadgeHtml(role)}
                             </div>
+                            <div style="font-size:0.68rem; color:var(--gold); margin-top:2px;">LVL ${uLvl} (${uXp} XP) | Blokady: ${perms.canBlock===true?'TAK':'NIE'} | Usuwanie: ${perms.canDeletePosts===true?'TAK':'NIE'}</div>
                             ${actionControls}
                         </div>
                     `;
@@ -1350,8 +1369,7 @@
                 document.getElementById('stat-users-count').innerText = total;
                 listEl.innerHTML = html;
             } catch (e) {
-                console.error("Błąd ładowania użytkowników:", e);
-                document.getElementById('admin-user-list').innerHTML = '<p style="color:var(--danger);">Nie udało się pobrać listy użytkowników.</p>';
+                document.getElementById('admin-user-list').innerHTML = '<p style="color:var(--danger); font-size:0.75rem;">Błąd pobierania.</p>';
             }
         }
 
@@ -1367,28 +1385,19 @@
                     const MAX_HEIGHT = 800;
                     let width = img.width;
                     let height = img.height;
-
                     if (width > height) {
-                        if (width > MAX_WIDTH) {
-                            height *= MAX_WIDTH / width;
-                            width = MAX_WIDTH;
-                        }
+                        if (width > MAX_WIDTH) { height *= MAX_WIDTH / width; width = MAX_WIDTH; }
                     } else {
-                        if (height > MAX_HEIGHT) {
-                            width *= MAX_HEIGHT / height;
-                            height = MAX_HEIGHT;
-                        }
+                        if (height > MAX_HEIGHT) { width *= MAX_HEIGHT / height; height = MAX_HEIGHT; }
                     }
-
                     canvas.width = width;
                     canvas.height = height;
                     const ctx = canvas.getContext('2d');
                     ctx.drawImage(img, 0, 0, width, height);
-                    
                     tempForumImageBase64 = canvas.toDataURL('image/jpeg', 0.8);
                     document.getElementById('forum-img-tag-preview').src = tempForumImageBase64;
                     document.getElementById('forum-img-preview-container').style.display = 'block';
-                    document.getElementById('forum-img-name').innerText = file.name || 'Wybrano zdjęcie';
+                    document.getElementById('forum-img-name').innerText = file.name || 'Zdjęcie';
                     document.getElementById('forum-img-clear').style.display = 'inline-block';
                 };
                 img.src = e.target.result;
@@ -1420,11 +1429,10 @@
                     likes: 0,
                     likedBy: []
                 });
-
                 clearForumImage();
                 document.getElementById('forum-content').value = '';
             } catch(e) {
-                alert("Błąd publikacji wpisu: " + e.message);
+                alert("Błąd publikacji: " + e.message);
             }
         }
 
@@ -1435,14 +1443,10 @@
         }
 
         async function likeForumPost(postId, currentLikes, likedByArr) {
-            if (!window.auth || !window.auth.currentUser) return alert("Musisz być zalogowany, aby polubić post!");
+            if (!window.auth || !window.auth.currentUser) return alert("Zaloguj się!");
             const uid = window.auth.currentUser.uid;
             let list = likedByArr || [];
-
-            if (list.includes(uid)) {
-                return alert("Już polubiłeś ten post!");
-            }
-
+            if (list.includes(uid)) return alert("Już polubiłeś!");
             list.push(uid);
             try {
                 await window.fbSetDoc(window.fbDoc(window.db, 'projects', 'd1s-gym', 'forum', postId), {
@@ -1454,8 +1458,8 @@
 
         function renderForumPosts(posts) {
             const list = document.getElementById('forum-posts-list');
-            if(!posts || posts.length===0) { list.innerHTML = '<p style="color:var(--text-muted); text-align:center;">Brak wpisów na czacie.</p>'; return; }
-            const canModerate = ['owner', 'admin'].includes(window.currentUserRole) && (window.permissions?.canDeletePosts !== false || window.currentUserRole === 'owner');
+            if(!posts || posts.length===0) { list.innerHTML = '<p style="color:var(--text-muted); text-align:center; font-size:0.75rem;">Brak wpisów.</p>'; return; }
+            const canModerate = ['owner', 'admin'].includes(window.currentUserRole) && (window.permissions?.canDeletePosts === true || window.currentUserRole === 'owner');
             const currentUid = window.auth?.currentUser?.uid || '';
 
             list.innerHTML = posts.map(p => {
@@ -1465,22 +1469,21 @@
                 const hasLiked = likedBy.includes(currentUid);
 
                 return `
-                    <div style="background:rgba(255,255,255,0.02); border:1px solid var(--card-border); padding:12px; border-radius:12px; margin-bottom:10px;">
-                        <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.75rem; color:var(--text-muted); margin-bottom:6px;">
-                            <div style="display:flex; align-items:center; gap:6px;">
+                    <div style="background:rgba(255,255,255,0.02); border:1px solid var(--card-border); padding:10px; border-radius:12px; margin-bottom:8px;">
+                        <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.7rem; color:var(--text-muted); margin-bottom:4px;">
+                            <div style="display:flex; align-items:center; gap:4px; flex-wrap:wrap;">
                                 ${roleBadge}
                                 <strong style="color: var(--text-main);">${p.authorName || 'Użytkownik'}</strong>
-                                <span style="background:rgba(236,72,153,0.15); color:var(--primary); padding:2px 6px; border-radius:6px; font-size:0.65rem;">📸 Forma Dnia</span>
                             </div>
                             <div>
-                                <span>${new Date(p.timestamp).toLocaleTimeString('pl-PL')}</span>
-                                ${canModerate ? `<button class="btn btn-outline btn-sm" style="color:var(--text-muted); border-color:var(--card-border); padding:2px 8px; margin-left:6px; font-size:0.7rem;" onclick="deleteForumPostAdmin('${p.id}')">Usuń</button>` : ''}
+                                <span>${new Date(p.timestamp).toLocaleTimeString('pl-PL', {hour:'2-digit', minute:'2-digit'})}</span>
+                                ${canModerate ? `<button class="btn btn-outline btn-sm" style="color:var(--danger); border-color:var(--card-border); padding:1px 6px; margin-left:4px; font-size:0.65rem;" onclick="deleteForumPostAdmin('${p.id}')">Usuń</button>` : ''}
                             </div>
                         </div>
-                        ${p.content ? `<p style="font-size:0.88rem; margin-top:4px; line-height:1.4;">${p.content}</p>` : ''}
-                        ${p.imageBase64 ? `<img src="${p.imageBase64}" class="chat-img-preview" alt="Zdjęcie progresu">` : ''}
-                        <div style="margin-top:8px; display:flex; align-items:center; gap:6px;">
-                            <button class="btn btn-outline btn-sm" style="padding:4px 10px; font-size:0.75rem; ${hasLiked?'border-color:var(--primary); color:var(--primary);':''}" onclick="likeForumPost('${p.id}', ${likes}, ${JSON.stringify(likedBy).replace(/"/g, '&quot;')})">❤️ ${likes}</button>
+                        ${p.content ? `<p style="font-size:0.82rem; margin-top:3px; line-height:1.3;">${p.content}</p>` : ''}
+                        ${p.imageBase64 ? `<img src="${p.imageBase64}" class="chat-img-preview" alt="Progres">` : ''}
+                        <div style="margin-top:6px; display:flex; align-items:center; gap:4px;">
+                            <button class="btn btn-outline btn-sm" style="padding:3px 8px; font-size:0.7rem; ${hasLiked?'border-color:var(--primary); color:var(--primary);':''}" onclick="likeForumPost('${p.id}', ${likes}, ${JSON.stringify(likedBy).replace(/"/g, '&quot;')})">❤️ ${likes}</button>
                         </div>
                     </div>
                 `;
@@ -1488,29 +1491,14 @@
         }
 
         const DEFAULT_ATLAS = [
-            {
-                name: "Wyciskanie sztangi na ławce poziomej", 
-                part: "Klatka", 
-                level: "Średniozaawansowany",
-                desc: "Ustawienie: Łopatki ściągnięte i wciśnięte w ławkę, stopy stabilnie na ziemi. Ruch: Prowadź sztangę do linii środka klatki piersiowej, łokcie lekko pod kątem 45 stopni."
-            }, 
-            {
-                name: "Podciąganie na drążku nachwytem", 
-                part: "Plecy", 
-                level: "Zaawansowany",
-                desc: "Ustawienie: Szeroki chwyt, klatka wypchnięta ku górze. Ruch: Inicjuj ruch z łopatek, ciągnąc łokcie w dół do bioder, klatką dotknij lub zbliż się do drążka."
-            }, 
-            {
-                name: "Przysiad ze sztangą na plecach", 
-                part: "Nogi", 
-                level: "Średniozaawansowany",
-                desc: "Ustawienie: Sztanga stabilnie na trapezie, stopy na szerokość barków. Ruch: Zasuń biodra w tył, kolana prowadź zgodnie z linią palców stóp, zejdź przynajmniej do kąta prostego."
-            }
+            { name: "Wyciskanie sztangi na ławce poziomej", part: "Klatka", level: "Średniozaawansowany", desc: "Łopatki ściągnięte, stopy stabilnie na ziemi." }, 
+            { name: "Podciąganie na drążku nachwytem", part: "Plecy", level: "Zaawansowany", desc: "Szeroki chwyt, klatka wypchnięta ku górze." }, 
+            { name: "Przysiad ze sztangą na plecach", part: "Nogi", level: "Średniozaawansowany", desc: "Kolana prowadź zgodnie z linią palców stóp." }
         ];
 
         const DEFAULT_RECIPES = [
-            {name: "Owsianka proteinowa z bananem", kcal: 500, protein: 35, steps: "Płatki owsiane gotowane na mleku, miarka odżywki białkowej, masło orzechowe i plasterki bananów."}, 
-            {name: "Kurczak z ryżem i warzywami na parze", kcal: 650, protein: 50, steps: "Soczysta pierś z kurczaka w przyprawach, ryż parboiled oraz mix chrupiących warzyw polanych oliwą z oliwek."}
+            { name: "Owsianka proteinowa z bananem", kcal: 500, protein: 35, steps: "Płatki owsiane na mleku, odżywka białkowa, masło orzechowe." }, 
+            { name: "Kurczak z ryżem i warzywami", kcal: 650, protein: 50, steps: "Pierś z kurczaka w przyprawach, ryż parboiled i mix warzyw." }
         ];
 
         function renderAtlas() {
@@ -1531,13 +1519,13 @@
                     <div>
                         <div style="display:flex; justify-content:space-between; align-items:center;">
                             <span class="role-badge role-staff">${a.part}</span>
-                            ${(isAdmin && a.id) ? `<button class="btn btn-outline btn-sm" style="color:var(--danger); padding:1px 6px;" onclick="deleteCustomAtlasItem('${a.id}')">🗑</button>` : ''}
+                            ${(isAdmin && a.id) ? `<button class="btn btn-outline btn-sm" style="color:var(--danger); padding:1px 5px; font-size:0.65rem;" onclick="deleteCustomAtlasItem('${a.id}')">🗑</button>` : ''}
                         </div>
-                        <h4 style="margin:8px 0; color:#fff; font-size:1rem;">${a.name}</h4>
-                        <div style="font-size:0.7rem; color:var(--gold); margin-bottom:6px; font-weight:700;">Poziom: ${a.level || 'Średniozaawansowany'}</div>
-                        <p style="font-size:0.8rem; color:var(--text-muted); line-height:1.4;">${a.desc}</p>
+                        <h4 style="margin:6px 0; color:#fff; font-size:0.9rem;">${a.name}</h4>
+                        <div style="font-size:0.65rem; color:var(--gold); margin-bottom:4px; font-weight:700;">Poziom: ${a.level || 'Średniozaawansowany'}</div>
+                        <p style="font-size:0.75rem; color:var(--text-muted); line-height:1.3;">${a.desc}</p>
                     </div>
-                    <button class="btn btn-sm" style="margin-top:12px; font-size:0.75rem; width:100%;" onclick="openAddAtlasToPlanModal('${a.name}')">+ Dodaj do Planu</button>
+                    <button class="btn btn-sm" style="margin-top:10px; font-size:0.7rem; width:100%;" onclick="openAddAtlasToPlanModal('${a.name}')">+ Dodaj do Planu</button>
                 </div>
             `).join('');
         }
@@ -1561,11 +1549,11 @@
             container.innerHTML = items.map(r => `
                 <div class="recipe-card">
                     <div style="display:flex; justify-content:space-between; align-items:center;">
-                        <h4 style="color:var(--gold); margin-bottom:4px; font-size:1rem;">${r.name}</h4>
-                        ${(isAdmin && r.id) ? `<button class="btn btn-outline btn-sm" style="color:var(--danger); padding:1px 6px;" onclick="deleteCustomRecipeItem('${r.id}')">🗑</button>` : ''}
+                        <h4 style="color:var(--gold); margin-bottom:3px; font-size:0.9rem;">${r.name}</h4>
+                        ${(isAdmin && r.id) ? `<button class="btn btn-outline btn-sm" style="color:var(--danger); padding:1px 5px; font-size:0.65rem;" onclick="deleteCustomRecipeItem('${r.id}')">🗑</button>` : ''}
                     </div>
-                    <div class="macro-row"><span>🔥 ${r.kcal} kcal</span><span>🥩 ${r.protein}g białka</span></div>
-                    <p style="font-size:0.8rem; color:var(--text-muted); margin-top:6px; line-height:1.4;">${r.steps}</p>
+                    <div class="macro-row"><span>🔥 ${r.kcal} kcal</span><span>🥩 ${r.protein}g</span></div>
+                    <p style="font-size:0.75rem; color:var(--text-muted); margin-top:4px; line-height:1.3;">${r.steps}</p>
                 </div>
             `).join('');
         }
@@ -1592,17 +1580,12 @@
             clearInterval(timerInterval);
             let left = seconds;
             updateTimerDisplay(left);
-            
             playBeep(440, 0.08);
 
             timerInterval = setInterval(() => {
                 left--;
                 updateTimerDisplay(left);
-
-                if (left === 3 || left === 2 || left === 1) {
-                    playBeep(700, 0.15);
-                }
-
+                if (left === 3 || left === 2 || left === 1) { playBeep(700, 0.15); }
                 if(left <= 0) {
                     clearInterval(timerInterval);
                     playBeep(1046, 0.6);
@@ -1629,9 +1612,9 @@
                 type: 'line',
                 data: {
                     labels: workouts.map(w => w.date).reverse(),
-                    datasets: [{ label: 'Tonaż Sesji (kg)', data: workouts.map(w => w.tonnage).reverse(), borderColor: '#ec4899', backgroundColor: 'rgba(236, 72, 153, 0.2)', fill: true, tension: 0.2 }]
+                    datasets: [{ label: 'Tonaż (kg)', data: workouts.map(w => w.tonnage).reverse(), borderColor: '#ec4899', backgroundColor: 'rgba(236, 72, 153, 0.2)', fill: true, tension: 0.2 }]
                 },
-                options: { responsive: true }
+                options: { responsive: true, maintainAspectRatio: false }
             });
         }
 
@@ -1647,7 +1630,7 @@
             const age = parseFloat(document.getElementById('bmr-age').value);
             const goal = document.getElementById('bmr-goal').value;
 
-            if(!weight || !height || !age) return alert("Uzupełnij wszystkie dane w kalkulatorze kalorii!");
+            if(!weight || !height || !age) return alert("Uzupełnij wszystkie dane!");
             let bmr = (10 * weight) + (6.25 * height) - (5 * age) + 5;
             let tdee = Math.round(bmr * 1.55);
             if(goal==='bulk') tdee += 300;
@@ -1658,7 +1641,7 @@
             const carbGrams = Math.round((tdee - (proteinGrams * 4 + fatGrams * 9)) / 4);
 
             document.getElementById('res-tdee').innerText = tdee + ' kcal';
-            document.getElementById('res-macros').innerText = `Białko: ${proteinGrams}g | Tłuszcze: ${fatGrams}g | Węglowodany: ${carbGrams}g`;
+            document.getElementById('res-macros').innerText = `Białko: ${proteinGrams}g | Tłuszcze: ${fatGrams}g | Węgle: ${carbGrams}g`;
             document.getElementById('calories-result').style.display = 'block';
         }
 
