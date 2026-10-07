@@ -108,7 +108,7 @@
         .sets-grid { display: flex; flex-direction: column; gap: 6px; margin-top: 8px; width: 100%; }
         .set-row { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; background: rgba(255,255,255,0.03); border: 1px solid var(--card-border); padding: 6px; border-radius: 8px; font-size: 0.75rem; width: 100%; }
 
-        .floating-timer { position: fixed; bottom: 12px; left: 12px; right: 12px; background: rgba(14, 10, 24, 0.96); border: 1px solid var(--card-border); border-radius: 18px; padding: 10px 14px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: space-between; z-index: 90; backdrop-filter: blur(14px); }
+        .floating-timer { position: fixed; bottom: 12px; left: 12px; right: 12px; background: rgba(14, 10, 24, 0.96); border: 1px solid var(--card-border); border-radius: 18px; padding: 10px 14px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: space-between; z-index: 90; backdrop-filter: blur(14px); flex-wrap: wrap; gap: 8px; }
         
         .water-progress { width: 100%; height: 14px; background: rgba(0,0,0,0.6); border-radius: 8px; overflow: hidden; border: 1px solid var(--card-border); margin: 6px 0; }
         .water-bar { height: 100%; width: 0%; background: var(--grad-main); transition: width 0.3s; }
@@ -691,10 +691,11 @@
             </div>
             <div id="timer-display" style="font-size: 1.1rem; font-weight: 800; color: var(--primary);">00:00</div>
         </div>
-        <div style="display: flex; gap: 4px;">
-            <button class="btn btn-outline btn-sm" style="padding:4px 8px; font-size:0.7rem;" onclick="startTimer(30)">30s</button>
-            <button class="btn btn-outline btn-sm" style="padding:4px 8px; font-size:0.7rem;" onclick="startTimer(60)">60s</button>
-            <button class="btn btn-outline btn-sm" style="padding:4px 8px; font-size:0.7rem;" onclick="startTimer(90)">90s</button>
+        <div style="display: flex; gap: 4px; flex-wrap: wrap;">
+            <button class="btn btn-outline btn-sm" style="padding:4px 6px; font-size:0.7rem;" onclick="startTimer(30)">30s</button>
+            <button class="btn btn-outline btn-sm" style="padding:4px 6px; font-size:0.7rem;" onclick="startTimer(60)">60s</button>
+            <button class="btn btn-outline btn-sm" style="padding:4px 6px; font-size:0.7rem;" onclick="startTimer(90)">90s</button>
+            <button class="btn btn-outline btn-sm" style="padding:4px 6px; font-size:0.7rem;" onclick="startTimer(180)">3 min</button>
             <button class="btn btn-sm" style="background: var(--danger); color: white; padding: 4px 6px; font-size:0.7rem;" onclick="stopTimer()">✕</button>
         </div>
     </div>
@@ -919,7 +920,7 @@
                 list.innerHTML = '<p style="font-size: 0.75rem; color: var(--text-muted); text-align: center;">Brak zakończonych treningów.</p>';
                 return;
             }
-            list.innerHTML = workouts.slice(0, 5).map(w => {
+            list.innerHTML = workouts.map(w => {
                 const exercisesHtml = (w.exercises || []).map(ex => `
                     <div style="margin-top: 4px; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 4px;">
                         <span style="font-weight:700; color:var(--text-main);">${ex.name}</span>
@@ -932,7 +933,7 @@
                 return `
                     <details style="background:rgba(255,255,255,0.02); border:1px solid var(--card-border); padding:8px; border-radius:10px; margin-bottom:6px; font-size:0.75rem;">
                         <summary style="font-weight:800; color:var(--primary); display:flex; justify-content:space-between; align-items:center;">
-                            <span>${w.dayName} (${w.date})</span>
+                            <span>${w.dayName}</span>
                             <span style="color:var(--gold); font-size:0.7rem;">${w.tonnage} kg ▾</span>
                         </summary>
                         <div style="margin-top: 6px;">
@@ -1041,11 +1042,9 @@
             if (ex && ex.sets[setIndex]) {
                 ex.sets[setIndex].done = !ex.sets[setIndex].done;
                 
-                // POPRAWKA: Zapis do historii rejestrowany jest, gdy zaznaczona jest chociaż 1 seria
                 checkAndLogCompletedWorkout(day);
 
                 window.saveGymData();
-                // Usunięto pełne ponowne renderowanie planu w tym miejscu, żeby checkbox nie gubił focusu / nie blokował odznaczania
                 updateWorkoutStats();
             }
         }
@@ -1080,17 +1079,14 @@
                 }
             });
 
+            if(!window.gymData.workouts) window.gymData.workouts = [];
+            
+            const existingIndex = window.gymData.workouts.findIndex(w => w.dayName === dayName);
+
             if (hasAnyDone && totalSets > 0) {
-                if(!window.gymData.workouts) window.gymData.workouts = [];
-                const todayStr = new Date().toLocaleDateString('pl-PL');
-                
-                // Szukamy czy dzisiejszy wpis dla tego dnia już istnieje w historii
-                const existingIndex = window.gymData.workouts.findIndex(w => w.dayName === dayName && w.date === todayStr);
-                
                 const workoutObj = {
                     id: existingIndex >= 0 ? window.gymData.workouts[existingIndex].id : Date.now(),
                     dayName: dayName,
-                    date: todayStr,
                     tonnage: totalTonnage,
                     setsCount: totalSets,
                     exercises: exercisesSummary
@@ -1100,6 +1096,10 @@
                     window.gymData.workouts[existingIndex] = workoutObj;
                 } else {
                     window.gymData.workouts.unshift(workoutObj);
+                }
+            } else {
+                if (existingIndex >= 0) {
+                    window.gymData.workouts.splice(existingIndex, 1);
                 }
             }
         }
@@ -1617,7 +1617,7 @@
             window.myChart = new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: workouts.map(w => w.date).reverse(),
+                    labels: workouts.map(w => w.dayName).reverse(),
                     datasets: [{ label: 'Tonaż (kg)', data: workouts.map(w => w.tonnage).reverse(), borderColor: '#ec4899', backgroundColor: 'rgba(236, 72, 153, 0.2)', fill: true, tension: 0.2 }]
                 },
                 options: { responsive: true, maintainAspectRatio: false }
