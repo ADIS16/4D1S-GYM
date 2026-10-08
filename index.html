@@ -10,8 +10,8 @@
     <meta name="apple-mobile-web-app-title" content="4D1S_GYM">
     <meta name="theme-color" content="#121212">
     
-    <link id="apple-icon" rel="apple-touch-icon" href="">
-    <link id="fav-icon" rel="icon" type="image/png" href="">
+    <link id="apple-icon" rel="apple-touch-icon" href="c3e85c77-58fb-4713-b654-5eca4e3158c8.png">
+    <link id="fav-icon" rel="icon" type="image/png" href="c3e85c77-58fb-4713-b654-5eca4e3158c8.png">
 
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -49,7 +49,8 @@
         .container { max-width: 1200px; margin: 0 auto; width: 100%; }
 
         header { display: flex; justify-content: space-between; align-items: center; padding: 8px 0 14px; border-bottom: 1px solid var(--card-border); margin-bottom: 15px; flex-wrap: wrap; gap: 10px; }
-        .logo { font-weight: 900; font-size: 1.5rem; color: var(--primary); letter-spacing: -0.5px; }
+        .logo { font-weight: 900; font-size: 1.4rem; color: var(--primary); letter-spacing: -0.5px; display: flex; align-items: center; gap: 10px; }
+        .logo img { width: 36px; height: 36px; border-radius: 8px; object-fit: cover; border: 1px solid var(--card-border); }
 
         .status-badge { display: flex; align-items: center; gap: 6px; font-size: 0.7rem; background: rgba(255,255,255,0.03); padding: 5px 10px; border-radius: 30px; border: 1px solid var(--card-border); }
         .dot { width: 7px; height: 7px; border-radius: 50%; background: #64748b; }
@@ -188,7 +189,8 @@
         .btn-add-circle { width: 32px; height: 32px; border-radius: 50%; background: rgba(244, 114, 182, 0.15); border: 1px solid rgba(244, 114, 182, 0.4); color: var(--primary); font-size: 1.1rem; font-weight: 800; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; flex-shrink: 0; }
         .btn-add-circle:hover { background: var(--primary); color: #121212; }
 
-        .recipe-card { background: rgba(0, 0, 0, 0.2); border: 1px solid var(--card-border); border-radius: 12px; padding: 14px; display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.2s; }
+        .recipe-card { background: rgba(0, 0, 0, 0.2); border: 1px solid var(--card-border); border-radius: 12px; padding: 14px; display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.2s; cursor: pointer; }
+        .recipe-card:hover { border-color: rgba(255, 214, 10, 0.5); }
         .macro-row { display: flex; gap: 6px; flex-wrap: wrap; margin: 6px 0; }
         .macro-row span { font-size: .68rem; font-weight: 700; padding: 3px 6px; border-radius: 6px; background: rgba(255,255,255,.05); border: 1px solid var(--card-border); }
 
@@ -342,7 +344,7 @@
                     }, { merge: true });
                 } catch (e) { console.error(e); }
             }
-            localStorage.setItem('adis_gym_data', JSON.stringify(window.gymData));
+            localStorage.setItem('4d1s_gym_data', JSON.stringify(window.gymData));
         };
 
         window.listenToLiveBases = function() {
@@ -388,7 +390,10 @@
 
     <div class="container">
         <header>
-            <div class="logo">ADIS.GYM</div>
+            <div class="logo">
+                <img src="c3e85c77-58fb-4713-b654-5eca4e3158c8.png" alt="Logo">
+                <span>4D1S_GYM</span>
+            </div>
             <div style="display: flex; gap: 6px; align-items: center;">
                 <div class="status-badge">
                     <div id="status-dot" class="dot offline"></div>
@@ -403,11 +408,12 @@
         </header>
 
         <div id="verification-screen" class="card">
+            <img src="c3e85c77-58fb-4713-b654-5eca4e3158c8.png" alt="Logo" style="width: 64px; height: 64px; border-radius: 14px; object-fit: cover; margin: 0 auto 12px; border: 1px solid var(--card-border); display: block;">
             <h2 style="margin-bottom: 8px; color: var(--primary); font-size: 1.2rem;">Potwierdź swój adres e-mail</h2>
             <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:15px; max-width: 340px;">
                 Na Twój adres e-mail została wysłana wiadomość z linkiem aktywacyjnym. Kliknij w niego, aby aktywować konto.
             </p>
-            <div style="display: flex; flex-direction: column; gap: 8px; width: 100%; max-width: 260px;">
+            <div style="display: flex; flex-direction: column; gap: 8px; width: 100%; max-width: 260px; margin: 0 auto;">
                 <button class="btn" onclick="location.reload()">Sprawdzam / Odśwież</button>
                 <button class="btn btn-outline" onclick="window.authApi.resendVerification()">Wyślij e-mail ponownie</button>
                 <button class="btn btn-outline" style="color: var(--danger); border-color: rgba(255,59,48,0.3);" onclick="window.authApi.out()">Wyloguj się</button>
@@ -415,7 +421,8 @@
         </div>
 
         <div id="auth-lockscreen" class="card">
-            <h2 id="modal-title" style="margin-bottom: 8px; color: var(--primary); font-size: 1.2rem;">Zaloguj się do ADIS.GYM</h2>
+            <img src="c3e85c77-58fb-4713-b654-5eca4e3158c8.png" alt="Logo" style="width: 72px; height: 72px; border-radius: 16px; object-fit: cover; margin-bottom: 12px; border: 1px solid var(--card-border);">
+            <h2 id="modal-title" style="margin-bottom: 8px; color: var(--primary); font-size: 1.2rem;">Zaloguj się do 4D1S_GYM</h2>
             <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:15px;">Dostęp do aplikacji jest możliwy wyłącznie dla zweryfikowanych użytkowników.</p>
             
             <div style="width:100%; max-width:300px;">
@@ -668,7 +675,21 @@
                             <input type="number" id="admin-rec-kcal" placeholder="Kcal">
                             <input type="number" id="admin-rec-protein" placeholder="Białko (g)">
                         </div>
-                        <input type="text" id="admin-rec-steps" placeholder="Przygotowanie">
+                        <textarea id="admin-rec-ingredients" rows="2" placeholder="Składniki (np. • 100g kurczaka...)"></textarea>
+                        <textarea id="admin-rec-steps" rows="2" placeholder="Sposób przygotowania..."></textarea>
+                        
+                        <div style="display: flex; gap: 6px; align-items: center; margin-bottom: 8px; flex-wrap: wrap;">
+                            <label class="btn btn-outline btn-sm" style="cursor: pointer; margin:0; display: inline-flex; align-items: center; gap: 4px; font-size:0.75rem;">
+                                📷 Zdjęcie potrawy
+                                <input type="file" id="admin-rec-img-input" accept="image/*" style="display: none;" onchange="previewRecipeImage(event)">
+                            </label>
+                            <span id="admin-rec-img-name" style="font-size: 0.7rem; color: var(--text-muted);">Brak zdjęcia</span>
+                            <button type="button" id="admin-rec-img-clear" class="btn btn-outline btn-sm" style="color: var(--danger); display: none; padding: 2px 5px;" onclick="clearRecipeImage()">Usuń</button>
+                        </div>
+                        <div id="admin-rec-img-preview-container" style="display: none; margin-bottom: 8px;">
+                            <img id="admin-rec-img-tag-preview" class="chat-img-preview" alt="Podgląd">
+                        </div>
+
                         <button class="btn btn-sm" style="background: var(--gold); color: #000;" onclick="adminAddRecipeItem()">Opublikuj Przepis</button>
                     </div>
 
@@ -679,6 +700,35 @@
 
         </div>
 
+    </div>
+
+    <!-- MODAL SZCZEGÓŁÓW PRZEPISU VIP -->
+    <div id="recipe-details-modal" class="modal-overlay">
+        <div class="modal-body" style="max-width: 460px;">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px;">
+                <div>
+                    <h3 id="recipe-modal-title" style="color:var(--gold); font-size: 1.15rem; font-weight: 800;"></h3>
+                    <div id="recipe-modal-macros" style="font-size:0.75rem; color:var(--text-muted); margin-top:2px;"></div>
+                </div>
+                <button class="btn btn-outline btn-sm" style="color:var(--text-muted); padding:2px 8px; font-size:0.9rem;" onclick="closeRecipeDetailsModal()">✕</button>
+            </div>
+
+            <div id="recipe-modal-img-container" style="display:none; margin-bottom: 12px;">
+                <img id="recipe-modal-img" class="chat-img-preview" alt="Potrawa">
+            </div>
+
+            <div style="margin-bottom:12px;">
+                <h4 style="font-size:0.8rem; color:var(--gold); margin-bottom:4px; font-weight:800;">Składniki</h4>
+                <p id="recipe-modal-ingredients" style="font-size:0.78rem; color:var(--text-muted); line-height:1.4; white-space: pre-line;"></p>
+            </div>
+
+            <div style="margin-bottom:12px;">
+                <h4 style="font-size:0.8rem; color:var(--gold); margin-bottom:4px; font-weight:800;">Sposób przygotowania</h4>
+                <p id="recipe-modal-steps" style="font-size:0.78rem; color:var(--text-muted); line-height:1.4; white-space: pre-line;"></p>
+            </div>
+
+            <button class="btn btn-outline btn-sm" style="width:100%;" onclick="closeRecipeDetailsModal()">Zamknij</button>
+        </div>
     </div>
 
     <!-- MODAL DODAWANIA WŁASNEGO ĆWICZENIA -->
@@ -827,35 +877,10 @@
     </div>
 
     <script>
-        function generateAppleTouchIconPNG() {
-            try {
-                const canvas = document.createElement('canvas');
-                canvas.width = 180;
-                canvas.height = 180;
-                const ctx = canvas.getContext('2d');
-                ctx.fillStyle = '#121212';
-                ctx.fillRect(0, 0, 180, 180);
-                ctx.fillStyle = '#f472b6';
-                ctx.fillRect(35, 75, 20, 30);
-                ctx.fillRect(125, 75, 20, 30);
-                ctx.fillRect(55, 83, 15, 14);
-                ctx.fillRect(110, 83, 15, 14);
-                ctx.fillRect(70, 87, 40, 6);
-                ctx.fillStyle = '#ffffff';
-                ctx.font = '900 20px sans-serif';
-                ctx.textAlign = 'center';
-                ctx.fillText('ADIS.GYM', 90, 145);
-                const dataUrl = canvas.toDataURL('image/png');
-                document.getElementById('apple-icon').href = dataUrl;
-                document.getElementById('fav-icon').href = dataUrl;
-            } catch(e) {}
-        }
-        generateAppleTouchIconPNG();
-
-        window.gymData = JSON.parse(localStorage.getItem('adis_gym_data')) || { workouts: [], workoutPlan: {}, activeWorkoutDay: null, xp: 0, level: 1, water: 0, prs: {}, myCustomAtlas: [] };
+        window.gymData = JSON.parse(localStorage.getItem('4d1s_gym_data')) || { workouts: [], workoutPlan: {}, activeWorkoutDay: null, xp: 0, level: 1, water: 0, prs: {}, myCustomAtlas: [] };
         window.customAtlas = [];
         window.customRecipes = [];
-        let isRegisterMode = false, timerInterval = null, selectedAtlasName = "", tempForumImageBase64 = null;
+        let isRegisterMode = false, timerInterval = null, selectedAtlasName = "", tempForumImageBase64 = null, tempRecipeImageBase64 = null;
         let selectedCategoryFilter = 'all';
         let soundEnabled = true;
         let globalAudioCtx = null;
@@ -913,7 +938,7 @@
 
         function toggleAuthMode() {
             isRegisterMode = !isRegisterMode;
-            document.getElementById('modal-title').innerText = isRegisterMode ? 'Utwórz konto w ADIS.GYM' : 'Zaloguj się do ADIS.GYM';
+            document.getElementById('modal-title').innerText = isRegisterMode ? 'Utwórz konto w 4D1S_GYM' : 'Zaloguj się do 4D1S_GYM';
             document.getElementById('auth-submit').innerText = isRegisterMode ? 'Zarejestruj się' : 'Zaloguj się';
             document.getElementById('auth-toggle').innerText = isRegisterMode ? 'Masz już konto? Zaloguj się' : 'Nie masz konta? Zarejestruj się';
             document.getElementById('auth-username').style.display = isRegisterMode ? 'block' : 'none';
@@ -1366,20 +1391,71 @@
             } catch(e) { alert("Błąd: " + e.message); }
         }
 
+        function previewRecipeImage(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    const MAX_WIDTH = 800;
+                    const MAX_HEIGHT = 800;
+                    let width = img.width;
+                    let height = img.height;
+                    if (width > height) {
+                        if (width > MAX_WIDTH) { height *= MAX_WIDTH / width; width = MAX_WIDTH; }
+                    } else {
+                        if (height > MAX_HEIGHT) { width *= MAX_HEIGHT / height; height = MAX_HEIGHT; }
+                    }
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, width, height);
+                    tempRecipeImageBase64 = canvas.toDataURL('image/jpeg', 0.8);
+                    document.getElementById('admin-rec-img-tag-preview').src = tempRecipeImageBase64;
+                    document.getElementById('admin-rec-img-preview-container').style.display = 'block';
+                    document.getElementById('admin-rec-img-name').innerText = file.name || 'Zdjęcie';
+                    document.getElementById('admin-rec-img-clear').style.display = 'inline-block';
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function clearRecipeImage() {
+            tempRecipeImageBase64 = null;
+            document.getElementById('admin-rec-img-input').value = '';
+            document.getElementById('admin-rec-img-preview-container').style.display = 'none';
+            document.getElementById('admin-rec-img-tag-preview').src = '';
+            document.getElementById('admin-rec-img-name').innerText = 'Brak zdjęcia';
+            document.getElementById('admin-rec-img-clear').style.display = 'none';
+        }
+
         async function adminAddRecipeItem() {
             if (!['owner', 'admin'].includes(window.currentUserRole)) return alert("Brak uprawnień!");
             const name = document.getElementById('admin-rec-name').value;
             const kcal = document.getElementById('admin-rec-kcal').value;
             const protein = document.getElementById('admin-rec-protein').value;
+            const ingredients = document.getElementById('admin-rec-ingredients').value || 'Brak listy składników.';
             const steps = document.getElementById('admin-rec-steps').value;
             if(!name) return alert("Wpisz nazwę!");
             try {
-                await window.fbAddDoc(window.fbCollection(window.db, 'projects', 'd1s-gym', 'custom_recipes'), { name, kcal, protein, steps });
+                await window.fbAddDoc(window.fbCollection(window.db, 'projects', 'd1s-gym', 'custom_recipes'), { 
+                    name, 
+                    kcal, 
+                    protein, 
+                    ingredients, 
+                    steps, 
+                    imageBase64: tempRecipeImageBase64 || null 
+                });
                 alert("Dodano przepis VIP!");
                 document.getElementById('admin-rec-name').value = '';
                 document.getElementById('admin-rec-kcal').value = '';
                 document.getElementById('admin-rec-protein').value = '';
+                document.getElementById('admin-rec-ingredients').value = '';
                 document.getElementById('admin-rec-steps').value = '';
+                clearRecipeImage();
             } catch(e) { alert("Błąd: " + e.message); }
         }
 
@@ -1704,7 +1780,6 @@
             }).join('');
         }
 
-        /* BAZA ĆWICZEŃ (BEZ DOPISKÓW W NAWIASIACH) */
         const DEFAULT_ATLAS = [
             { name: "Wyciskanie sztangi na ławce poziomej", part: "Klatka piersiowa", equipment: "Sztanga", level: "Średniozaawansowany", yt: "https://www.youtube.com/results?search_query=wyciskanie+sztangi+na+lawce+poziomej", desc: "Klasyczne ćwiczenie budujące masę klatki piersiowej. Połóż się stabilnie, ściągnij łopatki i opuszczaj sztangę do środka klatki." },
             { name: "Wyciskanie sztangi na ławce skośnej dodatniej", part: "Klatka piersiowa", equipment: "Sztanga", level: "Średniozaawansowany", yt: "https://www.youtube.com/results?search_query=wyciskanie+sztangi+na+lawce+skosnej+dodatniej", desc: "Angażuje głównie górną część klatki piersiowej." },
@@ -1758,8 +1833,20 @@
         ];
 
         const DEFAULT_RECIPES = [
-            { name: "Owsianka proteinowa z bananem", kcal: 500, protein: 35, steps: "Płatki owsiane na mleku, odżywka białkowa, masło orzechowe." }, 
-            { name: "Kurczak z ryżem i warzywami", kcal: 650, protein: 50, steps: "Pierś z kurczaka w przyprawach, ryż parboiled i mix warzyw." }
+            { 
+                name: "Owsianka proteinowa z bananem", 
+                kcal: 500, 
+                protein: 35, 
+                ingredients: "• 70g płatków owsianych\n• 250ml mleka 1.5%\n• 30g odżywki białkowej\n• 1 dojrzały banan\n• 15g masła orzechowego",
+                steps: "1. Płatki owsiane zalej mlekiem i gotuj na małym ogniu przez ok. 5 minut, aż zgęstnieją.\n2. Po lekkim przestudzeniu wsyp odżywkę białkową i dokładnie wymieszaj.\n3. Udekoruj plastrami banana oraz polej masłem orzechowym." 
+            }, 
+            { 
+                name: "Kurczak z ryżem i warzywami", 
+                kcal: 650, 
+                protein: 50, 
+                ingredients: "• 200g piersi z kurczaka\n• 80g ryżu basmati\n• 150g mieszanki warzyw patelniowych\n• 1 łyżka oliwy z oliwek\n• Przyprawy: słodka papryka, curry, sól, pieprz",
+                steps: "1. Ryż ugotuj w osolonej wodzie według instrukcji na opakowaniu.\n2. Pierś z kurczaka pokrój w kostkę, dopraw ulubionymi przyprawami i podsmaż na oliwie z oliwek.\n3. Warzywa podsmaż na patelni lub ugotuj na parze, a następnie połącz z kurczakiem i ryżem." 
+            }
         ];
 
         function filterAtlasCategory(cat, btn) {
@@ -1857,6 +1944,29 @@
             document.getElementById('exercise-details-modal').style.display = 'none';
         }
 
+        function openRecipeDetailsModal(r) {
+            document.getElementById('recipe-modal-title').innerText = r.name;
+            document.getElementById('recipe-modal-macros').innerText = `🔥 ${r.kcal} kcal | 🥩 Białko: ${r.protein}g`;
+            document.getElementById('recipe-modal-ingredients').innerText = r.ingredients || 'Brak listy składników.';
+            document.getElementById('recipe-modal-steps').innerText = r.steps || 'Brak opisu przygotowania.';
+            
+            const imgContainer = document.getElementById('recipe-modal-img-container');
+            const imgTag = document.getElementById('recipe-modal-img');
+            if (r.imageBase64) {
+                imgTag.src = r.imageBase64;
+                imgContainer.style.display = 'block';
+            } else {
+                imgTag.src = '';
+                imgContainer.style.display = 'none';
+            }
+
+            document.getElementById('recipe-details-modal').style.display = 'flex';
+        }
+
+        function closeRecipeDetailsModal() {
+            document.getElementById('recipe-details-modal').style.display = 'none';
+        }
+
         function renderRecipes() {
             const container = document.getElementById('recipes-container');
             const search = (document.getElementById('recipe-search')?.value || '').toLowerCase();
@@ -1874,13 +1984,15 @@
             const isAdmin = ['owner', 'admin'].includes(window.currentUserRole);
 
             container.innerHTML = items.map(r => `
-                <div class="recipe-card">
+                <div class="recipe-card" onclick='openRecipeDetailsModal(${JSON.stringify(r).replace(/'/g, "&apos;")})'>
+                    ${r.imageBase64 ? `<img src="${r.imageBase64}" class="chat-img-preview" style="max-height: 140px; margin-bottom: 8px;" alt="Potrawa">` : ''}
                     <div style="display:flex; justify-content:space-between; align-items:center;">
                         <h4 style="color:var(--gold); margin-bottom:3px; font-size:0.9rem;">${r.name}</h4>
-                        ${(isAdmin && r.id) ? `<button class="btn btn-outline btn-sm" style="color:var(--danger); padding:1px 5px; font-size:0.65rem;" onclick="deleteCustomRecipeItem('${r.id}')">🗑</button>` : ''}
+                        ${(isAdmin && r.id) ? `<button class="btn btn-outline btn-sm" style="color:var(--danger); padding:1px 5px; font-size:0.65rem;" onclick="event.stopPropagation(); deleteCustomRecipeItem('${r.id}')">🗑</button>` : ''}
                     </div>
                     <div class="macro-row"><span>🔥 ${r.kcal} kcal</span><span>🥩 ${r.protein}g</span></div>
-                    <p style="font-size:0.75rem; color:var(--text-muted); margin-top:4px; line-height:1.3;">${r.steps}</p>
+                    <p style="font-size:0.75rem; color:var(--text-muted); margin-top:4px; line-height:1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">${r.steps}</p>
+                    <div style="font-size:0.68rem; color:var(--gold); margin-top:6px; font-weight:700;">Kliknij, aby zobaczyć przepis i składniki ▾</div>
                 </div>
             `).join('');
         }
@@ -1975,6 +2087,8 @@
         window.loadAdminUserList = loadAdminUserList;
         window.openExerciseDetailsModal = openExerciseDetailsModal;
         window.closeExerciseDetailsModal = closeExerciseDetailsModal;
+        window.openRecipeDetailsModal = openRecipeDetailsModal;
+        window.closeRecipeDetailsModal = closeRecipeDetailsModal;
         window.filterAtlasCategory = filterAtlasCategory;
         window.finishActiveWorkoutSession = finishActiveWorkoutSession;
         window.openAtlasPickerForDay = openAtlasPickerForDay;
