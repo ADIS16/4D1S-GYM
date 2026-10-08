@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>ADIS.GYM - Ultimate Fitness Suite</title>
+    <title>4D1S_GYM</title>
     
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="ADIS.GYM">
-    <meta name="theme-color" content="#09070f">
+    <meta name="apple-mobile-web-app-title" content="4D1S_GYM">
+    <meta name="theme-color" content="#121212">
     
     <link id="apple-icon" rel="apple-touch-icon" href="">
     <link id="fav-icon" rel="icon" type="image/png" href="">
@@ -18,20 +18,18 @@
 
     <style>
         :root {
-            --bg-dark: #09070f;
-            --bg-card: rgba(22, 17, 36, 0.92);
-            --card-border: rgba(236, 72, 153, 0.22);
-            --primary: #ec4899;
-            --primary-glow: rgba(236, 72, 153, 0.38);
-            --purple: #a855f7;
-            --purple-glow: rgba(168, 85, 247, 0.38);
-            --grad-main: linear-gradient(135deg, #ec4899 0%, #a855f7 100%);
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --success: #10b981;
-            --danger: #f43f5e;
-            --gold: #fbbf24;
-            --gold-glow: rgba(251, 191, 36, 0.28);
+            --bg-dark: #121212;
+            --bg-card: #1c1c1e;
+            --bg-input: #2c2c2e;
+            --card-border: #2c2c2e;
+            --primary: #f472b6;
+            --primary-glow: rgba(244, 114, 182, 0.2);
+            --purple: #c084fc;
+            --text-main: #ffffff;
+            --text-muted: #8e8e93;
+            --success: #34c759;
+            --danger: #ff3b30;
+            --gold: #ffd60a;
             --owner-color: #f472b6;
         }
 
@@ -42,10 +40,7 @@
             color: var(--text-main); 
             min-height: 100vh; 
             padding: 12px; 
-            padding-bottom: 140px; 
-            background-image: 
-                radial-gradient(circle at 10% 0%, rgba(236, 72, 153, 0.18), transparent 45%),
-                radial-gradient(circle at 90% 20%, rgba(168, 85, 247, 0.18), transparent 45%);
+            padding-bottom: 100px; 
             max-width: 100vw;
             overflow-x: hidden;
             -webkit-text-size-adjust: 100%;
@@ -54,26 +49,58 @@
         .container { max-width: 1200px; margin: 0 auto; width: 100%; }
 
         header { display: flex; justify-content: space-between; align-items: center; padding: 8px 0 14px; border-bottom: 1px solid var(--card-border); margin-bottom: 15px; flex-wrap: wrap; gap: 10px; }
-        .logo { font-weight: 900; font-size: 1.5rem; background: var(--grad-main); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -0.5px; filter: drop-shadow(0 0 14px var(--primary-glow)); }
+        .logo { font-weight: 900; font-size: 1.5rem; color: var(--primary); letter-spacing: -0.5px; }
 
         .status-badge { display: flex; align-items: center; gap: 6px; font-size: 0.7rem; background: rgba(255,255,255,0.03); padding: 5px 10px; border-radius: 30px; border: 1px solid var(--card-border); }
         .dot { width: 7px; height: 7px; border-radius: 50%; background: #64748b; }
         .dot.online { background: var(--success); box-shadow: 0 0 8px var(--success); }
         .dot.offline { background: var(--danger); }
 
-        .nav-tabs { display: flex; gap: 6px; margin-bottom: 15px; border-bottom: 1px solid var(--card-border); padding-bottom: 8px; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+        .nav-tabs { 
+            position: fixed; 
+            bottom: 0; 
+            left: 0; 
+            right: 0; 
+            background: rgba(28, 28, 30, 0.95); 
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-top: 1px solid var(--card-border); 
+            display: flex; 
+            justify-content: space-around; 
+            padding: 8px 5px 22px; 
+            z-index: 1000;
+            margin: 0;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
         .nav-tabs::-webkit-scrollbar { display: none; }
-        .tab-btn { background: rgba(255,255,255,0.02); border: 1px solid transparent; color: var(--text-muted); padding: 8px 14px; border-radius: 10px; font-weight: 700; cursor: pointer; transition: all 0.25s ease; white-space: nowrap; font-size: 0.8rem; }
-        .tab-btn.active { background: rgba(236, 72, 153, 0.18); color: #fff; border-color: var(--primary); box-shadow: 0 0 15px var(--primary-glow); }
+        .tab-btn { 
+            background: transparent; 
+            border: none; 
+            color: var(--text-muted); 
+            padding: 6px 4px; 
+            border-radius: 8px; 
+            font-weight: 700; 
+            cursor: pointer; 
+            transition: all 0.2s ease; 
+            white-space: nowrap; 
+            font-size: 0.68rem; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            gap: 3px;
+        }
+        .tab-btn.active { background: transparent; color: var(--primary); box-shadow: none; }
 
-        .btn { background: var(--grad-main); color: #fff; border: none; padding: 10px 16px; border-radius: 12px; font-weight: 800; cursor: pointer; transition: all 0.2s ease; box-shadow: 0 4px 15px var(--primary-glow); display: inline-flex; align-items: center; justify-content: center; gap: 6px; font-size: 0.85rem; }
-        .btn:active { transform: scale(0.96); }
-        .btn-sm { padding: 5px 10px; font-size: 0.7rem; border-radius: 8px; }
-        .btn-outline { background: transparent; border: 1px solid var(--card-border); color: var(--text-main); box-shadow: none; }
-        .btn-outline:active { background: rgba(236, 72, 153, 0.1); }
+        .btn { background: var(--primary); color: #121212; border: none; padding: 10px 16px; border-radius: 10px; font-weight: 800; cursor: pointer; transition: all 0.2s ease; display: inline-flex; align-items: center; justify-content: center; gap: 6px; font-size: 0.85rem; text-decoration: none; }
+        .btn:active { transform: scale(0.97); opacity: 0.9; }
+        .btn-sm { padding: 6px 10px; font-size: 0.72rem; border-radius: 8px; }
+        .btn-success { background: var(--success); color: #ffffff; }
+        .btn-outline { background: transparent; border: 1px solid var(--card-border); color: var(--text-main); }
+        .btn-outline:active { background: rgba(255, 255, 255, 0.05); }
 
-        .card { background: var(--bg-card); border: 1px solid var(--card-border); backdrop-filter: blur(20px); border-radius: 18px; padding: 16px; margin-bottom: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.5); width: 100%; overflow: hidden; }
-        .card-admin { border: 1px solid rgba(251, 191, 36, 0.4); background: rgba(251, 191, 36, 0.02); }
+        .card { background: var(--bg-card); border: 1px solid var(--card-border); border-radius: 14px; padding: 16px; margin-bottom: 15px; width: 100%; overflow: hidden; }
+        .card-admin { border: 1px solid rgba(244, 114, 182, 0.4); background: rgba(244, 114, 182, 0.02); }
 
         .grid { display: flex; flex-direction: column; gap: 15px; width: 100%; }
         @media (min-width: 800px) {
@@ -81,53 +108,97 @@
         }
         .grid-3 { display: grid; grid-template-columns: 1fr; gap: 12px; }
         @media (min-width: 600px) {
-            .grid-3 { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+            .grid-3 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
         }
         
-        input, select, textarea { width: 100%; padding: 11px 12px; background: rgba(10, 7, 18, 0.85); border: 1px solid var(--card-border); border-radius: 12px; color: white; margin-top: 4px; margin-bottom: 10px; font-size: 16px; transition: border-color 0.2s; -webkit-appearance: none; }
-        input:focus, select:focus, textarea:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 10px var(--primary-glow); }
+        input, select, textarea { width: 100%; padding: 10px 12px; background: var(--bg-input); border: 1px solid var(--card-border); border-radius: 10px; color: white; margin-top: 4px; margin-bottom: 10px; font-size: 15px; transition: border-color 0.2s; -webkit-appearance: none; }
+        input:focus, select:focus, textarea:focus { outline: none; border-color: var(--primary); }
 
         .role-badge { padding: 3px 8px; border-radius: 6px; font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; display: inline-block; }
-        .role-owner { background: var(--grad-main); color: #fff; box-shadow: 0 0 8px var(--primary-glow); }
-        .role-admin { background: #f43f5e; color: #fff; }
+        .role-owner { background: var(--primary); color: #121212; }
+        .role-admin { background: #ff3b30; color: #fff; }
         .role-staff { background: #38bdf8; color: #0d0d12; }
-        .role-vip { background: var(--gold); color: #000; box-shadow: 0 0 8px var(--gold-glow); }
-        .role-user { background: #1e1b2e; color: #94a3b8; }
+        .role-vip { background: var(--gold); color: #000; }
+        .role-user { background: #2c2c2e; color: #8e8e93; }
 
         #auth-lockscreen { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 60vh; text-align: center; }
         #verification-screen { display: none; flex-direction: column; align-items: center; justify-content: center; min-height: 50vh; text-align: center; }
         
-        .list-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 12px; background: rgba(255,255,255,0.02); border-radius: 12px; margin-bottom: 8px; border: 1px solid var(--card-border); font-size: 0.82rem; }
+        .list-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 12px; background: rgba(255,255,255,0.02); border-radius: 10px; margin-bottom: 8px; border: 1px solid var(--card-border); font-size: 0.82rem; }
         
-        .day-card { background: rgba(255,255,255,0.02); border: 1px solid var(--card-border); border-radius: 14px; padding: 12px; margin-bottom: 10px; transition: border-color 0.3s; width: 100%; overflow: hidden; }
-        .day-card.active-workout-day { border: 2px solid var(--primary); box-shadow: 0 0 15px var(--primary-glow); background: rgba(236, 72, 153, 0.04); }
+        details.day-card { background: var(--bg-card); border: 1px solid var(--card-border); border-radius: 14px; margin-bottom: 12px; transition: border-color 0.3s; width: 100%; overflow: hidden; }
+        details.day-card[open] { border-color: rgba(244, 114, 182, 0.4); }
+        details.day-card.active-workout-day { border: 1.5px solid var(--primary); background: rgba(244, 114, 182, 0.04); }
         
-        .day-header { font-weight: 800; color: var(--primary); border-bottom: 1px solid var(--card-border); padding-bottom: 6px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; font-size: 0.95rem; }
-        .exercise-item { background: rgba(10, 7, 18, 0.6); padding: 10px; border-radius: 10px; margin-bottom: 8px; border-left: 3px solid var(--primary); }
+        summary.day-header { 
+            font-weight: 800; 
+            color: #fff; 
+            padding: 14px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            font-size: 1rem; 
+            cursor: pointer; 
+            user-select: none;
+            list-style: none;
+            background: rgba(255,255,255,0.02);
+        }
+        summary.day-header::-webkit-details-marker { display: none; }
+        summary.day-header:hover { background: rgba(255,255,255,0.05); }
 
-        .sets-grid { display: flex; flex-direction: column; gap: 6px; margin-top: 8px; width: 100%; }
-        .set-row { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; background: rgba(255,255,255,0.03); border: 1px solid var(--card-border); padding: 6px; border-radius: 8px; font-size: 0.75rem; width: 100%; }
+        .day-content { padding: 14px; border-top: 1px solid var(--card-border); }
+        .exercise-item { background: #121212; padding: 12px; border-radius: 12px; margin-bottom: 10px; border: 1px solid var(--card-border); }
 
-        .floating-timer { position: fixed; bottom: 12px; left: 12px; right: 12px; background: rgba(14, 10, 24, 0.96); border: 1px solid var(--card-border); border-radius: 18px; padding: 10px 14px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: space-between; z-index: 90; backdrop-filter: blur(14px); flex-wrap: wrap; gap: 8px; }
+        .hevy-set-table { width: 100%; margin-top: 8px; border-collapse: collapse; }
+        .hevy-set-header { display: grid; grid-template-columns: 42px 1fr 75px 75px 42px; gap: 6px; text-align: center; font-size: 0.65rem; font-weight: 800; color: var(--text-muted); padding-bottom: 6px; border-bottom: 1px solid rgba(255,255,255,0.08); text-transform: uppercase; }
+        .hevy-set-row { display: grid; grid-template-columns: 42px 1fr 75px 75px 42px; gap: 6px; align-items: center; text-align: center; padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 0.78rem; }
         
-        .water-progress { width: 100%; height: 14px; background: rgba(0,0,0,0.6); border-radius: 8px; overflow: hidden; border: 1px solid var(--card-border); margin: 6px 0; }
-        .water-bar { height: 100%; width: 0%; background: var(--grad-main); transition: width 0.3s; }
+        .set-badge { background: #2c2c2e; border-radius: 6px; font-weight: 800; color: #fff; padding: 3px 0; font-size: 0.72rem; }
+        .set-badge.warmup { background: rgba(255, 214, 10, 0.2); color: var(--gold); }
+        .set-badge.drop { background: rgba(192, 132, 252, 0.2); color: var(--purple); }
 
-        .atlas-item, .recipe-card { background: rgba(10, 7, 18, 0.6); border: 1px solid var(--card-border); border-radius: 14px; padding: 14px; display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.2s; }
+        .prev-stat { font-size: 0.7rem; color: var(--text-muted); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+        .hevy-input { background: #2c2c2e; border: 1px solid var(--card-border); border-radius: 8px; padding: 6px; text-align: center; color: #fff; font-weight: 700; font-size: 0.85rem; margin: 0; }
+        .hevy-input:focus { border-color: var(--primary); background: #121212; }
+
+        .check-btn { width: 34px; height: 34px; border-radius: 8px; background: #2c2c2e; border: 1px solid var(--card-border); color: var(--text-muted); font-weight: 900; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; margin: 0 auto; }
+        .check-btn.completed { background: var(--success); color: #ffffff; border-color: var(--success); }
+
+        .floating-timer { position: fixed; bottom: 75px; left: 12px; right: 12px; background: rgba(28, 28, 30, 0.96); border: 1px solid var(--card-border); border-radius: 16px; padding: 10px 14px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: space-between; z-index: 900; backdrop-filter: blur(14px); flex-wrap: wrap; gap: 8px; }
+        
+        .water-progress { width: 100%; height: 10px; background: rgba(0,0,0,0.6); border-radius: 6px; overflow: hidden; border: 1px solid var(--card-border); margin: 6px 0; }
+        .water-bar { height: 100%; width: 0%; background: var(--primary); transition: width 0.3s; }
+
+        .filter-pills-scroll { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; padding-bottom: 8px; margin-bottom: 12px; }
+        .filter-pills-scroll::-webkit-scrollbar { display: none; }
+        .pill-btn { background: #2c2c2e; border: 1px solid var(--card-border); color: var(--text-muted); padding: 6px 14px; border-radius: 20px; font-weight: 700; font-size: 0.75rem; cursor: pointer; white-space: nowrap; transition: all 0.2s; }
+        .pill-btn.active { background: var(--primary); color: #121212; border-color: var(--primary); }
+
+        .hevy-ex-card { background: #2c2c2e; border: 1px solid var(--card-border); border-radius: 14px; padding: 12px; display: flex; flex-direction: column; gap: 10px; cursor: pointer; transition: transform 0.15s ease, border-color 0.15s ease; position: relative; }
+        .hevy-ex-card:active { transform: scale(0.98); }
+        .hevy-ex-card:hover { border-color: rgba(244, 114, 182, 0.5); }
+        
+        .hevy-ex-info { flex: 1; min-width: 0; }
+        .hevy-ex-title { font-size: 0.92rem; font-weight: 800; color: #fff; margin-bottom: 4px; }
+        .hevy-ex-tags { display: flex; gap: 5px; flex-wrap: wrap; align-items: center; margin-top: 6px; }
+        .tag-pill { font-size: 0.62rem; font-weight: 700; padding: 2px 7px; border-radius: 6px; background: rgba(255,255,255,0.06); color: var(--text-muted); border: 1px solid rgba(255,255,255,0.08); text-transform: uppercase; }
+        .tag-pill.muscle { background: rgba(244, 114, 182, 0.15); color: var(--primary); border-color: rgba(244, 114, 182, 0.3); }
+
+        .btn-add-circle { width: 32px; height: 32px; border-radius: 50%; background: rgba(244, 114, 182, 0.15); border: 1px solid rgba(244, 114, 182, 0.4); color: var(--primary); font-size: 1.1rem; font-weight: 800; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; flex-shrink: 0; }
+        .btn-add-circle:hover { background: var(--primary); color: #121212; }
+
+        .recipe-card { background: rgba(0, 0, 0, 0.2); border: 1px solid var(--card-border); border-radius: 12px; padding: 14px; display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.2s; }
         .macro-row { display: flex; gap: 6px; flex-wrap: wrap; margin: 6px 0; }
         .macro-row span { font-size: .68rem; font-weight: 700; padding: 3px 6px; border-radius: 6px; background: rgba(255,255,255,.05); border: 1px solid var(--card-border); }
 
-        .modal-overlay { position: fixed; top:0; left:0; right:0; bottom:0; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); display: none; align-items: center; justify-content: center; z-index: 999; padding: 12px; }
-        .modal-body { background: var(--bg-card); border: 1px solid var(--card-border); border-radius: 18px; padding: 18px; width: 100%; max-width: 400px; box-shadow: 0 10px 30px rgba(0,0,0,0.9); max-height: 90vh; overflow-y: auto; }
+        .modal-overlay { position: fixed; top:0; left:0; right:0; bottom:0; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); display: none; align-items: center; justify-content: center; z-index: 1100; padding: 12px; }
+        .modal-body { background: var(--bg-card); border: 1px solid var(--card-border); border-radius: 16px; padding: 18px; width: 100%; max-width: 440px; box-shadow: 0 10px 30px rgba(0,0,0,0.9); max-height: 90vh; overflow-y: auto; }
 
         .chat-img-preview { max-width: 100%; max-height: 240px; border-radius: 10px; margin-top: 6px; border: 1px solid var(--card-border); object-fit: contain; background: #000; display: block; }
-        .stat-box { background: rgba(255,255,255,0.03); border: 1px solid var(--card-border); padding: 10px; border-radius: 12px; text-align: center; }
-        
-        details > summary { list-style: none; cursor: pointer; }
-        details > summary::-webkit-details-marker { display: none; }
+        .stat-box { background: rgba(255,255,255,0.03); border: 1px solid var(--card-border); padding: 10px; border-radius: 10px; text-align: center; }
     </style>
 
-    <!-- FIREBASE SDK ES6 MODULE -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged, sendEmailVerification } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
@@ -230,12 +301,12 @@
                         }, { merge: true });
 
                         document.getElementById('user-username-display').innerText = window.currentUsername;
-                        window.gymData = userData.gym_data || { workouts: [], workoutPlan: {}, activeWorkoutDay: null, xp: 0, level: 1, water: 0, prs: {} };
+                        window.gymData = userData.gym_data || { workouts: [], workoutPlan: {}, activeWorkoutDay: null, xp: 0, level: 1, water: 0, prs: {}, myCustomAtlas: [] };
 
                         document.getElementById('user-role-tag').innerHTML = getRoleBadgeHtml(window.currentUserRole);
 
-                        document.getElementById('tab-admin-btn').style.display = ['owner', 'admin'].includes(window.currentUserRole) ? 'inline-block' : 'none';
-                        document.getElementById('tab-vip-btn').style.display = ['owner', 'admin', 'vip'].includes(window.currentUserRole) ? 'inline-block' : 'none';
+                        document.getElementById('tab-admin-btn').style.display = ['owner', 'admin'].includes(window.currentUserRole) ? 'flex' : 'none';
+                        document.getElementById('tab-vip-btn').style.display = ['owner', 'admin', 'vip'].includes(window.currentUserRole) ? 'flex' : 'none';
 
                         if (['owner', 'admin'].includes(window.currentUserRole)) window.loadAdminUserList();
 
@@ -316,7 +387,6 @@
 <body>
 
     <div class="container">
-        <!-- Header -->
         <header>
             <div class="logo">ADIS.GYM</div>
             <div style="display: flex; gap: 6px; align-items: center;">
@@ -332,7 +402,6 @@
             </div>
         </header>
 
-        <!-- EKRAN WERYFIKACJI E-MAILA -->
         <div id="verification-screen" class="card">
             <h2 style="margin-bottom: 8px; color: var(--primary); font-size: 1.2rem;">Potwierdź swój adres e-mail</h2>
             <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:15px; max-width: 340px;">
@@ -341,11 +410,10 @@
             <div style="display: flex; flex-direction: column; gap: 8px; width: 100%; max-width: 260px;">
                 <button class="btn" onclick="location.reload()">Sprawdzam / Odśwież</button>
                 <button class="btn btn-outline" onclick="window.authApi.resendVerification()">Wyślij e-mail ponownie</button>
-                <button class="btn btn-outline" style="color: var(--danger); border-color: rgba(244,63,94,0.3);" onclick="window.authApi.out()">Wyloguj się</button>
+                <button class="btn btn-outline" style="color: var(--danger); border-color: rgba(255,59,48,0.3);" onclick="window.authApi.out()">Wyloguj się</button>
             </div>
         </div>
 
-        <!-- EKRAN BLOKADY / LOGOWANIE -->
         <div id="auth-lockscreen" class="card">
             <h2 id="modal-title" style="margin-bottom: 8px; color: var(--primary); font-size: 1.2rem;">Zaloguj się do ADIS.GYM</h2>
             <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:15px;">Dostęp do aplikacji jest możliwy wyłącznie dla zweryfikowanych użytkowników.</p>
@@ -359,64 +427,56 @@
             </div>
         </div>
 
-        <!-- GŁÓWNA ZAWARTOŚĆ STRONY -->
         <div id="app-main-content" style="display: none;">
 
-            <!-- Nawigacja Zakładek -->
             <div class="nav-tabs">
-                <button class="tab-btn active" onclick="switchTab('tab-plan')">📅 Plan i Trening</button>
-                <button class="tab-btn" onclick="switchTab('tab-atlas')">📚 Atlas</button>
-                <button class="tab-btn" onclick="switchTab('tab-forum')">💬 Czat i Progres</button>
-                <button class="tab-btn" onclick="switchTab('tab-progress')">📊 Wyniki & LVL</button>
-                <button class="tab-btn" onclick="switchTab('tab-calc')">🧮 Kalorie</button>
-                <button id="tab-vip-btn" class="tab-btn" style="display: none; color: var(--gold);" onclick="switchTab('tab-vip')">🌟 VIP Przepisy</button>
-                <button id="tab-admin-btn" class="tab-btn" style="display: none; color: var(--owner-color);" onclick="switchTab('tab-admin')">👑 Admin</button>
+                <button id="nav-btn-plan" class="tab-btn active" onclick="switchTab('tab-plan')">
+                    <span style="font-size: 1.1rem;">📝</span> Trening
+                </button>
+                <button id="nav-btn-atlas" class="tab-btn" onclick="switchTab('tab-atlas')">
+                    <span style="font-size: 1.1rem;">🔍</span> Atlas
+                </button>
+                <button id="nav-btn-forum" class="tab-btn" onclick="switchTab('tab-forum')">
+                    <span style="font-size: 1.1rem;">💬</span> Czat
+                </button>
+                <button id="nav-btn-progress" class="tab-btn" onclick="switchTab('tab-progress')">
+                    <span style="font-size: 1.1rem;">📈</span> Progres
+                </button>
+                <button id="nav-btn-calc" class="tab-btn" onclick="switchTab('tab-calc')">
+                    <span style="font-size: 1.1rem;">🧮</span> Kalorie
+                </button>
+                <button id="tab-vip-btn" class="tab-btn" style="display: none; color: var(--gold);" onclick="switchTab('tab-vip')">
+                    <span style="font-size: 1.1rem;">🌟</span> VIP
+                </button>
+                <button id="tab-admin-btn" class="tab-btn" style="display: none; color: var(--owner-color);" onclick="switchTab('tab-admin')">
+                    <span style="font-size: 1.1rem;">👑</span> Admin
+                </button>
             </div>
 
-            <!-- ZAKŁADKA 1: PLAN TRENINGOWY I CENTRUM TRENINGU -->
             <div id="tab-plan" class="tab-content">
                 <div class="grid">
                     <div>
+                        <div id="hevy-active-workout-banner" style="display:none; background: #1c1c1e; border: 1px solid var(--primary); padding: 14px; border-radius: 14px; margin-bottom: 15px; align-items: center; justify-content: space-between;">
+                            <div>
+                                <div style="font-size: 0.68rem; color: var(--primary); font-weight: 800; text-transform: uppercase;">Sesja w toku</div>
+                                <div id="hevy-active-day-title" style="font-size: 1.1rem; font-weight: 900; color: #fff;"></div>
+                            </div>
+                            <button class="btn btn-success" style="font-size:0.8rem; padding: 8px 14px;" onclick="finishActiveWorkoutSession()">✓ Zakończ Trening</button>
+                        </div>
+
                         <div class="card">
                             <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 12px;">
-                                <h3 style="color: var(--primary); font-size: 1.1rem;">📅 Tygodniowy Plan Treningowy</h3>
-                                <button class="btn btn-outline btn-sm" onclick="generatePresetPlanPPL()">⚡ Przykładowy PPL</button>
+                                <h3 style="color: #fff; font-size: 1.1rem; font-weight: 800;">📅 Moje Rutyny i Plan</h3>
+                                <button class="btn btn-outline btn-sm" onclick="generatePresetPlanPPL()">⚡ Generator PPL</button>
                             </div>
-                            
-                            <form id="plan-form" onsubmit="addPlanExercise(event)" style="background: rgba(10, 7, 18, 0.6); padding: 12px; border-radius: 12px; margin-bottom: 12px; border: 1px solid var(--card-border);">
-                                <div style="display: flex; flex-direction: column; gap: 6px;">
-                                    <div>
-                                        <label style="font-size: 0.75rem;">Dzień Tygodnia</label>
-                                        <select id="plan-day" required style="margin-bottom:6px;">
-                                            <option value="Poniedziałek">Poniedziałek</option>
-                                            <option value="Wtorek">Wtorek</option>
-                                            <option value="Środa">Środa</option>
-                                            <option value="Czwartek">Czwartek</option>
-                                            <option value="Piątek">Piątek</option>
-                                            <option value="Sobota">Sobota</option>
-                                            <option value="Niedziela">Niedziela</option>
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <label style="font-size: 0.75rem;">Nazwa Ćwiczenia</label>
-                                        <input type="text" id="plan-ex-name" placeholder="np. Przysiad ze sztangą" required style="margin-bottom:6px;">
-                                    </div>
-                                    <div>
-                                        <label style="font-size: 0.75rem;">Ilość Serii</label>
-                                        <input type="number" id="plan-sets-count" placeholder="3" value="3" required style="margin-bottom:6px;">
-                                    </div>
-                                </div>
-                                <button type="submit" class="btn btn-sm" style="width:100%; margin-top: 4px;">+ Dodaj Ćwiczenie do Planu</button>
-                            </form>
 
                             <div id="week-plan-container"></div>
                         </div>
                     </div>
 
                     <div>
-                        <!-- Statystyki aktywnego treningu -->
                         <div class="card">
-                            <h4 style="color: var(--primary); margin-bottom: 8px; font-size: 0.95rem;">⚡ Statystyki Treningu</h4>
+                            <h4 style="color: var(--primary); margin-bottom: 8px; font-size: 0.95rem; font-weight:800;">⚡ Statystyki Treningu</h4>
                             <div id="active-day-badge" style="font-size: 0.75rem; font-weight: 800; color: var(--gold); margin-bottom: 10px; background: rgba(251,191,36,0.1); padding: 6px 8px; border-radius: 8px; border: 1px solid rgba(251,191,36,0.3); text-align:center;">
                                 Brak wybranego dnia
                             </div>
@@ -431,7 +491,7 @@
                                 </div>
                             </div>
 
-                            <h4 style="color: var(--primary); margin-bottom: 6px; font-size: 0.85rem;">💧 Nawodnienie</h4>
+                            <h4 style="color: var(--primary); margin-bottom: 6px; font-size: 0.85rem; font-weight:800;">💧 Nawodnienie</h4>
                             <div style="display: flex; justify-content: space-between; align-items:center;">
                                 <span id="water-text" style="font-weight: 800; color: var(--primary); font-size: 0.75rem;">0 / 3000 ml</span>
                             </div>
@@ -443,7 +503,7 @@
                             </div>
 
                             <div style="margin-top: 15px;">
-                                <h4 style="color: var(--primary); margin-bottom: 6px; font-size: 0.85rem;">Ostatnia Aktywność</h4>
+                                <h4 style="color: #fff; margin-bottom: 6px; font-size: 0.85rem; font-weight:800;">📜 Ostatnie Treningi</h4>
                                 <div id="workout-list" style="max-height: 220px; overflow-y:auto;"><p style="font-size: 0.75rem; color: var(--text-muted); text-align: center;">Brak zakończonych treningów.</p></div>
                             </div>
                         </div>
@@ -451,25 +511,33 @@
                 </div>
             </div>
 
-            <!-- ZAKŁADKA 2: ATLAS -->
             <div id="tab-atlas" class="tab-content" style="display: none;">
                 <div class="card">
-                    <h3 style="color: var(--primary); margin-bottom: 4px; font-size: 1.1rem;">📚 Profesjonalny Atlas Ćwiczeń</h3>
-                    <p style="font-size:0.75rem; color:var(--text-muted); margin-bottom:10px;">Kluczowe aspekty techniczne i wskazówki.</p>
-                    <div style="display:flex; gap:6px; margin-bottom:10px; flex-wrap:wrap;">
-                        <input id="atlas-search" type="search" placeholder="🔎 Szukaj..." oninput="renderAtlas()" style="margin:0; flex:1; min-width:160px;">
-                        <select id="atlas-filter-level" onchange="renderAtlas()" style="width:auto; margin:0; background:rgba(10, 7, 18, 0.9);">
-                            <option value="all">Wszystkie poziomy</option>
-                            <option value="Początkujący">Początkujący</option>
-                            <option value="Średniozaawansowany">Średniozaawansowany</option>
-                            <option value="Zaawansowany">Zaawansowany</option>
-                        </select>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 8px;">
+                        <div>
+                            <h3 style="color: #fff; font-size: 1.1rem; font-weight: 800;">📚 Atlas Ćwiczeń</h3>
+                            <span id="atlas-counter" style="font-size: 0.72rem; color: var(--text-muted);">Baza ćwiczeń</span>
+                        </div>
+                        <button class="btn btn-sm" style="background: var(--purple); color: #fff;" onclick="openAddPrivateExerciseModal()">+ Dodaj własne ćwiczenie</button>
                     </div>
+
+                    <input id="atlas-search" type="search" placeholder="🔍 Szukaj ćwiczenia lub sprzętu..." oninput="renderAtlas()" style="margin-bottom: 10px; background: #2c2c2e; border-color: var(--card-border);">
+                    
+                    <div class="filter-pills-scroll">
+                        <button class="pill-btn active" onclick="filterAtlasCategory('all', this)">Wszystkie</button>
+                        <button class="pill-btn" onclick="filterAtlasCategory('Klatka piersiowa', this)">Klatka</button>
+                        <button class="pill-btn" onclick="filterAtlasCategory('Plecy', this)">Plecy</button>
+                        <button class="pill-btn" onclick="filterAtlasCategory('Nogi', this)">Nogi</button>
+                        <button class="pill-btn" onclick="filterAtlasCategory('Barki', this)">Barki</button>
+                        <button class="pill-btn" onclick="filterAtlasCategory('Ramiona', this)">Ramiona</button>
+                        <button class="pill-btn" onclick="filterAtlasCategory('Brzuch', this)">Brzuch</button>
+                        <button class="pill-btn" onclick="filterAtlasCategory('Moje', this)">⭐ Moje Prywatne</button>
+                    </div>
+
                     <div class="grid-3" id="atlas-container" style="margin-top: 8px;"></div>
                 </div>
             </div>
 
-            <!-- ZAKŁADKA 3: CZAT SPOŁECZNOŚCI I PROGRES Z APARATEM -->
             <div id="tab-forum" class="tab-content" style="display: none;">
                 <div class="card">
                     <h3 style="color: var(--primary); margin-bottom: 6px; font-size: 1.1rem;">💬 Czat & Progres</h3>
@@ -497,14 +565,13 @@
                 </div>
             </div>
 
-            <!-- ZAKŁADKA 4: PROGRESS & LVL -->
             <div id="tab-progress" class="tab-content" style="display: none;">
                 <div class="card">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap:wrap; gap:6px;">
                         <h3 style="color: var(--primary); font-size: 1.1rem;">🏆 Poziom Postępu</h3>
                         <span id="player-level-text" style="font-weight: 900; color: var(--gold); font-size: 0.95rem;">LVL 1 (0/200 XP)</span>
                     </div>
-                    <div class="water-progress" style="height:14px;"><div id="xp-bar" class="water-bar"></div></div>
+                    <div class="water-progress" style="height:10px;"><div id="xp-bar" class="water-bar"></div></div>
                     <p style="font-size:0.7rem; color:var(--text-muted); margin-top:4px; text-align:center;">Zdobywaj XP za bicie rekordów ciężarowych (PR) w planie! 🚀</p>
 
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 15px;">
@@ -519,13 +586,12 @@
                     </div>
 
                     <h3 style="color: var(--primary); margin: 15px 0 8px; font-size: 0.95rem;">📊 Wykres Progresu Ciężaru</h3>
-                    <div style="background: rgba(10, 7, 18, 0.6); padding: 10px; border-radius: 12px; border: 1px solid var(--card-border);">
+                    <div style="background: rgba(0, 0, 0, 0.2); padding: 10px; border-radius: 12px; border: 1px solid var(--card-border);">
                         <canvas id="progressChart" height="130"></canvas>
                     </div>
                 </div>
             </div>
 
-            <!-- ZAKŁADKA 5: KALORIE -->
             <div id="tab-calc" class="tab-content" style="display: none;">
                 <div class="grid" style="grid-template-columns: 1fr;">
                     <div class="card">
@@ -534,7 +600,7 @@
                         <input type="number" id="calc-weight" placeholder="100" oninput="calculate1RM()">
                         <label style="font-size: 0.75rem;">Powtórzenia</label>
                         <input type="number" id="calc-reps" placeholder="5" oninput="calculate1RM()">
-                        <div style="margin-top: 12px; text-align: center; background: rgba(10, 7, 18, 0.6); padding: 10px; border-radius: 10px; border: 1px solid var(--card-border);">
+                        <div style="margin-top: 12px; text-align: center; background: rgba(0, 0, 0, 0.2); padding: 10px; border-radius: 10px; border: 1px solid var(--card-border);">
                             <span style="font-size: 0.75rem; color: var(--text-muted);">Szacowany Rekord:</span>
                             <h3 id="calc-result" style="color: var(--primary); font-size: 1.1rem;">0 kg</h3>
                         </div>
@@ -553,7 +619,7 @@
                             <option value="cut">Redukcja (-400 kcal)</option>
                         </select>
                         <button class="btn btn-sm" style="width: 100%;" onclick="calculateCalories()">Oblicz</button>
-                        <div id="calories-result" style="display: none; margin-top: 10px; text-align: center; background: rgba(10, 7, 18, 0.6); padding: 10px; border-radius: 10px; border: 1px solid var(--card-border);">
+                        <div id="calories-result" style="display: none; margin-top: 10px; text-align: center; background: rgba(0, 0, 0, 0.2); padding: 10px; border-radius: 10px; border: 1px solid var(--card-border);">
                             <h4 id="res-tdee" style="color: var(--gold); margin-bottom:4px; font-size: 1rem;">0 kcal</h4>
                             <div id="res-macros" style="font-size: 0.75rem; color: var(--text-muted);">Białko: 0g | Tłuszcze: 0g | Węgle: 0g</div>
                         </div>
@@ -561,13 +627,12 @@
                 </div>
             </div>
 
-            <!-- ZAKŁADKA 6: PRZEPISY VIP -->
             <div id="tab-vip" class="tab-content" style="display: none;">
                 <div class="card">
                     <h3 style="color: var(--gold); margin-bottom: 8px; font-size: 1.1rem;">🌟 Przepisy VIP</h3>
                     <div style="display:flex; gap:6px; margin-bottom:10px; flex-wrap:wrap;">
                         <input id="recipe-search" type="search" placeholder="🔎 Szukaj..." oninput="renderRecipes()" style="margin:0; flex:1; min-width:160px;">
-                        <select id="recipe-filter-kcal" onchange="renderRecipes()" style="width:auto; margin:0; background:rgba(10, 7, 18, 0.9);">
+                        <select id="recipe-filter-kcal" onchange="renderRecipes()" style="width:auto; margin:0; background:rgba(0, 0, 0, 0.6);">
                             <option value="all">Wszystkie kalorie</option>
                             <option value="low">&lt; 500 kcal</option>
                             <option value="high">&gt;= 500 kcal</option>
@@ -577,25 +642,26 @@
                 </div>
             </div>
 
-            <!-- ZAKŁADKA 7: PANEL ADMINA -->
             <div id="tab-admin" class="tab-content" style="display: none;">
                 <div class="card card-admin">
                     <h3 style="color: var(--gold); margin-bottom: 10px; font-size: 1.1rem;">👑 Panel Administratora</h3>
 
-                    <div id="admin-atlas-form-container" style="background: rgba(10, 7, 18, 0.6); padding: 12px; border-radius: 12px; margin-bottom: 12px; border: 1px solid var(--card-border);">
+                    <div id="admin-atlas-form-container" style="background: rgba(0, 0, 0, 0.2); padding: 12px; border-radius: 12px; margin-bottom: 12px; border: 1px solid var(--card-border);">
                         <h4 style="color: var(--primary); margin-bottom: 6px; font-size: 0.9rem;">+ Dodaj do Atlasu</h4>
                         <input type="text" id="admin-ex-name" placeholder="Nazwa ćwiczenia">
-                        <input type="text" id="admin-ex-part" placeholder="Partia (np. Klatka)">
+                        <input type="text" id="admin-ex-part" placeholder="Partia (np. Klatka piersiowa)">
+                        <input type="text" id="admin-ex-equipment" placeholder="Sprzęt (np. Sztanga / Hantle)">
+                        <input type="url" id="admin-ex-yt" placeholder="Link YouTube z instrukcją">
                         <select id="admin-ex-level">
                             <option value="Początkujący">Początkujący</option>
                             <option value="Średniozaawansowany">Średniozaawansowany</option>
                             <option value="Zaawansowany">Zaawansowany</option>
                         </select>
-                        <textarea id="admin-ex-desc" rows="2" placeholder="Technika..."></textarea>
+                        <textarea id="admin-ex-desc" rows="2" placeholder="Technika wykonania..."></textarea>
                         <button class="btn btn-sm" onclick="adminAddAtlasItem()">Opublikuj</button>
                     </div>
 
-                    <div id="admin-recipe-form-container" style="background: rgba(10, 7, 18, 0.6); padding: 12px; border-radius: 12px; margin-bottom: 12px; border: 1px solid var(--card-border);">
+                    <div id="admin-recipe-form-container" style="background: rgba(0, 0, 0, 0.2); padding: 12px; border-radius: 12px; margin-bottom: 12px; border: 1px solid var(--card-border);">
                         <h4 style="color: var(--gold); margin-bottom: 6px; font-size: 0.9rem;">+ Dodaj Przepis VIP</h4>
                         <input type="text" id="admin-rec-name" placeholder="Nazwa potrawy">
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
@@ -615,13 +681,75 @@
 
     </div>
 
-    <!-- MODAL DODAWANIA ĆWICZENIA Z ATLASU DO PLANU -->
+    <!-- MODAL DODAWANIA WŁASNEGO ĆWICZENIA -->
+    <div id="add-private-exercise-modal" class="modal-overlay">
+        <div class="modal-body">
+            <h3 style="color:var(--purple); margin-bottom:6px; font-size: 1.1rem;">⭐ Dodaj własne ćwiczenie</h3>
+            <p style="font-size:0.75rem; color:var(--text-muted); margin-bottom:10px;">Ćwiczenie zostanie zapisane w Twoim prywatnym atlasie.</p>
+            
+            <label style="font-size: 0.75rem;">Nazwa ćwiczenia</label>
+            <input type="text" id="priv-ex-name" placeholder="np. Wyciskanie hantli pod skosem ujemnym">
+            
+            <label style="font-size: 0.75rem;">Partia mięśniowa</label>
+            <select id="priv-ex-part">
+                <option value="Klatka piersiowa">Klatka piersiowa</option>
+                <option value="Plecy">Plecy</option>
+                <option value="Nogi">Nogi</option>
+                <option value="Barki">Barki</option>
+                <option value="Ramiona">Ramiona</option>
+                <option value="Brzuch">Brzuch</option>
+            </select>
+
+            <label style="font-size: 0.75rem;">Sprzęt</label>
+            <input type="text" id="priv-ex-eq" placeholder="np. Hantle / Maszyna">
+
+            <label style="font-size: 0.75rem;">Link YouTube (opcjonalnie)</label>
+            <input type="url" id="priv-ex-yt" placeholder="https://www.youtube.com/watch?v=...">
+
+            <label style="font-size: 0.75rem;">Opis i wskazówki</label>
+            <textarea id="priv-ex-desc" rows="2" placeholder="Jak poprawnie wykonać..."></textarea>
+
+            <div style="display:flex; gap:6px; margin-top:8px;">
+                <button class="btn btn-sm" style="flex:1; background:var(--purple); color:#fff;" onclick="savePrivateExercise()">+ Zapisz w moim atlasie</button>
+                <button class="btn btn-outline btn-sm" style="color:var(--danger);" onclick="closeAddPrivateExerciseModal()">✕</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="exercise-details-modal" class="modal-overlay">
+        <div class="modal-body" style="max-width: 460px;">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px;">
+                <div>
+                    <h3 id="ex-modal-title" style="color:#fff; font-size: 1.15rem; font-weight: 800;"></h3>
+                    <div id="ex-modal-subtitle" style="font-size:0.75rem; color:var(--text-muted); margin-top:2px;"></div>
+                </div>
+                <button class="btn btn-outline btn-sm" style="color:var(--text-muted); padding:2px 8px; font-size:0.9rem;" onclick="closeExerciseDetailsModal()">✕</button>
+            </div>
+            
+            <div style="margin-bottom: 12px;">
+                <a id="ex-modal-yt-btn" href="#" target="_blank" class="btn" style="width:100%; background:#ff0000; color:#fff; display:none; justify-content:center; gap:8px;">
+                    ▶ Obejrzyj film instrukcyjny na YouTube
+                </a>
+            </div>
+
+            <div style="margin-bottom:12px;">
+                <h4 style="font-size:0.8rem; color:var(--primary); margin-bottom:4px; font-weight:800;">Wskazówki i Technika</h4>
+                <p id="ex-modal-desc" style="font-size:0.78rem; color:var(--text-muted); line-height:1.4;"></p>
+            </div>
+
+            <div style="display:flex; gap:8px;">
+                <button id="ex-modal-add-btn" class="btn btn-sm" style="flex:1;">+ Dodaj do Planu</button>
+                <button class="btn btn-outline btn-sm" onclick="closeExerciseDetailsModal()">Zamknij</button>
+            </div>
+        </div>
+    </div>
+
     <div id="atlas-to-plan-modal" class="modal-overlay">
         <div class="modal-body">
             <h3 style="color:var(--primary); margin-bottom:6px; font-size: 1.1rem;">Dodaj do Planu</h3>
             <p id="modal-atlas-title" style="font-weight:800; font-size:0.9rem; margin-bottom:10px; color:#fff;"></p>
             
-            <label style="font-size: 0.75rem;">Wybierz Dzień Tygodnia</label>
+            <label style="font-size: 0.75rem;">Wybierz Dzień / Rutynę</label>
             <select id="modal-plan-day">
                 <option value="Poniedziałek">Poniedziałek</option>
                 <option value="Wtorek">Wtorek</option>
@@ -648,13 +776,12 @@
             </div>
 
             <div style="display:flex; gap:6px; margin-top:8px;">
-                <button class="btn btn-sm" style="flex:1;" onclick="confirmAddAtlasToPlan()">+ Zapisz</button>
+                <button class="btn btn-sm" style="flex:1;" onclick="confirmAddAtlasToPlan()">+ Zapisz w Rutynie</button>
                 <button class="btn btn-outline btn-sm" style="color:var(--danger);" onclick="closeAtlasModal()">✕</button>
             </div>
         </div>
     </div>
 
-    <!-- MODAL ZMIANY NICKU I KONTROLI UPRAWNIEN -->
     <div id="admin-edit-nickname-modal" class="modal-overlay">
         <div class="modal-body">
             <h3 style="color:var(--gold); margin-bottom:6px; font-size: 1.1rem;">⚙️ Uprawnienia Użytkownika</h3>
@@ -682,20 +809,19 @@
         </div>
     </div>
 
-    <!-- PŁYWAJĄCY STOPER -->
     <div class="floating-timer">
         <div>
             <div style="display:flex; align-items:center; gap:6px;">
-                <span style="font-size: 0.6rem; color: var(--text-muted);">STOPER</span>
+                <span style="font-size: 0.6rem; color: var(--text-muted); font-weight:800;">PAUZA / REST</span>
                 <button id="sound-toggle-btn" class="btn btn-outline btn-sm" style="padding:2px 4px; font-size:0.6rem;" onclick="toggleSoundMaster()">🔊 WŁ</button>
             </div>
-            <div id="timer-display" style="font-size: 1.1rem; font-weight: 800; color: var(--primary);">00:00</div>
+            <div id="timer-display" style="font-size: 1.1rem; font-weight: 900; color: var(--primary);">00:00</div>
         </div>
         <div style="display: flex; gap: 4px; flex-wrap: wrap;">
             <button class="btn btn-outline btn-sm" style="padding:4px 6px; font-size:0.7rem;" onclick="startTimer(30)">30s</button>
             <button class="btn btn-outline btn-sm" style="padding:4px 6px; font-size:0.7rem;" onclick="startTimer(60)">60s</button>
             <button class="btn btn-outline btn-sm" style="padding:4px 6px; font-size:0.7rem;" onclick="startTimer(90)">90s</button>
-            <button class="btn btn-outline btn-sm" style="padding:4px 6px; font-size:0.7rem;" onclick="startTimer(180)">3 min</button>
+            <button class="btn btn-outline btn-sm" style="padding:4px 6px; font-size:0.7rem;" onclick="startTimer(180)">180s</button>
             <button class="btn btn-sm" style="background: var(--danger); color: white; padding: 4px 6px; font-size:0.7rem;" onclick="stopTimer()">✕</button>
         </div>
     </div>
@@ -707,12 +833,9 @@
                 canvas.width = 180;
                 canvas.height = 180;
                 const ctx = canvas.getContext('2d');
-                ctx.fillStyle = '#09070f';
+                ctx.fillStyle = '#121212';
                 ctx.fillRect(0, 0, 180, 180);
-                const grad = ctx.createLinearGradient(0, 0, 180, 180);
-                grad.addColorStop(0, '#ec4899');
-                grad.addColorStop(1, '#a855f7');
-                ctx.fillStyle = grad;
+                ctx.fillStyle = '#f472b6';
                 ctx.fillRect(35, 75, 20, 30);
                 ctx.fillRect(125, 75, 20, 30);
                 ctx.fillRect(55, 83, 15, 14);
@@ -729,10 +852,11 @@
         }
         generateAppleTouchIconPNG();
 
-        window.gymData = JSON.parse(localStorage.getItem('adis_gym_data')) || { workouts: [], workoutPlan: {}, activeWorkoutDay: null, xp: 0, level: 1, water: 0, prs: {} };
+        window.gymData = JSON.parse(localStorage.getItem('adis_gym_data')) || { workouts: [], workoutPlan: {}, activeWorkoutDay: null, xp: 0, level: 1, water: 0, prs: {}, myCustomAtlas: [] };
         window.customAtlas = [];
         window.customRecipes = [];
         let isRegisterMode = false, timerInterval = null, selectedAtlasName = "", tempForumImageBase64 = null;
+        let selectedCategoryFilter = 'all';
         let soundEnabled = true;
         let globalAudioCtx = null;
 
@@ -774,7 +898,11 @@
             document.querySelectorAll('.tab-content').forEach(el => el.style.display = 'none');
             document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
             document.getElementById(tabId).style.display = 'block';
-            if (window.event && window.event.target) window.event.target.classList.add('active');
+            
+            const btnMap = { 'tab-plan': 'nav-btn-plan', 'tab-atlas': 'nav-btn-atlas', 'tab-forum': 'nav-btn-forum', 'tab-progress': 'nav-btn-progress', 'tab-calc': 'nav-btn-calc', 'tab-vip': 'tab-vip-btn', 'tab-admin': 'tab-admin-btn' };
+            if(btnMap[tabId] && document.getElementById(btnMap[tabId])) {
+                document.getElementById(btnMap[tabId]).classList.add('active');
+            }
 
             if (tabId === 'tab-progress') { renderProgressChart(); updateStrengthRank(); }
             if (tabId === 'tab-atlas') renderAtlas();
@@ -875,21 +1003,38 @@
             updateWorkoutStats();
         }
 
+        function finishActiveWorkoutSession() {
+            const dayName = window.gymData.activeWorkoutDay;
+            if(!dayName) return;
+            alert(`🎉 Trening na dzień ${dayName} został pomyślnie zapisany w historii! Podsumowanie w statystykach.`);
+            window.gymData.activeWorkoutDay = null;
+            window.saveGymData();
+            window.renderPlan();
+            updateWorkoutStats();
+        }
+
         function updateWorkoutStats() {
             const plan = window.gymData.workoutPlan || {};
             const activeDay = window.gymData.activeWorkoutDay;
             const badgeEl = document.getElementById('active-day-badge');
+            const banner = document.getElementById('hevy-active-workout-banner');
+            const bannerTitle = document.getElementById('hevy-active-day-title');
             
             if (activeDay) {
-                badgeEl.innerText = `🟢 Aktywny: ${activeDay}`;
+                badgeEl.innerText = `🟢 Sesja w toku: ${activeDay}`;
                 badgeEl.style.color = "var(--success)";
-                badgeEl.style.borderColor = "rgba(16,185,129,0.4)";
-                badgeEl.style.background = "rgba(16,185,129,0.1)";
+                badgeEl.style.borderColor = "rgba(52,199,89,0.4)";
+                badgeEl.style.background = "rgba(52,199,89,0.1)";
+                if(banner && bannerTitle) {
+                    banner.style.display = "flex";
+                    bannerTitle.innerText = activeDay;
+                }
             } else {
-                badgeEl.innerText = "⚠️ Wybierz dzień (Start Treningu)";
+                badgeEl.innerText = "⚠️ Wybierz dzień (Rozpocznij Sesję)";
                 badgeEl.style.color = "var(--gold)";
-                badgeEl.style.borderColor = "rgba(251,191,36,0.3)";
-                badgeEl.style.background = "rgba(251,191,36,0.1)";
+                badgeEl.style.borderColor = "rgba(255,214,10,0.3)";
+                badgeEl.style.background = "rgba(255,214,10,0.1)";
+                if(banner) banner.style.display = "none";
             }
 
             let totalTonnage = 0;
@@ -960,22 +1105,9 @@
             document.getElementById('player-strength-rank').innerText = rank;
         }
 
-        function addPlanExercise(e) {
-            e.preventDefault();
-            const day = document.getElementById('plan-day').value;
-            const name = document.getElementById('plan-ex-name').value;
-            const count = parseInt(document.getElementById('plan-sets-count').value) || 3;
-
-            if (!window.gymData.workoutPlan) window.gymData.workoutPlan = {};
-            if (!window.gymData.workoutPlan[day]) window.gymData.workoutPlan[day] = [];
-
-            let setsArr = [];
-            for(let i=1; i<=count; i++) setsArr.push({ setNum: i, type: 'Robocza', weight: '', reps: '', rir: '2', done: false });
-
-            window.gymData.workoutPlan[day].push({ id: Date.now(), name, sets: setsArr });
-            window.saveGymData();
-            window.renderPlan();
-            document.getElementById('plan-form').reset();
+        function openAtlasPickerForDay(dayName) {
+            document.getElementById('modal-plan-day').value = dayName;
+            switchTab('tab-atlas');
         }
 
         function openAddAtlasToPlanModal(exName) {
@@ -998,19 +1130,20 @@
             if (!window.gymData.workoutPlan[day]) window.gymData.workoutPlan[day] = [];
 
             let setsArr = [];
-            for(let i=1; i<=setsCount; i++) setsArr.push({ setNum: i, type: 'Robocza', weight: weight, reps: reps, rir: '2', done: false });
+            for(let i=1; i<=setsCount; i++) setsArr.push({ setNum: i, type: 'Robocza', weight: weight, reps: reps, done: false });
 
             window.gymData.workoutPlan[day].push({ id: Date.now(), name: selectedAtlasName, sets: setsArr });
             window.saveGymData();
             window.renderPlan();
             closeAtlasModal();
+            switchTab('tab-plan');
         }
 
         function addSingleSetToExercise(day, exId) {
             const ex = window.gymData.workoutPlan[day].find(item => item.id === exId);
             if (ex) {
                 const nextNum = ex.sets.length + 1;
-                ex.sets.push({ setNum: nextNum, type: 'Robocza', weight: '', reps: '', rir: '2', done: false });
+                ex.sets.push({ setNum: nextNum, type: 'Robocza', weight: '', reps: '', done: false });
                 window.saveGymData();
                 window.renderPlan();
             }
@@ -1045,6 +1178,7 @@
                 checkAndLogCompletedWorkout(day);
 
                 window.saveGymData();
+                window.renderPlan();
                 updateWorkoutStats();
             }
         }
@@ -1068,7 +1202,7 @@
                         const r = parseFloat(s.reps) || 0;
                         const t = w * r;
                         totalTonnage += t;
-                        detailsArr.push(`S${s.setNum}: ${w}kg × ${r}pow (RIR: ${s.rir || '2'})`);
+                        detailsArr.push(`S${s.setNum}: ${w}kg × ${r}pow`);
                     }
                 });
                 if (detailsArr.length > 0) {
@@ -1115,15 +1249,14 @@
             if(!confirm("Wgrać przykładowy plan Push/Pull/Legs?")) return;
             window.gymData.workoutPlan = {
                 'Poniedziałek': [
-                    { id: 101, name: 'Wyciskanie Sztangi Poziomo', sets: [{setNum:1,type:'Rozgrzewka',weight:'50',reps:'12',rir:'4',done:false},{setNum:2,type:'Robocza',weight:'80',reps:'8',rir:'2',done:false}] },
-                    { id: 102, name: 'Wyciskanie Żołnierskie (OHP)', sets: [{setNum:1,type:'Robocza',weight:'50',reps:'8',rir:'2',done:false}] }
+                    { id: 101, name: 'Wyciskanie sztangi na ławce poziomej', sets: [{setNum:1,type:'Rozgrzewka',weight:'50',reps:'12',done:false},{setNum:2,type:'Robocza',weight:'80',reps:'8',done:false}] },
+                    { id: 102, name: 'Wyciskanie żołnierskie (OHP)', sets: [{setNum:1,type:'Robocza',weight:'50',reps:'8',done:false}] }
                 ],
                 'Wtorek': [
-                    { id: 201, name: 'Podciąganie na Drążku', sets: [{setNum:1,type:'Robocza',weight:'0',reps:'8',rir:'2',done:false}] },
-                    { id: 202, name: 'Wiosłowanie Sztangą', sets: [{setNum:1,type:'Robocza',weight:'70',reps:'10',rir:'2',done:false}] }
+                    { id: 201, name: 'Podciąganie na drążku nachwytem', sets: [{setNum:1,type:'Robocza',weight:'0',reps:'8',done:false}] }
                 ],
                 'Środa': [
-                    { id: 301, name: 'Przysiad ze Sztangą', sets: [{setNum:1,type:'Robocza',weight:'100',reps:'8',rir:'2',done:false}] }
+                    { id: 301, name: 'Przysiad ze sztangą na plecach', sets: [{setNum:1,type:'Robocza',weight:'100',reps:'8',done:false}] }
                 ]
             };
             window.saveGymData();
@@ -1140,54 +1273,74 @@
             container.innerHTML = days.map(day => {
                 const list = plan[day] || [];
                 const isActive = activeDay === day;
+                const exCount = list.length;
+
                 return `
-                    <div class="day-card ${isActive ? 'active-workout-day' : ''}">
-                        <div class="day-header">
-                            <span>${day} ${isActive ? '👑' : ''}</span>
-                            <div style="display:flex; gap:4px; align-items:center;">
-                                <button class="btn btn-sm" style="padding:3px 8px; font-size:0.65rem; background:${isActive?'var(--success)':'var(--grad-main)'};" onclick="startActiveWorkoutDay('${day}')">▶ ${isActive ? 'W toku' : 'Start'}</button>
-                                <span style="font-size:0.7rem; color:var(--text-muted);">${list.length} ćw.</span>
+                    <details class="day-card ${isActive ? 'active-workout-day' : ''}" ${isActive ? 'open' : ''}>
+                        <summary class="day-header" onclick="event.stopPropagation();">
+                            <div style="display:flex; align-items:center; gap:8px;">
+                                <span style="font-size:0.8rem; color:var(--text-muted);">▸</span>
+                                <span style="font-weight:900;">${day}</span>
+                                <span style="font-size:0.72rem; color:var(--text-muted); font-weight:600;">(${exCount} ćwiczeń)</span>
+                                ${isActive ? '<span style="font-size:0.65rem; background:var(--primary); color:#121212; padding:2px 6px; border-radius:6px; margin-left:4px;">SESJA AKTYWNA</span>' : ''}
                             </div>
-                        </div>
-                        <div>
-                            ${list.length===0?'<p style="font-size:0.75rem; color:var(--text-muted);">Brak ćwiczeń.</p>':''}
+                            <div style="display:flex; gap:6px; align-items:center;" onclick="event.stopPropagation();">
+                                <button class="btn btn-sm ${isActive?'btn-success':''}" style="padding:4px 10px; font-size:0.7rem;" onclick="startActiveWorkoutDay('${day}')">${isActive ? '▶ Rozpoczęty' : 'Rozpocznij Trening'}</button>
+                            </div>
+                        </summary>
+                        <div class="day-content">
+                            ${list.length===0?'<p style="font-size:0.75rem; color:var(--text-muted); padding:6px 0;">Brak dodanych ćwiczeń w tej rutynie.</p>':''}
                             ${list.map(ex => `
                                 <div class="exercise-item">
-                                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
-                                        <strong style="color:#fff; font-size:0.82rem;">${ex.name}</strong>
-                                        <button class="btn btn-outline btn-sm" style="color:var(--danger); padding:1px 4px; font-size:0.65rem;" onclick="deletePlanExercise('${day}',${ex.id})">✕</button>
+                                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                                        <strong style="color:var(--primary); font-size:0.9rem; font-weight:800;">${ex.name}</strong>
+                                        <button class="btn btn-outline btn-sm" style="color:var(--danger); border:none; padding:1px 4px; font-size:0.75rem;" onclick="deletePlanExercise('${day}',${ex.id})">✕ Usuń</button>
                                     </div>
-                                    <div class="sets-grid">
-                                        ${(ex.sets||[]).map((s, idx) => `
-                                            <div class="set-row">
-                                                <input type="checkbox" ${s.done?'checked':''} onchange="togglePlanSetDone('${day}',${ex.id},${idx})" style="width:16px; height:16px; margin:0; cursor:pointer;">
-                                                <span style="font-weight:800; color:var(--primary); font-size:0.7rem; min-width:18px;">S${s.setNum}</span>
-                                                <select onchange="updatePlanSetData('${day}',${ex.id},${idx},'type',this.value)" style="width:65px; padding:2px; margin:0; font-size:0.65rem; background:rgba(10,7,18,0.9);">
-                                                    <option value="Robocza" ${s.type==='Robocza'?'selected':''}>Robocza</option>
-                                                    <option value="Rozgrzewka" ${s.type==='Rozgrzewka'?'selected':''}>Rozgrzew.</option>
-                                                    <option value="Drop-set" ${s.type==='Drop-set'?'selected':''}>Drop-set</option>
-                                                </select>
-                                                <div style="display:flex; align-items:center; gap:1px; flex:1; min-width:55px;">
-                                                    <input type="number" placeholder="kg" value="${s.weight||''}" onchange="updatePlanSetData('${day}',${ex.id},${idx},'weight',this.value)" style="width:100%; padding:2px; margin:0; font-size:0.75rem; text-align:center;">
-                                                    <span style="font-size:0.6rem; color:var(--text-muted);">kg</span>
+                                    
+                                    <div class="hevy-set-table">
+                                        <div class="hevy-set-header">
+                                            <span>SERIA</span>
+                                            <span>POPRZEDNIO</span>
+                                            <span>KG</span>
+                                            <span>POWT.</span>
+                                            <span>✓</span>
+                                        </div>
+                                        ${(ex.sets||[]).map((s, idx) => {
+                                            const isDone = s.done === true;
+                                            let badgeLabel = s.setNum;
+                                            let badgeClass = "set-badge";
+                                            if(s.type === 'Rozgrzewka') { badgeLabel = 'W'; badgeClass += " warmup"; }
+                                            if(s.type === 'Drop-set') { badgeLabel = 'D'; badgeClass += " drop"; }
+
+                                            const prevText = (s.weight && s.reps) ? `${s.weight}kg × ${s.reps}` : '—';
+
+                                            return `
+                                                <div class="hevy-set-row">
+                                                    <div><span class="${badgeClass}">${badgeLabel}</span></div>
+                                                    <div class="prev-stat">${prevText}</div>
+                                                    <div>
+                                                        <input type="number" class="hevy-input" placeholder="0" value="${s.weight||''}" onchange="updatePlanSetData('${day}',${ex.id},${idx},'weight',this.value)">
+                                                    </div>
+                                                    <div>
+                                                        <input type="number" class="hevy-input" placeholder="0" value="${s.reps||''}" onchange="updatePlanSetData('${day}',${ex.id},${idx},'reps',this.value)">
+                                                    </div>
+                                                    <div>
+                                                        <button class="check-btn ${isDone ? 'completed' : ''}" onclick="togglePlanSetDone('${day}',${ex.id},${idx})">✓</button>
+                                                    </div>
                                                 </div>
-                                                <div style="display:flex; align-items:center; gap:1px; flex:1; min-width:45px;">
-                                                    <input type="number" placeholder="pow" value="${s.reps||''}" onchange="updatePlanSetData('${day}',${ex.id},${idx},'reps',this.value)" style="width:100%; padding:2px; margin:0; font-size:0.75rem; text-align:center;">
-                                                    <span style="font-size:0.6rem; color:var(--text-muted);">pow</span>
-                                                </div>
-                                                <div style="display:flex; align-items:center; gap:1px; min-width:45px;">
-                                                    <span style="font-size:0.6rem; color:var(--gold);">RIR:</span>
-                                                    <input type="number" min="0" max="5" placeholder="rir" value="${s.rir||'2'}" onchange="updatePlanSetData('${day}',${ex.id},${idx},'rir',this.value)" style="width:30px; padding:2px; margin:0; font-size:0.75rem; text-align:center;">
-                                                </div>
-                                                <button style="background:transparent; border:none; color:var(--danger); font-size:0.85rem; cursor:pointer; padding:0 2px;" onclick="removeSingleSetFromExercise('${day}',${ex.id},${idx})">✕</button>
-                                            </div>
-                                        `).join('')}
+                                            `;
+                                        }).join('')}
                                     </div>
-                                    <button class="btn btn-outline btn-sm" style="margin-top:6px; font-size:0.68rem; padding:3px 8px;" onclick="addSingleSetToExercise('${day}',${ex.id})">+ Seria</button>
+                                    <div style="display:flex; justify-content:space-between; align-items:center; margin-top:10px;">
+                                        <button class="btn btn-outline btn-sm" style="font-size:0.7rem; padding:4px 10px;" onclick="addSingleSetToExercise('${day}',${ex.id})">+ Dodaj Serię</button>
+                                        <button class="btn btn-outline btn-sm" style="font-size:0.65rem; color:var(--text-muted); border:none;" onclick="removeSingleSetFromExercise('${day}',${ex.id},${ex.sets.length-1})">- Usuń serię</button>
+                                    </div>
                                 </div>
                             `).join('')}
+
+                            <button class="btn btn-outline btn-sm" style="width:100%; margin-top:8px; border-style:dashed; color:var(--primary); font-weight:800;" onclick="openAtlasPickerForDay('${day}')">+ Dodaj ćwiczenie z Atlasu</button>
                         </div>
-                    </div>
+                    </details>
                 `;
             }).join('');
         }
@@ -1196,14 +1349,19 @@
             if (!['owner', 'admin'].includes(window.currentUserRole)) return alert("Brak uprawnień!");
             const name = document.getElementById('admin-ex-name').value;
             const part = document.getElementById('admin-ex-part').value;
+            const equipment = document.getElementById('admin-ex-equipment').value || "Sztanga";
+            const yt = document.getElementById('admin-ex-yt').value || "";
             const level = document.getElementById('admin-ex-level').value;
             const desc = document.getElementById('admin-ex-desc').value;
+
             if(!name || !part) return alert("Wpisz nazwę i partię!");
             try {
-                await window.fbAddDoc(window.fbCollection(window.db, 'projects', 'd1s-gym', 'custom_atlas'), { name, part, level, desc });
+                await window.fbAddDoc(window.fbCollection(window.db, 'projects', 'd1s-gym', 'custom_atlas'), { name, part, equipment, yt, level, desc });
                 alert("Dodano do Atlasu!");
                 document.getElementById('admin-ex-name').value = '';
                 document.getElementById('admin-ex-part').value = '';
+                document.getElementById('admin-ex-equipment').value = '';
+                document.getElementById('admin-ex-yt').value = '';
                 document.getElementById('admin-ex-desc').value = '';
             } catch(e) { alert("Błąd: " + e.message); }
         }
@@ -1249,6 +1407,56 @@
             if(!['owner', 'admin'].includes(window.currentUserRole)) return alert("Brak uprawnień!");
             if(confirm("Usunąć przepis?")) {
                 await window.fbDeleteDoc(window.fbDoc(window.db, 'projects', 'd1s-gym', 'custom_recipes', itemId));
+            }
+        }
+
+        function openAddPrivateExerciseModal() {
+            document.getElementById('add-private-exercise-modal').style.display = 'flex';
+        }
+
+        function closeAddPrivateExerciseModal() {
+            document.getElementById('add-private-exercise-modal').style.display = 'none';
+        }
+
+        function savePrivateExercise() {
+            const name = document.getElementById('priv-ex-name').value.trim();
+            const part = document.getElementById('priv-ex-part').value;
+            const equipment = document.getElementById('priv-ex-eq').value.trim() || 'Inne';
+            const yt = document.getElementById('priv-ex-yt').value.trim() || '';
+            const desc = document.getElementById('priv-ex-desc').value.trim() || 'Własne ćwiczenie użytkownika.';
+
+            if (!name) return alert("Podaj nazwę ćwiczenia!");
+
+            if (!window.gymData.myCustomAtlas) window.gymData.myCustomAtlas = [];
+            
+            const newEx = {
+                id: 'priv_' + Date.now(),
+                name,
+                part,
+                equipment,
+                yt,
+                level: 'Początkujący',
+                desc,
+                isPrivate: true
+            };
+
+            window.gymData.myCustomAtlas.push(newEx);
+            window.saveGymData();
+            closeAddPrivateExerciseModal();
+            renderAtlas();
+            alert("Dodano ćwiczenie do Twojego prywatnego atlasu!");
+
+            document.getElementById('priv-ex-name').value = '';
+            document.getElementById('priv-ex-eq').value = '';
+            document.getElementById('priv-ex-yt').value = '';
+            document.getElementById('priv-ex-desc').value = '';
+        }
+
+        function deletePrivateExercise(privId) {
+            if(confirm("Usunąć to ćwiczenie z prywatnego atlasu?")) {
+                window.gymData.myCustomAtlas = (window.gymData.myCustomAtlas || []).filter(x => x.id !== privId);
+                window.saveGymData();
+                renderAtlas();
             }
         }
 
@@ -1342,7 +1550,7 @@
                         let roleSelectHtml = '';
                         if (isOwner) {
                             roleSelectHtml = `
-                                <select onchange="changeUserRole('${userDoc.id}', this.value)" style="width:auto; margin:0; padding:4px 6px; font-size:0.7rem; background:rgba(10, 7, 18, 0.9);">
+                                <select onchange="changeUserRole('${userDoc.id}', this.value)" style="width:auto; margin:0; padding:4px 6px; font-size:0.7rem; background:rgba(0,0,0,0.6);">
                                     <option value="user" ${role==='user'?'selected':''}>Gracz</option>
                                     <option value="vip" ${role==='vip'?'selected':''}>VIP</option>
                                     <option value="staff" ${role==='staff'?'selected':''}>Staff</option>
@@ -1496,10 +1704,57 @@
             }).join('');
         }
 
+        /* BAZA ĆWICZEŃ (BEZ DOPISKÓW W NAWIASIACH) */
         const DEFAULT_ATLAS = [
-            { name: "Wyciskanie sztangi na ławce poziomej", part: "Klatka", level: "Średniozaawansowany", desc: "Łopatki ściągnięte, stopy stabilnie na ziemi." }, 
-            { name: "Podciąganie na drążku nachwytem", part: "Plecy", level: "Zaawansowany", desc: "Szeroki chwyt, klatka wypchnięta ku górze." }, 
-            { name: "Przysiad ze sztangą na plecach", part: "Nogi", level: "Średniozaawansowany", desc: "Kolana prowadź zgodnie z linią palców stóp." }
+            { name: "Wyciskanie sztangi na ławce poziomej", part: "Klatka piersiowa", equipment: "Sztanga", level: "Średniozaawansowany", yt: "https://www.youtube.com/results?search_query=wyciskanie+sztangi+na+lawce+poziomej", desc: "Klasyczne ćwiczenie budujące masę klatki piersiowej. Połóż się stabilnie, ściągnij łopatki i opuszczaj sztangę do środka klatki." },
+            { name: "Wyciskanie sztangi na ławce skośnej dodatniej", part: "Klatka piersiowa", equipment: "Sztanga", level: "Średniozaawansowany", yt: "https://www.youtube.com/results?search_query=wyciskanie+sztangi+na+lawce+skosnej+dodatniej", desc: "Angażuje głównie górną część klatki piersiowej." },
+            { name: "Wyciskanie sztangi na ławce skośnej ujemnej", part: "Klatka piersiowa", equipment: "Sztanga", level: "Średniozaawansowany", yt: "https://www.youtube.com/results?search_query=wyciskanie+sztangi+na+lawce+ujemnej", desc: "Angażuje dolny akton klatki piersiowej." },
+            { name: "Wyciskanie hantli na ławce poziomej", part: "Klatka piersiowa", equipment: "Hantle", level: "Średniozaawansowany", yt: "https://www.youtube.com/results?search_query=wyciskanie+hantli+na+lawce+poziomej", desc: "Zwiększa zakres ruchu i pozwala mocniej rozciągnąć mięśnie." },
+            { name: "Wyciskanie hantli na ławce skośnej dodatniej", part: "Klatka piersiowa", equipment: "Hantle", level: "Średniozaawansowany", yt: "https://www.youtube.com/results?search_query=wyciskanie+hantli+na+lawce+skosnej", desc: "Idealne na rozwój górnej partii klatki." },
+            { name: "Rozpiętki z hantlami na ławce poziomej", part: "Klatka piersiowa", equipment: "Hantle", level: "Początkujący", yt: "https://www.youtube.com/results?search_query=rozpietki+z+hantlami+na+lawce+poziomej", desc: "Ćwiczenie izolowane, świetnie rozciąga klatkę piersiową." },
+            { name: "Rozpiętki z hantlami na ławce skośnej", part: "Klatka piersiowa", equipment: "Hantle", level: "Początkujący", yt: "https://www.youtube.com/results?search_query=rozpietki+z+hantlami+na+lawce+skosnej", desc: "Rozpiętki w ułożeniu skośnym na górę klatki." },
+            { name: "Pompki na poręczach", part: "Klatka piersiowa", equipment: "Masa ciała", level: "Zaawansowany", yt: "https://www.youtube.com/results?search_query=pompki+na+poreczach+dipsy", desc: "Wielostawowy ruch na dół klatki i triceps." },
+            { name: "Pompki klasyczne na ziemi", part: "Klatka piersiowa", equipment: "Masa ciała", level: "Początkujący", yt: "https://www.youtube.com/results?search_query=pompki+klasyczne+na+ziemi", desc: "Podstawowe ćwiczenie kalisteniczne." },
+            { name: "Pompki szerokie", part: "Klatka piersiowa", equipment: "Masa ciała", level: "Początkujący", yt: "https://www.youtube.com/results?search_query=pompki+szerokie+klatka", desc: "Większe zaangażowanie mięśni piersiowych." },
+            { name: "Wyciskanie na maszynie siedząc", part: "Klatka piersiowa", equipment: "Maszyna", level: "Początkujący", yt: "https://www.youtube.com/results?search_query=wyciskanie+na+maszynie+siedzac+klatka", desc: "Bezpieczny ruch maszynowy do budowania masy." },
+            { name: "Wyciskanie na maszynie Hammer Strength", part: "Klatka piersiowa", equipment: "Maszyna", level: "Początkujący", yt: "https://www.youtube.com/results?search_query=hammer+strength+wyciskanie+klatka", desc: "Niezależny ruch ramion na maszynie." },
+            { name: "Bramy - ściąganie lin wyciągu", part: "Klatka piersiowa", equipment: "Wyciąg", level: "Średniozaawansowany", yt: "https://www.youtube.com/results?search_query=bramy+sciganie+lin+wyciagu+gora", desc: "Izolacja i spięcie izometryczne w środkowej fazie." },
+
+            { name: "Podciąganie na drążku nachwytem", part: "Plecy", equipment: "Masa ciała", level: "Zaawansowany", yt: "https://www.youtube.com/results?search_query=podciaganie+na+drzazku+nachwytem", desc: "Buduje szerokość pleców (mięśnie najszersze)." },
+            { name: "Podciąganie na drążku podchwytem", part: "Plecy", equipment: "Masa ciała", level: "Średniozaawansowany", yt: "https://www.youtube.com/results?search_query=podciaganie+na+drzazku+podchwytem", desc: "Większy udział bicepsa i środka pleców." },
+            { name: "Ściąganie drążka wyciągu górnego", part: "Plecy", equipment: "Wyciąg", level: "Początkujący", yt: "https://www.youtube.com/results?search_query=sciganie+drzazka+wyciagu+gornego", desc: "Świetna opcja przygotowująca do podciągania." },
+            { name: "Wiosłowanie sztangą w opadzie tułowia", part: "Plecy", equipment: "Sztanga", level: "Średniozaawansowany", yt: "https://www.youtube.com/results?search_query=wioslowanie+sztanga+nachwyt", desc: "Buduje grubość i masę mięśniową pleców." },
+            { name: "Wiosłowanie hantlem jednorącz", part: "Plecy", equipment: "Hantle", level: "Początkujący", yt: "https://www.youtube.com/results?search_query=wioslowanie+hantlem+jednoracz", desc: "Izolowane wiosłowanie z pełnym zakresem ruchu." },
+            { name: "Martwy ciąg klasyczny", part: "Plecy", equipment: "Sztanga", level: "Zaawansowany", yt: "https://www.youtube.com/results?search_query=martwy+ciag+klasyczny", desc: "Najlepsze ćwiczenie siłowe na całą tylną taśmę." },
+            { name: "Martwy ciąg rumuński", part: "Plecy", equipment: "Sztanga", level: "Średniozaawansowany", yt: "https://www.youtube.com/results?search_query=martwy+ciag+rumunski", desc: "Mniejszy nacisk na lędźwie, mocna praca pośladków i dwugłowych." },
+            { name: "Szrugsy ze sztangą", part: "Plecy", equipment: "Sztanga", level: "Początkujący", yt: "https://www.youtube.com/results?search_query=szrugsy+ze+sztanga+kaptury", desc: "Rozwój mięśni czworobocznych." },
+            { name: "Szrugsy z hantlami", part: "Plecy", equipment: "Hantle", level: "Początkujący", yt: "https://www.youtube.com/results?search_query=szrugsy+z+hantlami", desc: "Unoszenie barków z hantlami w dłoniach." },
+
+            { name: "Przysiad ze sztangą na plecach", part: "Nogi", equipment: "Sztanga", level: "Średniozaawansowany", yt: "https://www.youtube.com/results?search_query=przysiad+ze+sztanga+na+plecach", desc: "Fundament rozwoju mięśni nóg i pośladków." },
+            { name: "Przysiad przedni ze sztangą", part: "Nogi", equipment: "Sztanga", level: "Zaawansowany", yt: "https://www.youtube.com/results?search_query=przysiad+przedni+ze+sztanga", desc: "Większe zaangażowanie mięśni czworogłowych i prostego brzucha." },
+            { name: "Wyciskanie na suwnicy (Leg Press)", part: "Nogi", equipment: "Maszyna", level: "Początkujący", yt: "https://www.youtube.com/results?search_query=wyciskanie+na+suwnicy+leg+press", desc: "Bezpieczna maszyna do dużych ciężarów." },
+            { name: "Prostowanie nóg na maszynie", part: "Nogi", equipment: "Maszyna", level: "Początkujący", yt: "https://www.youtube.com/results?search_query=prostowanie+nog+na+maszynie+siedzac", desc: "Izolacja czworogłowych uda." },
+            { name: "Uginanie nóg leżąc", part: "Nogi", equipment: "Maszyna", level: "Początkujący", yt: "https://www.youtube.com/results?search_query=uginanie+nog+lezac+maszyna", desc: "Praca mięśni dwugłowych uda." },
+            { name: "Przysiad bułgarski z hantlami", part: "Nogi", equipment: "Hantle", level: "Średniozaawansowany", yt: "https://www.youtube.com/results?search_query=przysiad+bulgarski+z+hantlami", desc: "Jednonóż, potężny bodziec na pośladki i czworogłowe." },
+            { name: "Wykroki chodzone z hantlami", part: "Nogi", equipment: "Hantle", level: "Średniozaawansowany", yt: "https://www.youtube.com/results?search_query=wykroki+chodzone+z+hantlami", desc: "Dynamiczny rozwój nóg i równowagi." },
+            { name: "Wspięcia na palce stojąc", part: "Nogi", equipment: "Maszyna", level: "Początkujący", yt: "https://www.youtube.com/results?search_query=wspiecia+na+palce+stojac+maszyna", desc: "Budowa masy mięśni łydek." },
+            { name: "Wznosy bioder ze sztangą (Hip Thrust)", part: "Nogi", equipment: "Sztanga", level: "Średniozaawansowany", yt: "https://www.youtube.com/results?search_query=hip+thrust+ze+sztanga", desc: "Król ćwiczeń na mięśnie pośladkowe." },
+
+            { name: "Wyciskanie żołnierskie (OHP)", part: "Barki", equipment: "Sztanga", level: "Średniozaawansowany", yt: "https://www.youtube.com/results?search_query=wyciskanie+zolnierskie+ohp", desc: "Podstawowe ćwiczenie siłowe na całe barki." },
+            { name: "Wyciskanie hantli nad głowę", part: "Barki", equipment: "Hantle", level: "Początkujący", yt: "https://www.youtube.com/results?search_query=wyciskanie+hantli+nad-glowe-siedzac", desc: "Wyciskanie hantli na ławce pionowej." },
+            { name: "Wznosy hantli bokiem", part: "Barki", equipment: "Hantle", level: "Początkujący", yt: "https://www.youtube.com/results?search_query=wznosy+hantli+bokiem+stojac", desc: "Główne ćwiczenie na boczny akton barku." },
+            { name: "Face Pull", part: "Barki", equipment: "Wyciąg", level: "Początkujący", yt: "https://www.youtube.com/results?search_query=face+pull+wyciag+barki", desc: "Zdrowie stawów barkowych i tylny akton." },
+            { name: "Wznosy hantli w opadzie tułowia", part: "Barki", equipment: "Hantle", level: "Początkujący", yt: "https://www.youtube.com/results?search_query=wznosy+hantli+w+opadzie+tułowia", desc: "Izolacja tylnego aktonu mięśnia naramiennego." },
+
+            { name: "Uginanie przedramion ze sztangą", part: "Ramiona", equipment: "Sztanga", level: "Początkujący", yt: "https://www.youtube.com/results?search_query=uginanie+przedramion+ze+sztanga+prosta", desc: "Klasyk masowy na biceps." },
+            { name: "Uginanie młotkowe z hantlami", part: "Ramiona", equipment: "Hantle", level: "Początkujący", yt: "https://www.youtube.com/results?search_query=uginanie+mlotkowe+z+hantlami", desc: "Angażuje mięsień ramienno-promieniowy i biceps." },
+            { name: "Francuskie wyciskanie sztangi leżąc", part: "Ramiona", equipment: "Sztanga", level: "Średniozaawansowany", yt: "https://www.youtube.com/results?search_query=francuskie+wyciskanie+sztangi+lamanej", desc: "Potężne budowanie masy tricepsów." },
+            { name: "Prostowanie ramion na wyciągu", part: "Ramiona", equipment: "Wyciąg", level: "Początkujący", yt: "https://www.youtube.com/results?search_query=prostowanie+ramion+na+wyciagu+drzazek", desc: "Klasyczne ściąganie linki / drążka na triceps." },
+            { name: "Wyciskanie wąsko na ławce", part: "Ramiona", equipment: "Sztanga", level: "Średniozaawansowany", yt: "https://www.youtube.com/results?search_query=wyciskanie+wasko+na+lawce+poziomej", desc: "Ciężki wielostawowy bój na triceps." },
+
+            { name: "Allahy", part: "Brzuch", equipment: "Wyciąg", level: "Początkujący", yt: "https://www.youtube.com/results?search_query=allahy+cwiczenie+na+brzuch+wyciag", desc: "Skuteczny trening brzucha z ciężarem." },
+            { name: "Unoszenie kolan w wiszeniu na drążku", part: "Brzuch", equipment: "Masa ciała", level: "Zaawansowany", yt: "https://www.youtube.com/results?search_query=unoszenie+kolan+w+wiszeniu+na+drzazku", desc: "Potężna praca mięśni prostych i dolnego brzucha." },
+            { name: "Plank (Deska)", part: "Brzuch", equipment: "Masa ciała", level: "Początkujący", yt: "https://www.youtube.com/results?search_query=plank+deska+stabilizacja+core", desc: "Izometryczna deska na mięśnie głębokie." }
         ];
 
         const DEFAULT_RECIPES = [
@@ -1507,33 +1762,99 @@
             { name: "Kurczak z ryżem i warzywami", kcal: 650, protein: 50, steps: "Pierś z kurczaka w przyprawach, ryż parboiled i mix warzyw." }
         ];
 
+        function filterAtlasCategory(cat, btn) {
+            selectedCategoryFilter = cat;
+            document.querySelectorAll('.filter-pills-scroll .pill-btn').forEach(b => b.classList.remove('active'));
+            if(btn) btn.classList.add('active');
+            renderAtlas();
+        }
+
         function renderAtlas() {
             const container = document.getElementById('atlas-container');
+            if(!container) return;
             const search = (document.getElementById('atlas-search')?.value || '').toLowerCase();
-            const filterLevel = document.getElementById('atlas-filter-level')?.value || 'all';
-            const fullList = [...DEFAULT_ATLAS, ...(window.customAtlas || [])];
+            
+            const standardList = [...DEFAULT_ATLAS, ...(window.customAtlas || [])];
+            const myPrivateList = window.gymData?.myCustomAtlas || [];
+            
+            let fullList = [];
+            if (selectedCategoryFilter === 'Moje') {
+                fullList = myPrivateList;
+            } else {
+                fullList = [...standardList, ...myPrivateList];
+            }
             
             let items = fullList.filter(x => {
-                const matchSearch = x.name.toLowerCase().includes(search) || x.part.toLowerCase().includes(search);
-                const matchLevel = filterLevel === 'all' || x.level === filterLevel;
-                return matchSearch && matchLevel;
+                const partName = x.part || '';
+                const matchCategory = (selectedCategoryFilter === 'all' || selectedCategoryFilter === 'Moje') || partName.toLowerCase().includes(selectedCategoryFilter.toLowerCase());
+                const matchSearch = x.name.toLowerCase().includes(search) || (x.equipment && x.equipment.toLowerCase().includes(search));
+                return matchCategory && matchSearch;
             });
+            
+            const adminCountEl = document.getElementById('atlas-counter');
+            if(adminCountEl) adminCountEl.innerText = `Baza ${standardList.length} ćwiczeń + ${myPrivateList.length} Twoich`;
+
             const isAdmin = ['owner', 'admin'].includes(window.currentUserRole);
 
-            container.innerHTML = items.map(a => `
-                <div class="atlas-item">
-                    <div>
-                        <div style="display:flex; justify-content:space-between; align-items:center;">
-                            <span class="role-badge role-staff">${a.part}</span>
-                            ${(isAdmin && a.id) ? `<button class="btn btn-outline btn-sm" style="color:var(--danger); padding:1px 5px; font-size:0.65rem;" onclick="deleteCustomAtlasItem('${a.id}')">🗑</button>` : ''}
+            if(items.length === 0) {
+                container.innerHTML = `<p style="color:var(--text-muted); text-align:center; grid-column:1/-1; padding:20px;">Brak ćwiczeń. Kliknij powyżej "+ Dodaj własne ćwiczenie", aby dodać własne!</p>`;
+                return;
+            }
+
+            container.innerHTML = items.map((a) => {
+                const equipmentTag = a.equipment || 'Sprzęt';
+                const escName = a.name.replace(/'/g, "\\'");
+                const isPriv = a.isPrivate === true;
+
+                return `
+                    <div class="hevy-ex-card" onclick='openExerciseDetailsModal(${JSON.stringify(a).replace(/'/g, "&apos;")})'>
+                        <div class="hevy-ex-info">
+                            <div class="hevy-ex-title">${a.name} ${isPriv ? '⭐' : ''}</div>
+                            <div class="hevy-ex-tags">
+                                <span class="tag-pill muscle">${a.part}</span>
+                                <span class="tag-pill">${equipmentTag}</span>
+                                ${isPriv ? '<span class="tag-pill" style="background:rgba(192,132,252,0.15); color:var(--purple); border-color:rgba(192,132,252,0.3);">Prywatne</span>' : ''}
+                                ${a.yt ? '<span class="tag-pill" style="background:rgba(255,0,0,0.15); color:#ff4444; border-color:rgba(255,0,0,0.3);">▶ Wideo</span>' : ''}
+                            </div>
                         </div>
-                        <h4 style="margin:6px 0; color:#fff; font-size:0.9rem;">${a.name}</h4>
-                        <div style="font-size:0.65rem; color:var(--gold); margin-bottom:4px; font-weight:700;">Poziom: ${a.level || 'Średniozaawansowany'}</div>
-                        <p style="font-size:0.75rem; color:var(--text-muted); line-height:1.3;">${a.desc}</p>
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:4px;">
+                            <span style="font-size:0.7rem; color:var(--text-muted);">Kliknij po szczegóły</span>
+                            <div style="display:flex; align-items:center; gap:6px;">
+                                ${isPriv ? `<button class="btn btn-outline btn-sm" style="color:var(--danger); padding:4px 6px; border:none;" onclick="event.stopPropagation(); deletePrivateExercise('${a.id}')">🗑</button>` : ''}
+                                ${(isAdmin && a.id && !isPriv) ? `<button class="btn btn-outline btn-sm" style="color:var(--danger); padding:4px 6px; border:none;" onclick="event.stopPropagation(); deleteCustomAtlasItem('${a.id}')">🗑</button>` : ''}
+                                <div class="btn-add-circle" title="Dodaj do planu" onclick="event.stopPropagation(); openAddAtlasToPlanModal('${escName}')">+</div>
+                            </div>
+                        </div>
                     </div>
-                    <button class="btn btn-sm" style="margin-top:10px; font-size:0.7rem; width:100%;" onclick="openAddAtlasToPlanModal('${a.name}')">+ Dodaj do Planu</button>
-                </div>
-            `).join('');
+                `;
+            }).join('');
+        }
+
+        function openExerciseDetailsModal(exObj) {
+            document.getElementById('ex-modal-title').innerText = exObj.name;
+            document.getElementById('ex-modal-subtitle').innerText = `${exObj.part} • ${exObj.equipment || 'Sztanga'} • ${exObj.level || 'Średniozaawansowany'}`;
+            document.getElementById('ex-modal-desc').innerHTML = exObj.desc || 'Brak dodatkowego opisu techniki.';
+            
+            const ytBtn = document.getElementById('ex-modal-yt-btn');
+            if (exObj.yt && exObj.yt.length > 5) {
+                ytBtn.href = exObj.yt;
+                ytBtn.style.display = 'flex';
+            } else {
+                ytBtn.href = '#';
+                ytBtn.style.display = 'none';
+            }
+
+            const addBtn = document.getElementById('ex-modal-add-btn');
+            addBtn.onclick = () => {
+                closeExerciseDetailsModal();
+                openAddAtlasToPlanModal(exObj.name);
+            };
+
+            document.getElementById('exercise-details-modal').style.display = 'flex';
+        }
+
+        function closeExerciseDetailsModal() {
+            document.getElementById('exercise-details-modal').style.display = 'none';
         }
 
         function renderRecipes() {
@@ -1618,7 +1939,7 @@
                 type: 'line',
                 data: {
                     labels: workouts.map(w => w.dayName).reverse(),
-                    datasets: [{ label: 'Tonaż (kg)', data: workouts.map(w => w.tonnage).reverse(), borderColor: '#ec4899', backgroundColor: 'rgba(236, 72, 153, 0.2)', fill: true, tension: 0.2 }]
+                    datasets: [{ label: 'Tonaż (kg)', data: workouts.map(w => w.tonnage).reverse(), borderColor: '#f472b6', backgroundColor: 'rgba(244, 114, 182, 0.2)', fill: true, tension: 0.2 }]
                 },
                 options: { responsive: true, maintainAspectRatio: false }
             });
@@ -1652,6 +1973,11 @@
         }
 
         window.loadAdminUserList = loadAdminUserList;
+        window.openExerciseDetailsModal = openExerciseDetailsModal;
+        window.closeExerciseDetailsModal = closeExerciseDetailsModal;
+        window.filterAtlasCategory = filterAtlasCategory;
+        window.finishActiveWorkoutSession = finishActiveWorkoutSession;
+        window.openAtlasPickerForDay = openAtlasPickerForDay;
 
         renderPlan();
         renderAchievements();
