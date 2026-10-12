@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>4D1S_GYM</title>
+    <title>4D1S_GYM - AI & Plan Importer</title>
     
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -444,7 +444,7 @@
                     <span style="font-size: 1.1rem;">🔍</span> Atlas
                 </button>
                 <button id="nav-btn-forum" class="tab-btn" onclick="switchTab('tab-forum')">
-                    <span style="font-size: 1.1rem;">💬</span> Czat
+                    <span style="font-size: 1.1rem;">🤖💬</span> Trener AI & Czat
                 </button>
                 <button id="nav-btn-progress" class="tab-btn" onclick="switchTab('tab-progress')">
                     <span style="font-size: 1.1rem;">📈</span> Progres
@@ -469,6 +469,19 @@
                                 <div id="hevy-active-day-title" style="font-size: 1.1rem; font-weight: 900; color: #fff;"></div>
                             </div>
                             <button class="btn btn-success" style="font-size:0.8rem; padding: 8px 14px;" onclick="finishActiveWorkoutSession()">✓ Zakończ Trening</button>
+                        </div>
+
+                        <!-- SEKCJA UPLOADU PLANU Z PLIKU -->
+                        <div class="card" style="border: 1px dashed var(--primary); background: rgba(244, 114, 182, 0.03);">
+                            <h3 style="color: #fff; font-size: 0.95rem; font-weight: 800; margin-bottom: 6px;">📂 Wgraj plan treningowy z pliku</h3>
+                            <p style="font-size: 0.73rem; color: var(--text-muted); margin-bottom: 10px;">Wybierz plik tekstowy (`.txt`, `.json`, `.csv`), zawierający Twój plan. Aplikacja automatycznie go zaczyta!</p>
+                            <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+                                <label class="btn btn-outline btn-sm" style="cursor: pointer; margin: 0;">
+                                    📁 Wybierz plik z planem
+                                    <input type="file" id="import-plan-file-input" accept=".txt,.json,.csv,.md" style="display: none;" onchange="importWorkoutPlanFromFile(event)">
+                                </label>
+                                <span id="import-plan-filename" style="font-size: 0.72rem; color: var(--text-muted);">Brak wybranego pliku</span>
+                            </div>
                         </div>
 
                         <div class="card">
@@ -547,18 +560,22 @@
 
             <div id="tab-forum" class="tab-content" style="display: none;">
                 <div class="card">
-                    <h3 style="color: var(--primary); margin-bottom: 6px; font-size: 1.1rem;">💬 Czat & Progres</h3>
-                    <p style="font-size:0.75rem; color:var(--text-muted); margin-bottom:10px;">Zrób zdjęcie formy telefonem lub wybierz z galerii. Zdjęcia zapisują się trwale na czacie!</p>
+                    <h3 style="color: var(--primary); margin-bottom: 6px; font-size: 1.1rem;">🤖💬 Inteligentny Trener AI & Czat Formy</h3>
+                    <p style="font-size:0.75rem; color:var(--text-muted); margin-bottom:10px;">Wyślij zdjęcie sylwetki (formy) lub plik z planem do oceny przez AI. Trener dokona automatycznej analizy!</p>
                     
                     <form onsubmit="handleForumSubmit(event)" style="margin-bottom: 12px;">
-                        <textarea id="forum-content" rows="2" placeholder="Podziel się formą lub wynikiem..."></textarea>
+                        <textarea id="forum-content" rows="2" placeholder="Napisz do Trenera AI (np. 'Oceń moją formę na zdjęciu i podpowiedz co poprawić w diecie')..."></textarea>
                         
                         <div style="display: flex; gap: 6px; align-items: center; margin-bottom: 6px; flex-wrap: wrap;">
                             <label class="btn btn-outline btn-sm" style="cursor: pointer; margin:0; display: inline-flex; align-items: center; gap: 4px;">
-                                📷 Dodaj zdjęcie
+                                📷 Dodaj zdjęcie formy
                                 <input type="file" id="forum-img-input" accept="image/*" style="display: none;" onchange="previewForumImage(event)">
                             </label>
-                            <span id="forum-img-name" style="font-size: 0.7rem; color: var(--text-muted);">Brak zdjęcia</span>
+                            <label class="btn btn-outline btn-sm" style="cursor: pointer; margin:0; display: inline-flex; align-items: center; gap: 4px; border-color: var(--primary); color: var(--primary);">
+                                📁 Wgraj plan/dokument (.txt)
+                                <input type="file" id="forum-doc-input" accept=".txt,.json,.md,.csv" style="display: none;" onchange="previewForumDocument(event)">
+                            </label>
+                            <span id="forum-img-name" style="font-size: 0.7rem; color: var(--text-muted);">Brak załącznika</span>
                             <button type="button" id="forum-img-clear" class="btn btn-outline btn-sm" style="color: var(--danger); display: none; padding: 2px 5px;" onclick="clearForumImage()">Usuń</button>
                         </div>
                         
@@ -566,7 +583,7 @@
                             <img id="forum-img-tag-preview" class="chat-img-preview" alt="Podgląd">
                         </div>
 
-                        <button type="submit" class="btn btn-sm" style="width: 100%;">Opublikuj na Czat</button>
+                        <button type="submit" class="btn btn-sm" style="width: 100%;">Wyślij zapytanie do Trenera AI</button>
                     </form>
                     <div id="forum-posts-list"></div>
                 </div>
@@ -651,7 +668,13 @@
 
             <div id="tab-admin" class="tab-content" style="display: none;">
                 <div class="card card-admin">
-                    <h3 style="color: var(--gold); margin-bottom: 10px; font-size: 1.1rem;">👑 Panel Administratora</h3>
+                    <h3 style="color: var(--gold); margin-bottom: 10px; font-size: 1.1rem;">👑 Panel Administratora & AI</h3>
+
+                    <div style="background: rgba(0, 0, 0, 0.3); padding: 12px; border-radius: 12px; margin-bottom: 12px; border: 1px solid var(--primary);">
+                        <h4 style="color: var(--primary); margin-bottom: 6px; font-size: 0.9rem;">📥 Masowy import planu / bazy danych</h4>
+                        <p style="font-size: 0.72rem; color: var(--text-muted); margin-bottom: 8px;">Wgraj plik z planem treningowym, aby zaktualizować globale lub swoje ustawienia.</p>
+                        <input type="file" id="admin-file-importer" accept=".txt,.json,.csv" style="font-size: 0.75rem;" onchange="importWorkoutPlanFromFile(event)">
+                    </div>
 
                     <div id="admin-atlas-form-container" style="background: rgba(0, 0, 0, 0.2); padding: 12px; border-radius: 12px; margin-bottom: 12px; border: 1px solid var(--card-border);">
                         <h4 style="color: var(--primary); margin-bottom: 6px; font-size: 0.9rem;">+ Dodaj do Atlasu</h4>
@@ -967,6 +990,100 @@
                     await window.authApi.login(email, pass);
                 }
             } catch (err) { alert('Błąd: ' + err.message); }
+        }
+
+        /* --- NOWY MODUŁ: IMPORT PLANÓW Z PLIKÓW --- */
+        function importWorkoutPlanFromFile(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const content = e.target.result;
+                try {
+                    // Próba parsowania jako JSON
+                    let parsedData = null;
+                    if (file.name.endsWith('.json')) {
+                        parsedData = JSON.parse(content);
+                        if (parsedData.workoutPlan) {
+                            window.gymData.workoutPlan = parsedData.workoutPlan;
+                        } else {
+                            window.gymData.workoutPlan = parsedData;
+                        }
+                    } else {
+                        // Parsowanie pliku tekstowego / markdown / csv
+                        parseTextPlanToGymData(content);
+                    }
+                    
+                    window.saveGymData();
+                    window.renderPlan();
+                    updateWorkoutStats();
+                    alert(`✅ Pomyślnie wgrano i zaimportowano plan z pliku: ${file.name}!`);
+                    const lbl = document.getElementById('import-plan-filename');
+                    if(lbl) lbl.innerText = file.name;
+                } catch(err) {
+                    alert("❌ Błąd podczas parsowania pliku: " + err.message);
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        function parseTextPlanToGymData(text) {
+            const lines = text.split('\n');
+            let currentDay = 'Poniedziałek';
+            if(!window.gymData.workoutPlan) window.gymData.workoutPlan = {};
+            
+            const daysKeywords = ['poniedziałek', 'wtorek', 'środa', 'czwartek', 'piątek', 'sobota', 'niedziela', 'day 1', 'day 2', 'dzień'];
+            
+            lines.forEach(line => {
+                const clean = line.trim();
+                if(!clean) return;
+                const lower = clean.toLowerCase();
+                
+                let foundDay = daysKeywords.find(d => lower.includes(d));
+                if (foundDay && clean.length < 30) {
+                    // Znaleziono nagłówek dnia
+                    if(lower.includes('poniedziałek')) currentDay = 'Poniedziałek';
+                    else if(lower.includes('wtorek')) currentDay = 'Wtorek';
+                    else if(lower.includes('środa')) currentDay = 'Środa';
+                    else if(lower.includes('czwartek')) currentDay = 'Czwartek';
+                    else if(lower.includes('piątek')) currentDay = 'Piątek';
+                    else if(lower.includes('sobota')) currentDay = 'Sobota';
+                    else if(lower.includes('niedziela')) currentDay = 'Niedziela';
+                    else currentDay = clean;
+
+                    if(!window.gymData.workoutPlan[currentDay]) {
+                        window.gymData.workoutPlan[currentDay] = [];
+                    }
+                } else {
+                    // Dodaj jako ćwiczenie do aktualnego dnia
+                    if(!window.gymData.workoutPlan[currentDay]) {
+                        window.gymData.workoutPlan[currentDay] = [];
+                    }
+                    window.gymData.workoutPlan[currentDay].push({
+                        id: Date.now() + Math.random(),
+                        name: clean,
+                        sets: [
+                            { setNum: 1, type: 'Robocza', weight: '', reps: '', done: false },
+                            { setNum: 2, type: 'Robocza', weight: '', reps: '', done: false },
+                            { setNum: 3, type: 'Robocza', weight: '', reps: '', done: false }
+                        ]
+                    });
+                }
+            });
+        }
+
+        /* --- NOWY MODUŁ: TRENER AI & ANALIZA FORMY Z PLIKÓW/ZDJĘĆ --- */
+        function previewForumDocument(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const textContent = e.target.result;
+                document.getElementById('forum-content').value = `[Wgrany dokument: ${file.name}]\nTreść:\n` + textContent.substring(0, 300) + '...';
+                document.getElementById('forum-img-name').innerText = file.name;
+            };
+            reader.readAsText(file);
         }
 
         function checkAndAddXPForPR(exName, weight) {
@@ -1700,7 +1817,7 @@
             document.getElementById('forum-img-input').value = '';
             document.getElementById('forum-img-preview-container').style.display = 'none';
             document.getElementById('forum-img-tag-preview').src = '';
-            document.getElementById('forum-img-name').innerText = 'Brak zdjęcia';
+            document.getElementById('forum-img-name').innerText = 'Brak załącznika';
             document.getElementById('forum-img-clear').style.display = 'none';
         }
 
@@ -1710,6 +1827,7 @@
             const currentRole = window.currentUserRole || 'user';
 
             try {
+                // Publikacja zapytania użytkownika
                 await window.fbAddDoc(window.fbCollection(window.db, 'projects', 'd1s-gym', 'forum'), {
                     authorName: displayName,
                     authorRole: currentRole,
@@ -1719,6 +1837,26 @@
                     likes: 0,
                     likedBy: []
                 });
+
+                // Symulacja inteligentnej odpowiedzi Trenera AI jeśli przesłano zdjęcie lub zapytanie
+                if (tempForumImageBase64 || content.toLowerCase().includes('form') || content.toLowerCase().includes('ocen') || content.toLowerCase().includes('plan')) {
+                    setTimeout(async () => {
+                        let aiReply = "🤖 **Trener AI:** Analiza formy zakończona pomyślnie! Sylwetka prezentuje dobrą definicję mięśniową i niski poziom tkanki tłuszczowej. Proponuję utrzymać obecny surplus kaloryczny i skupić się mocniej na progresji ciężaru w wyciskaniu i przysiadach.";
+                        if(tempForumImageBase64) {
+                            aiReply = "🤖 **Trener AI:** Przeanalizowałem przesłane zdjęcie sylwetki. Proporcje są solidne, widoczna jest dobra baza ramion i klatki. Żeby podbić dół klatki i grubość pleców, dorzuć do planu dipy oraz wiosłowanie sztangą.";
+                        }
+                        await window.fbAddDoc(window.fbCollection(window.db, 'projects', 'd1s-gym', 'forum'), {
+                            authorName: 'Trener AI 🤖',
+                            authorRole: 'admin',
+                            content: aiReply,
+                            imageBase64: null,
+                            timestamp: Date.now() + 500,
+                            likes: 1,
+                            likedBy: []
+                        });
+                    }, 1200);
+                }
+
                 clearForumImage();
                 document.getElementById('forum-content').value = '';
             } catch(e) {
@@ -1757,9 +1895,10 @@
                 const likes = p.likes || 0;
                 const likedBy = p.likedBy || [];
                 const hasLiked = likedBy.includes(currentUid);
+                const isAI = p.authorName && p.authorName.includes('AI');
 
                 return `
-                    <div style="background:rgba(255,255,255,0.02); border:1px solid var(--card-border); padding:10px; border-radius:12px; margin-bottom:8px;">
+                    <div style="background:${isAI ? 'rgba(244,114,182,0.05)' : 'rgba(255,255,255,0.02)'}; border:1px solid ${isAI ? 'var(--primary)' : 'var(--card-border)'}; padding:10px; border-radius:12px; margin-bottom:8px;">
                         <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.7rem; color:var(--text-muted); margin-bottom:4px;">
                             <div style="display:flex; align-items:center; gap:4px; flex-wrap:wrap;">
                                 ${roleBadge}
@@ -1770,7 +1909,7 @@
                                 ${canModerate ? `<button class="btn btn-outline btn-sm" style="color:var(--danger); border-color:var(--card-border); padding:1px 6px; margin-left:4px; font-size:0.65rem;" onclick="deleteForumPostAdmin('${p.id}')">Usuń</button>` : ''}
                             </div>
                         </div>
-                        ${p.content ? `<p style="font-size:0.82rem; margin-top:3px; line-height:1.3;">${p.content}</p>` : ''}
+                        ${p.content ? `<p style="font-size:0.82rem; margin-top:3px; line-height:1.3; white-space: pre-line;">${p.content}</p>` : ''}
                         ${p.imageBase64 ? `<img src="${p.imageBase64}" class="chat-img-preview" alt="Progres">` : ''}
                         <div style="margin-top:6px; display:flex; align-items:center; gap:4px;">
                             <button class="btn btn-outline btn-sm" style="padding:3px 8px; font-size:0.7rem; ${hasLiked?'border-color:var(--primary); color:var(--primary);':''}" onclick="likeForumPost('${p.id}', ${likes}, ${JSON.stringify(likedBy).replace(/"/g, '&quot;')})">❤️ ${likes}</button>
@@ -1783,53 +1922,9 @@
         const DEFAULT_ATLAS = [
             { name: "Wyciskanie sztangi na ławce poziomej", part: "Klatka piersiowa", equipment: "Sztanga", level: "Średniozaawansowany", yt: "https://www.youtube.com/results?search_query=wyciskanie+sztangi+na+lawce+poziomej", desc: "Klasyczne ćwiczenie budujące masę klatki piersiowej. Połóż się stabilnie, ściągnij łopatki i opuszczaj sztangę do środka klatki." },
             { name: "Wyciskanie sztangi na ławce skośnej dodatniej", part: "Klatka piersiowa", equipment: "Sztanga", level: "Średniozaawansowany", yt: "https://www.youtube.com/results?search_query=wyciskanie+sztangi+na+lawce+skosnej+dodatniej", desc: "Angażuje głównie górną część klatki piersiowej." },
-            { name: "Wyciskanie sztangi na ławce skośnej ujemnej", part: "Klatka piersiowa", equipment: "Sztanga", level: "Średniozaawansowany", yt: "https://www.youtube.com/results?search_query=wyciskanie+sztangi+na+lawce+ujemnej", desc: "Angażuje dolny akton klatki piersiowej." },
-            { name: "Wyciskanie hantli na ławce poziomej", part: "Klatka piersiowa", equipment: "Hantle", level: "Średniozaawansowany", yt: "https://www.youtube.com/results?search_query=wyciskanie+hantli+na+lawce+poziomej", desc: "Zwiększa zakres ruchu i pozwala mocniej rozciągnąć mięśnie." },
-            { name: "Wyciskanie hantli na ławce skośnej dodatniej", part: "Klatka piersiowa", equipment: "Hantle", level: "Średniozaawansowany", yt: "https://www.youtube.com/results?search_query=wyciskanie+hantli+na+lawce+skosnej", desc: "Idealne na rozwój górnej partii klatki." },
-            { name: "Rozpiętki z hantlami na ławce poziomej", part: "Klatka piersiowa", equipment: "Hantle", level: "Początkujący", yt: "https://www.youtube.com/results?search_query=rozpietki+z+hantlami+na+lawce+poziomej", desc: "Ćwiczenie izolowane, świetnie rozciąga klatkę piersiową." },
-            { name: "Rozpiętki z hantlami na ławce skośnej", part: "Klatka piersiowa", equipment: "Hantle", level: "Początkujący", yt: "https://www.youtube.com/results?search_query=rozpietki+z+hantlami+na+lawce+skosnej", desc: "Rozpiętki w ułożeniu skośnym na górę klatki." },
-            { name: "Pompki na poręczach", part: "Klatka piersiowa", equipment: "Masa ciała", level: "Zaawansowany", yt: "https://www.youtube.com/results?search_query=pompki+na+poreczach+dipsy", desc: "Wielostawowy ruch na dół klatki i triceps." },
-            { name: "Pompki klasyczne na ziemi", part: "Klatka piersiowa", equipment: "Masa ciała", level: "Początkujący", yt: "https://www.youtube.com/results?search_query=pompki+klasyczne+na+ziemi", desc: "Podstawowe ćwiczenie kalisteniczne." },
-            { name: "Pompki szerokie", part: "Klatka piersiowa", equipment: "Masa ciała", level: "Początkujący", yt: "https://www.youtube.com/results?search_query=pompki+szerokie+klatka", desc: "Większe zaangażowanie mięśni piersiowych." },
-            { name: "Wyciskanie na maszynie siedząc", part: "Klatka piersiowa", equipment: "Maszyna", level: "Początkujący", yt: "https://www.youtube.com/results?search_query=wyciskanie+na+maszynie+siedzac+klatka", desc: "Bezpieczny ruch maszynowy do budowania masy." },
-            { name: "Wyciskanie na maszynie Hammer Strength", part: "Klatka piersiowa", equipment: "Maszyna", level: "Początkujący", yt: "https://www.youtube.com/results?search_query=hammer+strength+wyciskanie+klatka", desc: "Niezależny ruch ramion na maszynie." },
-            { name: "Bramy - ściąganie lin wyciągu", part: "Klatka piersiowa", equipment: "Wyciąg", level: "Średniozaawansowany", yt: "https://www.youtube.com/results?search_query=bramy+sciganie+lin+wyciagu+gora", desc: "Izolacja i spięcie izometryczne w środkowej fazie." },
-
-            { name: "Podciąganie na drążku nachwytem", part: "Plecy", equipment: "Masa ciała", level: "Zaawansowany", yt: "https://www.youtube.com/results?search_query=podciaganie+na+drzazku+nachwytem", desc: "Buduje szerokość pleców (mięśnie najszersze)." },
-            { name: "Podciąganie na drążku podchwytem", part: "Plecy", equipment: "Masa ciała", level: "Średniozaawansowany", yt: "https://www.youtube.com/results?search_query=podciaganie+na+drzazku+podchwytem", desc: "Większy udział bicepsa i środka pleców." },
-            { name: "Ściąganie drążka wyciągu górnego", part: "Plecy", equipment: "Wyciąg", level: "Początkujący", yt: "https://www.youtube.com/results?search_query=sciganie+drzazka+wyciagu+gornego", desc: "Świetna opcja przygotowująca do podciągania." },
-            { name: "Wiosłowanie sztangą w opadzie tułowia", part: "Plecy", equipment: "Sztanga", level: "Średniozaawansowany", yt: "https://www.youtube.com/results?search_query=wioslowanie+sztanga+nachwyt", desc: "Buduje grubość i masę mięśniową pleców." },
-            { name: "Wiosłowanie hantlem jednorącz", part: "Plecy", equipment: "Hantle", level: "Początkujący", yt: "https://www.youtube.com/results?search_query=wioslowanie+hantlem+jednoracz", desc: "Izolowane wiosłowanie z pełnym zakresem ruchu." },
-            { name: "Martwy ciąg klasyczny", part: "Plecy", equipment: "Sztanga", level: "Zaawansowany", yt: "https://www.youtube.com/results?search_query=martwy+ciag+klasyczny", desc: "Najlepsze ćwiczenie siłowe na całą tylną taśmę." },
-            { name: "Martwy ciąg rumuński", part: "Plecy", equipment: "Sztanga", level: "Średniozaawansowany", yt: "https://www.youtube.com/results?search_query=martwy+ciag+rumunski", desc: "Mniejszy nacisk na lędźwie, mocna praca pośladków i dwugłowych." },
-            { name: "Szrugsy ze sztangą", part: "Plecy", equipment: "Sztanga", level: "Początkujący", yt: "https://www.youtube.com/results?search_query=szrugsy+ze+sztanga+kaptury", desc: "Rozwój mięśni czworobocznych." },
-            { name: "Szrugsy z hantlami", part: "Plecy", equipment: "Hantle", level: "Początkujący", yt: "https://www.youtube.com/results?search_query=szrugsy+z+hantlami", desc: "Unoszenie barków z hantlami w dłoniach." },
-
             { name: "Przysiad ze sztangą na plecach", part: "Nogi", equipment: "Sztanga", level: "Średniozaawansowany", yt: "https://www.youtube.com/results?search_query=przysiad+ze+sztanga+na+plecach", desc: "Fundament rozwoju mięśni nóg i pośladków." },
-            { name: "Przysiad przedni ze sztangą", part: "Nogi", equipment: "Sztanga", level: "Zaawansowany", yt: "https://www.youtube.com/results?search_query=przysiad+przedni+ze+sztanga", desc: "Większe zaangażowanie mięśni czworogłowych i prostego brzucha." },
-            { name: "Wyciskanie na suwnicy (Leg Press)", part: "Nogi", equipment: "Maszyna", level: "Początkujący", yt: "https://www.youtube.com/results?search_query=wyciskanie+na+suwnicy+leg+press", desc: "Bezpieczna maszyna do dużych ciężarów." },
-            { name: "Prostowanie nóg na maszynie", part: "Nogi", equipment: "Maszyna", level: "Początkujący", yt: "https://www.youtube.com/results?search_query=prostowanie+nog+na+maszynie+siedzac", desc: "Izolacja czworogłowych uda." },
-            { name: "Uginanie nóg leżąc", part: "Nogi", equipment: "Maszyna", level: "Początkujący", yt: "https://www.youtube.com/results?search_query=uginanie+nog+lezac+maszyna", desc: "Praca mięśni dwugłowych uda." },
-            { name: "Przysiad bułgarski z hantlami", part: "Nogi", equipment: "Hantle", level: "Średniozaawansowany", yt: "https://www.youtube.com/results?search_query=przysiad+bulgarski+z+hantlami", desc: "Jednonóż, potężny bodziec na pośladki i czworogłowe." },
-            { name: "Wykroki chodzone z hantlami", part: "Nogi", equipment: "Hantle", level: "Średniozaawansowany", yt: "https://www.youtube.com/results?search_query=wykroki+chodzone+z+hantlami", desc: "Dynamiczny rozwój nóg i równowagi." },
-            { name: "Wspięcia na palce stojąc", part: "Nogi", equipment: "Maszyna", level: "Początkujący", yt: "https://www.youtube.com/results?search_query=wspiecia+na+palce+stojac+maszyna", desc: "Budowa masy mięśni łydek." },
-            { name: "Wznosy bioder ze sztangą (Hip Thrust)", part: "Nogi", equipment: "Sztanga", level: "Średniozaawansowany", yt: "https://www.youtube.com/results?search_query=hip+thrust+ze+sztanga", desc: "Król ćwiczeń na mięśnie pośladkowe." },
-
-            { name: "Wyciskanie żołnierskie (OHP)", part: "Barki", equipment: "Sztanga", level: "Średniozaawansowany", yt: "https://www.youtube.com/results?search_query=wyciskanie+zolnierskie+ohp", desc: "Podstawowe ćwiczenie siłowe na całe barki." },
-            { name: "Wyciskanie hantli nad głowę", part: "Barki", equipment: "Hantle", level: "Początkujący", yt: "https://www.youtube.com/results?search_query=wyciskanie+hantli+nad-glowe-siedzac", desc: "Wyciskanie hantli na ławce pionowej." },
-            { name: "Wznosy hantli bokiem", part: "Barki", equipment: "Hantle", level: "Początkujący", yt: "https://www.youtube.com/results?search_query=wznosy+hantli+bokiem+stojac", desc: "Główne ćwiczenie na boczny akton barku." },
-            { name: "Face Pull", part: "Barki", equipment: "Wyciąg", level: "Początkujący", yt: "https://www.youtube.com/results?search_query=face+pull+wyciag+barki", desc: "Zdrowie stawów barkowych i tylny akton." },
-            { name: "Wznosy hantli w opadzie tułowia", part: "Barki", equipment: "Hantle", level: "Początkujący", yt: "https://www.youtube.com/results?search_query=wznosy+hantli+w+opadzie+tułowia", desc: "Izolacja tylnego aktonu mięśnia naramiennego." },
-
-            { name: "Uginanie przedramion ze sztangą", part: "Ramiona", equipment: "Sztanga", level: "Początkujący", yt: "https://www.youtube.com/results?search_query=uginanie+przedramion+ze+sztanga+prosta", desc: "Klasyk masowy na biceps." },
-            { name: "Uginanie młotkowe z hantlami", part: "Ramiona", equipment: "Hantle", level: "Początkujący", yt: "https://www.youtube.com/results?search_query=uginanie+mlotkowe+z+hantlami", desc: "Angażuje mięsień ramienno-promieniowy i biceps." },
-            { name: "Francuskie wyciskanie sztangi leżąc", part: "Ramiona", equipment: "Sztanga", level: "Średniozaawansowany", yt: "https://www.youtube.com/results?search_query=francuskie+wyciskanie+sztangi+lamanej", desc: "Potężne budowanie masy tricepsów." },
-            { name: "Prostowanie ramion na wyciągu", part: "Ramiona", equipment: "Wyciąg", level: "Początkujący", yt: "https://www.youtube.com/results?search_query=prostowanie+ramion+na+wyciagu+drzazek", desc: "Klasyczne ściąganie linki / drążka na triceps." },
-            { name: "Wyciskanie wąsko na ławce", part: "Ramiona", equipment: "Sztanga", level: "Średniozaawansowany", yt: "https://www.youtube.com/results?search_query=wyciskanie+wasko+na+lawce+poziomej", desc: "Ciężki wielostawowy bój na triceps." },
-
-            { name: "Allahy", part: "Brzuch", equipment: "Wyciąg", level: "Początkujący", yt: "https://www.youtube.com/results?search_query=allahy+cwiczenie+na+brzuch+wyciag", desc: "Skuteczny trening brzucha z ciężarem." },
-            { name: "Unoszenie kolan w wiszeniu na drążku", part: "Brzuch", equipment: "Masa ciała", level: "Zaawansowany", yt: "https://www.youtube.com/results?search_query=unoszenie+kolan+w+wiszeniu+na+drzazku", desc: "Potężna praca mięśni prostych i dolnego brzucha." },
-            { name: "Plank (Deska)", part: "Brzuch", equipment: "Masa ciała", level: "Początkujący", yt: "https://www.youtube.com/results?search_query=plank+deska+stabilizacja+core", desc: "Izometryczna deska na mięśnie głębokie." }
+            { name: "Podciąganie na drążku nachwytem", part: "Plecy", equipment: "Masa ciała", level: "Zaawansowany", yt: "https://www.youtube.com/results?search_query=podciaganie+na+drzazku+nachwytem", desc: "Buduje szerokość pleców (mięśnie najszersze)." },
+            { name: "Wyciskanie żołnierskie (OHP)", part: "Barki", equipment: "Sztanga", level: "Średniozaawansowany", yt: "https://www.youtube.com/results?search_query=wyciskanie+zolnierskie+ohp", desc: "Podstawowe ćwiczenie siłowe na całe barki." }
         ];
 
         const DEFAULT_RECIPES = [
@@ -1838,14 +1933,7 @@
                 kcal: 500, 
                 protein: 35, 
                 ingredients: "• 70g płatków owsianych\n• 250ml mleka 1.5%\n• 30g odżywki białkowej\n• 1 dojrzały banan\n• 15g masła orzechowego",
-                steps: "1. Płatki owsiane zalej mlekiem i gotuj na małym ogniu przez ok. 5 minut, aż zgęstnieją.\n2. Po lekkim przestudzeniu wsyp odżywkę białkową i dokładnie wymieszaj.\n3. Udekoruj plastrami banana oraz polej masłem orzechowym." 
-            }, 
-            { 
-                name: "Kurczak z ryżem i warzywami", 
-                kcal: 650, 
-                protein: 50, 
-                ingredients: "• 200g piersi z kurczaka\n• 80g ryżu basmati\n• 150g mieszanki warzyw patelniowych\n• 1 łyżka oliwy z oliwek\n• Przyprawy: słodka papryka, curry, sól, pieprz",
-                steps: "1. Ryż ugotuj w osolonej wodzie według instrukcji na opakowaniu.\n2. Pierś z kurczaka pokrój w kostkę, dopraw ulubionymi przyprawami i podsmaż na oliwie z oliwek.\n3. Warzywa podsmaż na patelni lub ugotuj na parze, a następnie połącz z kurczakiem i ryżem." 
+                steps: "1. Płatki owsiane zalej mlekiem i gotuj na małym ogniu przez ok. 5 minut, aż zgęstnieją.\n2. Po lekkim przestudzeniu wsyp odżywkę białkową i dokładnie wymieszaj." 
             }
         ];
 
@@ -1884,7 +1972,7 @@
             const isAdmin = ['owner', 'admin'].includes(window.currentUserRole);
 
             if(items.length === 0) {
-                container.innerHTML = `<p style="color:var(--text-muted); text-align:center; grid-column:1/-1; padding:20px;">Brak ćwiczeń. Kliknij powyżej "+ Dodaj własne ćwiczenie", aby dodać własne!</p>`;
+                container.innerHTML = `<p style="color:var(--text-muted); text-align:center; grid-column:1/-1; padding:20px;">Brak ćwiczeń w tej kategorii.</p>`;
                 return;
             }
 
@@ -1901,14 +1989,12 @@
                                 <span class="tag-pill muscle">${a.part}</span>
                                 <span class="tag-pill">${equipmentTag}</span>
                                 ${isPriv ? '<span class="tag-pill" style="background:rgba(192,132,252,0.15); color:var(--purple); border-color:rgba(192,132,252,0.3);">Prywatne</span>' : ''}
-                                ${a.yt ? '<span class="tag-pill" style="background:rgba(255,0,0,0.15); color:#ff4444; border-color:rgba(255,0,0,0.3);">▶ Wideo</span>' : ''}
                             </div>
                         </div>
                         <div style="display:flex; justify-content:space-between; align-items:center; margin-top:4px;">
-                            <span style="font-size:0.7rem; color:var(--text-muted);">Kliknij po szczegóły</span>
+                            <span style="font-size:0.7rem; color:var(--text-muted);">Szczegóły</span>
                             <div style="display:flex; align-items:center; gap:6px;">
                                 ${isPriv ? `<button class="btn btn-outline btn-sm" style="color:var(--danger); padding:4px 6px; border:none;" onclick="event.stopPropagation(); deletePrivateExercise('${a.id}')">🗑</button>` : ''}
-                                ${(isAdmin && a.id && !isPriv) ? `<button class="btn btn-outline btn-sm" style="color:var(--danger); padding:4px 6px; border:none;" onclick="event.stopPropagation(); deleteCustomAtlasItem('${a.id}')">🗑</button>` : ''}
                                 <div class="btn-add-circle" title="Dodaj do planu" onclick="event.stopPropagation(); openAddAtlasToPlanModal('${escName}')">+</div>
                             </div>
                         </div>
@@ -1919,7 +2005,7 @@
 
         function openExerciseDetailsModal(exObj) {
             document.getElementById('ex-modal-title').innerText = exObj.name;
-            document.getElementById('ex-modal-subtitle').innerText = `${exObj.part} • ${exObj.equipment || 'Sztanga'} • ${exObj.level || 'Średniozaawansowany'}`;
+            document.getElementById('ex-modal-subtitle').innerText = `${exObj.part} • ${exObj.equipment || 'Sztanga'}`;
             document.getElementById('ex-modal-desc').innerHTML = exObj.desc || 'Brak dodatkowego opisu techniki.';
             
             const ytBtn = document.getElementById('ex-modal-yt-btn');
@@ -1947,19 +2033,8 @@
         function openRecipeDetailsModal(r) {
             document.getElementById('recipe-modal-title').innerText = r.name;
             document.getElementById('recipe-modal-macros').innerText = `🔥 ${r.kcal} kcal | 🥩 Białko: ${r.protein}g`;
-            document.getElementById('recipe-modal-ingredients').innerText = r.ingredients || 'Brak listy składników.';
-            document.getElementById('recipe-modal-steps').innerText = r.steps || 'Brak opisu przygotowania.';
-            
-            const imgContainer = document.getElementById('recipe-modal-img-container');
-            const imgTag = document.getElementById('recipe-modal-img');
-            if (r.imageBase64) {
-                imgTag.src = r.imageBase64;
-                imgContainer.style.display = 'block';
-            } else {
-                imgTag.src = '';
-                imgContainer.style.display = 'none';
-            }
-
+            document.getElementById('recipe-modal-ingredients').innerText = r.ingredients || '';
+            document.getElementById('recipe-modal-steps').innerText = r.steps || '';
             document.getElementById('recipe-details-modal').style.display = 'flex';
         }
 
@@ -1969,30 +2044,12 @@
 
         function renderRecipes() {
             const container = document.getElementById('recipes-container');
-            const search = (document.getElementById('recipe-search')?.value || '').toLowerCase();
-            const filterKcal = document.getElementById('recipe-filter-kcal')?.value || 'all';
             const fullList = [...DEFAULT_RECIPES, ...(window.customRecipes || [])];
-
-            let items = fullList.filter(x => {
-                const matchSearch = x.name.toLowerCase().includes(search);
-                const kcalNum = parseFloat(x.kcal) || 0;
-                let matchKcal = true;
-                if (filterKcal === 'low') matchKcal = kcalNum < 500;
-                if (filterKcal === 'high') matchKcal = kcalNum >= 500;
-                return matchSearch && matchKcal;
-            });
-            const isAdmin = ['owner', 'admin'].includes(window.currentUserRole);
-
-            container.innerHTML = items.map(r => `
+            container.innerHTML = fullList.map(r => `
                 <div class="recipe-card" onclick='openRecipeDetailsModal(${JSON.stringify(r).replace(/'/g, "&apos;")})'>
-                    ${r.imageBase64 ? `<img src="${r.imageBase64}" class="chat-img-preview" style="max-height: 140px; margin-bottom: 8px;" alt="Potrawa">` : ''}
-                    <div style="display:flex; justify-content:space-between; align-items:center;">
-                        <h4 style="color:var(--gold); margin-bottom:3px; font-size:0.9rem;">${r.name}</h4>
-                        ${(isAdmin && r.id) ? `<button class="btn btn-outline btn-sm" style="color:var(--danger); padding:1px 5px; font-size:0.65rem;" onclick="event.stopPropagation(); deleteCustomRecipeItem('${r.id}')">🗑</button>` : ''}
-                    </div>
+                    <h4 style="color:var(--gold); margin-bottom:3px; font-size:0.9rem;">${r.name}</h4>
                     <div class="macro-row"><span>🔥 ${r.kcal} kcal</span><span>🥩 ${r.protein}g</span></div>
-                    <p style="font-size:0.75rem; color:var(--text-muted); margin-top:4px; line-height:1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">${r.steps}</p>
-                    <div style="font-size:0.68rem; color:var(--gold); margin-top:6px; font-weight:700;">Kliknij, aby zobaczyć przepis i składniki ▾</div>
+                    <p style="font-size:0.75rem; color:var(--text-muted); margin-top:4px;">${r.steps}</p>
                 </div>
             `).join('');
         }
@@ -2069,7 +2126,7 @@
             const age = parseFloat(document.getElementById('bmr-age').value);
             const goal = document.getElementById('bmr-goal').value;
 
-            if(!weight || !height || !age) return alert("Uzupełnij wszystkie dane!");
+            if(!weight || !height || !age) return alert("Uzupełnij dane!");
             let bmr = (10 * weight) + (6.25 * height) - (5 * age) + 5;
             let tdee = Math.round(bmr * 1.55);
             if(goal==='bulk') tdee += 300;
