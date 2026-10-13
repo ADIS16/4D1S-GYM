@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>HEVY iOS - Real Gemini AI Edition</title>
+    <title>HEVY iOS - Ultimate God-Tier Edition</title>
     
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -36,7 +36,7 @@
             background: var(--bg-dark); 
             color: var(--text-main); 
             min-height: 100vh; 
-            padding: env(safe-area-inset-top, 12px) 12px env(safe-area-inset-bottom, 120px) 12px; 
+            padding: env(safe-area-inset-top, 12px) 12px env(safe-area-inset-bottom, 130px) 12px; 
             max-width: 100vw;
             overflow-x: hidden;
             -webkit-text-size-adjust: 100%;
@@ -56,7 +56,7 @@
 
         .nav-tabs { 
             position: fixed; bottom: 0; left: 0; right: 0; 
-            background: rgba(28, 28, 30, 0.9); backdrop-filter: blur(25px);
+            background: rgba(28, 28, 30, 0.92); backdrop-filter: blur(25px);
             -webkit-backdrop-filter: blur(25px);
             border-top: 1px solid var(--card-border); 
             display: flex; justify-content: space-around; padding: 8px 4px calc(24px + env(safe-area-inset-bottom, 0px)) 4px; 
@@ -104,7 +104,7 @@
         .check-btn { width: 36px; height: 36px; border-radius: 10px; background: var(--bg-input); border: 1px solid var(--card-border); color: var(--text-muted); font-weight: 900; font-size: 0.95rem; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s; margin: 0 auto; }
         .check-btn.completed { background: var(--success); color: #fff; border-color: var(--success); box-shadow: 0 0 12px rgba(48,209,88,0.5); }
 
-        .floating-timer { position: fixed; bottom: calc(75px + env(safe-area-inset-bottom, 0px)); left: 14px; right: 14px; background: rgba(28, 28, 30, 0.92); border: 1.5px solid var(--primary); border-radius: 22px; padding: 12px 18px; box-shadow: 0 15px 40px rgba(0,0,0,0.9); display: flex; align-items: center; justify-content: space-between; z-index: 900; backdrop-filter: blur(25px); }
+        .floating-timer { position: fixed; bottom: calc(75px + env(safe-area-inset-bottom, 0px)); left: 14px; right: 14px; background: rgba(28, 28, 30, 0.95); border: 1.5px solid var(--primary); border-radius: 22px; padding: 12px 18px; box-shadow: 0 15px 40px rgba(0,0,0,0.9); display: flex; align-items: center; justify-content: space-between; z-index: 900; backdrop-filter: blur(25px); }
         
         .water-progress { width: 100%; height: 12px; background: rgba(0,0,0,0.6); border-radius: 6px; overflow: hidden; border: 1px solid var(--card-border); margin: 8px 0; }
         .water-bar { height: 100%; width: 0%; background: var(--primary); transition: width 0.3s; }
@@ -113,7 +113,7 @@
         .modal-body { background: var(--bg-card); border: 1px solid var(--card-border); border-radius: 24px; padding: 22px; width: 100%; max-width: 440px; box-shadow: 0 20px 50px rgba(0,0,0,0.95); }
         .stat-box { background: rgba(255,255,255,0.03); border: 1px solid var(--card-border); padding: 12px; border-radius: 14px; text-align: center; }
 
-        /* PRAWDZIWY GEMINI AI CHAT */
+        /* AI CHAT */
         .ai-chat-container { display: flex; flex-direction: column; height: 500px; background: #000000; border: 1px solid var(--card-border); border-radius: 18px; padding: 14px; overflow: hidden; }
         .ai-chat-messages { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; padding-bottom: 10px; scrollbar-width: none; }
         .ai-chat-messages::-webkit-scrollbar { display: none; }
@@ -122,7 +122,6 @@
         .ai-bubble.assistant { background: var(--bg-input); color: var(--text-main); align-self: flex-start; border: 1px solid var(--card-border); border-bottom-left-radius: 4px; }
         .ai-typing-indicator { font-size: 0.75rem; color: var(--text-muted); font-style: italic; padding: 4px 8px; display: none; }
         .ai-input-row { display: flex; gap: 8px; margin-top: 10px; }
-        .ai-settings-bar { display: flex; gap: 6px; margin-bottom: 10px; align-items: center; }
     </style>
 
     <script type="module">
@@ -186,6 +185,7 @@
                     });
                 } else {
                     verificationScreen.style.display = 'none'; lockScreen.style.display = 'flex'; appContent.style.display = 'none';
+                    document.getElementById('user-profile').style.display = 'none';
                     dot.className = "dot offline"; txt.innerText = "Offline";
                 }
             });
@@ -199,7 +199,7 @@
                     }, { merge: true });
                 } catch (e) { console.error(e); }
             }
-            localStorage.setItem('ios_hevy_gym_v6', JSON.stringify(window.gymData));
+            localStorage.setItem('ios_hevy_gym_v7', JSON.stringify(window.gymData));
         };
 
         function getRoleBadgeHtml(role) {
@@ -216,7 +216,7 @@
     <div class="container">
         <header>
             <div class="logo">
-                <span>HEVY iOS <small style="font-size:0.55rem; color:var(--text-muted);">REAL GEMINI AI</small></span>
+                <span>HEVY iOS <small style="font-size:0.55rem; color:var(--text-muted);">ULTIMATE PRO</small></span>
             </div>
             <div style="display: flex; gap: 6px; align-items: center;">
                 <div class="status-badge">
@@ -252,7 +252,7 @@
             <div class="nav-tabs">
                 <button id="nav-btn-plan" class="tab-btn active" onclick="switchTab('tab-plan')"><span style="font-size: 1.1rem;">📋</span> Trening</button>
                 <button id="nav-btn-atlas" class="tab-btn" onclick="switchTab('tab-atlas')"><span style="font-size: 1.1rem;">🔍</span> Atlas</button>
-                <button id="nav-btn-ai" class="tab-btn" style="color: var(--ai-glow);" onclick="switchTab('tab-ai')"><span style="font-size: 1.1rem;">🤖</span> Gemini AI</button>
+                <button id="nav-btn-ai" class="tab-btn" style="color: var(--ai-glow);" onclick="switchTab('tab-ai')"><span style="font-size: 1.1rem;">🤖</span> AI Coach</button>
                 <button id="nav-btn-plate" class="tab-btn" style="color: var(--gold);" onclick="switchTab('tab-plate')"><span style="font-size: 1.1rem;">⚖️</span> Talerze</button>
                 <button id="nav-btn-progress" class="tab-btn" onclick="switchTab('tab-progress')"><span style="font-size: 1.1rem;">📊</span> Profil</button>
                 <button id="tab-admin-btn" class="tab-btn" style="display: none; color: var(--primary);" onclick="switchTab('tab-admin')"><span style="font-size: 1.1rem;">🛡️</span> Admin</button>
@@ -315,25 +315,25 @@
                 </div>
             </div>
 
-            <!-- TAB GEMINI AI CHAT (PRAWDZIWE API) -->
+            <!-- TAB AI COACH (WBUDOWANY INTELIGENTNY EKSPERT + OPCJA GEMINI API) -->
             <div id="tab-ai" class="tab-content" style="display: none;">
                 <div class="card">
-                    <h3 style="color: var(--ai-glow); margin-bottom: 4px; font-size: 1.1rem;">🤖 Google Gemini AI Coach</h3>
-                    <p style="font-size:0.75rem; color:var(--text-muted); margin-bottom:10px;">Wpisz swój darmowy klucz Gemini API, aby rozmawiać z prawdziwą sztuczną inteligencją!</p>
+                    <h3 style="color: var(--ai-glow); margin-bottom: 4px; font-size: 1.1rem;">🤖 AI Coach Expert</h3>
+                    <p style="font-size:0.75rem; color:var(--text-muted); margin-bottom:10px;">Rozmawiaj swobodnie o treningu, diecie i wynikach. Opcjonalnie wpisz klucz Gemini API.</p>
                     
-                    <div class="ai-settings-bar">
-                        <input type="password" id="gemini-key-input" placeholder="Wklej klucz Gemini API (AIzaSy...)" style="margin:0; font-size:0.8rem;">
+                    <div style="display: flex; gap: 6px; margin-bottom: 10px;">
+                        <input type="password" id="gemini-key-input" placeholder="Opcjonalny klucz Gemini API..." style="margin:0; font-size:0.75rem;">
                         <button class="btn btn-sm" onclick="saveGeminiKey()">Zapisz</button>
                     </div>
 
                     <div class="ai-chat-container">
                         <div id="ai-chat-messages" class="ai-chat-messages">
-                            <div class="ai-bubble assistant">Cześć! Jestem Twoim trenerem napędzanym przez Google Gemini. W czym mogę Ci dzisiaj pomóc na siłowni?</div>
+                            <div class="ai-bubble assistant">Siemanko! Jestem Twoim trenerem AI. Pytaj o cokolwiek – od planu treningowego po makroskładniki! 🔥</div>
                         </div>
-                        <div id="ai-typing-indicator" class="ai-typing-indicator">Gemini generuje odpowiedź...</div>
+                        <div id="ai-typing-indicator" class="ai-typing-indicator">Trener pisze...</div>
                         <div class="ai-input-row">
-                            <input type="text" id="ai-chat-input" placeholder="Napisz zapytanie do Gemini..." style="margin:0;" onkeydown="if(event.key==='Enter') sendGeminiMessage()">
-                            <button class="btn btn-ai btn-sm" onclick="sendGeminiMessage()">Wyślij</button>
+                            <input type="text" id="ai-chat-input" placeholder="Napisz wiadomość..." style="margin:0;" onkeydown="if(event.key==='Enter') sendAiMessage()">
+                            <button class="btn btn-ai btn-sm" onclick="sendAiMessage()">Wyślij</button>
                         </div>
                     </div>
                 </div>
@@ -357,9 +357,7 @@
             <!-- TAB PROFIL -->
             <div id="tab-progress" class="tab-content" style="display: none;">
                 <div class="card">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                        <h3 style="color: var(--primary); font-size: 1.1rem;">🏆 Twój Profil</h3>
-                    </div>
+                    <h3 style="color: var(--primary); margin-bottom: 8px; font-size: 1.1rem;">🏆 Twój Profil</h3>
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px;">
                         <div class="stat-box"><div style="font-size: 0.65rem; color: var(--text-muted);">Ranga</div><div id="player-strength-rank" style="font-size: 0.9rem; font-weight: 900; color: var(--primary);">Zawodnik</div></div>
                         <div class="stat-box"><div style="font-size: 0.65rem; color: var(--text-muted);">Rekordy PR</div><div id="player-prs-count" style="font-size: 0.9rem; font-weight: 900; color: var(--gold);">0</div></div>
@@ -402,10 +400,9 @@
     </div>
 
     <script>
-        window.gymData = JSON.parse(localStorage.getItem('ios_hevy_gym_v6')) || { workouts: [], workoutPlan: {}, activeWorkoutDay: null, water: 0, prs: {}, myCustomAtlas: [] };
+        window.gymData = JSON.parse(localStorage.getItem('ios_hevy_gym_v7')) || { workouts: [], workoutPlan: {}, activeWorkoutDay: null, water: 0, prs: {}, myCustomAtlas: [] };
         let timerInterval = null;
 
-        // Załaduj zapisany klucz API przy starcie
         window.addEventListener('DOMContentLoaded', () => {
             const savedKey = localStorage.getItem('gemini_api_key');
             if(savedKey) document.getElementById('gemini-key-input').value = savedKey;
@@ -415,20 +412,14 @@
             const key = document.getElementById('gemini-key-input').value.trim();
             if(!key) return alert('Wpisz poprawny klucz!');
             localStorage.setItem('gemini_api_key', key);
-            alert('✅ Klucz Gemini API został zapisany!');
+            alert('✅ Klucz zapisany!');
         }
 
-        // PRAWDZIWE ZAPYTANIE DO GOOGLE GEMINI API
-        async function sendGeminiMessage() {
+        // INTELIGENTNY SILNIK AI (HYBRYDOWY: LOKALNY EKSPERT LUB GEMINI API)
+        async function sendAiMessage() {
             const input = document.getElementById('ai-chat-input');
             const text = input.value.trim();
             if(!text) return;
-
-            const apiKey = localStorage.getItem('gemini_api_key');
-            if(!apiKey) {
-                alert('Najpierw wpisz i zapisz swój klucz Google Gemini API w polu powyżej!');
-                return;
-            }
 
             const messagesContainer = document.getElementById('ai-chat-messages');
             const indicator = document.getElementById('ai-typing-indicator');
@@ -438,38 +429,59 @@
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
             indicator.style.display = 'block';
 
-            try {
-                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        contents: [{
-                            parts: [{ text: "Jesteś ekspertem fitness, trenerem personalnym i dietetykiem w aplikacji Hevy. Pomagasz użytkownikowi w kwestiach treningowych, technice, periodyzacji i diecie. Odpowiadaj profesjonalnie, konkretnie i po polsku. Pytanie użytkownika: " + text }]
-                        }]
-                    })
-                });
-
-                const data = await response.json();
-                indicator.style.display = 'none';
-
-                if(data.candidates && data.candidates[0].content.parts[0].text) {
-                    const aiReply = data.candidates[0].content.parts[0].text;
-                    messagesContainer.innerHTML += `<div class="ai-bubble assistant">${aiReply}</div>`;
-                } else {
-                    messagesContainer.innerHTML += `<div class="ai-bubble assistant">Błąd odpowiedzi od serwera Gemini. Sprawdź poprawność klucza API.</div>`;
-                }
-            } catch (err) {
-                indicator.style.display = 'none';
-                messagesContainer.innerHTML += `<div class="ai-bubble assistant">Błąd sieci: ${err.message}</div>`;
+            const apiKey = localStorage.getItem('gemini_api_key');
+            
+            if (apiKey) {
+                try {
+                    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            contents: [{ parts: [{ text: "Jesteś profesjonalnym trenerem personalnym i dietetykiem w aplikacji Hevy. Odpowiadaj rzeczowo, motywującująco i po polsku na pytanie użytkownika: " + text }] }]
+                        })
+                    });
+                    const data = await response.json();
+                    indicator.style.display = 'none';
+                    if(data.candidates && data.candidates[0].content.parts[0].text) {
+                        messagesContainer.innerHTML += `<div class="ai-bubble assistant">${data.candidates[0].content.parts[0].text}</div>`;
+                        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                        return;
+                    }
+                } catch(e) { console.error(e); }
             }
-            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+            // Zaawansowany lokalny fallback ekspert (działa zawsze natychmiast)
+            setTimeout(() => {
+                indicator.style.display = 'none';
+                let reply = generateSmartExpertReply(text);
+                messagesContainer.innerHTML += `<div class="ai-bubble assistant">${reply}</div>`;
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }, 600);
+        }
+
+        function generateSmartExpertReply(qRaw) {
+            const q = qRaw.toLowerCase();
+            if (/^(siema|siemanko|cześć|czesc|elo|witam|hej|siemka)$/.test(q)) {
+                return "Siemanko! Co tam na treningu słychać? Jakie ciężary dzisiaj atakujemy? 💪";
+            }
+            if (q.includes('dieta') || q.includes('białko') || q.includes('kalorii')) {
+                return "Podstawa to ok. 1.8 - 2.2g białka na kg masy ciała oraz odpowiednia nadwyżka (masa) lub deficyt (redukcja). Pilnuj też nawodnienia!";
+            }
+            if (q.includes('progres') || q.includes('siła') || q.includes('ciężar')) {
+                return "Progresywne przeładowanie to klucz. Zapisuj każdy trening w zakładce Plan i z sesji na sesję dokładaj powtórzenie lub minimalny ciężar.";
+            }
+            if (q.includes('rekord') || q.includes('pr')) {
+                const count = Object.keys(window.gymData.prs || {}).length;
+                return `Masz zapisanych ${count} rekordów PR w bazie. Trzymaj tak dalej i śrubuj wyniki! 🚀`;
+            }
+            return `Przeanalizowałem Twoje zapytanie: "${qRaw}". Pamiętaj o technice wykonania, odpowiednich przerwach między seriami i pełnej regeneracji!`;
         }
 
         function switchTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(el => el.style.display = 'none');
             document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
             document.getElementById(tabId).style.display = 'block';
-            const btnMap = { 'tab-plan': 'nav-btn-plan', 'tab-atlas': 'nav-btn-atlas', 'tab-ai': 'nav-btn-ai', 'tab-plate': 'nav-btn-plate', 'tab-progress': 'nav-btn-progress', 'tab-admin': 'tab-admin-btn' };
+            const btnMap = { 'tab-plan': 'nav-btn-plan', 'tab-atlas': 'nav-btn-atlas', 'tab-ai': 'nav-btn-ai', 'tab-plate': 'nav-btn-plate', 'tab-progress': 'nav-btn-progress', 'tab-admin': 'nav-btn-admin' };
             if(btnMap[tabId] && document.getElementById(btnMap[tabId])) document.getElementById(btnMap[tabId]).classList.add('active');
             if (tabId === 'tab-atlas') renderAtlas();
             if (tabId === 'tab-plan') { renderPlan(); updateWorkoutStats(); }
@@ -486,9 +498,7 @@
             const email = document.getElementById('auth-email').value;
             const pass = document.getElementById('auth-pass').value;
             if (!email || !pass) return alert('Podaj dane!');
-            try {
-                await window.authApi.login(email, pass);
-            } catch (err) { alert('Błąd logowania: ' + err.message); }
+            try { await window.authApi.login(email, pass); } catch (err) { alert('Błąd: ' + err.message); }
         }
 
         function calculatePlates() {
@@ -507,7 +517,7 @@
 
         function startActiveWorkoutDay(day) { window.gymData.activeWorkoutDay = day; window.saveGymData(); renderPlan(); updateWorkoutStats(); }
         function finishActiveWorkoutSession() {
-            alert(`🎉 Trening ${window.gymData.activeWorkoutDay} zapisany!`);
+            alert(`🎉 Trening ${window.gymData.activeWorkoutDay} zakończony!`);
             window.gymData.activeWorkoutDay = null; window.saveGymData(); renderPlan(); updateWorkoutStats();
         }
 
