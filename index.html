@@ -3,27 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>4D1S_GYM - Ultimate Fitness Ecosystem</title>
+    <title>4D1S_GYM - Ultimate Global Fitness Ecosystem Pro</title>
     
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="4D1S_GYM">
-    <meta name="theme-color" content="#0a0a0c">
+    <meta name="theme-color" content="#050507">
     
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
         :root {
-            --bg-dark: #070709;
-            --bg-card: #121216;
-            --bg-input: #1a1a20;
-            --card-border: #262630;
+            --bg-dark: #050507;
+            --bg-card: #0e0e12;
+            --bg-input: #16161c;
+            --card-border: #22222c;
             --primary: #f472b6;
-            --primary-glow: rgba(244, 114, 182, 0.25);
+            --primary-glow: rgba(244, 114, 182, 0.3);
             --purple: #c084fc;
             --text-main: #ffffff;
-            --text-muted: #94a3b8;
+            --text-muted: #8a99ad;
             --success: #22c55e;
             --danger: #ef4444;
             --gold: #facc15;
@@ -37,21 +37,21 @@
             color: var(--text-main); 
             min-height: 100vh; 
             padding: 12px; 
-            padding-bottom: 110px; 
+            padding-bottom: 120px; 
             max-width: 100vw;
             overflow-x: hidden;
             -webkit-text-size-adjust: 100%;
         }
 
-        .container { max-width: 1200px; margin: 0 auto; width: 100%; }
+        .container { max-width: 1250px; margin: 0 auto; width: 100%; }
 
-        header { display: flex; justify-content: space-between; align-items: center; padding: 10px 4px 16px; border-bottom: 1px solid var(--card-border); margin-bottom: 16px; flex-wrap: wrap; gap: 10px; }
-        .logo { font-weight: 900; font-size: 1.5rem; color: var(--primary); letter-spacing: -0.5px; display: flex; align-items: center; gap: 10px; text-shadow: 0 0 20px var(--primary-glow); }
-        .logo-icon { width: 38px; height: 38px; border-radius: 10px; background: linear-gradient(135deg, var(--primary), var(--purple)); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; box-shadow: 0 4px 12px var(--primary-glow); }
+        header { display: flex; justify-content: space-between; align-items: center; padding: 12px 6px 18px; border-bottom: 1px solid var(--card-border); margin-bottom: 18px; flex-wrap: wrap; gap: 10px; }
+        .logo { font-weight: 900; font-size: 1.6rem; color: var(--primary); letter-spacing: -0.5px; display: flex; align-items: center; gap: 12px; text-shadow: 0 0 25px var(--primary-glow); }
+        .logo-icon { width: 42px; height: 42px; border-radius: 12px; background: linear-gradient(135deg, var(--primary), var(--purple)); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; box-shadow: 0 5px 15px var(--primary-glow); }
 
-        .status-badge { display: flex; align-items: center; gap: 6px; font-size: 0.7rem; background: rgba(255,255,255,0.03); padding: 5px 12px; border-radius: 30px; border: 1px solid var(--card-border); }
-        .dot { width: 7px; height: 7px; border-radius: 50%; background: #64748b; }
-        .dot.online { background: var(--success); box-shadow: 0 0 10px var(--success); }
+        .status-badge { display: flex; align-items: center; gap: 8px; font-size: 0.72rem; background: rgba(255,255,255,0.03); padding: 6px 14px; border-radius: 30px; border: 1px solid var(--card-border); }
+        .dot { width: 8px; height: 8px; border-radius: 50%; background: #64748b; }
+        .dot.online { background: var(--success); box-shadow: 0 0 12px var(--success); }
         .dot.offline { background: var(--danger); }
 
         .nav-tabs { 
@@ -59,13 +59,13 @@
             bottom: 0; 
             left: 0; 
             right: 0; 
-            background: rgba(18, 18, 22, 0.94); 
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+            background: rgba(14, 14, 18, 0.95); 
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border-top: 1px solid var(--card-border); 
             display: flex; 
             justify-content: space-around; 
-            padding: 10px 4px 24px; 
+            padding: 10px 4px 26px; 
             z-index: 1000;
             margin: 0;
             overflow-x: auto;
@@ -82,38 +82,38 @@
             cursor: pointer; 
             transition: all 0.25s ease; 
             white-space: nowrap; 
-            font-size: 0.65rem; 
+            font-size: 0.62rem; 
             display: flex; 
             flex-direction: column; 
             align-items: center; 
             gap: 3px;
         }
-        .tab-btn.active { background: rgba(244, 114, 182, 0.1); color: var(--primary); box-shadow: 0 0 15px var(--primary-glow); }
+        .tab-btn.active { background: rgba(244, 114, 182, 0.12); color: var(--primary); box-shadow: 0 0 18px var(--primary-glow); }
 
-        .btn { background: var(--primary); color: #070709; border: none; padding: 10px 18px; border-radius: 12px; font-weight: 800; cursor: pointer; transition: all 0.2s ease; display: inline-flex; align-items: center; justify-content: center; gap: 6px; font-size: 0.85rem; text-decoration: none; box-shadow: 0 4px 15px var(--primary-glow); }
+        .btn { background: var(--primary); color: #050507; border: none; padding: 11px 20px; border-radius: 14px; font-weight: 800; cursor: pointer; transition: all 0.2s ease; display: inline-flex; align-items: center; justify-content: center; gap: 6px; font-size: 0.88rem; text-decoration: none; box-shadow: 0 4px 18px var(--primary-glow); }
         .btn:active { transform: scale(0.97); opacity: 0.9; }
-        .btn-sm { padding: 6px 12px; font-size: 0.75rem; border-radius: 9px; box-shadow: none; }
-        .btn-success { background: var(--success); color: #ffffff; box-shadow: 0 4px 15px rgba(34,197,94,0.3); }
+        .btn-sm { padding: 6px 12px; font-size: 0.75rem; border-radius: 10px; box-shadow: none; }
+        .btn-success { background: var(--success); color: #ffffff; box-shadow: 0 4px 18px rgba(34,197,94,0.3); }
         .btn-outline { background: transparent; border: 1px solid var(--card-border); color: var(--text-main); box-shadow: none; }
         .btn-outline:active { background: rgba(255, 255, 255, 0.05); }
 
-        .card { background: var(--bg-card); border: 1px solid var(--card-border); border-radius: 18px; padding: 18px; margin-bottom: 16px; width: 100%; overflow: hidden; box-shadow: 0 10px 35px rgba(0,0,0,0.6); }
-        .card-admin { border: 1px solid rgba(244, 114, 182, 0.4); background: linear-gradient(135deg, rgba(244, 114, 182, 0.03), rgba(18,18,22,0.95)); }
+        .card { background: var(--bg-card); border: 1px solid var(--card-border); border-radius: 20px; padding: 20px; margin-bottom: 18px; width: 100%; overflow: hidden; box-shadow: 0 12px 40px rgba(0,0,0,0.65); }
+        .card-admin { border: 1px solid rgba(244, 114, 182, 0.4); background: linear-gradient(135deg, rgba(244, 114, 182, 0.04), rgba(14,14,18,0.95)); }
 
-        .grid { display: flex; flex-direction: column; gap: 16px; width: 100%; }
+        .grid { display: flex; flex-direction: column; gap: 18px; width: 100%; }
         @media (min-width: 850px) {
-            .grid { display: grid; grid-template-columns: 1fr 340px; gap: 20px; }
+            .grid { display: grid; grid-template-columns: 1fr 350px; gap: 22px; }
         }
         .grid-3 { display: grid; grid-template-columns: 1fr; gap: 14px; }
         @media (min-width: 650px) {
             .grid-3 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
         }
         
-        input, select, textarea { width: 100%; padding: 11px 14px; background: var(--bg-input); border: 1px solid var(--card-border); border-radius: 11px; color: white; margin-top: 4px; margin-bottom: 12px; font-size: 15px; transition: all 0.2s; -webkit-appearance: none; }
-        input:focus, select:focus, textarea:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 10px var(--primary-glow); }
+        input, select, textarea { width: 100%; padding: 12px 16px; background: var(--bg-input); border: 1px solid var(--card-border); border-radius: 12px; color: white; margin-top: 4px; margin-bottom: 12px; font-size: 15px; transition: all 0.2s; -webkit-appearance: none; }
+        input:focus, select:focus, textarea:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 12px var(--primary-glow); }
 
-        .role-badge { padding: 3px 9px; border-radius: 7px; font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; display: inline-block; }
-        .role-owner { background: var(--primary); color: #070709; }
+        .role-badge { padding: 3px 10px; border-radius: 8px; font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; display: inline-block; }
+        .role-owner { background: var(--primary); color: #050507; }
         .role-admin { background: var(--danger); color: #fff; }
         .role-staff { background: #38bdf8; color: #0d0d12; }
         .role-vip { background: var(--gold); color: #000; }
@@ -122,7 +122,7 @@
         #auth-lockscreen { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 65vh; text-align: center; }
         #verification-screen { display: none; flex-direction: column; align-items: center; justify-content: center; min-height: 55vh; text-align: center; }
         
-        .list-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; background: rgba(255,255,255,0.02); border-radius: 12px; margin-bottom: 10px; border: 1px solid var(--card-border); font-size: 0.85rem; }
+        .list-item { display: flex; justify-content: space-between; align-items: center; padding: 14px 16px; background: rgba(255,255,255,0.02); border-radius: 14px; margin-bottom: 10px; border: 1px solid var(--card-border); font-size: 0.85rem; }
         
         details.day-card { background: var(--bg-card); border: 1px solid var(--card-border); border-radius: 18px; margin-bottom: 14px; transition: border-color 0.3s; width: 100%; overflow: hidden; }
         details.day-card[open] { border-color: rgba(244, 114, 182, 0.5); }
@@ -145,7 +145,7 @@
         summary.day-header:hover { background: rgba(255,255,255,0.04); }
 
         .day-content { padding: 16px; border-top: 1px solid var(--card-border); }
-        .exercise-item { background: #0a0a0d; padding: 14px; border-radius: 14px; margin-bottom: 12px; border: 1px solid var(--card-border); }
+        .exercise-item { background: #07070a; padding: 14px; border-radius: 14px; margin-bottom: 12px; border: 1px solid var(--card-border); }
 
         .hevy-set-table { width: 100%; margin-top: 10px; border-collapse: collapse; }
         .hevy-set-header { display: grid; grid-template-columns: 46px 1fr 80px 80px 46px; gap: 6px; text-align: center; font-size: 0.68rem; font-weight: 800; color: var(--text-muted); padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.08); text-transform: uppercase; }
@@ -157,21 +157,21 @@
 
         .prev-stat { font-size: 0.72rem; color: var(--text-muted); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-        .hevy-input { background: var(--bg-input); border: 1px solid var(--card-border); border-radius: 9px; padding: 7px; text-align: center; color: #fff; font-weight: 700; font-size: 0.9rem; margin: 0; }
-        .hevy-input:focus { border-color: var(--primary); background: #0a0a0d; }
+        .hevy-input { background: var(--bg-input); border: 1px solid var(--card-border); border-radius: 10px; padding: 8px; text-align: center; color: #fff; font-weight: 700; font-size: 0.9rem; margin: 0; }
+        .hevy-input:focus { border-color: var(--primary); background: #07070a; }
 
-        .check-btn { width: 36px; height: 36px; border-radius: 9px; background: var(--bg-input); border: 1px solid var(--card-border); color: var(--text-muted); font-weight: 900; font-size: 0.95rem; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; margin: 0 auto; }
+        .check-btn { width: 36px; height: 36px; border-radius: 10px; background: var(--bg-input); border: 1px solid var(--card-border); color: var(--text-muted); font-weight: 900; font-size: 0.95rem; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; margin: 0 auto; }
         .check-btn.completed { background: var(--success); color: #ffffff; border-color: var(--success); box-shadow: 0 0 12px rgba(34,197,94,0.4); }
 
-        .floating-timer { position: fixed; bottom: 82px; left: 12px; right: 12px; background: rgba(18, 18, 22, 0.96); border: 1px solid var(--card-border); border-radius: 18px; padding: 12px 16px; box-shadow: 0 12px 40px rgba(0,0,0,0.85); display: flex; align-items: center; justify-content: space-between; z-index: 900; backdrop-filter: blur(16px); flex-wrap: wrap; gap: 10px; }
+        .floating-timer { position: fixed; bottom: 84px; left: 12px; right: 12px; background: rgba(14, 14, 18, 0.96); border: 1px solid var(--card-border); border-radius: 20px; padding: 12px 18px; box-shadow: 0 15px 45px rgba(0,0,0,0.85); display: flex; align-items: center; justify-content: space-between; z-index: 900; backdrop-filter: blur(18px); flex-wrap: wrap; gap: 10px; }
         
-        .water-progress { width: 100%; height: 11px; background: rgba(0,0,0,0.6); border-radius: 7px; overflow: hidden; border: 1px solid var(--card-border); margin: 8px 0; }
+        .water-progress { width: 100%; height: 12px; background: rgba(0,0,0,0.6); border-radius: 8px; overflow: hidden; border: 1px solid var(--card-border); margin: 8px 0; }
         .water-bar { height: 100%; width: 0%; background: linear-gradient(90deg, var(--primary), var(--purple)); transition: width 0.4s; }
 
         .filter-pills-scroll { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; padding-bottom: 8px; margin-bottom: 14px; }
         .filter-pills-scroll::-webkit-scrollbar { display: none; }
-        .pill-btn { background: var(--bg-input); border: 1px solid var(--card-border); color: var(--text-muted); padding: 7px 16px; border-radius: 22px; font-weight: 700; font-size: 0.78rem; cursor: pointer; white-space: nowrap; transition: all 0.2s; }
-        .pill-btn.active { background: var(--primary); color: #070709; border-color: var(--primary); box-shadow: 0 0 12px var(--primary-glow); }
+        .pill-btn { background: var(--bg-input); border: 1px solid var(--card-border); color: var(--text-muted); padding: 8px 18px; border-radius: 24px; font-weight: 700; font-size: 0.78rem; cursor: pointer; white-space: nowrap; transition: all 0.2s; }
+        .pill-btn.active { background: var(--primary); color: #050507; border-color: var(--primary); box-shadow: 0 0 14px var(--primary-glow); }
 
         .hevy-ex-card { background: var(--bg-input); border: 1px solid var(--card-border); border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 10px; cursor: pointer; transition: transform 0.15s ease, border-color 0.15s ease; position: relative; }
         .hevy-ex-card:active { transform: scale(0.98); }
@@ -184,18 +184,18 @@
         .tag-pill.muscle { background: rgba(244, 114, 182, 0.15); color: var(--primary); border-color: rgba(244, 114, 182, 0.3); }
 
         .btn-add-circle { width: 34px; height: 34px; border-radius: 50%; background: rgba(244, 114, 182, 0.15); border: 1px solid rgba(244, 114, 182, 0.4); color: var(--primary); font-size: 1.2rem; font-weight: 800; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; flex-shrink: 0; }
-        .btn-add-circle:hover { background: var(--primary); color: #070709; box-shadow: 0 0 12px var(--primary-glow); }
+        .btn-add-circle:hover { background: var(--primary); color: #050507; box-shadow: 0 0 12px var(--primary-glow); }
 
         .recipe-card { background: rgba(0, 0, 0, 0.25); border: 1px solid var(--card-border); border-radius: 16px; padding: 16px; display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.2s; cursor: pointer; }
         .recipe-card:hover { border-color: rgba(250, 204, 21, 0.6); transform: translateY(-2px); }
         .macro-row { display: flex; gap: 6px; flex-wrap: wrap; margin: 8px 0; }
         .macro-row span { font-size: .72rem; font-weight: 700; padding: 4px 8px; border-radius: 7px; background: rgba(255,255,255,.04); border: 1px solid var(--card-border); }
 
-        .modal-overlay { position: fixed; top:0; left:0; right:0; bottom:0; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); display: none; align-items: center; justify-content: center; z-index: 1100; padding: 12px; }
-        .modal-body { background: var(--bg-card); border: 1px solid var(--card-border); border-radius: 20px; padding: 22px; width: 100%; max-width: 460px; box-shadow: 0 15px 45px rgba(0,0,0,0.9); max-height: 90vh; overflow-y: auto; }
+        .modal-overlay { position: fixed; top:0; left:0; right:0; bottom:0; background: rgba(0,0,0,0.88); backdrop-filter: blur(12px); display: none; align-items: center; justify-content: center; z-index: 1100; padding: 12px; }
+        .modal-body { background: var(--bg-card); border: 1px solid var(--card-border); border-radius: 22px; padding: 24px; width: 100%; max-width: 480px; box-shadow: 0 20px 50px rgba(0,0,0,0.95); max-height: 90vh; overflow-y: auto; }
 
         .chat-img-preview { max-width: 100%; max-height: 260px; border-radius: 12px; margin-top: 8px; border: 1px solid var(--card-border); object-fit: contain; background: #000; display: block; }
-        .stat-box { background: rgba(255,255,255,0.02); border: 1px solid var(--card-border); padding: 12px; border-radius: 12px; text-align: center; }
+        .stat-box { background: rgba(255,255,255,0.02); border: 1px solid var(--card-border); padding: 14px; border-radius: 14px; text-align: center; }
     </style>
 
     <script type="module">
@@ -295,16 +295,16 @@
 
                         await setDoc(userDocRef, { 
                             username: window.currentUsername,
+                            role: window.currentUserRole,
                             isOnline: true, 
                             lastSeen: new Date().toLocaleString('pl-PL') 
                         }, { merge: true });
 
                         document.getElementById('user-username-display').innerText = window.currentUsername;
                         
-                        // WYSTARTOWANO ŚWIEŻY RESET STATYSTYK Z NOWYMI OPCJAMI
-                        if (!userData.gym_data || userData.gym_data.resetVersion !== '2026_ultimate_v3') {
+                        if (!userData.gym_data || userData.gym_data.resetVersion !== '2026_ultimate_v4_global') {
                             userData.gym_data = {
-                                resetVersion: '2026_ultimate_v3',
+                                resetVersion: '2026_ultimate_v4_global',
                                 workouts: [],
                                 workoutPlan: {},
                                 activeWorkoutDay: null,
@@ -320,6 +320,11 @@
 
                         window.gymData = userData.gym_data;
 
+                        // Synchronizacja statystyk z globalną tablicą wyników
+                        await setDoc(userDocRef, { 
+                            globalStats: { level: window.gymData.level, xp: window.gymData.xp, username: window.currentUsername } 
+                        }, { merge: true });
+
                         document.getElementById('user-role-tag').innerHTML = getRoleBadgeHtml(window.currentUserRole);
 
                         document.getElementById('tab-admin-btn').style.display = ['owner', 'admin'].includes(window.currentUserRole) ? 'flex' : 'none';
@@ -332,6 +337,7 @@
                         window.updateWaterUI();
                         window.updateWorkoutStats();
                         window.renderMeasurements();
+                        window.loadGlobalLeaderboard();
                     });
 
                     window.listenToLiveBases();
@@ -356,7 +362,8 @@
                     await setDoc(doc(db, 'projects', 'd1s-gym', 'users', auth.currentUser.uid), { 
                         username: window.currentUsername || 'Użytkownik',
                         role: window.currentUserRole || 'user',
-                        gym_data: window.gymData 
+                        gym_data: window.gymData,
+                        globalStats: { level: window.gymData.level, xp: window.gymData.xp, username: window.currentUsername }
                     }, { merge: true });
                 } catch (e) { console.error(e); }
             }
@@ -408,7 +415,7 @@
         <header>
             <div class="logo">
                 <div class="logo-icon">⚡</div>
-                <span>4D1S_GYM</span>
+                <span>4D1S_GYM <span style="font-size:0.65rem; color:var(--primary); font-weight:700; background:rgba(244,114,182,0.15); padding:2px 8px; border-radius:6px; vertical-align:middle;">GLOBAL PRO</span></span>
             </div>
             <div style="display: flex; gap: 8px; align-items: center;">
                 <div class="status-badge">
@@ -427,7 +434,7 @@
             <div style="width: 64px; height: 64px; border-radius: 16px; background: linear-gradient(135deg, var(--primary), var(--purple)); display: flex; align-items: center; justify-content: center; font-size: 2rem; margin: 0 auto 14px; box-shadow: 0 4px 15px var(--primary-glow);">✉️</div>
             <h2 style="margin-bottom: 8px; color: var(--primary); font-size: 1.25rem;">Potwierdź swój adres e-mail</h2>
             <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:18px; max-width: 360px;">
-                Na Twój adres e-mail została wysłana wiadomość aktywacyjna. Kliknij w link zawarty w wiadomości, aby uzyskać pełny dostęp do aplikacji.
+                Na Twój adres e-mail została wysłana wiadomość aktywacyjna. Kliknij w link zawarty w wiadomości, aby uzyskać pełny dostęp do ekosystemu.
             </p>
             <div style="display: flex; flex-direction: column; gap: 10px; width: 100%; max-width: 280px; margin: 0 auto;">
                 <button class="btn" onclick="location.reload()">Sprawdzam / Odśwież</button>
@@ -439,7 +446,7 @@
         <div id="auth-lockscreen" class="card">
             <div style="width: 76px; height: 76px; border-radius: 20px; background: linear-gradient(135deg, var(--primary), var(--purple)); display: flex; align-items: center; justify-content: center; font-size: 2.3rem; margin-bottom: 14px; box-shadow: 0 6px 20px var(--primary-glow);">🏋️‍♂️</div>
             <h2 id="modal-title" style="margin-bottom: 8px; color: var(--primary); font-size: 1.3rem;">Zaloguj się do 4D1S_GYM</h2>
-            <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:18px;">Najlepsza aplikacja treningowa na świecie – Twój osobisty ekosystem siłowy.</p>
+            <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:18px;">Najpotężniejsza aplikacja treningowa świata – globalna społeczność i profesjonalne narzędzia.</p>
             
             <div style="width:100%; max-width:320px;">
                 <input type="text" id="auth-username" placeholder="Twój Nick w aplikacji" style="display: none;">
@@ -464,6 +471,9 @@
                 </button>
                 <button id="nav-btn-progress" class="tab-btn" onclick="switchTab('tab-progress')">
                     <span style="font-size: 1.15rem;">📈</span> Progres
+                </button>
+                <button id="nav-btn-world" class="tab-btn" onclick="switchTab('tab-world')">
+                    <span style="font-size: 1.15rem;">🌍</span> Globalni
                 </button>
                 <button id="nav-btn-calc" class="tab-btn" onclick="switchTab('tab-calc')">
                     <span style="font-size: 1.15rem;">🧮</span> Narzędzia
@@ -625,7 +635,7 @@
                         </div>
                     </div>
 
-                    <!-- NOWOŚĆ: DZIENNIK POMIARÓW CIAŁA -->
+                    <!-- DZIENNIK POMIARÓW CIAŁA -->
                     <div style="margin-top: 22px; border-top: 1px solid var(--card-border); padding-top: 16px;">
                         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
                             <h4 style="color:var(--primary); font-size:0.95rem; font-weight:800;">📏 Pomiary i Wymiary Ciała</h4>
@@ -641,10 +651,19 @@
                 </div>
             </div>
 
+            <!-- NOWOŚĆ: ZAKŁADKA GLOBALNYCH WYNIKÓW ŚWIATOWYCH -->
+            <div id="tab-world" class="tab-content" style="display: none;">
+                <div class="card">
+                    <h3 style="color: var(--primary); margin-bottom: 6px; font-size: 1.15rem;">🌍 Światowa Tablica Wyników (Hall of Fame)</h3>
+                    <p style="font-size:0.78rem; color:var(--text-muted); margin-bottom:14px;">Najlepsi zawodnicy z całego świata posortowani według poziomu i doświadczenia XP w 4D1S_GYM.</p>
+                    <div id="global-leaderboard-list">Pobieranie rankingów światowych...</div>
+                </div>
+            </div>
+
             <div id="tab-calc" class="tab-content" style="display: none;">
                 <div class="grid" style="grid-template-columns: 1fr;">
                     <div class="card">
-                        <h3 style="color: var(--primary); font-size: 1.15rem; margin-bottom: 8px;">🧮 Kalkulator 1RM (Maksimum na 1 Powtórzenie)</h3>
+                        <h3 style="color: var(--primary); font-size: 1.15rem; margin-bottom: 8px;">🧮 Kalkulator 1RM & Współczynnik Siły (Wilks)</h3>
                         <label style="font-size: 0.78rem;">Ciężar (kg)</label>
                         <input type="number" id="calc-weight" placeholder="np. 100" oninput="calculate1RM()">
                         <label style="font-size: 0.78rem;">Powtórzenia</label>
@@ -655,10 +674,10 @@
                         </div>
                     </div>
 
-                    <!-- NOWOŚĆ: KALKULATOR TALERZY NA SZTANGĘ (PLATE CALCULATOR) -->
+                    <!-- KALKULATOR TALERZY NA SZTANGĘ -->
                     <div class="card">
                         <h3 style="color: var(--primary); font-size: 1.15rem; margin-bottom: 8px;">🏋️‍♂️ Kalkulator Talerzy na Sztangę</h3>
-                        <p style="font-size:0.75rem; color:var(--text-muted); margin-bottom:10px;">Wpisz docelowy ciężar na jedną stronę (lub całość ze sztangą 20kg).</p>
+                        <p style="font-size:0.75rem; color:var(--text-muted); margin-bottom:10px;">Wpisz docelowy ciężar całkowity (ze sztangą 20kg).</p>
                         <label style="font-size: 0.78rem;">Docelowy ciężar całkowity (kg)</label>
                         <input type="number" id="plate-target-weight" placeholder="np. 100" oninput="calculatePlates()">
                         <div style="margin-top: 14px; background: rgba(0, 0, 0, 0.3); padding: 14px; border-radius: 14px; border: 1px solid var(--card-border);">
@@ -758,7 +777,7 @@
                             <img id="admin-rec-img-tag-preview" class="chat-img-preview" alt="Podgląd">
                         </div>
 
-                        <button class="btn btn-sm" style="background: var(--gold); color: #070709;" onclick="adminAddRecipeItem()">Opublikuj Przepis VIP</button>
+                        <button class="btn btn-sm" style="background: var(--gold); color: #050507;" onclick="adminAddRecipeItem()">Opublikuj Przepis VIP</button>
                     </div>
 
                     <h4 style="margin-bottom: 10px; color: var(--gold); font-size: 0.95rem;">👥 Zarejestrowani Użytkownicy (<span id="stat-users-count">0</span>):</h4>
@@ -966,7 +985,7 @@
 
     <script>
         window.gymData = JSON.parse(localStorage.getItem('4d1s_gym_data')) || {
-            resetVersion: '2026_ultimate_v3',
+            resetVersion: '2026_ultimate_v4_global',
             workouts: [],
             workoutPlan: {},
             activeWorkoutDay: null,
@@ -1024,12 +1043,13 @@
             document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
             document.getElementById(tabId).style.display = 'block';
             
-            const btnMap = { 'tab-plan': 'nav-btn-plan', 'tab-atlas': 'nav-btn-atlas', 'tab-forum': 'nav-btn-forum', 'tab-progress': 'nav-btn-progress', 'tab-calc': 'nav-btn-calc', 'tab-vip': 'tab-vip-btn', 'tab-admin': 'tab-admin-btn' };
+            const btnMap = { 'tab-plan': 'nav-btn-plan', 'tab-atlas': 'nav-btn-atlas', 'tab-forum': 'nav-btn-forum', 'tab-progress': 'nav-btn-progress', 'tab-world': 'nav-btn-world', 'tab-calc': 'nav-btn-calc', 'tab-vip': 'tab-vip-btn', 'tab-admin': 'tab-admin-btn' };
             if(btnMap[tabId] && document.getElementById(btnMap[tabId])) {
                 document.getElementById(btnMap[tabId]).classList.add('active');
             }
 
             if (tabId === 'tab-progress') { renderProgressChart(); updateStrengthRank(); renderMeasurements(); }
+            if (tabId === 'tab-world') loadGlobalLeaderboard();
             if (tabId === 'tab-atlas') renderAtlas();
             if (tabId === 'tab-vip') renderRecipes();
             if (tabId === 'tab-admin') loadAdminUserList();
@@ -1061,7 +1081,7 @@
                             role: 'user',
                             permissions: { canBlock: false, canDeletePosts: false },
                             gym_data: {
-                                resetVersion: '2026_ultimate_v3',
+                                resetVersion: '2026_ultimate_v4_global',
                                 workouts: [],
                                 workoutPlan: {},
                                 activeWorkoutDay: null,
@@ -1071,7 +1091,8 @@
                                 prs: {},
                                 myCustomAtlas: [],
                                 bodyMeasurements: []
-                            }
+                            },
+                            globalStats: { level: 1, xp: 0, username: username }
                         }, { merge: true });
                         alert("Konto zostało utworzone! Wysłaliśmy link weryfikacyjny na Twój adres e-mail.");
                     }
@@ -1079,6 +1100,59 @@
                     await window.authApi.login(email, pass);
                 }
             } catch (err) { alert('Błąd: ' + err.message); }
+        }
+
+        async function loadGlobalLeaderboard() {
+            if(!window.db) return;
+            try {
+                const snap = await window.fbGetDocs(window.fbCollection(window.db, 'projects', 'd1s-gym', 'users'));
+                const listEl = document.getElementById('global-leaderboard-list');
+                let users = [];
+                snap.forEach(d => {
+                    const data = d.data();
+                    users.push({
+                        name: data.username || 'Gracz',
+                        level: data.gym_data?.level || data.globalStats?.level || 1,
+                        xp: data.gym_data?.xp || data.globalStats?.xp || 0,
+                        role: data.role || 'user'
+                    });
+                });
+
+                users.sort((a,b) => {
+                    if(b.level !== a.level) return b.level - a.level;
+                    return b.xp - a.xp;
+                });
+
+                if(users.length === 0) {
+                    listEl.innerHTML = '<p style="color:var(--text-muted); font-size:0.8rem;">Brak graczy w rankingu.</p>';
+                    return;
+                }
+
+                listEl.innerHTML = users.map((u, index) => {
+                    let medal = `#${index+1}`;
+                    if(index === 0) medal = '🥇';
+                    else if(index === 1) medal = '🥈';
+                    else if(index === 2) medal = '🥉';
+
+                    return `
+                        <div class="list-item" style="background:${index===0?'rgba(250,204,21,0.05)':'rgba(255,255,255,0.02)'}; border-color:${index===0?'var(--gold)':'var(--card-border)'};">
+                            <div style="display:flex; align-items:center; gap:12px;">
+                                <span style="font-weight:900; font-size:1.1rem; color:${index===0?'var(--gold)':'var(--text-muted)'}; min-width:30px;">${medal}</span>
+                                <div>
+                                    <strong style="color:#fff; font-size:0.9rem;">${u.name}</strong>
+                                    <div style="font-size:0.72rem; color:var(--text-muted);">Doświadczenie: <span style="color:var(--primary);">${u.xp} XP</span></div>
+                                </div>
+                            </div>
+                            <div style="text-align:right;">
+                                <div style="font-weight:900; color:var(--gold); font-size:0.95rem;">LVL ${u.level}</div>
+                                ${window.getRoleBadgeHtml ? window.getRoleBadgeHtml(u.role) : ''}
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            } catch(e) {
+                document.getElementById('global-leaderboard-list').innerHTML = '<p style="color:var(--danger); font-size:0.8rem;">Błąd ładowania rankingu światowego.</p>';
+            }
         }
 
         function importWorkoutPlanFromFile(event) {
@@ -1179,18 +1253,18 @@
                 const diff = numWeight - currentPr;
                 window.gymData.prs[cleanName] = numWeight;
 
-                let xpGain = 40;
-                if(diff >= 3 && diff < 7) xpGain = 80;
-                else if(diff >= 7 && diff < 12) xpGain = 150;
-                else if(diff >= 12) xpGain = 300;
+                let xpGain = 45;
+                if(diff >= 3 && diff < 7) xpGain = 90;
+                else if(diff >= 7 && diff < 12) xpGain = 160;
+                else if(diff >= 12) xpGain = 350;
 
                 addXP(xpGain);
-                alert(`🔥 NOWY REKORD (PR) w ${exName}: ${numWeight} kg! (+${xpGain} XP)`);
+                alert(`🔥 NOWY REKORD ŚWIATA (PR) w ${exName}: ${numWeight} kg! (+${xpGain} XP)`);
             }
         }
 
         function getXpNeededForLevel(level) {
-            return Math.min(30000, 200 + (level - 1) * 90 + Math.floor(Math.pow(level, 1.35) * 18));
+            return Math.min(50000, 200 + (level - 1) * 95 + Math.floor(Math.pow(level, 1.4) * 20));
         }
 
         function addXP(amount) {
@@ -1204,7 +1278,7 @@
                 window.gymData.xp -= needed;
                 window.gymData.level += 1;
                 needed = getXpNeededForLevel(window.gymData.level);
-                alert(`🎉 AWANS! Osiągnąłeś LEVEL ${window.gymData.level}! Jesteś coraz bliżej formy życia! 🚀`);
+                alert(`🎉 GLOBALNY AWANS! Osiągnąłeś LEVEL ${window.gymData.level}! Jesteś legendą 4D1S_GYM! 🚀`);
             }
 
             window.saveGymData();
@@ -1231,8 +1305,8 @@
         function finishActiveWorkoutSession() {
             const dayName = window.gymData.activeWorkoutDay;
             if(!dayName) return;
-            addXP(100);
-            alert(`🎉 Trening na dzień ${dayName} został pomyślnie ukończony i zapisany! Otrzymujesz +100 XP.`);
+            addXP(120);
+            alert(`🎉 Trening na dzień ${dayName} ukończony! Zapisano w historii globalnej (+120 XP).`);
             window.gymData.activeWorkoutDay = null;
             window.saveGymData();
             window.renderPlan();
@@ -1324,9 +1398,9 @@
 
             const maxPr = prValues.length > 0 ? Math.max(...prValues) : 0;
             let rank = "🏋 Początkujący";
-            if (maxPr >= 150) rank = "🔥 Elite / Beast";
-            else if (maxPr >= 110) rank = "⚡ Zaawansowany";
-            else if (maxPr >= 75) rank = "💪 Średniozaawansowany";
+            if (maxPr >= 160) rank = "🔥 World Elite / Beast";
+            else if (maxPr >= 120) rank = "⚡ Zaawansowany Pro";
+            else if (maxPr >= 80) rank = "💪 Średniozaawansowany";
 
             document.getElementById('player-strength-rank').innerText = rank;
         }
@@ -1402,7 +1476,7 @@
                 ex.sets[setIndex].done = !ex.sets[setIndex].done;
                 if(ex.sets[setIndex].done) {
                     playBeep(900, 0.12);
-                    addXP(5);
+                    addXP(6);
                 }
                 checkAndLogCompletedWorkout(day);
 
@@ -1475,18 +1549,18 @@
         }
 
         function generatePresetPlanPPL() {
-            if(!confirm("Wgrać profesjonalny plan Push/Pull/Legs?")) return;
+            if(!confirm("Wgrać elitarny plan Push/Pull/Legs Pro?")) return;
             window.gymData.workoutPlan = {
                 'Poniedziałek': [
-                    { id: 101, name: 'Wyciskanie sztangi na ławce poziomej', sets: [{setNum:1,type:'Rozgrzewka',weight:'50',reps:'12',done:false},{setNum:2,type:'Robocza',weight:'80',reps:'8',done:false},{setNum:3,type:'Robocza',weight:'80',reps:'8',done:false}] },
-                    { id: 102, name: 'Wyciskanie żołnierskie (OHP)', sets: [{setNum:1,type:'Robocza',weight:'50',reps:'8',done:false},{setNum:2,type:'Robocza',weight:'50',reps:'8',done:false}] }
+                    { id: 101, name: 'Wyciskanie sztangi na ławce poziomej', sets: [{setNum:1,type:'Rozgrzewka',weight:'50',reps:'12',done:false},{setNum:2,type:'Robocza',weight:'85',reps:'8',done:false},{setNum:3,type:'Robocza',weight:'85',reps:'8',done:false}] },
+                    { id: 102, name: 'Wyciskanie żołnierskie (OHP)', sets: [{setNum:1,type:'Robocza',weight:'55',reps:'8',done:false},{setNum:2,type:'Robocza',weight:'55',reps:'8',done:false}] }
                 ],
                 'Wtorek': [
                     { id: 201, name: 'Podciąganie na drążku nachwytem', sets: [{setNum:1,type:'Robocza',weight:'0',reps:'8',done:false},{setNum:2,type:'Robocza',weight:'0',reps:'8',done:false}] },
-                    { id: 202, name: 'Wiosłowanie sztangą w opadzie tułowia', sets: [{setNum:1,type:'Robocza',weight:'70',reps:'10',done:false}] }
+                    { id: 202, name: 'Wiosłowanie sztangą w opadzie tułowia', sets: [{setNum:1,type:'Robocza',weight:'75',reps:'10',done:false}] }
                 ],
                 'Środa': [
-                    { id: 301, name: 'Przysiad ze sztangą na plecach', sets: [{setNum:1,type:'Rozgrzewka',weight:'60',reps:'10',done:false},{setNum:2,type:'Robocza',weight:'100',reps:'8',done:false}] }
+                    { id: 301, name: 'Przysiad ze sztangą na plecach', sets: [{setNum:1,type:'Rozgrzewka',weight:'60',reps:'10',done:false},{setNum:2,type:'Robocza',weight: '110',reps:'8',done:false}] }
                 ]
             };
             window.saveGymData();
@@ -1512,7 +1586,7 @@
                                 <span style="font-size:0.82rem; color:var(--text-muted);">▸</span>
                                 <span style="font-weight:900;">${day}</span>
                                 <span style="font-size:0.75rem; color:var(--text-muted); font-weight:600;">(${exCount} ćwiczeń)</span>
-                                ${isActive ? '<span style="font-size:0.68rem; background:var(--primary); color:#070709; padding:2px 8px; border-radius:6px; margin-left:6px; font-weight:800;">AKTYWNA SESJA</span>' : ''}
+                                ${isActive ? '<span style="font-size:0.68rem; background:var(--primary); color:#050507; padding:2px 8px; border-radius:6px; margin-left:6px; font-weight:800;">AKTYWNA SESJA</span>' : ''}
                             </div>
                             <div style="display:flex; gap:6px; align-items:center;" onclick="event.stopPropagation();">
                                 <button class="btn btn-sm ${isActive?'btn-success':''}" style="padding:5px 12px; font-size:0.75rem;" onclick="startActiveWorkoutDay('${day}')">${isActive ? '▶ Rozpoczęty' : 'Rozpocznij Trening'}</button>
@@ -2160,7 +2234,7 @@
                 resEl.innerText = "Wpisz ciężar min. 20 kg (gryf standardowy)";
                 return;
             }
-            const bar = 20; // standardowy gryf olimpijski
+            const bar = 20; 
             const perSide = (total - bar) / 2;
             if (perSide < 0) {
                 resEl.innerText = "Ciężar nie może być mniejszy niż waga gryfu (20kg)";
@@ -2323,6 +2397,7 @@
         window.saveMeasurement = saveMeasurement;
         window.deleteMeasurement = deleteMeasurement;
         window.calculatePlates = calculatePlates;
+        window.loadGlobalLeaderboard = loadGlobalLeaderboard;
 
         renderPlan();
         renderAchievements();
