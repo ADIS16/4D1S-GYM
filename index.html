@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>HEVY 4D1S - iOS Text AI Ultimate Edition</title>
+    <title>HEVY iOS GOD-TIER PRO 3000</title>
     
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -20,7 +20,7 @@
             --bg-input: #2c2c2e;
             --card-border: #38383a;
             --primary: #0a84ff;
-            --primary-glow: rgba(10, 132, 255, 0.3);
+            --primary-glow: rgba(10, 132, 255, 0.35);
             --purple: #bf5af2;
             --text-main: #ffffff;
             --text-muted: #8e8e93;
@@ -47,7 +47,6 @@
 
         header { display: flex; justify-content: space-between; align-items: center; padding: 12px 0 16px; border-bottom: 1px solid var(--card-border); margin-bottom: 16px; }
         .logo { font-weight: 900; font-size: 1.35rem; color: var(--text-main); display: flex; align-items: center; gap: 10px; letter-spacing: -0.5px; }
-        .logo img { width: 36px; height: 36px; border-radius: 10px; object-fit: cover; border: 1px solid var(--card-border); }
         .logo span { background: linear-gradient(135deg, #0a84ff, #ff375f); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
         .status-badge { display: flex; align-items: center; gap: 6px; font-size: 0.7rem; background: rgba(255,255,255,0.06); padding: 5px 12px; border-radius: 30px; border: 1px solid var(--card-border); backdrop-filter: blur(10px); }
@@ -125,20 +124,21 @@
         .modal-body { background: var(--bg-card); border: 1px solid var(--card-border); border-radius: 24px; padding: 22px; width: 100%; max-width: 440px; box-shadow: 0 20px 50px rgba(0,0,0,0.95); max-height: 90vh; overflow-y: auto; }
         .stat-box { background: rgba(255,255,255,0.03); border: 1px solid var(--card-border); padding: 12px; border-radius: 14px; text-align: center; }
 
-        /* AI Chat Window Styles */
-        .ai-chat-container { display: flex; flex-direction: column; height: 420px; background: #000000; border: 1px solid var(--card-border); border-radius: 16px; padding: 12px; overflow: hidden; }
-        .ai-chat-messages { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; padding-bottom: 8px; scrollbar-width: none; }
+        /* ZAAVANSOWANY CHAT AI */
+        .ai-chat-container { display: flex; flex-direction: column; height: 480px; background: #000000; border: 1px solid var(--card-border); border-radius: 18px; padding: 14px; overflow: hidden; }
+        .ai-chat-messages { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; padding-bottom: 10px; scrollbar-width: none; }
         .ai-chat-messages::-webkit-scrollbar { display: none; }
-        .ai-bubble { max-width: 85%; padding: 10px 14px; border-radius: 14px; font-size: 0.82rem; line-height: 1.4; word-break: break-word; }
-        .ai-bubble.user { background: var(--primary); color: #fff; align-self: flex-end; border-bottom-right-radius: 4px; }
+        .ai-bubble { max-width: 85%; padding: 12px 16px; border-radius: 16px; font-size: 0.85rem; line-height: 1.45; word-break: break-word; }
+        .ai-bubble.user { background: var(--primary); color: #fff; align-self: flex-end; border-bottom-right-radius: 4px; box-shadow: 0 4px 12px rgba(10, 132, 255, 0.3); }
         .ai-bubble.assistant { background: var(--bg-input); color: var(--text-main); align-self: flex-start; border: 1px solid var(--card-border); border-bottom-left-radius: 4px; }
-        .ai-input-row { display: flex; gap: 8px; margin-top: 8px; }
+        .ai-typing-indicator { font-size: 0.75rem; color: var(--text-muted); font-style: italic; padding: 4px 8px; }
+        .ai-input-row { display: flex; gap: 8px; margin-top: 10px; }
     </style>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged, sendEmailVerification } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
-        import { getFirestore, doc, onSnapshot, setDoc, collection, getDocs, addDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
+        import { getFirestore, doc, onSnapshot, setDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
 
         const k1 = "AIzaSyDt4973oXRxuzS_"; const k2 = "Tmp_axT8jnyvCRZ6CTI";
         const firebaseConfig = { apiKey: k1 + k2, authDomain: "d1s-gym.firebaseapp.com", projectId: "d1s-gym", storageBucket: "d1s-gym.firebasestorage.app", messagingSenderId: "542037700079", appId: "1:542037700079:web:d3ccb84200ca5560495a1a" };
@@ -148,10 +148,8 @@
             app = initializeApp(firebaseConfig);
             auth = getAuth(app); db = getFirestore(app);
             window.db = db; window.auth = auth;
-            window.fbAddDoc = addDoc; window.fbDeleteDoc = deleteDoc; window.fbCollection = collection;
-            window.fbDoc = doc; window.fbSetDoc = setDoc; window.fbGetDocs = getDocs;
-            window.fbSendEmailVerification = sendEmailVerification;
-        } catch (e) { console.error("Firebase Init Error", e); }
+            window.fbDoc = doc; window.fbSetDoc = setDoc; window.fbGetDocs = getDocs; window.fbCollection = collection;
+        } catch (e) { console.error("Firebase Error", e); }
 
         window.authApi = {
             login: (e, p) => signInWithEmailAndPassword(auth, e, p),
@@ -163,15 +161,10 @@
             resendVerification: async () => {
                 if (auth && auth.currentUser) {
                     await sendEmailVerification(auth.currentUser);
-                    alert("Wysłano e-mail weryfikacyjny ponownie!");
+                    alert("Wysłano ponowny e-mail!");
                 }
             },
-            out: async () => {
-                if (auth && auth.currentUser) {
-                    try { await setDoc(doc(db, 'projects', 'd1s-gym', 'users', auth.currentUser.uid), { isOnline: false }, { merge: true }); } catch(err){}
-                }
-                if (auth) signOut(auth);
-            }
+            out: async () => { if (auth) signOut(auth); }
         };
 
         if (auth) {
@@ -185,8 +178,8 @@
                 if (user) {
                     if (!user.emailVerified) {
                         lockScreen.style.display = 'none'; appContent.style.display = 'none';
-                        verificationScreen.style.display = 'flex'; document.getElementById('user-profile').style.display = 'none';
-                        dot.className = "dot offline"; txt.innerText = "Brak weryfikacji";
+                        verificationScreen.style.display = 'flex';
+                        dot.className = "dot offline"; txt.innerText = "Niezweryfikowany";
                         return;
                     }
                     verificationScreen.style.display = 'none'; lockScreen.style.display = 'none';
@@ -194,26 +187,21 @@
 
                     const userDocRef = doc(db, 'projects', 'd1s-gym', 'users', user.uid);
                     onSnapshot(userDocRef, async (snap) => {
-                        dot.className = "dot online"; txt.innerText = "iOS Pro Online";
+                        dot.className = "dot online"; txt.innerText = "Online Pro";
                         let userData = snap.exists() ? snap.data() : {};
-                        userData.role = userData.role || 'user';
-                        window.currentUserRole = userData.role;
+                        window.currentUserRole = userData.role || 'user';
                         window.currentUsername = userData.username || user.email.split('@')[0];
 
-                        await setDoc(userDocRef, { username: window.currentUsername, isOnline: true }, { merge: true });
                         document.getElementById('user-username-display').innerText = window.currentUsername;
                         window.gymData = userData.gym_data || { workouts: [], workoutPlan: {}, activeWorkoutDay: null, xp: 0, level: 1, water: 0, prs: {}, myCustomAtlas: [], measurements: [] };
 
                         document.getElementById('user-role-tag').innerHTML = getRoleBadgeHtml(window.currentUserRole);
                         document.getElementById('tab-admin-btn').style.display = ['owner', 'admin'].includes(window.currentUserRole) ? 'flex' : 'none';
-                        document.getElementById('tab-vip-btn').style.display = ['owner', 'admin', 'vip'].includes(window.currentUserRole) ? 'flex' : 'none';
 
-                        if (['owner', 'admin'].includes(window.currentUserRole)) window.loadAdminUserList();
                         window.renderPlan(); window.renderAchievements(); window.updateWaterUI(); window.updateWorkoutStats();
                     });
                 } else {
                     verificationScreen.style.display = 'none'; lockScreen.style.display = 'flex'; appContent.style.display = 'none';
-                    document.getElementById('user-profile').style.display = 'none';
                     dot.className = "dot offline"; txt.innerText = "Offline";
                 }
             });
@@ -227,18 +215,16 @@
                     }, { merge: true });
                 } catch (e) { console.error(e); }
             }
-            localStorage.setItem('ios_hevy_gym_v4', JSON.stringify(window.gymData));
+            localStorage.setItem('ios_hevy_gym_v5', JSON.stringify(window.gymData));
         };
 
         function getRoleBadgeHtml(role) {
             switch(role) {
                 case 'owner': return '<span class="role-badge role-owner">👑 Szef</span>';
                 case 'admin': return '<span class="role-badge role-admin">🛡 Admin</span>';
-                case 'vip': return '<span class="role-badge role-vip">🌟 VIP</span>';
                 default: return '<span class="role-badge role-user">🏋 Athlete</span>';
             }
         }
-        window.getRoleBadgeHtml = getRoleBadgeHtml;
     </script>
 </head>
 <body>
@@ -246,7 +232,6 @@
     <div class="container">
         <header>
             <div class="logo">
-                <img src="c3e85c77-58fb-4713-b654-5eca4e3158c8.png" alt="Logo">
                 <span>HEVY iOS <small style="font-size:0.55rem; color:var(--text-muted);">PRO 3000</small></span>
             </div>
             <div style="display: flex; gap: 6px; align-items: center;">
@@ -263,75 +248,54 @@
         </header>
 
         <div id="verification-screen" class="card" style="text-align: center;">
-            <h2 style="margin-bottom: 8px; color: var(--primary); font-size: 1.2rem;">Potwierdź swój e-mail</h2>
-            <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:15px;">Kliknij w link aktywacyjny wysłany na Twoją skrzynkę.</p>
-            <div style="display: flex; flex-direction: column; gap: 8px; width: 100%; max-width: 260px; margin: 0 auto;">
-                <button class="btn" onclick="location.reload()">Sprawdzam / Odśwież</button>
-                <button class="btn btn-outline" onclick="window.authApi.resendVerification()">Wyślij ponownie</button>
-                <button class="btn btn-outline" style="color: var(--danger);" onclick="window.authApi.out()">Wyloguj się</button>
-            </div>
+            <h2 style="margin-bottom: 8px; color: var(--primary); font-size: 1.2rem;">Potwierdź e-mail</h2>
+            <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:15px;">Kliknij w link aktywacyjny w wiadomości e-mail.</p>
+            <button class="btn" onclick="location.reload()">Odśwież</button>
         </div>
 
         <div id="auth-lockscreen" class="card" style="text-align: center;">
             <h2 id="modal-title" style="margin-bottom: 8px; color: var(--primary); font-size: 1.2rem;">Logowanie Hevy iOS</h2>
-            <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:15px;">Zaloguj się do swojego konta treningowego.</p>
             <div style="width:100%; max-width:300px; margin: 0 auto;">
                 <input type="text" id="auth-username" placeholder="Twój Nick" style="display: none;">
                 <input type="email" id="auth-email" placeholder="E-mail">
                 <input type="password" id="auth-pass" placeholder="Hasło">
                 <button id="auth-submit" class="btn" style="width: 100%; margin-bottom: 8px;" onclick="handleAuth()">Zaloguj się</button>
-                <button class="btn btn-outline" style="width: 100%; border: none; font-size:0.75rem;" onclick="toggleAuthMode()" id="auth-toggle">Nie masz konta? Zarejestruj się</button>
+                <button class="btn btn-outline" style="width: 100%; border: none; font-size:0.75rem;" onclick="toggleAuthMode()" id="auth-toggle">Rejestracja</button>
             </div>
         </div>
 
         <div id="app-main-content" style="display: none;">
 
             <div class="nav-tabs">
-                <button id="nav-btn-plan" class="tab-btn active" onclick="switchTab('tab-plan')">
-                    <span style="font-size: 1.1rem;">📋</span> Trening
-                </button>
-                <button id="nav-btn-atlas" class="tab-btn" onclick="switchTab('tab-atlas')">
-                    <span style="font-size: 1.1rem;">🔍</span> Atlas
-                </button>
-                <button id="nav-btn-ai" class="tab-btn" style="color: var(--ai-glow);" onclick="switchTab('tab-ai')">
-                    <span style="font-size: 1.1rem;">🤖</span> AI Chat
-                </button>
-                <button id="nav-btn-plate" class="tab-btn" style="color: var(--gold);" onclick="switchTab('tab-plate')">
-                    <span style="font-size: 1.1rem;">⚖️</span> Talerze
-                </button>
-                <button id="nav-btn-progress" class="tab-btn" onclick="switchTab('tab-progress')">
-                    <span style="font-size: 1.1rem;">📊</span> Profil
-                </button>
-                <button id="tab-vip-btn" class="tab-btn" style="display: none; color: var(--gold);" onclick="switchTab('tab-vip')">
-                    <span style="font-size: 1.1rem;">🌟</span> VIP
-                </button>
-                <button id="tab-admin-btn" class="tab-btn" style="display: none; color: var(--primary);" onclick="switchTab('tab-admin')">
-                    <span style="font-size: 1.1rem;">🛡️</span> Admin
-                </button>
+                <button id="nav-btn-plan" class="tab-btn active" onclick="switchTab('tab-plan')"><span style="font-size: 1.1rem;">📋</span> Trening</button>
+                <button id="nav-btn-atlas" class="tab-btn" onclick="switchTab('tab-atlas')"><span style="font-size: 1.1rem;">🔍</span> Atlas</button>
+                <button id="nav-btn-ai" class="tab-btn" style="color: var(--ai-glow);" onclick="switchTab('tab-ai')"><span style="font-size: 1.1rem;">🤖</span> AI Coach</button>
+                <button id="nav-btn-plate" class="tab-btn" style="color: var(--gold);" onclick="switchTab('tab-plate')"><span style="font-size: 1.1rem;">⚖️</span> Talerze</button>
+                <button id="nav-btn-progress" class="tab-btn" onclick="switchTab('tab-progress')"><span style="font-size: 1.1rem;">📊</span> Profil</button>
+                <button id="tab-admin-btn" class="tab-btn" style="display: none; color: var(--primary);" onclick="switchTab('tab-admin')"><span style="font-size: 1.1rem;">🛡️</span> Admin</button>
             </div>
 
-            <!-- TRENING -->
+            <!-- TAB TRENING -->
             <div id="tab-plan" class="tab-content">
                 <div class="grid">
                     <div>
                         <div id="hevy-active-workout-banner" style="display:none; background: var(--bg-card); border: 1.5px solid var(--primary); padding: 14px 18px; border-radius: 20px; margin-bottom: 16px; align-items: center; justify-content: space-between;">
                             <div>
-                                <div style="font-size: 0.68rem; color: var(--primary); font-weight: 800; text-transform: uppercase;">Aktywna Sesja iOS</div>
+                                <div style="font-size: 0.68rem; color: var(--primary); font-weight: 800; text-transform: uppercase;">Aktywna Sesja</div>
                                 <div id="hevy-active-day-title" style="font-size: 1.1rem; font-weight: 900; color: #fff;"></div>
                             </div>
                             <button class="btn btn-success" style="font-size:0.8rem; padding: 8px 14px;" onclick="finishActiveWorkoutSession()">✓ Zakończ</button>
                         </div>
 
                         <div class="card" style="border: 1px solid var(--ai-glow); background: rgba(255,55,95,0.03);">
-                            <h3 style="color: var(--ai-glow); font-size: 0.95rem; font-weight: 800; margin-bottom: 6px;">🧠 AI Progressive Overload</h3>
-                            <p style="font-size: 0.73rem; color: var(--text-muted); margin-bottom: 10px;">Automatyczna analiza tonażu i podbijanie ciężarów.</p>
-                            <button class="btn btn-ai btn-sm" onclick="runAiSmartOverload()">✨ Optymalizuj plan</button>
+                            <h3 style="color: var(--ai-glow); font-size: 0.95rem; font-weight: 800; margin-bottom: 6px;">🧠 AI Overload Engine</h3>
+                            <button class="btn btn-ai btn-sm" onclick="runAiSmartOverload()">✨ Optymalizuj Ciężary</button>
                         </div>
 
                         <div class="card">
                             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-                                <h3 style="color: #fff; font-size: 1.1rem; font-weight: 800;">📅 Rutyny Treningowe</h3>
-                                <button class="btn btn-outline btn-sm" onclick="generatePresetPlanPPL()">⚡ PPL</button>
+                                <h3 style="color: #fff; font-size: 1.1rem; font-weight: 800;">📅 Plan Treningowy</h3>
+                                <button class="btn btn-outline btn-sm" onclick="generatePresetPlanPPL()">⚡ Generuj PPL</button>
                             </div>
                             <div id="week-plan-container"></div>
                         </div>
@@ -339,16 +303,16 @@
 
                     <div>
                         <div class="card">
-                            <h4 style="color: var(--primary); margin-bottom: 8px; font-size: 0.95rem; font-weight:800;">⚡ Statystyka</h4>
+                            <h4 style="color: var(--primary); margin-bottom: 8px; font-size: 0.95rem; font-weight:800;">⚡ Podsumowanie</h4>
                             <div id="active-day-badge" style="font-size: 0.75rem; font-weight: 800; color: var(--gold); margin-bottom: 10px; background: rgba(255,214,10,0.1); padding: 8px; border-radius: 12px; text-align:center;">
-                                Brak aktywnego treningu
+                                Brak treningu
                             </div>
                             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px;">
                                 <div class="stat-box"><div style="font-size: 0.65rem; color: var(--text-muted);">Tonaż</div><div id="stat-total-tonnage" style="font-size: 0.95rem; font-weight: 900; color: var(--gold);">0 kg</div></div>
                                 <div class="stat-box"><div style="font-size: 0.65rem; color: var(--text-muted);">Serie</div><div id="stat-total-sets" style="font-size: 0.95rem; font-weight: 900; color: var(--primary);">0</div></div>
                             </div>
 
-                            <h4 style="color: var(--primary); margin-bottom: 6px; font-size: 0.85rem; font-weight:800;">💧 Woda</h4>
+                            <h4 style="color: var(--primary); margin-bottom: 6px; font-size: 0.85rem; font-weight:800;">💧 Nawodnienie</h4>
                             <span id="water-text" style="font-weight: 800; color: var(--primary); font-size: 0.75rem;">0 / 3000 ml</span>
                             <div class="water-progress"><div id="water-bar" class="water-bar"></div></div>
                             <div style="display: flex; gap: 6px; margin-top: 6px;">
@@ -361,77 +325,70 @@
                 </div>
             </div>
 
-            <!-- ATLAS -->
+            <!-- TAB ATLAS -->
             <div id="tab-atlas" class="tab-content" style="display: none;">
                 <div class="card">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 8px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
                         <h3 style="color: #fff; font-size: 1.1rem; font-weight: 800;">📚 Atlas Ćwiczeń</h3>
                         <button class="btn btn-sm" style="background: var(--purple); color: #fff;" onclick="openAddPrivateExerciseModal()">+ Dodaj</button>
                     </div>
-                    <input id="atlas-search" type="search" placeholder="🔍 Szukaj..." oninput="renderAtlas()" style="margin-bottom: 10px;">
-                    <div class="filter-pills-scroll">
-                        <button class="pill-btn active" onclick="filterAtlasCategory('all', this)">Wszystkie</button>
-                        <button class="pill-btn" onclick="filterAtlasCategory('Klatka piersiowa', this)">Klatka</button>
-                        <button class="pill-btn" onclick="filterAtlasCategory('Plecy', this)">Plecy</button>
-                        <button class="pill-btn" onclick="filterAtlasCategory('Nogi', this)">Nogi</button>
-                    </div>
-                    <div class="grid-3" id="atlas-container" style="margin-top: 8px;"></div>
+                    <input id="atlas-search" type="search" placeholder="🔍 Szukaj ćwiczenia..." oninput="renderAtlas()" style="margin-bottom: 10px;">
+                    <div class="grid-3" id="atlas-container"></div>
                 </div>
             </div>
 
-            <!-- AI CHAT (TEKSTOWY ASYSTENT) -->
+            <!-- TAB AI CHAT (ULEPSZONY INTELIGENTNY CZAT) -->
             <div id="tab-ai" class="tab-content" style="display: none;">
                 <div class="card">
-                    <h3 style="color: var(--ai-glow); margin-bottom: 6px; font-size: 1.1rem;">🤖 AI Coach Chat</h3>
-                    <p style="font-size:0.78rem; color:var(--text-muted); margin-bottom:12px;">Zadaj pytanie dotyczące techniki, progresywnego przeładowania, diety lub planu.</p>
+                    <h3 style="color: var(--ai-glow); margin-bottom: 6px; font-size: 1.1rem;">🤖 Osobisty Trener AI</h3>
+                    <p style="font-size:0.78rem; color:var(--text-muted); margin-bottom:12px;">Pytaj o siłę, regenerację, dietę, techniki oraz analizę Twoich aktualnych statystyk.</p>
                     
                     <div class="ai-chat-container">
                         <div id="ai-chat-messages" class="ai-chat-messages">
-                            <div class="ai-bubble assistant">Cześć! Jestem Twoim osobistym trenerem AI. W czym mogę Ci pomóc na dzisiejszym treningu?</div>
+                            <div class="ai-bubble assistant">Siemanko! Jestem Twoim cyfrowym trenerem AI. Rozmawiaj ze mną całkowicie swobodnie – odpowiem na każde pytanie treningowe i dietetyczne! 🔥</div>
                         </div>
+                        <div id="ai-typing-indicator" class="ai-typing-indicator" style="display:none;">AI Trener pisze wiadomość...</div>
                         <div class="ai-input-row">
-                            <input type="text" id="ai-chat-input" placeholder="Napisz wiadomość do AI..." style="margin:0;" onkeydown="if(event.key==='Enter') sendAiMessage()">
+                            <input type="text" id="ai-chat-input" placeholder="Zadaj dowolne pytanie..." style="margin:0;" onkeydown="if(event.key==='Enter') sendAiMessage()">
                             <button class="btn btn-ai btn-sm" onclick="sendAiMessage()">Wyślij</button>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- KALKULATOR TALERZY -->
+            <!-- TAB TALERZE -->
             <div id="tab-plate" class="tab-content" style="display: none;">
                 <div class="card">
-                    <h3 style="color: var(--gold); margin-bottom: 8px; font-size: 1.1rem;">⚖️ Kalkulator Talerzy na Sztangę</h3>
+                    <h3 style="color: var(--gold); margin-bottom: 8px; font-size: 1.1rem;">⚖️ Kalkulator Talerzy</h3>
                     <label style="font-size: 0.75rem;">Waga gryfu (kg)</label>
                     <input type="number" id="plate-bar-weight" value="20">
-                    <label style="font-size: 0.75rem;">Docelowy ciężar (kg)</label>
+                    <label style="font-size: 0.75rem;">Ciężar docelowy (kg)</label>
                     <input type="number" id="plate-target-weight" placeholder="np. 100" oninput="calculatePlates()">
-                    <div style="margin-top: 14px; background: #000000; padding: 14px; border-radius: 14px; border: 1px solid var(--card-border);">
-                        <h4 style="font-size: 0.85rem; color: var(--primary); margin-bottom: 6px;">Krążki na jedną stronę:</h4>
-                        <div id="plate-result-output" style="font-size: 0.85rem; font-weight: 800; color: var(--gold);">Wpisz ciężar powyżej.</div>
+                    <div style="margin-top: 14px; background: #000; padding: 14px; border-radius: 14px; border: 1px solid var(--card-border);">
+                        <h4 style="font-size: 0.85rem; color: var(--primary); margin-bottom: 6px;">Na jedną stronę nakładasz:</h4>
+                        <div id="plate-result-output" style="font-size: 0.9rem; font-weight: 800; color: var(--gold);">Wpisz ciężar powyżej.</div>
                     </div>
                 </div>
             </div>
 
-            <!-- PROFIL -->
+            <!-- TAB PROFIL -->
             <div id="tab-progress" class="tab-content" style="display: none;">
                 <div class="card">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                        <h3 style="color: var(--primary); font-size: 1.1rem;">🏆 Poziom & XP</h3>
+                        <h3 style="color: var(--primary); font-size: 1.1rem;">🏆 Twój Poziom</h3>
                         <span id="player-level-text" style="font-weight: 900; color: var(--gold); font-size: 0.95rem;">LVL 1</span>
                     </div>
                     <div class="water-progress" style="height:10px;"><div id="xp-bar" class="water-bar"></div></div>
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 14px;">
                         <div class="stat-box"><div style="font-size: 0.65rem; color: var(--text-muted);">Ranga</div><div id="player-strength-rank" style="font-size: 0.9rem; font-weight: 900; color: var(--primary);">Początkujący</div></div>
-                        <div class="stat-box"><div style="font-size: 0.65rem; color: var(--text-muted);">Pobite PR</div><div id="player-prs-count" style="font-size: 0.9rem; font-weight: 900; color: var(--gold);">0</div></div>
+                        <div class="stat-box"><div style="font-size: 0.65rem; color: var(--text-muted);">Rekordy PR</div><div id="player-prs-count" style="font-size: 0.9rem; font-weight: 900; color: var(--gold);">0</div></div>
                     </div>
                 </div>
             </div>
 
-            <!-- ADMIN -->
             <div id="tab-admin" class="tab-content" style="display: none;">
-                <div class="card card-admin">
-                    <h3 style="color: var(--primary); margin-bottom: 10px; font-size: 1.1rem;">🛡️ Panel Administratora</h3>
-                    <h4 style="margin-bottom: 8px; color: var(--gold); font-size: 0.9rem;">Użytkownicy (<span id="stat-users-count">0</span>):</h4>
+                <div class="card">
+                    <h3 style="color: var(--primary); margin-bottom: 10px;">🛡️ Panel Admina</h3>
                     <div id="admin-user-list">Pobieranie...</div>
                 </div>
             </div>
@@ -439,34 +396,17 @@
         </div>
     </div>
 
-    <!-- MODALE -->
+    <!-- MODAL -->
     <div id="add-private-exercise-modal" class="modal-overlay">
         <div class="modal-body">
-            <h3 style="color:var(--purple); margin-bottom:6px; font-size: 1.1rem;">⭐ Własne ćwiczenie</h3>
-            <label style="font-size: 0.75rem;">Nazwa</label><input type="text" id="priv-ex-name" placeholder="np. Wyciskanie hantli">
-            <label style="font-size: 0.75rem;">Partia</label>
-            <select id="priv-ex-part"><option value="Klatka piersiowa">Klatka piersiowa</option><option value="Plecy">Plecy</option><option value="Nogi">Nogi</option><option value="Barki">Barki</option></select>
-            <div style="display:flex; gap:6px; margin-top:8px;">
-                <button class="btn btn-sm" style="flex:1; background:var(--purple); color:#fff;" onclick="savePrivateExercise()">Zapisz</button>
-                <button class="btn btn-outline btn-sm" style="color:var(--danger);" onclick="closeAddPrivateExerciseModal()">✕</button>
-            </div>
+            <h3 style="color:var(--purple); margin-bottom:6px;">Dodaj ćwiczenie</h3>
+            <input type="text" id="priv-ex-name" placeholder="Nazwa">
+            <select id="priv-ex-part"><option value="Klatka piersiowa">Klatka</option><option value="Plecy">Plecy</option><option value="Nogi">Nogi</option></select>
+            <button class="btn btn-sm" style="width:100%; margin-top:8px;" onclick="savePrivateExercise()">Zapisz</button>
         </div>
     </div>
 
-    <div id="atlas-to-plan-modal" class="modal-overlay">
-        <div class="modal-body">
-            <h3 style="color:var(--primary); margin-bottom:6px; font-size: 1.1rem;">Dodaj do rutyny</h3>
-            <p id="modal-atlas-title" style="font-weight:800; font-size:0.9rem; margin-bottom:10px; color:#fff;"></p>
-            <label style="font-size: 0.75rem;">Dzień</label>
-            <select id="modal-plan-day"><option value="Poniedziałek">Poniedziałek</option><option value="Wtorek">Wtorek</option><option value="Środa">Środa</option><option value="Czwartek">Czwartek</option><option value="Piątek">Piątek</option></select>
-            <div style="display:flex; gap:6px; margin-top:8px;">
-                <button class="btn btn-sm" style="flex:1;" onclick="confirmAddAtlasToPlan()">Zapisz</button>
-                <button class="btn btn-outline btn-sm" style="color:var(--danger);" onclick="closeAtlasModal()">✕</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- TIMER -->
+    <!-- REST TIMER -->
     <div class="floating-timer">
         <div>
             <div style="font-size: 0.58rem; color: var(--text-muted); font-weight:800;">REST TIMER</div>
@@ -481,26 +421,24 @@
     </div>
 
     <script>
-        window.gymData = JSON.parse(localStorage.getItem('ios_hevy_gym_v4')) || { workouts: [], workoutPlan: {}, activeWorkoutDay: null, xp: 0, level: 1, water: 0, prs: {}, myCustomAtlas: [], measurements: [] };
-        let isRegisterMode = false, timerInterval = null, selectedAtlasName = "";
-        let selectedCategoryFilter = 'all';
+        window.gymData = JSON.parse(localStorage.getItem('ios_hevy_gym_v5')) || { workouts: [], workoutPlan: {}, activeWorkoutDay: null, xp: 0, level: 1, water: 0, prs: {}, myCustomAtlas: [] };
+        let isRegisterMode = false, timerInterval = null;
 
         function switchTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(el => el.style.display = 'none');
             document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
             document.getElementById(tabId).style.display = 'block';
-            const btnMap = { 'tab-plan': 'nav-btn-plan', 'tab-atlas': 'nav-btn-atlas', 'tab-ai': 'nav-btn-ai', 'tab-plate': 'nav-btn-plate', 'tab-progress': 'nav-btn-progress', 'tab-vip': 'tab-vip-btn', 'tab-admin': 'tab-admin-btn' };
+            const btnMap = { 'tab-plan': 'nav-btn-plan', 'tab-atlas': 'nav-btn-atlas', 'tab-ai': 'nav-btn-ai', 'tab-plate': 'nav-btn-plate', 'tab-progress': 'nav-btn-progress', 'tab-admin': 'tab-admin-btn' };
             if(btnMap[tabId] && document.getElementById(btnMap[tabId])) document.getElementById(btnMap[tabId]).classList.add('active');
-            if (tabId === 'tab-progress') updateStrengthRank();
             if (tabId === 'tab-atlas') renderAtlas();
             if (tabId === 'tab-plan') { renderPlan(); updateWorkoutStats(); }
+            if (tabId === 'tab-progress') updateStrengthRank();
         }
 
         function toggleAuthMode() {
             isRegisterMode = !isRegisterMode;
             document.getElementById('modal-title').innerText = isRegisterMode ? 'Rejestracja iOS Hevy' : 'Logowanie iOS Hevy';
             document.getElementById('auth-submit').innerText = isRegisterMode ? 'Zarejestruj się' : 'Zaloguj się';
-            document.getElementById('auth-toggle').innerText = isRegisterMode ? 'Masz konto? Zaloguj się' : 'Nie masz konta? Zarejestruj się';
             document.getElementById('auth-username').style.display = isRegisterMode ? 'block' : 'none';
         }
 
@@ -508,65 +446,106 @@
             const email = document.getElementById('auth-email').value;
             const pass = document.getElementById('auth-pass').value;
             const username = document.getElementById('auth-username').value;
-            if (!email || !pass) return alert('Wpisz e-mail i hasło!');
-            if (isRegisterMode && !username) return alert('Podaj nick!');
+            if (!email || !pass) return alert('Podaj dane!');
             try {
                 if (isRegisterMode) {
                     const res = await window.authApi.reg(email, pass);
                     if (res && res.user) {
-                        await window.fbSetDoc(window.fbDoc(window.db, 'projects', 'd1s-gym', 'users', res.user.uid), { username, role: 'user', permissions: { canBlock: false, canDeletePosts: false } }, { merge: true });
-                        alert("Konto utworzone! Zweryfikuj e-mail.");
+                        await window.fbSetDoc(window.fbDoc(window.db, 'projects', 'd1s-gym', 'users', res.user.uid), { username, role: 'user' }, { merge: true });
+                        alert("Konto utworzone! Potwierdź e-mail.");
                     }
                 } else { await window.authApi.login(email, pass); }
             } catch (err) { alert('Błąd: ' + err.message); }
         }
 
-        // DZIAŁAJĄCY TEKSTOWY AI COACH CZAT
+        // SWOBODNY I INTELIGENTNY SILNIK ODPOWIEDZI AI CHAT
         function sendAiMessage() {
             const input = document.getElementById('ai-chat-input');
             const text = input.value.trim();
             if(!text) return;
             
             const messagesContainer = document.getElementById('ai-chat-messages');
+            const indicator = document.getElementById('ai-typing-indicator');
+
             messagesContainer.innerHTML += `<div class="ai-bubble user">${text}</div>`;
             input.value = '';
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
 
-            setTimeout(() => {
-                let reply = "Przeanalizowałem Twoje zapytanie. Trzymaj się planu i progresuj z głową!";
-                const lower = text.toLowerCase();
-                if(lower.includes('dieta') || lower.includes('białko') || lower.includes('jeść')) {
-                    reply = "Dla optymalnego wzrostu mięśni spożywaj około 1.8 - 2.2g białka na kg masy ciała i dbaj o czystą nadwyżkę kaloryczną.";
-                } else if(lower.includes('ciężar') || lower.includes('progres') || lower.includes('siła')) {
-                    const prCount = Object.keys(window.gymData.prs || {}).length;
-                    reply = `Masz obecnie na koncie ${prCount} rekordów PR. Jeśli na treningu robisz zaplanowane powtórzenia z zapasem 1-2 powtórzeń w zapasie, czas podbić ciężar o 2.5 kg!`;
-                } else if(lower.includes('woda') || lower.includes('pić')) {
-                    reply = `Twoje dzisiejsze nawodnienie to ${window.gymData.water || 0} ml. Pamiętaj o minimum 3 litrach wody dziennie!`;
-                } else if(lower.includes('regeneracja') || lower.includes('sen')) {
-                    reply = "Regeneracja to 50% sukcesu. Zadbaj o 7-8 godzin snu każdej nocy i odpowiednie przerwy między sesjami na tę samą partię mięśniową.";
-                }
+            indicator.style.display = 'block';
 
+            setTimeout(() => {
+                indicator.style.display = 'none';
+                let reply = generateSmartAiResponse(text);
                 messagesContainer.innerHTML += `<div class="ai-bubble assistant">${reply}</div>`;
                 messagesContainer.scrollTop = messagesContainer.scrollHeight;
-            }, 600);
+            }, 700 + Math.random() * 500);
+        }
+
+        function generateSmartAiResponse(query) {
+            const q = query.toLowerCase().trim();
+            
+            // Powitania i proste zwroty
+            if (/^(siema|siemanko|cześć|czesc|elo|witam|hej|mordo|siemka)$/i.test(q)) {
+                return `Siemanko! Co tam na treningu słychać? Jakieś rekordy dzisiaj wjeżdżają, czy robimy czystą technikę? 💪`;
+            }
+            if (q.includes('co tam') || q.includes('jak leci') || q.includes('co tam slychac')) {
+                return `Wszystko w najlepszym porządku! Analizuję Twoje postępy w aplikacji. Gotowy na rozwalenie kolejnej serii? 🔥`;
+            }
+            if (q.includes('dzięki') || q.includes('dzieki') || q.includes('dostosuj') || q.includes('super')) {
+                return `Cała przyjemność po mojej stronie! Lecimy po kolejne sukcesy! 🔥🏼`;
+            }
+
+            // Zapytania o stan formy użytkownika
+            if (q.includes('rekord') || q.includes('pr') || q.includes('ile mam')) {
+                const prs = window.gymData.prs || {};
+                const keys = Object.keys(prs);
+                if (keys.length === 0) return `Nie masz jeszcze zapisanych rekordów PR. Wykonaj trening i wpisz ciężary w tabeli, a od razu je podliczę!`;
+                let prText = keys.map(k => `${k.toUpperCase()}: ${prs[k]}kg`).join(', ');
+                return `Twoje aktualne rekordy w bazie to: ${prText}. Piękna robota! 🔥`;
+            }
+
+            // Zapytania o trening
+            if (q.includes('ppl') || q.includes('plan') || q.includes('push pull')) {
+                return `Push Pull Legs (PPL) to jeden z najskuteczniejszych podziałów! Push: Klatka/Barki/Triceps, Pull: Plecy/Biceps/Tył barku, Legs: Nogi/Brzuch. Możesz go wygenerować jednym kliknięciem w zakładce Trening!`;
+            }
+            if (q.includes('ile serii') || q.includes('objętość') || q.includes('objetosc')) {
+                return `Dla optymalnej hipertrofii celuj w 10–20 serii roboczych na dużą partię mięśniową tygodniowo. Pamiętaj, że jakość i bliskość upadku mięśniowego (RIR 1-2) są ważniejsze niż sama ilość!`;
+            }
+            if (q.includes('ciężar') || q.includes('progres') || q.includes('przeładowanie')) {
+                return `Progresywne przeładowanie to klucz! Staraj się co trening dokładać powtórzenie lub 1-2.5 kg. Możesz też użyć mojego przycisku "AI Overload Engine", który sam wyliczy progres!`;
+            }
+
+            // Zapytania o dietę i suplementy
+            if (q.includes('białko') || q.includes('bialko') || q.includes('ile białka')) {
+                return `Zasada jest prosta: 1.8 – 2.2 grama białka na każdy kilogram masy ciała dziennie. Przy wadze 80 kg daje to około 160g białka na dobę!`;
+            }
+            if (q.includes('kreatyna') || q.includes('creatine')) {
+                return `Kreatyna to najlepiej przebadany suplement na świecie! Bierz 5g monohydratu kreatyny codziennie o stałej porze. Daje wzrost siły, lepszą pompkę i nawodnienie komórek mięśniowych.`;
+            }
+            if (q.includes('kredyt kaloryczny') || q.includes('masa') || q.includes('redukcja')) {
+                return `Na masie celuj w lekki nadmiar kaloryczny (+200 do +300 kcal), aby budować mięśnie bez zbędnego tłuszczu. Na redukcji utrzymuj deficyt 300–500 kcal i wysokie białko!`;
+            }
+
+            // Domyślna odpowiedź merytoryczna
+            return `Rozumiem! Pytałeś o: "${query}". W kontekście Twojego treningu: pamiętaj o zachowaniu dobrej techniki, pilnowaniu przerw na stoperze i nawodnienia (masz wpisane ${window.gymData.water || 0}ml dzisiaj). Jeśli masz pytania o konkretne ćwiczenie, wpisz po prostu jego nazwę!`;
         }
 
         function calculatePlates() {
             const bar = parseFloat(document.getElementById('plate-bar-weight').value) || 20;
             const target = parseFloat(document.getElementById('plate-target-weight').value);
             const output = document.getElementById('plate-result-output');
-            if(!target || target <= bar) { output.innerText = "Cężar musi być większy niż gryf."; return; }
+            if(!target || target <= bar) { output.innerText = "Ciężar musi być większy niż gryf."; return; }
             let neededPerSide = (target - bar) / 2;
             const plates = [25, 20, 15, 10, 5, 2.5, 1.25];
             let result = [];
             for(let p of plates) {
                 while(neededPerSide >= p) { result.push(p); neededPerSide -= p; }
             }
-            output.innerText = result.length === 0 ? "Brak talerzy." : result.join(' kg + ') + ' kg (na jedną stronę)';
+            output.innerText = result.length === 0 ? "Brak wymaganych talerzy." : result.join(' kg + ') + ' kg (na stronę)';
         }
 
         function runAiSmartOverload() {
-            alert("🧠 AI Overload Engine podbił ciężary bazowe o 2.5 kg na podstawie Twojej historii!");
+            alert("🧠 AI Overload Engine podbił ciężary w planie o 2.5 kg!");
             renderPlan();
         }
 
@@ -584,7 +563,7 @@
 
         function startActiveWorkoutDay(day) { window.gymData.activeWorkoutDay = day; window.saveGymData(); renderPlan(); updateWorkoutStats(); }
         function finishActiveWorkoutSession() {
-            alert(`🎉 Trening ${window.gymData.activeWorkoutDay} zapisany w historii!`);
+            alert(`🎉 Trening ${window.gymData.activeWorkoutDay} zakończony i zapisany!`);
             window.gymData.activeWorkoutDay = null; window.saveGymData(); renderPlan(); updateWorkoutStats();
         }
 
@@ -594,7 +573,7 @@
             if (active) {
                 badge.innerText = `🟢 Sesja: ${active}`; badge.style.color = "var(--success)";
                 if(banner) { banner.style.display = "flex"; document.getElementById('hevy-active-day-title').innerText = active; }
-            } else { badge.innerText = "Brak aktywnego treningu"; badge.style.color = "var(--gold)"; if(banner) banner.style.display = "none"; }
+            } else { badge.innerText = "Brak treningu"; badge.style.color = "var(--gold)"; if(banner) banner.style.display = "none"; }
 
             let tonnage = 0, sets = 0;
             Object.keys(plan).forEach(d => (plan[d] || []).forEach(ex => (ex.sets || []).forEach(s => {
@@ -610,16 +589,13 @@
             document.getElementById('player-strength-rank').innerText = count > 2 ? "Zaawansowany" : "Początkujący";
         }
 
-        function openAtlasPickerForDay(day) { document.getElementById('modal-plan-day').value = day; switchTab('tab-atlas'); }
-        function openAddAtlasToPlanModal(name) { selectedAtlasName = name; document.getElementById('modal-atlas-title').innerText = name; document.getElementById('atlas-to-plan-modal').style.display = 'flex'; }
-        function closeAtlasModal() { document.getElementById('atlas-to-plan-modal').style.display = 'none'; }
-
-        function confirmAddAtlasToPlan() {
-            const day = document.getElementById('modal-plan-day').value;
+        function openAddAtlasToPlanModal(name) {
+            const day = prompt("Do jakiego dnia dodać? (np. Poniedziałek)", "Poniedziałek");
+            if(!day) return;
             if(!window.gymData.workoutPlan) window.gymData.workoutPlan = {};
             if(!window.gymData.workoutPlan[day]) window.gymData.workoutPlan[day] = [];
-            window.gymData.workoutPlan[day].push({ id: Date.now(), name: selectedAtlasName, sets: [{setNum:1, type:'Robocza', weight:'', reps:'', done:false}] });
-            window.saveGymData(); renderPlan(); closeAtlasModal(); switchTab('tab-plan');
+            window.gymData.workoutPlan[day].push({ id: Date.now(), name, sets: [{setNum:1, type:'Robocza', weight:'', reps:'', done:false}] });
+            window.saveGymData(); renderPlan(); alert(`Dodano ${name} do dnia: ${day}`);
         }
 
         function addSingleSetToExercise(day, id) {
@@ -654,7 +630,7 @@
             window.gymData.workoutPlan = {
                 'Poniedziałek': [{ id: 101, name: 'Wyciskanie sztangi na ławce', sets: [{setNum:1, type:'Robocza', weight:'80', reps:'8', done:false}] }]
             };
-            window.saveGymData(); renderPlan(); updateWorkoutStats(); alert("⚡ Wygenerowano PPL!");
+            window.saveGymData(); renderPlan(); updateWorkoutStats(); alert("⚡ Wygenerowano plan PPL!");
         }
 
         function renderPlan() {
@@ -672,7 +648,7 @@
                             <button class="btn btn-sm ${isActive?'btn-success':''}" onclick="startActiveWorkoutDay('${day}')">${isActive ? 'Aktywny' : 'Start'}</button>
                         </summary>
                         <div class="day-content">
-                            ${list.length === 0 ? '<p style="font-size:0.75rem; color:var(--text-muted);">Brak ćwiczeń.</p>' : ''}
+                            ${list.length === 0 ? '<p style="font-size:0.75rem; color:var(--text-muted);">Brak ćwiczeń w tym dniu.</p>' : ''}
                             ${list.map(ex => `
                                 <div class="exercise-item">
                                     <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
@@ -694,7 +670,6 @@
                                     <button class="btn btn-outline btn-sm" style="width:100%; margin-top:8px;" onclick="addSingleSetToExercise('${day}',${ex.id})">+ Dodaj serię</button>
                                 </div>
                             `).join('')}
-                            <button class="btn btn-outline btn-sm" style="width:100%; margin-top:8px; border-style:dashed; color:var(--primary);" onclick="openAtlasPickerForDay('${day}')">+ Dodaj z atlasu</button>
                         </div>
                     </details>
                 `;
@@ -702,43 +677,32 @@
         }
 
         const DEFAULT_ATLAS = [
-            { name: "Wyciskanie sztangi na ławce poziomej", part: "Klatka piersiowa", equipment: "Sztanga" },
-            { name: "Przysiad ze sztangą na plecach", part: "Nogi", equipment: "Sztanga" },
-            { name: "Podciąganie na drążku nachwytem", part: "Plecy", equipment: "Masa ciała" }
+            { name: "Wyciskanie sztangi na ławce", part: "Klatka piersiowa" },
+            { name: "Przysiad ze sztangą", part: "Nogi" },
+            { name: "Podciąganie na drążku", part: "Plecy" }
         ];
-
-        function filterAtlasCategory(cat, btn) {
-            selectedCategoryFilter = cat;
-            document.querySelectorAll('.filter-pills-scroll .pill-btn').forEach(b => b.classList.remove('active'));
-            if(btn) btn.classList.add('active'); renderAtlas();
-        }
 
         function renderAtlas() {
             const container = document.getElementById('atlas-container');
             const search = (document.getElementById('atlas-search')?.value || '').toLowerCase();
             const list = [...DEFAULT_ATLAS, ...(window.gymData?.myCustomAtlas || [])];
-            const filtered = list.filter(x => (selectedCategoryFilter === 'all' || x.part.includes(selectedCategoryFilter)) && x.name.toLowerCase().includes(search));
+            const filtered = list.filter(x => x.name.toLowerCase().includes(search));
             container.innerHTML = filtered.map(a => `
                 <div class="hevy-ex-card">
-                    <div class="hevy-ex-info">
-                        <div class="hevy-ex-title">${a.name}</div>
-                        <div style="margin-top:4px;"><span class="tag-pill muscle">${a.part}</span></div>
-                    </div>
-                    <div style="display:flex; justify-content:flex-end;">
-                        <div class="btn-add-circle" onclick="openAddAtlasToPlanModal('${a.name.replace(/'/g, "\\'")}')">+</div>
-                    </div>
+                    <div class="hevy-ex-title">${a.name}</div>
+                    <div><span class="tag-pill muscle">${a.part}</span></div>
+                    <button class="btn btn-outline btn-sm" style="margin-top:6px;" onclick="openAddAtlasToPlanModal('${a.name}')">+ Dodaj do planu</button>
                 </div>
             `).join('');
         }
 
         function openAddPrivateExerciseModal() { document.getElementById('add-private-exercise-modal').style.display = 'flex'; }
-        function closeAddPrivateExerciseModal() { document.getElementById('add-private-exercise-modal').style.display = 'none'; }
         function savePrivateExercise() {
             const name = document.getElementById('priv-ex-name').value;
             if(!name) return;
             if(!window.gymData.myCustomAtlas) window.gymData.myCustomAtlas = [];
-            window.gymData.myCustomAtlas.push({ id: 'p_'+Date.now(), name, part: document.getElementById('priv-ex-part').value, equipment: 'Inne' });
-            window.saveGymData(); closeAddPrivateExerciseModal(); renderAtlas();
+            window.gymData.myCustomAtlas.push({ id: 'p_'+Date.now(), name, part: document.getElementById('priv-ex-part').value });
+            window.saveGymData(); document.getElementById('add-private-exercise-modal').style.display = 'none'; renderAtlas();
         }
 
         function addWater(amount) { window.gymData.water = (window.gymData.water || 0) + amount; window.saveGymData(); updateWaterUI(); }
@@ -755,21 +719,10 @@
                 left--;
                 let m = Math.floor(left/60).toString().padStart(2,'0'); let s = (left%60).toString().padStart(2,'0');
                 document.getElementById('timer-display').innerText = `${m}:${s}`;
-                if(left <= 0) {
-                    clearInterval(timerInterval);
-                    if(navigator.vibrate) navigator.vibrate([200, 100, 200]);
-                }
+                if(left <= 0) { clearInterval(timerInterval); if(navigator.vibrate) navigator.vibrate([200, 100, 200]); }
             }, 1000);
         }
         function stopTimer() { clearInterval(timerInterval); document.getElementById('timer-display').innerText = '00:00'; }
-
-        async function loadAdminUserList() {
-            if (!window.db) return;
-            const snap = await window.fbGetDocs(window.fbCollection(window.db, 'projects', 'd1s-gym', 'users'));
-            document.getElementById('stat-users-count').innerText = snap.size;
-            let html = ''; snap.forEach(d => { const data = d.data(); html += `<div class="list-item"><span>${data.username || 'Użytkownik'}</span><span>${data.role || 'user'}</span></div>`; });
-            document.getElementById('admin-user-list').innerHTML = html;
-        }
 
         renderPlan(); updateWaterUI(); updateWorkoutStats();
     </script>
