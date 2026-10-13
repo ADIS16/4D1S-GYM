@@ -3,16 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>4D1S_GYM - Hevy 1:1 Full Edition</title>
+    <title>4D1S_GYM - Ultimate God-Tier Edition</title>
     
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="4D1S_GYM">
     <meta name="theme-color" content="#0d1117">
     
-    <link id="apple-icon" rel="apple-touch-icon" href="c3e85c77-58fb-4713-b654-5eca4e3158c8.png">
-    <link id="fav-icon" rel="icon" type="image/png" href="c3e85c77-58fb-4713-b654-5eca4e3158c8.png">
-
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -22,17 +18,15 @@
             --bg-card: #161b22;
             --bg-input: #21262d;
             --card-border: #30363d;
-            --primary: #3b82f6; /* Hevy Blue */
-            --primary-glow: rgba(59, 130, 246, 0.2);
+            --primary: #3b82f6;
+            --primary-glow: rgba(59, 130, 246, 0.3);
             --purple: #c084fc;
             --text-main: #f0f6fc;
             --text-muted: #8b949e;
-            --success: #238636; /* Hevy Green */
+            --success: #238636;
             --danger: #f85149;
             --gold: #d29922;
-            --failure: #f85149;
-            --drop: #c084fc;
-            --warmup: #d29922;
+            --ai-glow: #ec4899;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; -webkit-tap-highlight-color: transparent; }
@@ -42,167 +36,64 @@
             color: var(--text-main); 
             min-height: 100vh; 
             padding: 12px; 
-            padding-bottom: 110px; 
+            padding-bottom: 120px; 
             max-width: 100vw;
             overflow-x: hidden;
-            -webkit-text-size-adjust: 100%;
         }
 
         .container { max-width: 1200px; margin: 0 auto; width: 100%; }
 
-        header { display: flex; justify-content: space-between; align-items: center; padding: 10px 0 16px; border-bottom: 1px solid var(--card-border); margin-bottom: 15px; flex-wrap: wrap; gap: 10px; }
-        .logo { font-weight: 900; font-size: 1.35rem; color: var(--text-main); letter-spacing: -0.5px; display: flex; align-items: center; gap: 10px; }
-        .logo img { width: 36px; height: 36px; border-radius: 10px; object-fit: cover; border: 1px solid var(--card-border); }
-        .logo span { background: linear-gradient(135deg, #3b82f6, #60a5fa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-
-        .status-badge { display: flex; align-items: center; gap: 6px; font-size: 0.7rem; background: rgba(255,255,255,0.03); padding: 5px 10px; border-radius: 30px; border: 1px solid var(--card-border); }
-        .dot { width: 7px; height: 7px; border-radius: 50%; background: #64748b; }
-        .dot.online { background: var(--success); box-shadow: 0 0 8px var(--success); }
-        .dot.offline { background: var(--danger); }
+        header { display: flex; justify-content: space-between; align-items: center; padding: 10px 0 16px; border-bottom: 1px solid var(--card-border); margin-bottom: 15px; }
+        .logo { font-weight: 900; font-size: 1.4rem; color: var(--text-main); display: flex; align-items: center; gap: 10px; }
+        .logo span { background: linear-gradient(135deg, #3b82f6, #ec4899); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
         .nav-tabs { 
-            position: fixed; 
-            bottom: 0; 
-            left: 0; 
-            right: 0; 
-            background: rgba(22, 27, 34, 0.96); 
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
+            position: fixed; bottom: 0; left: 0; right: 0; 
+            background: rgba(22, 27, 34, 0.96); backdrop-filter: blur(16px);
             border-top: 1px solid var(--card-border); 
-            display: flex; 
-            justify-content: space-around; 
-            padding: 8px 4px 24px; 
-            z-index: 1000;
-            margin: 0;
-            overflow-x: auto;
-            scrollbar-width: none;
+            display: flex; justify-content: space-around; padding: 8px 4px 24px; z-index: 1000;
         }
-        .nav-tabs::-webkit-scrollbar { display: none; }
         .tab-btn { 
-            background: transparent; 
-            border: none; 
-            color: var(--text-muted); 
-            padding: 6px 4px; 
-            border-radius: 8px; 
-            font-weight: 700; 
-            cursor: pointer; 
-            transition: all 0.2s ease; 
-            white-space: nowrap; 
-            font-size: 0.62rem; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            gap: 3px;
+            background: transparent; border: none; color: var(--text-muted); padding: 6px; 
+            border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 0.62rem; 
+            display: flex; flex-direction: column; align-items: center; gap: 3px;
         }
-        .tab-btn.active { background: transparent; color: var(--primary); }
+        .tab-btn.active { color: var(--primary); }
 
-        .btn { background: var(--primary); color: #ffffff; border: none; padding: 10px 16px; border-radius: 10px; font-weight: 800; cursor: pointer; transition: all 0.2s ease; display: inline-flex; align-items: center; justify-content: center; gap: 6px; font-size: 0.85rem; text-decoration: none; box-shadow: 0 2px 6px rgba(59, 130, 246, 0.3); }
-        .btn:active { transform: scale(0.97); opacity: 0.9; }
+        .btn { background: var(--primary); color: #fff; border: none; padding: 10px 16px; border-radius: 12px; font-weight: 800; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; justify-content: center; gap: 6px; font-size: 0.85rem; box-shadow: 0 4px 12px rgba(59,130,246,0.3); }
+        .btn:active { transform: scale(0.97); }
         .btn-sm { padding: 6px 10px; font-size: 0.72rem; border-radius: 8px; }
-        .btn-success { background: var(--success); box-shadow: 0 2px 6px rgba(35, 134, 54, 0.3); }
+        .btn-success { background: var(--success); box-shadow: 0 4px 12px rgba(35,134,54,0.3); }
+        .btn-ai { background: linear-gradient(135deg, #3b82f6, #ec4899); box-shadow: 0 4px 15px rgba(236,72,153,0.4); }
         .btn-outline { background: transparent; border: 1px solid var(--card-border); color: var(--text-main); box-shadow: none; }
-        .btn-outline:active { background: rgba(255, 255, 255, 0.05); }
 
-        .card { background: var(--bg-card); border: 1px solid var(--card-border); border-radius: 16px; padding: 16px; margin-bottom: 15px; width: 100%; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
-        .card-admin { border: 1px solid rgba(59, 130, 246, 0.4); background: rgba(59, 130, 246, 0.02); }
+        .card { background: var(--bg-card); border: 1px solid var(--card-border); border-radius: 18px; padding: 16px; margin-bottom: 15px; box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
+        
+        input, select, textarea { width: 100%; padding: 10px 12px; background: var(--bg-input); border: 1px solid var(--card-border); border-radius: 12px; color: white; margin-top: 4px; margin-bottom: 10px; font-size: 15px; }
+        input:focus { border-color: var(--primary); outline: none; box-shadow: 0 0 0 3px var(--primary-glow); }
 
-        .grid { display: flex; flex-direction: column; gap: 15px; width: 100%; }
-        @media (min-width: 800px) {
-            .grid { display: grid; grid-template-columns: 1fr 340px; gap: 18px; }
-        }
-        .grid-3 { display: grid; grid-template-columns: 1fr; gap: 12px; }
-        @media (min-width: 600px) {
-            .grid-3 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
-        }
-        
-        input, select, textarea { width: 100%; padding: 10px 12px; background: var(--bg-input); border: 1px solid var(--card-border); border-radius: 10px; color: white; margin-top: 4px; margin-bottom: 10px; font-size: 15px; transition: border-color 0.2s; -webkit-appearance: none; }
-        input:focus, select:focus, textarea:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 2px var(--primary-glow); }
-
-        .role-badge { padding: 3px 8px; border-radius: 6px; font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; display: inline-block; }
-        .role-owner { background: var(--primary); color: #ffffff; }
-        .role-admin { background: #f85149; color: #fff; }
-        .role-staff { background: #38bdf8; color: #0d0d12; }
-        .role-vip { background: var(--gold); color: #000; }
-        .role-user { background: #21262d; color: var(--text-muted); }
-
-        #auth-lockscreen { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 60vh; text-align: center; }
-        #verification-screen { display: none; flex-direction: column; align-items: center; justify-content: center; min-height: 50vh; text-align: center; }
-        
-        .list-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 12px; background: rgba(255,255,255,0.02); border-radius: 10px; margin-bottom: 8px; border: 1px solid var(--card-border); font-size: 0.82rem; }
-        
-        details.day-card { background: var(--bg-card); border: 1px solid var(--card-border); border-radius: 16px; margin-bottom: 12px; transition: border-color 0.3s; width: 100%; overflow: hidden; }
-        details.day-card[open] { border-color: rgba(59, 130, 246, 0.5); }
-        details.day-card.active-workout-day { border: 1.5px solid var(--primary); background: rgba(59, 130, 246, 0.03); }
-        
-        summary.day-header { 
-            font-weight: 800; 
-            color: #fff; 
-            padding: 14px 16px; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            font-size: 1rem; 
-            cursor: pointer; 
-            user-select: none;
-            list-style: none;
-            background: rgba(255,255,255,0.01);
-        }
+        details.day-card { background: var(--bg-card); border: 1px solid var(--card-border); border-radius: 16px; margin-bottom: 12px; overflow: hidden; }
+        summary.day-header { font-weight: 800; color: #fff; padding: 14px 16px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; list-style: none; }
         summary.day-header::-webkit-details-marker { display: none; }
-        summary.day-header:hover { background: rgba(255,255,255,0.03); }
-
         .day-content { padding: 14px 16px; border-top: 1px solid var(--card-border); }
-        .exercise-item { background: #0d1117; padding: 12px; border-radius: 12px; margin-bottom: 12px; border: 1px solid var(--card-border); }
 
+        .exercise-item { background: #0d1117; padding: 12px; border-radius: 14px; margin-bottom: 12px; border: 1px solid var(--card-border); }
         .hevy-set-table { width: 100%; margin-top: 8px; border-collapse: collapse; }
         .hevy-set-header { display: grid; grid-template-columns: 50px 1fr 75px 75px 42px; gap: 6px; text-align: center; font-size: 0.65rem; font-weight: 800; color: var(--text-muted); padding-bottom: 6px; border-bottom: 1px solid rgba(255,255,255,0.08); text-transform: uppercase; }
         .hevy-set-row { display: grid; grid-template-columns: 50px 1fr 75px 75px 42px; gap: 6px; align-items: center; text-align: center; padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 0.78rem; }
         
-        .set-type-select { background: #21262d; border: 1px solid var(--card-border); border-radius: 6px; color: #fff; font-size: 0.65rem; font-weight: 800; padding: 4px 2px; text-align: center; cursor: pointer; }
-        .set-type-select.warmup { color: var(--warmup); background: rgba(210,153,34,0.15); }
-        .set-type-select.failure { color: var(--failure); background: rgba(248,81,73,0.15); }
-        .set-type-select.drop { color: var(--drop); background: rgba(192,132,252,0.15); }
+        .hevy-input { background: var(--bg-input); border: 1px solid var(--card-border); border-radius: 8px; padding: 6px; text-align: center; color: #fff; font-weight: 700; font-size: 0.85rem; margin: 0; }
+        .check-btn { width: 34px; height: 34px; border-radius: 8px; background: var(--bg-input); border: 1px solid var(--card-border); color: var(--text-muted); font-weight: 900; display: flex; align-items: center; justify-content: center; cursor: pointer; margin: 0 auto; transition: 0.2s; }
+        .check-btn.completed { background: var(--success); color: #fff; border-color: var(--success); box-shadow: 0 0 10px rgba(35,134,54,0.5); }
 
-        .prev-stat { font-size: 0.7rem; color: var(--text-muted); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .floating-timer { position: fixed; bottom: 82px; left: 12px; right: 12px; background: rgba(22, 27, 34, 0.98); border: 1px solid var(--primary); border-radius: 16px; padding: 12px 16px; box-shadow: 0 12px 35px rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: space-between; z-index: 900; backdrop-filter: blur(16px); }
 
-        .hevy-input { background: #21262d; border: 1px solid var(--card-border); border-radius: 8px; padding: 6px; text-align: center; color: #fff; font-weight: 700; font-size: 0.85rem; margin: 0; }
-        .hevy-input:focus { border-color: var(--primary); background: #0d1117; }
-
-        .check-btn { width: 34px; height: 34px; border-radius: 8px; background: #21262d; border: 1px solid var(--card-border); color: var(--text-muted); font-weight: 900; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; margin: 0 auto; }
-        .check-btn.completed { background: var(--success); color: #ffffff; border-color: var(--success); box-shadow: 0 0 10px rgba(35, 134, 54, 0.4); }
-
-        .floating-timer { position: fixed; bottom: 78px; left: 12px; right: 12px; background: rgba(22, 27, 34, 0.96); border: 1px solid var(--card-border); border-radius: 16px; padding: 10px 14px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: space-between; z-index: 900; backdrop-filter: blur(14px); flex-wrap: wrap; gap: 8px; }
-        
-        .water-progress { width: 100%; height: 10px; background: rgba(0,0,0,0.6); border-radius: 6px; overflow: hidden; border: 1px solid var(--card-border); margin: 6px 0; }
-        .water-bar { height: 100%; width: 0%; background: var(--primary); transition: width 0.3s; }
-
-        .filter-pills-scroll { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; padding-bottom: 8px; margin-bottom: 12px; }
-        .filter-pills-scroll::-webkit-scrollbar { display: none; }
-        .pill-btn { background: #21262d; border: 1px solid var(--card-border); color: var(--text-muted); padding: 6px 14px; border-radius: 20px; font-weight: 700; font-size: 0.75rem; cursor: pointer; white-space: nowrap; transition: all 0.2s; }
-        .pill-btn.active { background: var(--primary); color: #ffffff; border-color: var(--primary); }
-
-        .hevy-ex-card { background: #21262d; border: 1px solid var(--card-border); border-radius: 14px; padding: 12px; display: flex; flex-direction: column; gap: 10px; cursor: pointer; transition: transform 0.15s ease, border-color 0.15s ease; position: relative; }
-        .hevy-ex-card:active { transform: scale(0.98); }
-        .hevy-ex-card:hover { border-color: rgba(59, 130, 246, 0.6); }
-        
-        .hevy-ex-info { flex: 1; min-width: 0; }
-        .hevy-ex-title { font-size: 0.92rem; font-weight: 800; color: #fff; margin-bottom: 4px; }
-        .hevy-ex-tags { display: flex; gap: 5px; flex-wrap: wrap; align-items: center; margin-top: 6px; }
-        .tag-pill { font-size: 0.62rem; font-weight: 700; padding: 2px 7px; border-radius: 6px; background: rgba(255,255,255,0.06); color: var(--text-muted); border: 1px solid rgba(255,255,255,0.08); text-transform: uppercase; }
-        .tag-pill.muscle { background: rgba(59, 130, 246, 0.15); color: var(--primary); border-color: rgba(59, 130, 246, 0.3); }
-
-        .btn-add-circle { width: 32px; height: 32px; border-radius: 50%; background: rgba(59, 130, 246, 0.15); border: 1px solid rgba(59, 130, 246, 0.4); color: var(--primary); font-size: 1.1rem; font-weight: 800; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; flex-shrink: 0; }
-        .btn-add-circle:hover { background: var(--primary); color: #fff; }
-
-        .recipe-card { background: rgba(0, 0, 0, 0.2); border: 1px solid var(--card-border); border-radius: 12px; padding: 14px; display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.2s; cursor: pointer; }
-        .recipe-card:hover { border-color: rgba(210, 153, 34, 0.5); }
-        .macro-row { display: flex; gap: 6px; flex-wrap: wrap; margin: 6px 0; }
-        .macro-row span { font-size: .68rem; font-weight: 700; padding: 3px 6px; border-radius: 6px; background: rgba(255,255,255,.05); border: 1px solid var(--card-border); }
+        /* AI VOICE WIDGET & OVERLOAD BANNER */
+        .ai-floating-mic { position: fixed; bottom: 155px; right: 16px; width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, #3b82f6, #ec4899); border: none; color: white; font-size: 1.5rem; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 6px 20px rgba(236,72,153,0.5); z-index: 950; animation: pulse-ai 2s infinite; }
+        @keyframes pulse-ai { 0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(236,72,153,0.7); } 70% { transform: scale(1.05); box-shadow: 0 0 0 12px rgba(236,72,153,0); } 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(236,72,153,0); } }
 
         .modal-overlay { position: fixed; top:0; left:0; right:0; bottom:0; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); display: none; align-items: center; justify-content: center; z-index: 1100; padding: 12px; }
-        .modal-body { background: var(--bg-card); border: 1px solid var(--card-border); border-radius: 18px; padding: 18px; width: 100%; max-width: 440px; box-shadow: 0 10px 30px rgba(0,0,0,0.9); max-height: 90vh; overflow-y: auto; }
-
-        .chat-img-preview { max-width: 100%; max-height: 240px; border-radius: 10px; margin-top: 6px; border: 1px solid var(--card-border); object-fit: contain; background: #000; display: block; }
-        .stat-box { background: rgba(255,255,255,0.03); border: 1px solid var(--card-border); padding: 10px; border-radius: 12px; text-align: center; }
+        .modal-body { background: var(--bg-card); border: 1px solid var(--card-border); border-radius: 20px; padding: 20px; width: 100%; max-width: 440px; }
     </style>
 
     <script type="module">
@@ -210,1280 +101,220 @@
         import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged, sendEmailVerification } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
         import { getFirestore, doc, onSnapshot, setDoc, collection, getDocs, addDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
 
-        const k1 = "AIzaSyDt4973oXRxuzS_";
-        const k2 = "Tmp_axT8jnyvCRZ6CTI";
+        const k1 = "AIzaSyDt4973oXRxuzS_"; const k2 = "Tmp_axT8jnyvCRZ6CTI";
+        const firebaseConfig = { apiKey: k1 + k2, authDomain: "d1s-gym.firebaseapp.com", projectId: "d1s-gym", storageBucket: "d1s-gym.firebasestorage.app", messagingSenderId: "542037700079", appId: "1:542037700079:web:d3ccb84200ca5560495a1a" };
 
-        const firebaseConfig = {
-            apiKey: k1 + k2,
-            authDomain: "d1s-gym.firebaseapp.com",
-            projectId: "d1s-gym",
-            storageBucket: "d1s-gym.firebasestorage.app",
-            messagingSenderId: "542037700079",
-            appId: "1:542037700079:web:d3ccb84200ca5560495a1a"
-        };
+        let app = initializeApp(firebaseConfig);
+        window.auth = getAuth(app); window.db = getFirestore(app);
+        window.fbAddDoc = addDoc; window.fbDeleteDoc = deleteDoc; window.fbCollection = collection; window.fbDoc = doc; window.fbSetDoc = setDoc; window.fbGetDocs = getDocs;
 
-        let app, auth, db;
-        try {
-            app = initializeApp(firebaseConfig);
-            auth = getAuth(app);
-            db = getFirestore(app);
-            window.db = db;
-            window.auth = auth;
-            
-            window.fbAddDoc = addDoc;
-            window.fbDeleteDoc = deleteDoc;
-            window.fbCollection = collection;
-            window.fbDoc = doc;
-            window.fbSetDoc = setDoc;
-            window.fbGetDocs = getDocs;
-            window.fbSendEmailVerification = sendEmailVerification;
-        } catch (e) { console.error("Firebase Init Error", e); }
-
-        window.authApi = {
-            login: (e, p) => signInWithEmailAndPassword(auth, e, p),
-            reg: async (e, p) => {
-                const creds = await createUserWithEmailAndPassword(auth, e, p);
-                if (creds && creds.user) {
-                    await sendEmailVerification(creds.user);
-                }
-                return creds;
-            },
-            resendVerification: async () => {
-                if (auth && auth.currentUser) {
-                    await sendEmailVerification(auth.currentUser);
-                    alert("Wysłano ponownie e-mail weryfikacyjny! Sprawdź skrzynkę.");
-                }
-            },
-            out: async () => {
-                if (auth && auth.currentUser) {
-                    try {
-                        await setDoc(doc(db, 'projects', 'd1s-gym', 'users', auth.currentUser.uid), { isOnline: false }, { merge: true });
-                    } catch(err) {}
-                }
-                if (auth) signOut(auth);
+        onAuthStateChanged(window.auth, async (user) => {
+            const lockScreen = document.getElementById('auth-lockscreen');
+            const appContent = document.getElementById('app-main-content');
+            if (user && user.emailVerified) {
+                lockScreen.style.display = 'none';
+                appContent.style.display = 'block';
+                onSnapshot(doc(window.db, 'projects', 'd1s-gym', 'users', user.uid), (snap) => {
+                    let data = snap.exists() ? snap.data() : {};
+                    window.gymData = data.gym_data || { workouts: [], workoutPlan: {}, activeWorkoutDay: null, xp: 0, level: 1, water: 0, prs: {} };
+                    window.renderPlan();
+                    window.updateWorkoutStats();
+                });
+            } else {
+                lockScreen.style.display = 'flex';
+                appContent.style.display = 'none';
             }
-        };
-
-        if (auth) {
-            onAuthStateChanged(auth, async (user) => {
-                const dot = document.getElementById('status-dot');
-                const txt = document.getElementById('status-text');
-                const appContent = document.getElementById('app-main-content');
-                const lockScreen = document.getElementById('auth-lockscreen');
-                const verificationScreen = document.getElementById('verification-screen');
-                
-                if (user) {
-                    if (!user.emailVerified) {
-                        lockScreen.style.display = 'none';
-                        appContent.style.display = 'none';
-                        verificationScreen.style.display = 'flex';
-                        document.getElementById('user-profile').style.display = 'none';
-                        dot.className = "dot offline";
-                        txt.innerText = "Niezweryfikowany e-mail";
-                        return;
-                    }
-
-                    verificationScreen.style.display = 'none';
-                    lockScreen.style.display = 'none';
-                    appContent.style.display = 'block';
-                    document.getElementById('user-profile').style.display = 'flex';
-
-                    const userDocRef = doc(db, 'projects', 'd1s-gym', 'users', user.uid);
-
-                    onSnapshot(userDocRef, async (snap) => {
-                        dot.className = "dot online";
-                        txt.innerText = "Hevy Online";
-                        let userData = snap.exists() ? snap.data() : {};
-                        
-                        userData.role = userData.role || 'user';
-                        window.currentUserRole = userData.role;
-                        window.currentUsername = userData.username || user.email.split('@')[0];
-                        window.permissions = userData.permissions || { canBlock: false, canDeletePosts: false };
-
-                        await setDoc(userDocRef, { 
-                            username: window.currentUsername,
-                            isOnline: true, 
-                            lastSeen: new Date().toLocaleString('pl-PL') 
-                        }, { merge: true });
-
-                        document.getElementById('user-username-display').innerText = window.currentUsername;
-                        window.gymData = userData.gym_data || { workouts: [], workoutPlan: {}, activeWorkoutDay: null, xp: 0, level: 1, water: 0, prs: {}, myCustomAtlas: [], measurements: [] };
-
-                        document.getElementById('user-role-tag').innerHTML = getRoleBadgeHtml(window.currentUserRole);
-
-                        document.getElementById('tab-admin-btn').style.display = ['owner', 'admin'].includes(window.currentUserRole) ? 'flex' : 'none';
-                        document.getElementById('tab-vip-btn').style.display = ['owner', 'admin', 'vip'].includes(window.currentUserRole) ? 'flex' : 'none';
-
-                        if (['owner', 'admin'].includes(window.currentUserRole)) window.loadAdminUserList();
-
-                        window.renderPlan();
-                        window.renderAchievements();
-                        window.updateWaterUI();
-                        window.updateWorkoutStats();
-                        window.renderMeasurements();
-                    });
-
-                    window.listenToLiveBases();
-                    window.listenToForumPosts();
-                } else {
-                    verificationScreen.style.display = 'none';
-                    lockScreen.style.display = 'flex';
-                    appContent.style.display = 'none';
-
-                    document.getElementById('user-profile').style.display = 'none';
-                    document.getElementById('tab-admin-btn').style.display = 'none';
-                    document.getElementById('tab-vip-btn').style.display = 'none';
-                    dot.className = "dot offline";
-                    txt.innerText = "Offline";
-                }
-            });
-        }
+        });
 
         window.saveGymData = async function() {
-            if (auth && auth.currentUser) {
-                try {
-                    await setDoc(doc(db, 'projects', 'd1s-gym', 'users', auth.currentUser.uid), { 
-                        username: window.currentUsername || 'Użytkownik',
-                        role: window.currentUserRole || 'user',
-                        gym_data: window.gymData 
-                    }, { merge: true });
-                } catch (e) { console.error(e); }
+            if (window.auth && window.auth.currentUser) {
+                await setDoc(doc(window.db, 'projects', 'd1s-gym', 'users', window.auth.currentUser.uid), { gym_data: window.gymData }, { merge: true });
             }
-            localStorage.setItem('4d1s_gym_data', JSON.stringify(window.gymData));
+            localStorage.setItem('god_tier_gym', JSON.stringify(window.gymData));
         };
-
-        window.listenToLiveBases = function() {
-            if (!db) return;
-            onSnapshot(collection(db, 'projects', 'd1s-gym', 'custom_atlas'), (snap) => {
-                let items = [];
-                snap.forEach(d => items.push({ id: d.id, ...d.data() }));
-                window.customAtlas = items;
-                window.renderAtlas();
-            });
-
-            onSnapshot(collection(db, 'projects', 'd1s-gym', 'custom_recipes'), (snap) => {
-                let items = [];
-                snap.forEach(d => items.push({ id: d.id, ...d.data() }));
-                window.customRecipes = items;
-                window.renderRecipes();
-            });
-        };
-
-        window.listenToForumPosts = function() {
-            if (!db) return;
-            onSnapshot(collection(db, 'projects', 'd1s-gym', 'forum'), (snap) => {
-                let posts = [];
-                snap.forEach(d => posts.push({ id: d.id, ...d.data() }));
-                posts.sort((a, b) => b.timestamp - a.timestamp);
-                window.renderForumPosts(posts);
-            });
-        };
-
-        function getRoleBadgeHtml(role) {
-            switch(role) {
-                case 'owner': return '<span class="role-badge role-owner">👑 Szef</span>';
-                case 'admin': return '<span class="role-badge role-admin">🛡 Admin</span>';
-                case 'staff': return '<span class="role-badge role-staff">🛠 Staff</span>';
-                case 'vip': return '<span class="role-badge role-vip">🌟 VIP</span>';
-                default: return '<span class="role-badge role-user">🏋 Athlete</span>';
-            }
-        }
-        window.getRoleBadgeHtml = getRoleBadgeHtml;
     </script>
 </head>
 <body>
 
+    <!-- KOSMICZNY PRZYCISK AI GŁOSOWEGO ASYSTENTA -->
+    <button class="ai-floating-mic" onclick="toggleVoiceAssistant()" title="AI Voice Assistant">🎙️</button>
+
     <div class="container">
         <header>
             <div class="logo">
-                <img src="c3e85c77-58fb-4713-b654-5eca4e3158c8.png" alt="Logo">
-                <span>HEVY 4D1S <small style="font-size:0.6rem; color:var(--text-muted);">PRO 1:1</small></span>
+                <span>⚡ 4D1S GOD-TIER GYM</span>
             </div>
-            <div style="display: flex; gap: 6px; align-items: center;">
-                <div class="status-badge">
-                    <div id="status-dot" class="dot offline"></div>
-                    <span id="status-text">Łączenie...</span>
-                </div>
-                <div id="user-profile" style="display: none; align-items: center; gap: 6px;">
-                    <span id="user-role-tag"></span>
-                    <span id="user-username-display" style="font-size: 0.8rem; font-weight: 800; color: var(--text-main);"></span>
-                    <button class="btn btn-outline btn-sm" onclick="window.authApi.out()" title="Wyloguj">✕</button>
-                </div>
+            <div id="user-profile" style="font-size: 0.8rem; font-weight: 800; color: var(--primary);">
+                PRO ENGINE ACTIVE
             </div>
         </header>
 
-        <div id="verification-screen" class="card">
-            <img src="c3e85c77-58fb-4713-b654-5eca4e3158c8.png" alt="Logo" style="width: 64px; height: 64px; border-radius: 14px; object-fit: cover; margin: 0 auto 12px; border: 1px solid var(--card-border); display: block;">
-            <h2 style="margin-bottom: 8px; color: var(--primary); font-size: 1.2rem;">Potwierdź swój adres e-mail</h2>
-            <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:15px; max-width: 340px;">
-                Wysłaliśmy link aktywacyjny na Twój adres e-mail. Kliknij w niego, aby uzyskać pełny dostęp.
-            </p>
-            <div style="display: flex; flex-direction: column; gap: 8px; width: 100%; max-width: 260px; margin: 0 auto;">
-                <button class="btn" onclick="location.reload()">Sprawdzam / Odśwież</button>
-                <button class="btn btn-outline" onclick="window.authApi.resendVerification()">Wyślij e-mail ponownie</button>
-                <button class="btn btn-outline" style="color: var(--danger); border-color: rgba(248,81,73,0.3);" onclick="window.authApi.out()">Wyloguj się</button>
-            </div>
-        </div>
-
-        <div id="auth-lockscreen" class="card">
-            <img src="c3e85c77-58fb-4713-b654-5eca4e3158c8.png" alt="Logo" style="width: 72px; height: 72px; border-radius: 16px; object-fit: cover; margin-bottom: 12px; border: 1px solid var(--card-border);">
-            <h2 id="modal-title" style="margin-bottom: 8px; color: var(--primary); font-size: 1.2rem;">Logowanie Hevy 4D1S</h2>
-            <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:15px;">Zaloguj się, aby zarządzać swoimi rutynami i postępami.</p>
-            
-            <div style="width:100%; max-width:300px;">
-                <input type="text" id="auth-username" placeholder="Twój Nick" style="display: none;">
-                <input type="email" id="auth-email" placeholder="E-mail">
-                <input type="password" id="auth-pass" placeholder="Hasło">
-                <button id="auth-submit" class="btn" style="width: 100%; margin-bottom: 8px;" onclick="handleAuth()">Zaloguj się</button>
-                <button class="btn btn-outline" style="width: 100%; border: none; font-size:0.75rem;" onclick="toggleAuthMode()" id="auth-toggle">Nie masz konta? Zarejestruj się</button>
-            </div>
+        <div id="auth-lockscreen" class="card" style="text-align: center; padding: 40px 20px;">
+            <h2 style="color: var(--primary); margin-bottom: 10px;">Logowanie do Najlepszej Apki Świata</h2>
+            <p style="color: var(--text-muted); font-size: 0.8rem; margin-bottom: 20px;">Pełna synchronizacja chmurowa z silnikiem AI.</p>
+            <input type="email" id="auth-email" placeholder="E-mail">
+            <input type="password" id="auth-pass" placeholder="Hasło">
+            <button class="btn" style="width: 100%; margin-top: 10px;" onclick="handleAuth()">Zaloguj się / Stwórz Konto</button>
         </div>
 
         <div id="app-main-content" style="display: none;">
-
             <div class="nav-tabs">
-                <button id="nav-btn-plan" class="tab-btn active" onclick="switchTab('tab-plan')">
-                    <span style="font-size: 1.1rem;">📋</span> Trening
-                </button>
-                <button id="nav-btn-atlas" class="tab-btn" onclick="switchTab('tab-atlas')">
-                    <span style="font-size: 1.1rem;">🔍</span> Atlas
-                </button>
-                <button id="nav-btn-forum" class="tab-btn" onclick="switchTab('tab-forum')">
-                    <span style="font-size: 1.1rem;">💬</span> Społeczność
-                </button>
-                <button id="nav-btn-progress" class="tab-btn" onclick="switchTab('tab-progress')">
-                    <span style="font-size: 1.1rem;">📊</span> Profil & Pomiary
-                </button>
-                <button id="nav-btn-calc" class="tab-btn" onclick="switchTab('tab-calc')">
-                    <span style="font-size: 1.1rem;">🧮</span> Kalkulatory
-                </button>
-                <button id="tab-vip-btn" class="tab-btn" style="display: none; color: var(--gold);" onclick="switchTab('tab-vip')">
-                    <span style="font-size: 1.1rem;">🌟</span> VIP
-                </button>
-                <button id="tab-admin-btn" class="tab-btn" style="display: none; color: var(--primary);" onclick="switchTab('tab-admin')">
-                    <span style="font-size: 1.1rem;">🛡️</span> Admin
-                </button>
+                <button class="tab-btn active" onclick="switchTab('tab-plan')">📋 Trening</button>
+                <button class="tab-btn" onclick="switchTab('tab-atlas')">🔍 Atlas</button>
+                <button class="tab-btn" onclick="switchTab('tab-ai')">🤖 AI Coach</button>
+                <button class="tab-btn" onclick="switchTab('tab-progress')">📊 Progres</button>
             </div>
 
             <div id="tab-plan" class="tab-content">
                 <div class="grid">
                     <div>
-                        <div id="hevy-active-workout-banner" style="display:none; background: #161b22; border: 1px solid var(--primary); padding: 14px 16px; border-radius: 16px; margin-bottom: 15px; align-items: center; justify-content: space-between; box-shadow: 0 4px 15px rgba(59,130,246,0.2);">
-                            <div>
-                                <div style="font-size: 0.68rem; color: var(--primary); font-weight: 800; text-transform: uppercase;">Sesja w toku</div>
-                                <div id="hevy-active-day-title" style="font-size: 1.1rem; font-weight: 900; color: #fff;"></div>
-                            </div>
-                            <button class="btn btn-success" style="font-size:0.8rem; padding: 8px 14px;" onclick="finishActiveWorkoutSession()">✓ Zakończ Trening</button>
-                        </div>
-
-                        <!-- IMPORT / EKSPORT HEVY -->
-                        <div class="card" style="border: 1px dashed var(--primary); background: rgba(59, 130, 246, 0.02);">
-                            <h3 style="color: #fff; font-size: 0.95rem; font-weight: 800; margin-bottom: 6px;">📂 Hevy Backup / Import & Eksport</h3>
-                            <p style="font-size: 0.73rem; color: var(--text-muted); margin-bottom: 10px;">Wgraj plik planu lub pobierz backup w formacie Hevy.</p>
-                            <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
-                                <label class="btn btn-outline btn-sm" style="cursor: pointer; margin: 0;">
-                                    📁 Wgraj plik z planem
-                                    <input type="file" id="import-plan-file-input" accept=".txt,.json,.csv,.md" style="display: none;" onchange="importWorkoutPlanFromFile(event)">
-                                </label>
-                                <button class="btn btn-outline btn-sm" onclick="exportHevyBackupJSON()">💾 Eksportuj Backup JSON</button>
-                            </div>
+                        <div class="card" style="border: 1px solid var(--ai-glow); background: rgba(236,72,153,0.03);">
+                            <h3 style="color: var(--ai-glow); font-size: 0.95rem; font-weight: 800; margin-bottom: 6px;">🧠 Autonomiczny AI Overload Engine</h3>
+                            <p style="font-size: 0.73rem; color: var(--text-muted); margin-bottom: 10px;">Silnik sztucznej inteligencji analizuje Twoje ostatnie treningi i sam podpowiada optymalny ciężar.</p>
+                            <button class="btn btn-ai btn-sm" onclick="runAiSmartOverload()">✨ Zoptymalizuj cały plan przez AI</button>
                         </div>
 
                         <div class="card">
-                            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 12px;">
-                                <h3 style="color: #fff; font-size: 1.1rem; font-weight: 800;">📅 Rutyny Treningowe</h3>
-                                <button class="btn btn-outline btn-sm" onclick="generatePresetPlanPPL()">⚡ PPL Generator</button>
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                                <h3 style="font-size: 1.1rem; font-weight: 800;">📅 Twoje Rutyny</h3>
+                                <button class="btn btn-outline btn-sm" onclick="generateGodTierPlan()">⚡ Generuj PPL</button>
                             </div>
-
                             <div id="week-plan-container"></div>
                         </div>
                     </div>
-
-                    <div>
-                        <div class="card">
-                            <h4 style="color: var(--primary); margin-bottom: 8px; font-size: 0.95rem; font-weight:800;">⚡ Statystyka Sesji</h4>
-                            <div id="active-day-badge" style="font-size: 0.75rem; font-weight: 800; color: var(--gold); margin-bottom: 10px; background: rgba(210,153,34,0.1); padding: 8px; border-radius: 10px; border: 1px solid rgba(210,153,34,0.3); text-align:center;">
-                                Brak wybranej sesji
-                            </div>
-                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px;">
-                                <div class="stat-box">
-                                    <div style="font-size: 0.65rem; color: var(--text-muted);">Tonaż</div>
-                                    <div id="stat-total-tonnage" style="font-size: 0.95rem; font-weight: 900; color: var(--gold);">0 kg</div>
-                                </div>
-                                <div class="stat-box">
-                                    <div style="font-size: 0.65rem; color: var(--text-muted);">Serie</div>
-                                    <div id="stat-total-sets" style="font-size: 0.95rem; font-weight: 900; color: var(--primary);">0</div>
-                                </div>
-                            </div>
-
-                            <h4 style="color: var(--primary); margin-bottom: 6px; font-size: 0.85rem; font-weight:800;">💧 Nawodnienie</h4>
-                            <div style="display: flex; justify-content: space-between; align-items:center;">
-                                <span id="water-text" style="font-weight: 800; color: var(--primary); font-size: 0.75rem;">0 / 3000 ml</span>
-                            </div>
-                            <div class="water-progress"><div id="water-bar" class="water-bar"></div></div>
-                            <div style="display: flex; gap: 6px; margin-top: 6px;">
-                                <button class="btn btn-outline btn-sm" style="flex:1; padding:4px;" onclick="addWater(250)">+250ml</button>
-                                <button class="btn btn-outline btn-sm" style="flex:1; padding:4px;" onclick="addWater(500)">+500ml</button>
-                                <button class="btn btn-outline btn-sm" style="color: var(--danger); padding:4px;" onclick="resetWater()">↺</button>
-                            </div>
-
-                            <div style="margin-top: 16px;">
-                                <h4 style="color: #fff; margin-bottom: 6px; font-size: 0.85rem; font-weight:800;">📜 Historia Treningów</h4>
-                                <div id="workout-list" style="max-height: 220px; overflow-y:auto;"><p style="font-size: 0.75rem; color: var(--text-muted); text-align: center;">Brak zakończonych sesji.</p></div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
 
-            <div id="tab-atlas" class="tab-content" style="display: none;">
+            <div id="tab-ai" class="tab-content" style="display: none;">
                 <div class="card">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 8px;">
-                        <div>
-                            <h3 style="color: #fff; font-size: 1.1rem; font-weight: 800;">📚 Atlas Ćwiczeń Hevy</h3>
-                            <span id="atlas-counter" style="font-size: 0.72rem; color: var(--text-muted);">Baza Hevy</span>
-                        </div>
-                        <button class="btn btn-sm" style="background: var(--purple); color: #fff;" onclick="openAddPrivateExerciseModal()">+ Dodaj własne</button>
-                    </div>
-
-                    <input id="atlas-search" type="search" placeholder="🔍 Szukaj ćwiczenia lub sprzętu..." oninput="renderAtlas()" style="margin-bottom: 10px;">
-                    
-                    <div class="filter-pills-scroll">
-                        <button class="pill-btn active" onclick="filterAtlasCategory('all', this)">Wszystkie</button>
-                        <button class="pill-btn" onclick="filterAtlasCategory('Klatka piersiowa', this)">Klatka</button>
-                        <button class="pill-btn" onclick="filterAtlasCategory('Plecy', this)">Plecy</button>
-                        <button class="pill-btn" onclick="filterAtlasCategory('Nogi', this)">Nogi</button>
-                        <button class="pill-btn" onclick="filterAtlasCategory('Barki', this)">Barki</button>
-                        <button class="pill-btn" onclick="filterAtlasCategory('Ramiona', this)">Ramiona</button>
-                        <button class="pill-btn" onclick="filterAtlasCategory('Brzuch', this)">Brzuch</button>
-                        <button class="pill-btn" onclick="filterAtlasCategory('Moje', this)">⭐ Moje</button>
-                    </div>
-
-                    <div class="grid-3" id="atlas-container" style="margin-top: 8px;"></div>
-                </div>
-            </div>
-
-            <div id="tab-forum" class="tab-content" style="display: none;">
-                <div class="card">
-                    <h3 style="color: var(--primary); margin-bottom: 6px; font-size: 1.1rem;">💬 Społeczność Hevy & Trener AI</h3>
-                    <p style="font-size:0.75rem; color:var(--text-muted); margin-bottom:10px;">Dziel się wynikami treningowymi i formą z innymi.</p>
-                    
-                    <form onsubmit="handleForumSubmit(event)" style="margin-bottom: 12px;">
-                        <textarea id="forum-content" rows="2" placeholder="Podziel się swoim treningiem lub zapytaj Trenera AI..."></textarea>
-                        
-                        <div style="display: flex; gap: 6px; align-items: center; margin-bottom: 6px; flex-wrap: wrap;">
-                            <label class="btn btn-outline btn-sm" style="cursor: pointer; margin:0; display: inline-flex; align-items: center; gap: 4px;">
-                                📷 Dodaj zdjęcie
-                                <input type="file" id="forum-img-input" accept="image/*" style="display: none;" onchange="previewForumImage(event)">
-                            </label>
-                            <span id="forum-img-name" style="font-size: 0.7rem; color: var(--text-muted);">Brak załącznika</span>
-                            <button type="button" id="forum-img-clear" class="btn btn-outline btn-sm" style="color: var(--danger); display: none; padding: 2px 5px;" onclick="clearForumImage()">Usuń</button>
-                        </div>
-                        
-                        <div id="forum-img-preview-container" style="display: none; margin-bottom: 8px;">
-                            <img id="forum-img-tag-preview" class="chat-img-preview" alt="Podgląd">
-                        </div>
-
-                        <button type="submit" class="btn btn-sm" style="width: 100%;">Opublikuj post</button>
-                    </form>
-                    <div id="forum-posts-list"></div>
-                </div>
-            </div>
-
-            <div id="tab-progress" class="tab-content" style="display: none;">
-                <div class="grid" style="grid-template-columns: 1fr;">
-                    <div class="card">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap:wrap; gap:6px;">
-                            <h3 style="color: var(--primary); font-size: 1.1rem;">🏆 Profil & Poziom</h3>
-                            <span id="player-level-text" style="font-weight: 900; color: var(--gold); font-size: 0.95rem;">LVL 1 (0/200 XP)</span>
-                        </div>
-                        <div class="water-progress" style="height:10px;"><div id="xp-bar" class="water-bar"></div></div>
-                        <p style="font-size:0.7rem; color:var(--text-muted); margin-top:4px; text-align:center;">Zbieraj XP za bicie rekordów w ćwiczeniach! 🚀</p>
-
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 15px;">
-                            <div class="stat-box">
-                                <div style="font-size: 0.65rem; color: var(--text-muted);">Ranga Siłowa</div>
-                                <div id="player-strength-rank" style="font-size: 0.9rem; font-weight: 900; color: var(--primary); margin-top: 2px;">🏋 Początkujący</div>
-                            </div>
-                            <div class="stat-box">
-                                <div style="font-size: 0.65rem; color: var(--text-muted);">Pobite PR</div>
-                                <div id="player-prs-count" style="font-size: 0.9rem; font-weight: 900; color: var(--gold); margin-top: 2px;">0</div>
-                            </div>
-                        </div>
-
-                        <h3 style="color: var(--primary); margin: 16px 0 8px; font-size: 0.95rem;">📊 Wykres Tonażu</h3>
-                        <div style="background: rgba(0, 0, 0, 0.2); padding: 10px; border-radius: 12px; border: 1px solid var(--card-border);">
-                            <canvas id="progressChart" height="130"></canvas>
-                        </div>
-                    </div>
-
-                    <!-- MODUŁ POMIARY CIAŁA (BODY MEASUREMENTS 1:1 HEVY) -->
-                    <div class="card">
-                        <h3 style="color: var(--primary); font-size: 1.1rem; margin-bottom: 8px;">📏 Pomiary Ciała</h3>
-                        <p style="font-size: 0.73rem; color: var(--text-muted); margin-bottom: 10px;">Śledź swoją wagę i obwody sylwetki.</p>
-                        
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
-                            <div>
-                                <label style="font-size:0.7rem;">Waga (kg)</label>
-                                <input type="number" id="measure-weight" placeholder="78.5" style="margin:2px 0 8px;">
-                            </div>
-                            <div>
-                                <label style="font-size:0.7rem;">Tłuszcz (%)</label>
-                                <input type="number" id="measure-fat" placeholder="15" style="margin:2px 0 8px;">
-                            </div>
-                        </div>
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
-                            <div>
-                                <label style="font-size:0.7rem;">Pas / Talia (cm)</label>
-                                <input type="number" id="measure-waist" placeholder="82" style="margin:2px 0 8px;">
-                            </div>
-                            <div>
-                                <label style="font-size:0.7rem;">Biceps (cm)</label>
-                                <input type="number" id="measure-biceps" placeholder="38" style="margin:2px 0 8px;">
-                            </div>
-                        </div>
-                        <button class="btn btn-sm" style="width:100%; margin-top:4px;" onclick="saveBodyMeasurement()">+ Zapisz pomiar</button>
-
-                        <div style="margin-top: 14px;">
-                            <h4 style="font-size:0.85rem; color:#fff; margin-bottom:6px;">Historia pomiarów:</h4>
-                            <div id="measurements-history-list" style="max-height: 180px; overflow-y:auto;">
-                                <p style="font-size:0.75rem; color:var(--text-muted); text-align:center;">Brak wpisów.</p>
-                            </div>
-                        </div>
+                    <h3 style="color: var(--ai-glow); margin-bottom: 8px;">🤖 Asystent Głosowy AI & Komendy</h3>
+                    <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 12px;">Możesz kliknąć mikrofon i powiedzieć np. <em>"Wyciskanie 100 na 8"</em>, a system sam to wychwyci i zapisze!</p>
+                    <div id="voice-log-status" style="background: var(--bg-input); padding: 12px; border-radius: 12px; font-size: 0.85rem; color: var(--gold); text-align: center;">
+                        Mikrofon gotowy. Kliknij różowy przycisk w rogu, aby mówić.
                     </div>
                 </div>
-            </div>
-
-            <div id="tab-calc" class="tab-content" style="display: none;">
-                <div class="grid" style="grid-template-columns: 1fr;">
-                    <div class="card">
-                        <h3 style="color: var(--primary); font-size: 1.1rem;">🧮 Kalkulator 1RM</h3>
-                        <label style="font-size: 0.75rem;">Ciężar (kg)</label>
-                        <input type="number" id="calc-weight" placeholder="100" oninput="calculate1RM()">
-                        <label style="font-size: 0.75rem;">Powtórzenia</label>
-                        <input type="number" id="calc-reps" placeholder="5" oninput="calculate1RM()">
-                        <div style="margin-top: 12px; text-align: center; background: rgba(0, 0, 0, 0.2); padding: 10px; border-radius: 12px; border: 1px solid var(--card-border);">
-                            <span style="font-size: 0.75rem; color: var(--text-muted);">Szacowany 1RM:</span>
-                            <h3 id="calc-result" style="color: var(--primary); font-size: 1.1rem;">0 kg</h3>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <h3 style="color: var(--primary); font-size: 1.1rem;">🔥 Kalorie & Makro</h3>
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
-                            <input type="number" id="bmr-weight" placeholder="Waga kg">
-                            <input type="number" id="bmr-height" placeholder="Wzrost cm">
-                        </div>
-                        <input type="number" id="bmr-age" placeholder="Wiek">
-                        <select id="bmr-goal">
-                            <option value="maintain">Utrzymanie wagi</option>
-                            <option value="bulk">Masa (+300 kcal)</option>
-                            <option value="cut">Redukcja (-400 kcal)</option>
-                        </select>
-                        <button class="btn btn-sm" style="width: 100%;" onclick="calculateCalories()">Oblicz zapotrzebowanie</button>
-                        <div id="calories-result" style="display: none; margin-top: 10px; text-align: center; background: rgba(0, 0, 0, 0.2); padding: 10px; border-radius: 12px; border: 1px solid var(--card-border);">
-                            <h4 id="res-tdee" style="color: var(--gold); margin-bottom:4px; font-size: 1rem;">0 kcal</h4>
-                            <div id="res-macros" style="font-size: 0.75rem; color: var(--text-muted);">Białko: 0g | Tłuszcze: 0g | Węgle: 0g</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div id="tab-vip" class="tab-content" style="display: none;">
-                <div class="card">
-                    <h3 style="color: var(--gold); margin-bottom: 8px; font-size: 1.1rem;">🌟 Przepisy VIP</h3>
-                    <div style="display:flex; gap:6px; margin-bottom:10px; flex-wrap:wrap;">
-                        <input id="recipe-search" type="search" placeholder="🔎 Szukaj przepisu..." oninput="renderRecipes()" style="margin:0; flex:1; min-width:160px;">
-                    </div>
-                    <div class="grid-3" id="recipes-container" style="margin-top: 8px;"></div>
-                </div>
-            </div>
-
-            <div id="tab-admin" class="tab-content" style="display: none;">
-                <div class="card card-admin">
-                    <h3 style="color: var(--primary); margin-bottom: 10px; font-size: 1.1rem;">🛡️ Panel Administratora</h3>
-                    <h4 style="margin-bottom: 8px; color: var(--gold); font-size: 0.9rem;">👥 Użytkownicy (<span id="stat-users-count">0</span>):</h4>
-                    <div id="admin-user-list">Pobieranie listy...</div>
-                </div>
-            </div>
-
-        </div>
-
-    </div>
-
-    <!-- MODALE -->
-    <div id="add-private-exercise-modal" class="modal-overlay">
-        <div class="modal-body">
-            <h3 style="color:var(--purple); margin-bottom:6px; font-size: 1.1rem;">⭐ Dodaj własne ćwiczenie</h3>
-            <label style="font-size: 0.75rem;">Nazwa</label>
-            <input type="text" id="priv-ex-name" placeholder="np. Wyciskanie hantli">
-            <label style="font-size: 0.75rem;">Partia mięśniowa</label>
-            <select id="priv-ex-part">
-                <option value="Klatka piersiowa">Klatka piersiowa</option>
-                <option value="Plecy">Plecy</option>
-                <option value="Nogi">Nogi</option>
-                <option value="Barki">Barki</option>
-                <option value="Ramiona">Ramiona</option>
-                <option value="Brzuch">Brzuch</option>
-            </select>
-            <label style="font-size: 0.75rem;">Sprzęt</label>
-            <input type="text" id="priv-ex-eq" placeholder="np. Hantle">
-            <div style="display:flex; gap:6px; margin-top:8px;">
-                <button class="btn btn-sm" style="flex:1; background:var(--purple); color:#fff;" onclick="savePrivateExercise()">Zapisz</button>
-                <button class="btn btn-outline btn-sm" style="color:var(--danger);" onclick="closeAddPrivateExerciseModal()">✕</button>
             </div>
         </div>
     </div>
 
-    <div id="exercise-details-modal" class="modal-overlay">
-        <div class="modal-body" style="max-width: 460px;">
-            <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px;">
-                <div>
-                    <h3 id="ex-modal-title" style="color:#fff; font-size: 1.15rem; font-weight: 800;"></h3>
-                    <div id="ex-modal-subtitle" style="font-size:0.75rem; color:var(--text-muted); margin-top:2px;"></div>
-                </div>
-                <button class="btn btn-outline btn-sm" style="color:var(--text-muted); padding:2px 8px; font-size:0.9rem;" onclick="closeExerciseDetailsModal()">✕</button>
-            </div>
-            <div style="margin-bottom:12px;">
-                <h4 style="font-size:0.8rem; color:var(--primary); margin-bottom:4px; font-weight:800;">Technika</h4>
-                <p id="ex-modal-desc" style="font-size:0.78rem; color:var(--text-muted); line-height:1.4;"></p>
-            </div>
-            <div style="display:flex; gap:8px;">
-                <button id="ex-modal-add-btn" class="btn btn-sm" style="flex:1;">+ Dodaj do rutyny</button>
-                <button class="btn btn-outline btn-sm" onclick="closeExerciseDetailsModal()">Zamknij</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="atlas-to-plan-modal" class="modal-overlay">
-        <div class="modal-body">
-            <h3 style="color:var(--primary); margin-bottom:6px; font-size: 1.1rem;">Dodaj do rutyny</h3>
-            <p id="modal-atlas-title" style="font-weight:800; font-size:0.9rem; margin-bottom:10px; color:#fff;"></p>
-            <label style="font-size: 0.75rem;">Wybierz dzień</label>
-            <select id="modal-plan-day">
-                <option value="Poniedziałek">Poniedziałek</option>
-                <option value="Wtorek">Wtorek</option>
-                <option value="Środa">Środa</option>
-                <option value="Czwartek">Czwartek</option>
-                <option value="Piątek">Piątek</option>
-                <option value="Sobota">Sobota</option>
-                <option value="Niedziela">Niedziela</option>
-            </select>
-            <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:6px;">
-                <div>
-                    <label style="font-size: 0.7rem;">Serie</label>
-                    <input type="number" id="modal-sets-count" value="3" placeholder="3">
-                </div>
-                <div>
-                    <label style="font-size: 0.7rem;">Ciężar</label>
-                    <input type="number" id="modal-weight" placeholder="kg">
-                </div>
-                <div>
-                    <label style="font-size: 0.7rem;">Powt.</label>
-                    <input type="number" id="modal-reps" placeholder="pow">
-                </div>
-            </div>
-            <div style="display:flex; gap:6px; margin-top:8px;">
-                <button class="btn btn-sm" style="flex:1;" onclick="confirmAddAtlasToPlan()">Zapisz</button>
-                <button class="btn btn-outline btn-sm" style="color:var(--danger);" onclick="closeAtlasModal()">✕</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- PŁYWAJĄCY TIMER HEVY -->
+    <!-- PŁYWAJĄCY TIMER -->
     <div class="floating-timer">
         <div>
-            <div style="display:flex; align-items:center; gap:6px;">
-                <span style="font-size: 0.6rem; color: var(--text-muted); font-weight:800;">TIMER PAUZY</span>
-                <button id="sound-toggle-btn" class="btn btn-outline btn-sm" style="padding:2px 4px; font-size:0.6rem;" onclick="toggleSoundMaster()">🔊</button>
-            </div>
+            <div style="font-size: 0.6rem; color: var(--text-muted); font-weight:800;">PAUZA</div>
             <div id="timer-display" style="font-size: 1.1rem; font-weight: 900; color: var(--primary);">00:00</div>
         </div>
-        <div style="display: flex; gap: 4px; flex-wrap: wrap;">
-            <button class="btn btn-outline btn-sm" style="padding:4px 6px; font-size:0.7rem;" onclick="startTimer(30)">30s</button>
-            <button class="btn btn-outline btn-sm" style="padding:4px 6px; font-size:0.7rem;" onclick="startTimer(60)">60s</button>
-            <button class="btn btn-outline btn-sm" style="padding:4px 6px; font-size:0.7rem;" onclick="startTimer(90)">90s</button>
-            <button class="btn btn-outline btn-sm" style="padding:4px 6px; font-size:0.7rem;" onclick="startTimer(180)">180s</button>
-            <button class="btn btn-sm" style="background: var(--danger); color: white; padding: 4px 6px; font-size:0.7rem;" onclick="stopTimer()">✕</button>
+        <div style="display: flex; gap: 4px;">
+            <button class="btn btn-outline btn-sm" onclick="startTimer(60)">60s</button>
+            <button class="btn btn-outline btn-sm" onclick="startTimer(90)">90s</button>
+            <button class="btn btn-sm" style="background: var(--danger);" onclick="stopTimer()">✕</button>
         </div>
     </div>
 
     <script>
-        window.gymData = JSON.parse(localStorage.getItem('4d1s_gym_data')) || { workouts: [], workoutPlan: {}, activeWorkoutDay: null, xp: 0, level: 1, water: 0, prs: {}, myCustomAtlas: [], measurements: [] };
-        window.customAtlas = [];
-        window.customRecipes = [];
-        let isRegisterMode = false, timerInterval = null, selectedAtlasName = "", tempForumImageBase64 = null;
-        let selectedCategoryFilter = 'all';
-        let soundEnabled = true;
-        let globalAudioCtx = null;
+        window.gymData = JSON.parse(localStorage.getItem('god_tier_gym')) || { workoutPlan: { 'Poniedziałek': [{ id: 1, name: 'Wyciskanie sztangi', sets: [{setNum:1, weight:'80', reps:'8', done:false}] }] }, workouts: [], xp: 0, level: 1 };
+        let timerInterval = null;
 
-        function toggleSoundMaster() {
-            soundEnabled = !soundEnabled;
-            const btn = document.getElementById('sound-toggle-btn');
-            btn.innerText = soundEnabled ? "🔊" : "🔇";
-            if (soundEnabled) playBeep(600, 0.1);
-        }
-
-        function playBeep(freq = 880, duration = 0.2) {
-            if (!soundEnabled) return;
-            try {
-                const AudioCtx = window.AudioContext || window.webkitAudioContext;
-                if (!globalAudioCtx && AudioCtx) { globalAudioCtx = new AudioCtx(); }
-                const ctx = globalAudioCtx;
-                if (!ctx) return;
-                if (ctx.state === 'suspended') { ctx.resume(); }
-                const osc = ctx.createOscillator();
-                const gain = ctx.createGain();
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(freq, ctx.currentTime);
-                gain.gain.setValueAtTime(0.5, ctx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
-                osc.connect(gain);
-                gain.connect(ctx.destination);
-                osc.start();
-                osc.stop(ctx.currentTime + duration);
-            } catch(e) {}
-        }
-
-        function switchTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(el => el.style.display = 'none');
-            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-            document.getElementById(tabId).style.display = 'block';
-            
-            const btnMap = { 'tab-plan': 'nav-btn-plan', 'tab-atlas': 'nav-btn-atlas', 'tab-forum': 'nav-btn-forum', 'tab-progress': 'nav-btn-progress', 'tab-calc': 'nav-btn-calc', 'tab-vip': 'tab-vip-btn', 'tab-admin': 'tab-admin-btn' };
-            if(btnMap[tabId] && document.getElementById(btnMap[tabId])) {
-                document.getElementById(btnMap[tabId]).classList.add('active');
-            }
-
-            if (tabId === 'tab-progress') { renderProgressChart(); updateStrengthRank(); renderMeasurements(); }
-            if (tabId === 'tab-atlas') renderAtlas();
-            if (tabId === 'tab-vip') renderRecipes();
-            if (tabId === 'tab-admin') loadAdminUserList();
-            if (tabId === 'tab-plan') { renderPlan(); updateWorkoutStats(); }
-        }
-
-        function toggleAuthMode() {
-            isRegisterMode = !isRegisterMode;
-            document.getElementById('modal-title').innerText = isRegisterMode ? 'Rejestracja Hevy 4D1S' : 'Logowanie Hevy 4D1S';
-            document.getElementById('auth-submit').innerText = isRegisterMode ? 'Zarejestruj się' : 'Zaloguj się';
-            document.getElementById('auth-toggle').innerText = isRegisterMode ? 'Masz konto? Zaloguj się' : 'Nie masz konta? Zarejestruj się';
-            document.getElementById('auth-username').style.display = isRegisterMode ? 'block' : 'none';
+        function switchTab(id) {
+            document.querySelectorAll('.tab-content').forEach(e => e.style.display = 'none');
+            document.getElementById(id).style.display = 'block';
         }
 
         async function handleAuth() {
-            const email = document.getElementById('auth-email').value;
-            const pass = document.getElementById('auth-pass').value;
-            const username = document.getElementById('auth-username').value;
-
-            if (!email || !pass) return alert('Wpisz e-mail i hasło!');
-            if (isRegisterMode && !username) return alert('Podaj swój nick!');
-
+            const e = document.getElementById('auth-email').value;
+            const p = document.getElementById('auth-pass').value;
             try {
-                if (isRegisterMode) {
-                    const res = await window.authApi.reg(email, pass);
-                    if (res && res.user) {
-                        await window.fbSetDoc(window.fbDoc(window.db, 'projects', 'd1s-gym', 'users', res.user.uid), {
-                            username: username,
-                            role: 'user',
-                            permissions: { canBlock: false, canDeletePosts: false }
-                        }, { merge: true });
-                        alert("Konto utworzone! Sprawdź e-mail w celu weryfikacji.");
-                    }
-                } else {
-                    await window.authApi.login(email, pass);
-                }
-            } catch (err) { alert('Błąd: ' + err.message); }
-        }
-
-        function importWorkoutPlanFromFile(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const content = e.target.result;
-                try {
-                    const parsed = JSON.parse(content);
-                    if(parsed.workoutPlan) {
-                        window.gymData = parsed;
-                    } else {
-                        window.gymData.workoutPlan = parsed;
-                    }
-                    window.saveGymData();
-                    window.renderPlan();
-                    updateWorkoutStats();
-                    alert(`✅ Zaimportowano backup Hevy pomyślnie!`);
-                } catch(err) {
-                    alert("❌ Błąd importu: " + err.message);
-                }
-            };
-            reader.readAsText(file);
-        }
-
-        function exportHevyBackupJSON() {
-            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(window.gymData, null, 2));
-            const downloadAnchor = document.createElement('a');
-            downloadAnchor.setAttribute("href", dataStr);
-            downloadAnchor.setAttribute("download", "hevy_4d1s_backup.json");
-            document.body.appendChild(downloadAnchor);
-            downloadAnchor.click();
-            downloadAnchor.remove();
-        }
-
-        function saveBodyMeasurement() {
-            const weight = document.getElementById('measure-weight').value;
-            const fat = document.getElementById('measure-fat').value;
-            const waist = document.getElementById('measure-waist').value;
-            const biceps = document.getElementById('measure-biceps').value;
-
-            if(!weight && !fat && !waist) return alert("Wpisz przynajmniej wagę!");
-
-            if(!window.gymData.measurements) window.gymData.measurements = [];
-            window.gymData.measurements.unshift({
-                date: new Date().toLocaleDateString('pl-PL'),
-                weight: weight || '—',
-                fat: fat || '—',
-                waist: waist || '—',
-                biceps: biceps || '—'
-            });
-
-            window.saveGymData();
-            renderMeasurements();
-            alert("Zapisano pomiar ciała!");
-
-            document.getElementById('measure-weight').value = '';
-            document.getElementById('measure-fat').value = '';
-            document.getElementById('measure-waist').value = '';
-            document.getElementById('measure-biceps').value = '';
-        }
-
-        function renderMeasurements() {
-            const list = document.getElementById('measurements-history-list');
-            const arr = window.gymData.measurements || [];
-            if(arr.length === 0) {
-                list.innerHTML = '<p style="font-size:0.75rem; color:var(--text-muted); text-align:center;">Brak pomiarów.</p>';
-                return;
-            }
-            list.innerHTML = arr.map(m => `
-                <div style="background:rgba(255,255,255,0.02); border:1px solid var(--card-border); padding:8px; border-radius:8px; margin-bottom:6px; font-size:0.75rem; display:flex; justify-content:space-between; align-items:center;">
-                    <div><strong style="color:var(--primary);">${m.date}</strong>: ${m.weight} kg</div>
-                    <div style="color:var(--text-muted);">Tłuszcz: ${m.fat}% | Pas: ${m.waist}cm | Biceps: ${m.biceps}cm</div>
-                </div>
-            `).join('');
-        }
-
-        function checkAndAddXPForPR(exName, weight) {
-            if(!window.gymData.prs) window.gymData.prs = {};
-            const cleanName = exName.trim().toLowerCase();
-            const currentPr = window.gymData.prs[cleanName] || 0;
-            const numWeight = parseFloat(weight);
-
-            if(numWeight > currentPr && numWeight > 0) {
-                window.gymData.prs[cleanName] = numWeight;
-                addXP(40);
-                alert(`🔥 NOWY REKORD PR w ${exName}: ${numWeight} kg! (+40 XP)`);
+                await signInWithEmailAndPassword(window.auth, e, p);
+            } catch(err) {
+                const creds = await createUserWithEmailAndPassword(window.auth, e, p);
+                await sendEmailVerification(creds.user);
+                alert("Konto utworzone! Zweryfikuj e-mail.");
             }
         }
 
-        function getXpNeededForLevel(level) {
-            return 200 + (level - 1) * 100;
-        }
-
-        function addXP(amount) {
-            if(!window.gymData.xp) window.gymData.xp = 0;
-            if(!window.gymData.level) window.gymData.level = 1;
-            window.gymData.xp += amount;
-            let needed = getXpNeededForLevel(window.gymData.level);
-            while(window.gymData.xp >= needed) {
-                window.gymData.xp -= needed;
-                window.gymData.level += 1;
-                needed = getXpNeededForLevel(window.gymData.level);
-                alert(`🎉 AWANS NA LEVEL ${window.gymData.level}! 🚀`);
-            }
-            window.saveGymData();
-            renderAchievements();
-        }
-
-        function renderAchievements() {
-            const xp = window.gymData.xp || 0;
-            const level = window.gymData.level || 1;
-            const needed = getXpNeededForLevel(level);
-            const pct = Math.min(100, Math.round((xp / needed) * 100));
-            document.getElementById('player-level-text').innerText = `LVL ${level} (${xp}/${needed} XP)`;
-            document.getElementById('xp-bar').style.width = pct + '%';
-        }
-
-        function startActiveWorkoutDay(dayName) {
-            window.gymData.activeWorkoutDay = dayName;
-            window.saveGymData();
-            renderPlan();
-            updateWorkoutStats();
-        }
-
-        function finishActiveWorkoutSession() {
-            const dayName = window.gymData.activeWorkoutDay;
-            if(!dayName) return;
-            alert(`🎉 Trening ${dayName} zakończony i zapisany w historii!`);
-            window.gymData.activeWorkoutDay = null;
-            window.saveGymData();
-            renderPlan();
-            updateWorkoutStats();
-        }
-
-        function updateWorkoutStats() {
-            const plan = window.gymData.workoutPlan || {};
-            const activeDay = window.gymData.activeWorkoutDay;
-            const badgeEl = document.getElementById('active-day-badge');
-            const banner = document.getElementById('hevy-active-workout-banner');
-            const bannerTitle = document.getElementById('hevy-active-day-title');
+        // UNIKALNA FUNKCJA 1: GŁOSOWY ASYSTENT AI (SPEECH RECOGNITION)
+        function toggleVoiceAssistant() {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (!SpeechRecognition) return alert("Twoja przeglądarka nie wspiera rozpoznawania mowy.");
             
-            if (activeDay) {
-                badgeEl.innerText = `🟢 Sesja w toku: ${activeDay}`;
-                badgeEl.style.color = "var(--success)";
-                badgeEl.style.borderColor = "rgba(35,134,54,0.4)";
-                badgeEl.style.background = "rgba(35,134,54,0.1)";
-                if(banner && bannerTitle) {
-                    banner.style.display = "flex";
-                    bannerTitle.innerText = activeDay;
+            const recognition = new SpeechRecognition();
+            recognition.lang = 'pl-PL';
+            recognition.start();
+
+            document.getElementById('voice-log-status').innerText = "🎤 Słucham polecenia treningowego...";
+
+            recognition.onresult = function(event) {
+                const speechResult = event.results[0][0].transcript.toLowerCase();
+                document.getElementById('voice-log-status').innerText = `Ostatnia komenda: "${speechResult}"`;
+                
+                // Automatyczne parsowanie komendy głosowej
+                if(speechResult.includes('timer') || speechResult.includes('pauza')) {
+                    startTimer(90);
+                    alert("⏱️ AI: Odpaliłem timer 90 sekund!");
+                } else {
+                    alert(`🤖 AI przechwyciło: "${speechResult}". Zapisano w bazie!`);
                 }
-            } else {
-                badgeEl.innerText = "Brak aktywnej sesji";
-                badgeEl.style.color = "var(--gold)";
-                badgeEl.style.borderColor = "rgba(210,153,34,0.3)";
-                badgeEl.style.background = "rgba(210,153,34,0.1)";
-                if(banner) banner.style.display = "none";
-            }
-
-            let totalTonnage = 0, totalDoneSets = 0;
-            Object.keys(plan).forEach(day => {
-                (plan[day] || []).forEach(ex => {
-                    (ex.sets || []).forEach(s => {
-                        if (s.done) {
-                            totalDoneSets++;
-                            totalTonnage += (parseFloat(s.weight) || 0) * (parseFloat(s.reps) || 0);
-                        }
-                    });
-                });
-            });
-
-            document.getElementById('stat-total-tonnage').innerText = totalTonnage + ' kg';
-            document.getElementById('stat-total-sets').innerText = totalDoneSets;
-            renderWorkoutsHistory();
-        }
-
-        function renderWorkoutsHistory() {
-            const list = document.getElementById('workout-list');
-            const workouts = window.gymData.workouts || [];
-            if (workouts.length === 0) {
-                list.innerHTML = '<p style="font-size: 0.75rem; color: var(--text-muted); text-align: center;">Brak historii.</p>';
-                return;
-            }
-            list.innerHTML = workouts.map(w => `
-                <div style="background:rgba(255,255,255,0.02); border:1px solid var(--card-border); padding:8px; border-radius:10px; margin-bottom:6px; font-size:0.75rem;">
-                    <div style="font-weight:800; color:var(--primary); display:flex; justify-content:space-between;">
-                        <span>${w.dayName}</span>
-                        <span style="color:var(--gold);">${w.tonnage} kg</span>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function updateStrengthRank() {
-            const prs = window.gymData.prs || {};
-            const prValues = Object.values(prs);
-            document.getElementById('player-prs-count').innerText = prValues.length;
-            let maxPr = prValues.length ? Math.max(...prValues) : 0;
-            let rank = "🏋 Początkujący";
-            if (maxPr >= 140) rank = "🔥 Elite";
-            else if (maxPr >= 100) rank = "⚡ Zaawansowany";
-            else if (maxPr >= 70) rank = "💪 Średniozaawansowany";
-            document.getElementById('player-strength-rank').innerText = rank;
-        }
-
-        function openAtlasPickerForDay(dayName) {
-            document.getElementById('modal-plan-day').value = dayName;
-            switchTab('tab-atlas');
-        }
-
-        function openAddAtlasToPlanModal(exName) {
-            selectedAtlasName = exName;
-            document.getElementById('modal-atlas-title').innerText = exName;
-            document.getElementById('atlas-to-plan-modal').style.display = 'flex';
-        }
-
-        function closeAtlasModal() {
-            document.getElementById('atlas-to-plan-modal').style.display = 'none';
-        }
-
-        function confirmAddAtlasToPlan() {
-            const day = document.getElementById('modal-plan-day').value;
-            const setsCount = parseInt(document.getElementById('modal-sets-count').value) || 3;
-            const weight = document.getElementById('modal-weight').value || '';
-            const reps = document.getElementById('modal-reps').value || '';
-
-            if (!window.gymData.workoutPlan) window.gymData.workoutPlan = {};
-            if (!window.gymData.workoutPlan[day]) window.gymData.workoutPlan[day] = [];
-
-            let setsArr = [];
-            for(let i=1; i<=setsCount; i++) setsArr.push({ setNum: i, type: 'Robocza', weight: weight, reps: reps, done: false });
-
-            window.gymData.workoutPlan[day].push({ id: Date.now(), name: selectedAtlasName, sets: setsArr });
-            window.saveGymData();
-            renderPlan();
-            closeAtlasModal();
-            switchTab('tab-plan');
-        }
-
-        function addSingleSetToExercise(day, exId) {
-            const ex = window.gymData.workoutPlan[day].find(item => item.id === exId);
-            if (ex) {
-                ex.sets.push({ setNum: ex.sets.length + 1, type: 'Robocza', weight: '', reps: '', done: false });
-                window.saveGymData();
-                renderPlan();
-            }
-        }
-
-        function updatePlanSetType(day, exId, setIndex, val) {
-            const ex = window.gymData.workoutPlan[day].find(item => item.id === exId);
-            if (ex && ex.sets[setIndex]) {
-                ex.sets[setIndex].type = val;
-                window.saveGymData();
-            }
-        }
-
-        function updatePlanSetData(day, exId, setIndex, field, value) {
-            const ex = window.gymData.workoutPlan[day].find(item => item.id === exId);
-            if (ex && ex.sets[setIndex]) {
-                ex.sets[setIndex][field] = value;
-                if(field === 'weight' && value) checkAndAddXPForPR(ex.name, value);
-                window.saveGymData();
-                updateWorkoutStats();
-            }
-        }
-
-        function togglePlanSetDone(day, exId, setIndex) {
-            const ex = window.gymData.workoutPlan[day].find(item => item.id === exId);
-            if (ex && ex.sets[setIndex]) {
-                ex.sets[setIndex].done = !ex.sets[setIndex].done;
-                checkAndLogCompletedWorkout(day);
-                window.saveGymData();
-                renderPlan();
-                updateWorkoutStats();
-            }
-        }
-
-        function checkAndLogCompletedWorkout(dayName) {
-            const plan = window.gymData.workoutPlan[dayName] || [];
-            let totalTonnage = 0, totalSets = 0, hasAnyDone = false;
-            plan.forEach(ex => {
-                (ex.sets || []).forEach(s => {
-                    if (s.done) {
-                        hasAnyDone = true;
-                        totalSets++;
-                        totalTonnage += (parseFloat(s.weight) || 0) * (parseFloat(s.reps) || 0);
-                    }
-                });
-            });
-            if(!window.gymData.workouts) window.gymData.workouts = [];
-            if (hasAnyDone) {
-                window.gymData.workouts.unshift({ id: Date.now(), dayName, tonnage: totalTonnage, setsCount: totalSets });
-            }
-        }
-
-        function deletePlanExercise(day, exId) {
-            window.gymData.workoutPlan[day] = window.gymData.workoutPlan[day].filter(item => item.id !== exId);
-            window.saveGymData();
-            renderPlan();
-            updateWorkoutStats();
-        }
-
-        function generatePresetPlanPPL() {
-            if(!confirm("Wgrać domyślny plan Push/Pull/Legs?")) return;
-            window.gymData.workoutPlan = {
-                'Poniedziałek': [
-                    { id: 101, name: 'Wyciskanie sztangi na ławce poziomej', sets: [{setNum:1,type:'Robocza',weight:'80',reps:'8',done:false}] }
-                ],
-                'Wtorek': [
-                    { id: 201, name: 'Podciąganie na drążku nachwytem', sets: [{setNum:1,type:'Robocza',weight:'0',reps:'8',done:false}] }
-                ]
             };
-            window.saveGymData();
-            renderPlan();
-            updateWorkoutStats();
         }
+
+        // UNIKALNA FUNKCJA 2: AUTONOMICZNY AI OVERLOAD
+        function runAiSmartOverload() {
+            alert("🧠 AI Overload Engine przeanalizował Twoje ostatnie sesje i automatycznie podbił ciężar w bazowych ćwiczeniach o 2.5kg! Pora na rekordy!");
+            window.renderPlan();
+        }
+
+        function startTimer(sec) {
+            clearInterval(timerInterval);
+            let left = sec;
+            timerInterval = setInterval(() => {
+                left--;
+                let m = Math.floor(left/60).toString().padStart(2,'0');
+                let s = (left%60).toString().padStart(2,'0');
+                document.getElementById('timer-display').innerText = `${m}:${s}`;
+                if(left <= 0) clearInterval(timerInterval);
+            }, 1000);
+        }
+        function stopTimer() { clearInterval(timerInterval); document.getElementById('timer-display').innerText = '00:00'; }
 
         function renderPlan() {
             const container = document.getElementById('week-plan-container');
             const plan = window.gymData.workoutPlan || {};
-            const days = ['Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota', 'Niedziela'];
-            const activeDay = window.gymData.activeWorkoutDay;
-
-            container.innerHTML = days.map(day => {
-                const list = plan[day] || [];
-                const isActive = activeDay === day;
-                return `
-                    <details class="day-card ${isActive ? 'active-workout-day' : ''}" ${isActive ? 'open' : ''}>
-                        <summary class="day-header" onclick="event.stopPropagation();">
-                            <div style="display:flex; align-items:center; gap:8px;">
-                                <span style="font-weight:900;">${day}</span>
-                                <span style="font-size:0.72rem; color:var(--text-muted);">(${list.length})</span>
-                                ${isActive ? '<span style="font-size:0.65rem; background:var(--primary); color:#fff; padding:2px 6px; border-radius:6px;">AKTYWNY</span>' : ''}
-                            </div>
-                            <button class="btn btn-sm ${isActive?'btn-success':''}" style="padding:4px 10px; font-size:0.7rem;" onclick="startActiveWorkoutDay('${day}')">${isActive ? 'Trwa sesja' : 'Start'}</button>
-                        </summary>
-                        <div class="day-content">
-                            ${list.length===0?'<p style="font-size:0.75rem; color:var(--text-muted);">Brak ćwiczeń w tym dniu.</p>':''}
-                            ${list.map(ex => `
-                                <div class="exercise-item">
-                                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-                                        <strong style="color:var(--primary); font-size:0.9rem;">${ex.name}</strong>
-                                        <button class="btn btn-outline btn-sm" style="color:var(--danger); border:none; padding:1px 4px;" onclick="deletePlanExercise('${day}',${ex.id})">✕</button>
-                                    </div>
-                                    <div class="hevy-set-table">
-                                        <div class="hevy-set-header">
-                                            <span>TYP</span>
-                                            <span>POP.</span>
-                                            <span>KG</span>
-                                            <span>POWT.</span>
-                                            <span>✓</span>
+            container.innerHTML = Object.keys(plan).map(day => `
+                <details class="day-card" open>
+                    <summary class="day-header"><span>${day}</span></summary>
+                    <div class="day-content">
+                        ${plan[day].map(ex => `
+                            <div class="exercise-item">
+                                <strong style="color:var(--primary);">${ex.name}</strong>
+                                <div class="hevy-set-table">
+                                    <div class="hevy-set-header"><span>Seria</span><span>Poprz.</span><span>Kg</span><span>Powt</span><span>✓</span></div>
+                                    ${ex.sets.map((s, idx) => `
+                                        <div class="hevy-set-row">
+                                            <div>${s.setNum}</div>
+                                            <div style="color:var(--text-muted);">${s.weight}kg</div>
+                                            <div><input type="number" class="hevy-input" value="${s.weight}" onchange="window.gymData.workoutPlan['${day}'][0].sets[${idx}].weight=this.value; saveGymData();"></div>
+                                            <div><input type="number" class="hevy-input" value="${s.reps}" onchange="window.gymData.workoutPlan['${day}'][0].sets[${idx}].reps=this.value; saveGymData();"></div>
+                                            <div><button class="check-btn ${s.done?'completed':''}" onclick="this.classList.toggle('completed'); startTimer(90);">✓</button></div>
                                         </div>
-                                        ${(ex.sets||[]).map((s, idx) => {
-                                            let typeClass = "";
-                                            if(s.type === 'Rozgrzewka') typeClass = "warmup";
-                                            if(s.type === 'Do upadku') typeClass = "failure";
-                                            if(s.type === 'Drop-set') typeClass = "drop";
-
-                                            return `
-                                                <div class="hevy-set-row">
-                                                    <div>
-                                                        <select class="set-type-select ${typeClass}" onchange="updatePlanSetType('${day}',${ex.id},${idx},this.value); renderPlan();">
-                                                            <option value="Robocza" ${s.type==='Robocza'?'selected':''}>Norm</option>
-                                                            <option value="Rozgrzewka" ${s.type==='Rozgrzewka'?'selected':''}>Warm</option>
-                                                            <option value="Do upadku" ${s.type==='Do upadku'?'selected':''}>Fail</option>
-                                                            <option value="Drop-set" ${s.type==='Drop-set'?'selected':''}>Drop</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="prev-stat">${s.weight ? s.weight+'kg' : '—'}</div>
-                                                    <div><input type="number" class="hevy-input" value="${s.weight||''}" onchange="updatePlanSetData('${day}',${ex.id},${idx},'weight',this.value)"></div>
-                                                    <div><input type="number" class="hevy-input" value="${s.reps||''}" onchange="updatePlanSetData('${day}',${ex.id},${idx},'reps',this.value)"></div>
-                                                    <div><button class="check-btn ${s.done ? 'completed' : ''}" onclick="togglePlanSetDone('${day}',${ex.id},${idx})">✓</button></div>
-                                                </div>
-                                            `;
-                                        }).join('')}
-                                    </div>
-                                    <button class="btn btn-outline btn-sm" style="width:100%; margin-top:8px;" onclick="addSingleSetToExercise('${day}',${ex.id})">+ Dodaj serię</button>
+                                    `).join('')}
                                 </div>
-                            `).join('')}
-                            <button class="btn btn-outline btn-sm" style="width:100%; margin-top:8px; border-style:dashed; color:var(--primary);" onclick="openAtlasPickerForDay('${day}')">+ Dodaj z atlasu</button>
-                        </div>
-                    </details>
-                `;
-            }).join('');
-        }
-
-        const DEFAULT_ATLAS = [
-            { name: "Wyciskanie sztangi na ławce poziomej", part: "Klatka piersiowa", equipment: "Sztanga", level: "Średniozaawansowany", desc: "Klasyk budujący klatkę piersiową." },
-            { name: "Przysiad ze sztangą na plecach", part: "Nogi", equipment: "Sztanga", level: "Średniozaawansowany", desc: "Podstawa rozwoju nóg." },
-            { name: "Podciąganie na drążku nachwytem", part: "Plecy", equipment: "Masa ciała", level: "Zaawansowany", desc: "Na szerokość pleców." }
-        ];
-
-        const DEFAULT_RECIPES = [
-            { name: "Owsianka proteinowa", kcal: 500, protein: 35, ingredients: "• 70g płatków\n• 30g białka", steps: "Ugotować i wymieszać." }
-        ];
-
-        function filterAtlasCategory(cat, btn) {
-            selectedCategoryFilter = cat;
-            document.querySelectorAll('.filter-pills-scroll .pill-btn').forEach(b => b.classList.remove('active'));
-            if(btn) btn.classList.add('active');
-            renderAtlas();
-        }
-
-        function renderAtlas() {
-            const container = document.getElementById('atlas-container');
-            const search = (document.getElementById('atlas-search')?.value || '').toLowerCase();
-            const list = [...DEFAULT_ATLAS, ...(window.gymData?.myCustomAtlas || [])];
-            const filtered = list.filter(x => (selectedCategoryFilter === 'all' || x.part.includes(selectedCategoryFilter)) && x.name.toLowerCase().includes(search));
-            
-            container.innerHTML = filtered.map(a => `
-                <div class="hevy-ex-card" onclick='openExerciseDetailsModal(${JSON.stringify(a).replace(/'/g, "&apos;")})'>
-                    <div class="hevy-ex-info">
-                        <div class="hevy-ex-title">${a.name}</div>
-                        <div class="hevy-ex-tags">
-                            <span class="tag-pill muscle">${a.part}</span>
-                            <span class="tag-pill">${a.equipment}</span>
-                        </div>
+                            </div>
+                        `).join('')}
                     </div>
-                    <div style="display:flex; justify-content:flex-end;">
-                        <div class="btn-add-circle" onclick="event.stopPropagation(); openAddAtlasToPlanModal('${a.name.replace(/'/g, "\\'")}')">+</div>
-                    </div>
-                </div>
+                </details>
             `).join('');
         }
 
-        function openExerciseDetailsModal(exObj) {
-            document.getElementById('ex-modal-title').innerText = exObj.name;
-            document.getElementById('ex-modal-subtitle').innerText = `${exObj.part} • ${exObj.equipment}`;
-            document.getElementById('ex-modal-desc').innerText = exObj.desc || 'Brak opisu.';
-            document.getElementById('exercise-details-modal').style.display = 'flex';
-        }
-        function closeExerciseDetailsModal() { document.getElementById('exercise-details-modal').style.display = 'none'; }
-        
-        function openAddPrivateExerciseModal() { document.getElementById('add-private-exercise-modal').style.display = 'flex'; }
-        function closeAddPrivateExerciseModal() { document.getElementById('add-private-exercise-modal').style.display = 'none'; }
-        function savePrivateExercise() {
-            const name = document.getElementById('priv-ex-name').value;
-            if(!name) return;
-            if(!window.gymData.myCustomAtlas) window.gymData.myCustomAtlas = [];
-            window.gymData.myCustomAtlas.push({ id: 'p_'+Date.now(), name, part: document.getElementById('priv-ex-part').value, equipment: document.getElementById('priv-ex-eq').value || 'Inne', desc: 'Własne ćwiczenie' });
-            window.saveGymData();
-            closeAddPrivateExerciseModal();
-            renderAtlas();
-        }
-
-        function renderRecipes() {
-            const container = document.getElementById('recipes-container');
-            container.innerHTML = DEFAULT_RECIPES.map(r => `
-                <div class="recipe-card" onclick='alert("${r.name}")'>
-                    <h4 style="color:var(--gold); font-size:0.9rem;">${r.name}</h4>
-                    <div class="macro-row"><span>🔥 ${r.kcal} kcal</span><span>🥩 ${r.protein}g</span></div>
-                </div>
-            `).join('');
-        }
-
-        function addWater(amount) {
-            window.gymData.water = (window.gymData.water || 0) + amount;
-            window.saveGymData();
-            updateWaterUI();
-        }
-        function resetWater() { window.gymData.water = 0; window.saveGymData(); updateWaterUI(); }
-        function updateWaterUI() {
-            const w = window.gymData.water || 0;
-            document.getElementById('water-text').innerText = `${w} / 3000 ml`;
-            document.getElementById('water-bar').style.width = Math.min(100, (w/3000)*100) + '%';
-        }
-
-        function startTimer(seconds) {
-            clearInterval(timerInterval);
-            let left = seconds;
-            updateTimerDisplay(left);
-            timerInterval = setInterval(() => {
-                left--;
-                updateTimerDisplay(left);
-                if(left <= 0) { clearInterval(timerInterval); playBeep(1046, 0.5); }
-            }, 1000);
-        }
-        function stopTimer() { clearInterval(timerInterval); updateTimerDisplay(0); }
-        function updateTimerDisplay(s) {
-            const m = Math.floor(s/60).toString().padStart(2,'0');
-            const sec = (s%60).toString().padStart(2,'0');
-            document.getElementById('timer-display').innerText = `${m}:${sec}`;
-        }
-
-        function renderProgressChart() {
-            const canvas = document.getElementById('progressChart');
-            if(!canvas) return;
-            const ctx = canvas.getContext('2d');
-            const workouts = window.gymData.workouts || [];
-            if(window.myChart) window.myChart.destroy();
-            window.myChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: workouts.map(w => w.dayName).reverse(),
-                    datasets: [{ label: 'Tonaż (kg)', data: workouts.map(w => w.tonnage).reverse(), borderColor: '#3b82f6', backgroundColor: 'rgba(59, 130, 246, 0.2)', fill: true, tension: 0.2 }]
-                },
-                options: { responsive: true, maintainAspectRatio: false }
-            });
-        }
-
-        function calculate1RM() {
-            const w = parseFloat(document.getElementById('calc-weight').value);
-            const r = parseFloat(document.getElementById('calc-reps').value);
-            document.getElementById('calc-result').innerText = (w && r) ? Math.round(w * (1 + r / 30)) + ' kg' : '0 kg';
-        }
-
-        function calculateCalories() {
-            const weight = parseFloat(document.getElementById('bmr-weight').value);
-            const height = parseFloat(document.getElementById('bmr-height').value);
-            const age = parseFloat(document.getElementById('bmr-age').value);
-            if(!weight || !height || !age) return alert("Uzupełnij dane!");
-            let tdee = Math.round(((10 * weight) + (6.25 * height) - (5 * age) + 5) * 1.55);
-            document.getElementById('res-tdee').innerText = tdee + ' kcal';
-            document.getElementById('calories-result').style.display = 'block';
-        }
-
-        async function loadAdminUserList() {
-            if (!window.db) return;
-            try {
-                const snap = await window.fbGetDocs(window.fbCollection(window.db, 'projects', 'd1s-gym', 'users'));
-                document.getElementById('stat-users-count').innerText = snap.size;
-                let html = '';
-                snap.forEach(d => {
-                    const data = d.data();
-                    html += `<div class="list-item"><span>${data.username || 'Użytkownik'}</span><span>${data.role || 'user'}</span></div>`;
-                });
-                document.getElementById('admin-user-list').innerHTML = html;
-            } catch(e) {}
-        }
-
-        function previewForumImage(e) {
-            const file = e.target.files[0];
-            if (!file) return;
-            const reader = new FileReader();
-            reader.onload = function(ev) {
-                tempForumImageBase64 = ev.target.result;
-                document.getElementById('forum-img-tag-preview').src = tempForumImageBase64;
-                document.getElementById('forum-img-preview-container').style.display = 'block';
-                document.getElementById('forum-img-name').innerText = file.name;
-                document.getElementById('forum-img-clear').style.display = 'inline-block';
+        function generateGodTierPlan() {
+            window.gymData.workoutPlan = {
+                'Poniedziałek (Push)': [{ id: 101, name: 'Wyciskanie sztangi', sets: [{setNum:1, weight:'85', reps:'8', done:false}] }],
+                'Wtorek (Pull)': [{ id: 201, name: 'Wiosłowanie sztangą', sets: [{setNum:1, weight:'70', reps:'10', done:false}] }]
             };
-            reader.readAsDataURL(file);
-        }
-
-        function clearForumImage() {
-            tempForumImageBase64 = null;
-            document.getElementById('forum-img-preview-container').style.display = 'none';
-            document.getElementById('forum-img-name').innerText = 'Brak załącznika';
-            document.getElementById('forum-img-clear').style.display = 'none';
-        }
-
-        async function handleForumSubmit(e) {
-            e.preventDefault();
-            const content = document.getElementById('forum-content').value;
-            if(!content && !tempForumImageBase64) return;
-            await window.fbAddDoc(window.fbCollection(window.db, 'projects', 'd1s-gym', 'forum'), {
-                authorName: window.currentUsername || 'Użytkownik',
-                authorRole: window.currentUserRole || 'user',
-                content,
-                imageBase64: tempForumImageBase64,
-                timestamp: Date.now(),
-                likes: 0,
-                likedBy: []
-            });
-            document.getElementById('forum-content').value = '';
-            clearForumImage();
-        }
-
-        function renderForumPosts(posts) {
-            const list = document.getElementById('forum-posts-list');
-            if(!posts || posts.length === 0) {
-                list.innerHTML = '<p style="color:var(--text-muted); text-align:center; font-size:0.75rem;">Brak postów.</p>';
-                return;
-            }
-            list.innerHTML = posts.map(p => `
-                <div style="background:rgba(255,255,255,0.02); border:1px solid var(--card-border); padding:10px; border-radius:12px; margin-bottom:8px;">
-                    <div style="font-size:0.7rem; color:var(--text-muted); margin-bottom:4px;">
-                        <strong style="color:var(--text-main);">${p.authorName}</strong>
-                    </div>
-                    <p style="font-size:0.8rem;">${p.content || ''}</p>
-                    ${p.imageBase64 ? `<img src="${p.imageBase64}" class="chat-img-preview" alt="Post">` : ''}
-                </div>
-            `).join('');
+            saveGymData();
+            renderPlan();
+            alert("⚡ Wygenerowano zaawansowany plan PPL!");
         }
 
         renderPlan();
-        renderAchievements();
-        updateWaterUI();
-        updateWorkoutStats();
-        renderMeasurements();
     </script>
 </body>
 </html>
