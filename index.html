@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>4D1S_GYM - Ultimate God-Tier Edition</title>
+    <title>4D1S_GYM - Hevy Ultimate God-Tier Edition</title>
     
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="4D1S_GYM">
     <meta name="theme-color" content="#0d1117">
     
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -27,6 +28,9 @@
             --danger: #f85149;
             --gold: #d29922;
             --ai-glow: #ec4899;
+            --failure: #f85149;
+            --drop: #c084fc;
+            --warmup: #d29922;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; -webkit-tap-highlight-color: transparent; }
@@ -36,64 +40,135 @@
             color: var(--text-main); 
             min-height: 100vh; 
             padding: 12px; 
-            padding-bottom: 120px; 
+            padding-bottom: 130px; 
             max-width: 100vw;
             overflow-x: hidden;
+            -webkit-text-size-adjust: 100%;
         }
 
         .container { max-width: 1200px; margin: 0 auto; width: 100%; }
 
-        header { display: flex; justify-content: space-between; align-items: center; padding: 10px 0 16px; border-bottom: 1px solid var(--card-border); margin-bottom: 15px; }
-        .logo { font-weight: 900; font-size: 1.4rem; color: var(--text-main); display: flex; align-items: center; gap: 10px; }
+        header { display: flex; justify-content: space-between; align-items: center; padding: 12px 0 16px; border-bottom: 1px solid var(--card-border); margin-bottom: 16px; flex-wrap: wrap; gap: 10px; }
+        .logo { font-weight: 900; font-size: 1.4rem; color: var(--text-main); letter-spacing: -0.5px; display: flex; align-items: center; gap: 10px; }
+        .logo img { width: 36px; height: 36px; border-radius: 10px; object-fit: cover; border: 1px solid var(--card-border); }
         .logo span { background: linear-gradient(135deg, #3b82f6, #ec4899); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        .status-badge { display: flex; align-items: center; gap: 6px; font-size: 0.7rem; background: rgba(255,255,255,0.03); padding: 5px 10px; border-radius: 30px; border: 1px solid var(--card-border); }
+        .dot { width: 7px; height: 7px; border-radius: 50%; background: #64748b; }
+        .dot.online { background: var(--success); box-shadow: 0 0 8px var(--success); }
+        .dot.offline { background: var(--danger); }
 
         .nav-tabs { 
             position: fixed; bottom: 0; left: 0; right: 0; 
-            background: rgba(22, 27, 34, 0.96); backdrop-filter: blur(16px);
+            background: rgba(22, 27, 34, 0.97); backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             border-top: 1px solid var(--card-border); 
-            display: flex; justify-content: space-around; padding: 8px 4px 24px; z-index: 1000;
+            display: flex; justify-content: space-around; padding: 8px 4px 26px; z-index: 1000;
+            margin: 0; overflow-x: auto; scrollbar-width: none;
         }
+        .nav-tabs::-webkit-scrollbar { display: none; }
         .tab-btn { 
-            background: transparent; border: none; color: var(--text-muted); padding: 6px; 
-            border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 0.62rem; 
-            display: flex; flex-direction: column; align-items: center; gap: 3px;
+            background: transparent; border: none; color: var(--text-muted); padding: 6px 4px; 
+            border-radius: 8px; font-weight: 700; cursor: pointer; transition: all 0.2s ease; 
+            white-space: nowrap; font-size: 0.60rem; display: flex; flex-direction: column; align-items: center; gap: 3px;
         }
         .tab-btn.active { color: var(--primary); }
 
-        .btn { background: var(--primary); color: #fff; border: none; padding: 10px 16px; border-radius: 12px; font-weight: 800; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; justify-content: center; gap: 6px; font-size: 0.85rem; box-shadow: 0 4px 12px rgba(59,130,246,0.3); }
-        .btn:active { transform: scale(0.97); }
+        .btn { background: var(--primary); color: #ffffff; border: none; padding: 10px 16px; border-radius: 12px; font-weight: 800; cursor: pointer; transition: all 0.2s ease; display: inline-flex; align-items: center; justify-content: center; gap: 6px; font-size: 0.85rem; text-decoration: none; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3); }
+        .btn:active { transform: scale(0.97); opacity: 0.9; }
         .btn-sm { padding: 6px 10px; font-size: 0.72rem; border-radius: 8px; }
-        .btn-success { background: var(--success); box-shadow: 0 4px 12px rgba(35,134,54,0.3); }
+        .btn-success { background: var(--success); box-shadow: 0 4px 12px rgba(35, 134, 54, 0.3); }
         .btn-ai { background: linear-gradient(135deg, #3b82f6, #ec4899); box-shadow: 0 4px 15px rgba(236,72,153,0.4); }
         .btn-outline { background: transparent; border: 1px solid var(--card-border); color: var(--text-main); box-shadow: none; }
 
-        .card { background: var(--bg-card); border: 1px solid var(--card-border); border-radius: 18px; padding: 16px; margin-bottom: 15px; box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
-        
-        input, select, textarea { width: 100%; padding: 10px 12px; background: var(--bg-input); border: 1px solid var(--card-border); border-radius: 12px; color: white; margin-top: 4px; margin-bottom: 10px; font-size: 15px; }
-        input:focus { border-color: var(--primary); outline: none; box-shadow: 0 0 0 3px var(--primary-glow); }
+        .card { background: var(--bg-card); border: 1px solid var(--card-border); border-radius: 18px; padding: 16px; margin-bottom: 15px; width: 100%; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
+        .card-admin { border: 1px solid rgba(59, 130, 246, 0.4); background: rgba(59, 130, 246, 0.02); }
 
-        details.day-card { background: var(--bg-card); border: 1px solid var(--card-border); border-radius: 16px; margin-bottom: 12px; overflow: hidden; }
-        summary.day-header { font-weight: 800; color: #fff; padding: 14px 16px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; list-style: none; }
+        .grid { display: flex; flex-direction: column; gap: 15px; width: 100%; }
+        @media (min-width: 800px) { .grid { display: grid; grid-template-columns: 1fr 340px; gap: 18px; } }
+        .grid-3 { display: grid; grid-template-columns: 1fr; gap: 12px; }
+        @media (min-width: 600px) { .grid-3 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); } }
+        
+        input, select, textarea { width: 100%; padding: 10px 12px; background: var(--bg-input); border: 1px solid var(--card-border); border-radius: 12px; color: white; margin-top: 4px; margin-bottom: 10px; font-size: 15px; transition: border-color 0.2s; -webkit-appearance: none; }
+        input:focus, select:focus, textarea:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-glow); }
+
+        .role-badge { padding: 3px 8px; border-radius: 6px; font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; display: inline-block; }
+        .role-owner { background: var(--primary); color: #ffffff; }
+        .role-admin { background: #f85149; color: #fff; }
+        .role-staff { background: #38bdf8; color: #0d0d12; }
+        .role-vip { background: var(--gold); color: #000; }
+        .role-user { background: #21262d; color: var(--text-muted); }
+
+        #auth-lockscreen { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 60vh; text-align: center; }
+        #verification-screen { display: none; flex-direction: column; align-items: center; justify-content: center; min-height: 50vh; text-align: center; }
+        
+        .list-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 12px; background: rgba(255,255,255,0.02); border-radius: 12px; margin-bottom: 8px; border: 1px solid var(--card-border); font-size: 0.82rem; }
+        
+        details.day-card { background: var(--bg-card); border: 1px solid var(--card-border); border-radius: 18px; margin-bottom: 12px; transition: border-color 0.3s; width: 100%; overflow: hidden; }
+        details.day-card[open] { border-color: rgba(59, 130, 246, 0.6); }
+        details.day-card.active-workout-day { border: 1.5px solid var(--primary); background: rgba(59, 130, 246, 0.04); }
+        
+        summary.day-header { 
+            font-weight: 800; color: #fff; padding: 14px 18px; display: flex; justify-content: space-between; align-items: center; font-size: 1rem; cursor: pointer; user-select: none; list-style: none; background: rgba(255,255,255,0.01);
+        }
         summary.day-header::-webkit-details-marker { display: none; }
-        .day-content { padding: 14px 16px; border-top: 1px solid var(--card-border); }
+        summary.day-header:hover { background: rgba(255,255,255,0.03); }
 
+        .day-content { padding: 14px 18px; border-top: 1px solid var(--card-border); }
         .exercise-item { background: #0d1117; padding: 12px; border-radius: 14px; margin-bottom: 12px; border: 1px solid var(--card-border); }
+
         .hevy-set-table { width: 100%; margin-top: 8px; border-collapse: collapse; }
-        .hevy-set-header { display: grid; grid-template-columns: 50px 1fr 75px 75px 42px; gap: 6px; text-align: center; font-size: 0.65rem; font-weight: 800; color: var(--text-muted); padding-bottom: 6px; border-bottom: 1px solid rgba(255,255,255,0.08); text-transform: uppercase; }
-        .hevy-set-row { display: grid; grid-template-columns: 50px 1fr 75px 75px 42px; gap: 6px; align-items: center; text-align: center; padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 0.78rem; }
+        .hevy-set-header { display: grid; grid-template-columns: 55px 1fr 75px 75px 42px; gap: 6px; text-align: center; font-size: 0.65rem; font-weight: 800; color: var(--text-muted); padding-bottom: 6px; border-bottom: 1px solid rgba(255,255,255,0.08); text-transform: uppercase; }
+        .hevy-set-row { display: grid; grid-template-columns: 55px 1fr 75px 75px 42px; gap: 6px; align-items: center; text-align: center; padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 0.78rem; }
         
-        .hevy-input { background: var(--bg-input); border: 1px solid var(--card-border); border-radius: 8px; padding: 6px; text-align: center; color: #fff; font-weight: 700; font-size: 0.85rem; margin: 0; }
-        .check-btn { width: 34px; height: 34px; border-radius: 8px; background: var(--bg-input); border: 1px solid var(--card-border); color: var(--text-muted); font-weight: 900; display: flex; align-items: center; justify-content: center; cursor: pointer; margin: 0 auto; transition: 0.2s; }
-        .check-btn.completed { background: var(--success); color: #fff; border-color: var(--success); box-shadow: 0 0 10px rgba(35,134,54,0.5); }
+        .set-type-select { background: #21262d; border: 1px solid var(--card-border); border-radius: 6px; color: #fff; font-size: 0.65rem; font-weight: 800; padding: 4px 2px; text-align: center; cursor: pointer; }
+        .set-type-select.warmup { color: var(--warmup); background: rgba(210,153,34,0.15); }
+        .set-type-select.failure { color: var(--failure); background: rgba(248,81,73,0.15); }
+        .set-type-select.drop { color: var(--drop); background: rgba(192,132,252,0.15); }
 
-        .floating-timer { position: fixed; bottom: 82px; left: 12px; right: 12px; background: rgba(22, 27, 34, 0.98); border: 1px solid var(--primary); border-radius: 16px; padding: 12px 16px; box-shadow: 0 12px 35px rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: space-between; z-index: 900; backdrop-filter: blur(16px); }
+        .prev-stat { font-size: 0.7rem; color: var(--text-muted); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-        /* AI VOICE WIDGET & OVERLOAD BANNER */
-        .ai-floating-mic { position: fixed; bottom: 155px; right: 16px; width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, #3b82f6, #ec4899); border: none; color: white; font-size: 1.5rem; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 6px 20px rgba(236,72,153,0.5); z-index: 950; animation: pulse-ai 2s infinite; }
-        @keyframes pulse-ai { 0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(236,72,153,0.7); } 70% { transform: scale(1.05); box-shadow: 0 0 0 12px rgba(236,72,153,0); } 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(236,72,153,0); } }
+        .hevy-input { background: #21262d; border: 1px solid var(--card-border); border-radius: 8px; padding: 6px; text-align: center; color: #fff; font-weight: 700; font-size: 0.85rem; margin: 0; }
+        .hevy-input:focus { border-color: var(--primary); background: #0d1117; }
+
+        .check-btn { width: 34px; height: 34px; border-radius: 8px; background: #21262d; border: 1px solid var(--card-border); color: var(--text-muted); font-weight: 900; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; margin: 0 auto; }
+        .check-btn.completed { background: var(--success); color: #ffffff; border-color: var(--success); box-shadow: 0 0 10px rgba(35, 134, 54, 0.5); }
+
+        .floating-timer { position: fixed; bottom: 84px; left: 12px; right: 12px; background: rgba(22, 27, 34, 0.97); border: 1px solid var(--primary); border-radius: 18px; padding: 12px 16px; box-shadow: 0 12px 35px rgba(0,0,0,0.85); display: flex; align-items: center; justify-content: space-between; z-index: 900; backdrop-filter: blur(16px); flex-wrap: wrap; gap: 8px; }
+        
+        .water-progress { width: 100%; height: 10px; background: rgba(0,0,0,0.6); border-radius: 6px; overflow: hidden; border: 1px solid var(--card-border); margin: 6px 0; }
+        .water-bar { height: 100%; width: 0%; background: var(--primary); transition: width 0.3s; }
+
+        .filter-pills-scroll { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; padding-bottom: 8px; margin-bottom: 12px; }
+        .filter-pills-scroll::-webkit-scrollbar { display: none; }
+        .pill-btn { background: #21262d; border: 1px solid var(--card-border); color: var(--text-muted); padding: 6px 14px; border-radius: 20px; font-weight: 700; font-size: 0.75rem; cursor: pointer; white-space: nowrap; transition: all 0.2s; }
+        .pill-btn.active { background: var(--primary); color: #ffffff; border-color: var(--primary); }
+
+        .hevy-ex-card { background: #21262d; border: 1px solid var(--card-border); border-radius: 14px; padding: 12px; display: flex; flex-direction: column; gap: 10px; cursor: pointer; transition: transform 0.15s ease, border-color 0.15s ease; position: relative; }
+        .hevy-ex-card:hover { border-color: rgba(59, 130, 246, 0.6); }
+        
+        .hevy-ex-info { flex: 1; min-width: 0; }
+        .hevy-ex-title { font-size: 0.92rem; font-weight: 800; color: #fff; margin-bottom: 4px; }
+        .hevy-ex-tags { display: flex; gap: 5px; flex-wrap: wrap; align-items: center; margin-top: 6px; }
+        .tag-pill { font-size: 0.62rem; font-weight: 700; padding: 2px 7px; border-radius: 6px; background: rgba(255,255,255,0.06); color: var(--text-muted); border: 1px solid rgba(255,255,255,0.08); text-transform: uppercase; }
+        .tag-pill.muscle { background: rgba(59, 130, 246, 0.15); color: var(--primary); border-color: rgba(59, 130, 246, 0.3); }
+
+        .btn-add-circle { width: 32px; height: 32px; border-radius: 50%; background: rgba(59, 130, 246, 0.15); border: 1px solid rgba(59, 130, 246, 0.4); color: var(--primary); font-size: 1.1rem; font-weight: 800; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; flex-shrink: 0; }
+        .btn-add-circle:hover { background: var(--primary); color: #fff; }
+
+        .recipe-card { background: rgba(0, 0, 0, 0.2); border: 1px solid var(--card-border); border-radius: 14px; padding: 14px; display: flex; flex-direction: column; justify-content: space-between; cursor: pointer; }
+        .macro-row { display: flex; gap: 6px; flex-wrap: wrap; margin: 6px 0; }
+        .macro-row span { font-size: .68rem; font-weight: 700; padding: 3px 6px; border-radius: 6px; background: rgba(255,255,255,.05); border: 1px solid var(--card-border); }
 
         .modal-overlay { position: fixed; top:0; left:0; right:0; bottom:0; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); display: none; align-items: center; justify-content: center; z-index: 1100; padding: 12px; }
-        .modal-body { background: var(--bg-card); border: 1px solid var(--card-border); border-radius: 20px; padding: 20px; width: 100%; max-width: 440px; }
+        .modal-body { background: var(--bg-card); border: 1px solid var(--card-border); border-radius: 20px; padding: 20px; width: 100%; max-width: 440px; box-shadow: 0 12px 35px rgba(0,0,0,0.95); max-height: 90vh; overflow-y: auto; }
+
+        .chat-img-preview { max-width: 100%; max-height: 240px; border-radius: 12px; margin-top: 6px; border: 1px solid var(--card-border); object-fit: contain; background: #000; display: block; }
+        .stat-box { background: rgba(255,255,255,0.03); border: 1px solid var(--card-border); padding: 10px; border-radius: 12px; text-align: center; }
+
+        /* KOSMICZNY PRZYCISK AI GŁOSOWEGO */
+        .ai-floating-mic { position: fixed; bottom: 160px; right: 16px; width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, #3b82f6, #ec4899); border: none; color: white; font-size: 1.5rem; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 6px 20px rgba(236,72,153,0.5); z-index: 950; animation: pulse-ai 2s infinite; }
+        @keyframes pulse-ai { 0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(236,72,153,0.7); } 70% { transform: scale(1.05); box-shadow: 0 0 0 12px rgba(236,72,153,0); } 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(236,72,153,0); } }
     </style>
 
     <script type="module">
@@ -104,95 +179,415 @@
         const k1 = "AIzaSyDt4973oXRxuzS_"; const k2 = "Tmp_axT8jnyvCRZ6CTI";
         const firebaseConfig = { apiKey: k1 + k2, authDomain: "d1s-gym.firebaseapp.com", projectId: "d1s-gym", storageBucket: "d1s-gym.firebasestorage.app", messagingSenderId: "542037700079", appId: "1:542037700079:web:d3ccb84200ca5560495a1a" };
 
-        let app = initializeApp(firebaseConfig);
-        window.auth = getAuth(app); window.db = getFirestore(app);
-        window.fbAddDoc = addDoc; window.fbDeleteDoc = deleteDoc; window.fbCollection = collection; window.fbDoc = doc; window.fbSetDoc = setDoc; window.fbGetDocs = getDocs;
+        let app, auth, db;
+        try {
+            app = initializeApp(firebaseConfig);
+            auth = getAuth(app); db = getFirestore(app);
+            window.db = db; window.auth = auth;
+            window.fbAddDoc = addDoc; window.fbDeleteDoc = deleteDoc; window.fbCollection = collection;
+            window.fbDoc = doc; window.fbSetDoc = setDoc; window.fbGetDocs = getDocs;
+            window.fbSendEmailVerification = sendEmailVerification;
+        } catch (e) { console.error("Firebase Init Error", e); }
 
-        onAuthStateChanged(window.auth, async (user) => {
-            const lockScreen = document.getElementById('auth-lockscreen');
-            const appContent = document.getElementById('app-main-content');
-            if (user && user.emailVerified) {
-                lockScreen.style.display = 'none';
-                appContent.style.display = 'block';
-                onSnapshot(doc(window.db, 'projects', 'd1s-gym', 'users', user.uid), (snap) => {
-                    let data = snap.exists() ? snap.data() : {};
-                    window.gymData = data.gym_data || { workouts: [], workoutPlan: {}, activeWorkoutDay: null, xp: 0, level: 1, water: 0, prs: {} };
-                    window.renderPlan();
-                    window.updateWorkoutStats();
-                });
-            } else {
-                lockScreen.style.display = 'flex';
-                appContent.style.display = 'none';
+        window.authApi = {
+            login: (e, p) => signInWithEmailAndPassword(auth, e, p),
+            reg: async (e, p) => {
+                const creds = await createUserWithEmailAndPassword(auth, e, p);
+                if (creds && creds.user) await sendEmailVerification(creds.user);
+                return creds;
+            },
+            resendVerification: async () => {
+                if (auth && auth.currentUser) {
+                    await sendEmailVerification(auth.currentUser);
+                    alert("Wysłano e-mail weryfikacyjny ponownie! Sprawdź skrzynkę.");
+                }
+            },
+            out: async () => {
+                if (auth && auth.currentUser) {
+                    try { await setDoc(doc(db, 'projects', 'd1s-gym', 'users', auth.currentUser.uid), { isOnline: false }, { merge: true }); } catch(err){}
+                }
+                if (auth) signOut(auth);
             }
-        });
+        };
+
+        if (auth) {
+            onAuthStateChanged(auth, async (user) => {
+                const dot = document.getElementById('status-dot');
+                const txt = document.getElementById('status-text');
+                const appContent = document.getElementById('app-main-content');
+                const lockScreen = document.getElementById('auth-lockscreen');
+                const verificationScreen = document.getElementById('verification-screen');
+                
+                if (user) {
+                    if (!user.emailVerified) {
+                        lockScreen.style.display = 'none'; appContent.style.display = 'none';
+                        verificationScreen.style.display = 'flex'; document.getElementById('user-profile').style.display = 'none';
+                        dot.className = "dot offline"; txt.innerText = "Niezweryfikowany e-mail";
+                        return;
+                    }
+                    verificationScreen.style.display = 'none'; lockScreen.style.display = 'none';
+                    appContent.style.display = 'block'; document.getElementById('user-profile').style.display = 'flex';
+
+                    const userDocRef = doc(db, 'projects', 'd1s-gym', 'users', user.uid);
+                    onSnapshot(userDocRef, async (snap) => {
+                        dot.className = "dot online"; txt.innerText = "God-Tier Online";
+                        let userData = snap.exists() ? snap.data() : {};
+                        userData.role = userData.role || 'user';
+                        window.currentUserRole = userData.role;
+                        window.currentUsername = userData.username || user.email.split('@')[0];
+                        window.permissions = userData.permissions || { canBlock: false, canDeletePosts: false };
+
+                        await setDoc(userDocRef, { username: window.currentUsername, isOnline: true, lastSeen: new Date().toLocaleString('pl-PL') }, { merge: true });
+                        document.getElementById('user-username-display').innerText = window.currentUsername;
+                        window.gymData = userData.gym_data || { workouts: [], workoutPlan: {}, activeWorkoutDay: null, xp: 0, level: 1, water: 0, prs: {}, myCustomAtlas: [], measurements: [] };
+
+                        document.getElementById('user-role-tag').innerHTML = getRoleBadgeHtml(window.currentUserRole);
+                        document.getElementById('tab-admin-btn').style.display = ['owner', 'admin'].includes(window.currentUserRole) ? 'flex' : 'none';
+                        document.getElementById('tab-vip-btn').style.display = ['owner', 'admin', 'vip'].includes(window.currentUserRole) ? 'flex' : 'none';
+
+                        if (['owner', 'admin'].includes(window.currentUserRole)) window.loadAdminUserList();
+                        window.renderPlan(); window.renderAchievements(); window.updateWaterUI(); window.updateWorkoutStats(); window.renderMeasurements();
+                    });
+
+                    window.listenToLiveBases(); window.listenToForumPosts();
+                } else {
+                    verificationScreen.style.display = 'none'; lockScreen.style.display = 'flex'; appContent.style.display = 'none';
+                    document.getElementById('user-profile').style.display = 'none';
+                    dot.className = "dot offline"; txt.innerText = "Offline";
+                }
+            });
+        }
 
         window.saveGymData = async function() {
-            if (window.auth && window.auth.currentUser) {
-                await setDoc(doc(window.db, 'projects', 'd1s-gym', 'users', window.auth.currentUser.uid), { gym_data: window.gymData }, { merge: true });
+            if (auth && auth.currentUser) {
+                try {
+                    await setDoc(doc(db, 'projects', 'd1s-gym', 'users', auth.currentUser.uid), { 
+                        username: window.currentUsername || 'Użytkownik', role: window.currentUserRole || 'user', gym_data: window.gymData 
+                    }, { merge: true });
+                } catch (e) { console.error(e); }
             }
-            localStorage.setItem('god_tier_gym', JSON.stringify(window.gymData));
+            localStorage.setItem('god_tier_gym_v2', JSON.stringify(window.gymData));
         };
+
+        window.listenToLiveBases = function() {
+            if (!db) return;
+            onSnapshot(collection(db, 'projects', 'd1s-gym', 'custom_atlas'), (snap) => {
+                let items = []; snap.forEach(d => items.push({ id: d.id, ...d.data() }));
+                window.customAtlas = items; window.renderAtlas();
+            });
+            onSnapshot(collection(db, 'projects', 'd1s-gym', 'custom_recipes'), (snap) => {
+                let items = []; snap.forEach(d => items.push({ id: d.id, ...d.data() }));
+                window.customRecipes = items; window.renderRecipes();
+            });
+        };
+
+        window.listenToForumPosts = function() {
+            if (!db) return;
+            onSnapshot(collection(db, 'projects', 'd1s-gym', 'forum'), (snap) => {
+                let posts = []; snap.forEach(d => posts.push({ id: d.id, ...d.data() }));
+                posts.sort((a, b) => b.timestamp - a.timestamp); window.renderForumPosts(posts);
+            });
+        };
+
+        function getRoleBadgeHtml(role) {
+            switch(role) {
+                case 'owner': return '<span class="role-badge role-owner">👑 Szef</span>';
+                case 'admin': return '<span class="role-badge role-admin">🛡 Admin</span>';
+                case 'staff': return '<span class="role-badge role-staff">🛠 Staff</span>';
+                case 'vip': return '<span class="role-badge role-vip">🌟 VIP</span>';
+                default: return '<span class="role-badge role-user">🏋 Athlete</span>';
+            }
+        }
+        window.getRoleBadgeHtml = getRoleBadgeHtml;
     </script>
 </head>
 <body>
 
-    <!-- KOSMICZNY PRZYCISK AI GŁOSOWEGO ASYSTENTA -->
+    <!-- ASYSTENT GŁOSOWY AI (WIDGET W ROGU) -->
     <button class="ai-floating-mic" onclick="toggleVoiceAssistant()" title="AI Voice Assistant">🎙️</button>
 
     <div class="container">
         <header>
             <div class="logo">
-                <span>⚡ 4D1S GOD-TIER GYM</span>
+                <img src="c3e85c77-58fb-4713-b654-5eca4e3158c8.png" alt="Logo">
+                <span>HEVY GOD-TIER <small style="font-size:0.55rem; color:var(--text-muted);">PRO 3000</small></span>
             </div>
-            <div id="user-profile" style="font-size: 0.8rem; font-weight: 800; color: var(--primary);">
-                PRO ENGINE ACTIVE
+            <div style="display: flex; gap: 6px; align-items: center;">
+                <div class="status-badge">
+                    <div id="status-dot" class="dot offline"></div>
+                    <span id="status-text">Łączenie...</span>
+                </div>
+                <div id="user-profile" style="display: none; align-items: center; gap: 6px;">
+                    <span id="user-role-tag"></span>
+                    <span id="user-username-display" style="font-size: 0.8rem; font-weight: 800; color: var(--text-main);"></span>
+                    <button class="btn btn-outline btn-sm" onclick="window.authApi.out()" title="Wyloguj">✕</button>
+                </div>
             </div>
         </header>
 
-        <div id="auth-lockscreen" class="card" style="text-align: center; padding: 40px 20px;">
-            <h2 style="color: var(--primary); margin-bottom: 10px;">Logowanie do Najlepszej Apki Świata</h2>
-            <p style="color: var(--text-muted); font-size: 0.8rem; margin-bottom: 20px;">Pełna synchronizacja chmurowa z silnikiem AI.</p>
-            <input type="email" id="auth-email" placeholder="E-mail">
-            <input type="password" id="auth-pass" placeholder="Hasło">
-            <button class="btn" style="width: 100%; margin-top: 10px;" onclick="handleAuth()">Zaloguj się / Stwórz Konto</button>
+        <div id="verification-screen" class="card">
+            <h2 style="margin-bottom: 8px; color: var(--primary); font-size: 1.2rem;">Potwierdź swój e-mail</h2>
+            <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:15px; max-width: 340px;">Kliknij w link aktywacyjny w wiadomości e-mail.</p>
+            <div style="display: flex; flex-direction: column; gap: 8px; width: 100%; max-width: 260px; margin: 0 auto;">
+                <button class="btn" onclick="location.reload()">Sprawdzam / Odśwież</button>
+                <button class="btn btn-outline" onclick="window.authApi.resendVerification()">Wyślij ponownie</button>
+                <button class="btn btn-outline" style="color: var(--danger);" onclick="window.authApi.out()">Wyloguj się</button>
+            </div>
+        </div>
+
+        <div id="auth-lockscreen" class="card">
+            <h2 id="modal-title" style="margin-bottom: 8px; color: var(--primary); font-size: 1.2rem;">Logowanie Hevy God-Tier</h2>
+            <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:15px;">Dostęp do najlepszej aplikacji treningowej świata.</p>
+            <div style="width:100%; max-width:300px;">
+                <input type="text" id="auth-username" placeholder="Twój Nick" style="display: none;">
+                <input type="email" id="auth-email" placeholder="E-mail">
+                <input type="password" id="auth-pass" placeholder="Hasło">
+                <button id="auth-submit" class="btn" style="width: 100%; margin-bottom: 8px;" onclick="handleAuth()">Zaloguj się</button>
+                <button class="btn btn-outline" style="width: 100%; border: none; font-size:0.75rem;" onclick="toggleAuthMode()" id="auth-toggle">Nie masz konta? Zarejestruj się</button>
+            </div>
         </div>
 
         <div id="app-main-content" style="display: none;">
+
             <div class="nav-tabs">
-                <button class="tab-btn active" onclick="switchTab('tab-plan')">📋 Trening</button>
-                <button class="tab-btn" onclick="switchTab('tab-atlas')">🔍 Atlas</button>
-                <button class="tab-btn" onclick="switchTab('tab-ai')">🤖 AI Coach</button>
-                <button class="tab-btn" onclick="switchTab('tab-progress')">📊 Progres</button>
+                <button id="nav-btn-plan" class="tab-btn active" onclick="switchTab('tab-plan')">
+                    <span style="font-size: 1.1rem;">📋</span> Trening
+                </button>
+                <button id="nav-btn-atlas" class="tab-btn" onclick="switchTab('tab-atlas')">
+                    <span style="font-size: 1.1rem;">🔍</span> Atlas
+                </button>
+                <button id="nav-btn-ai" class="tab-btn" style="color: var(--ai-glow);" onclick="switchTab('tab-ai')">
+                    <span style="font-size: 1.1rem;">🧠</span> AI Coach
+                </button>
+                <button id="nav-btn-forum" class="tab-btn" onclick="switchTab('tab-forum')">
+                    <span style="font-size: 1.1rem;">💬</span> Społeczność
+                </button>
+                <button id="nav-btn-progress" class="tab-btn" onclick="switchTab('tab-progress')">
+                    <span style="font-size: 1.1rem;">📊</span> Profil & Pomiary
+                </button>
+                <button id="nav-btn-calc" class="tab-btn" onclick="switchTab('tab-calc')">
+                    <span style="font-size: 1.1rem;">🧮</span> Narzędzia
+                </button>
+                <button id="tab-vip-btn" class="tab-btn" style="display: none; color: var(--gold);" onclick="switchTab('tab-vip')">
+                    <span style="font-size: 1.1rem;">🌟</span> VIP
+                </button>
+                <button id="tab-admin-btn" class="tab-btn" style="display: none; color: var(--primary);" onclick="switchTab('tab-admin')">
+                    <span style="font-size: 1.1rem;">🛡️</span> Admin
+                </button>
             </div>
 
             <div id="tab-plan" class="tab-content">
                 <div class="grid">
                     <div>
+                        <div id="hevy-active-workout-banner" style="display:none; background: #161b22; border: 1px solid var(--primary); padding: 14px 16px; border-radius: 16px; margin-bottom: 15px; align-items: center; justify-content: space-between;">
+                            <div>
+                                <div style="font-size: 0.68rem; color: var(--primary); font-weight: 800; text-transform: uppercase;">Sesja w toku</div>
+                                <div id="hevy-active-day-title" style="font-size: 1.1rem; font-weight: 900; color: #fff;"></div>
+                            </div>
+                            <button class="btn btn-success" style="font-size:0.8rem; padding: 8px 14px;" onclick="finishActiveWorkoutSession()">✓ Zakończ Trening</button>
+                        </div>
+
+                        <!-- AUTONOMICZNY AI PROGRESSIVE OVERLOAD -->
                         <div class="card" style="border: 1px solid var(--ai-glow); background: rgba(236,72,153,0.03);">
-                            <h3 style="color: var(--ai-glow); font-size: 0.95rem; font-weight: 800; margin-bottom: 6px;">🧠 Autonomiczny AI Overload Engine</h3>
-                            <p style="font-size: 0.73rem; color: var(--text-muted); margin-bottom: 10px;">Silnik sztucznej inteligencji analizuje Twoje ostatnie treningi i sam podpowiada optymalny ciężar.</p>
-                            <button class="btn btn-ai btn-sm" onclick="runAiSmartOverload()">✨ Zoptymalizuj cały plan przez AI</button>
+                            <h3 style="color: var(--ai-glow); font-size: 0.95rem; font-weight: 800; margin-bottom: 6px;">🧠 AI Autonomous Overload Engine</h3>
+                            <p style="font-size: 0.73rem; color: var(--text-muted); margin-bottom: 10px;">Algorytm analizuje Twoje ostatnie PR i automatycznie sugeruje podbicie ciężaru.</p>
+                            <button class="btn btn-ai btn-sm" onclick="runAiSmartOverload()">✨ Optymalizuj plan przez AI</button>
+                        </div>
+
+                        <!-- IMPORT / EKSPORT -->
+                        <div class="card" style="border: 1px dashed var(--primary); background: rgba(59, 130, 246, 0.02);">
+                            <h3 style="color: #fff; font-size: 0.95rem; font-weight: 800; margin-bottom: 6px;">📂 Backup & Import</h3>
+                            <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+                                <label class="btn btn-outline btn-sm" style="cursor: pointer; margin: 0;">
+                                    📁 Wgraj plik
+                                    <input type="file" id="import-plan-file-input" accept=".txt,.json,.csv" style="display: none;" onchange="importWorkoutPlanFromFile(event)">
+                                </label>
+                                <button class="btn btn-outline btn-sm" onclick="exportHevyBackupJSON()">💾 Eksportuj Backup JSON</button>
+                            </div>
                         </div>
 
                         <div class="card">
                             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-                                <h3 style="font-size: 1.1rem; font-weight: 800;">📅 Twoje Rutyny</h3>
-                                <button class="btn btn-outline btn-sm" onclick="generateGodTierPlan()">⚡ Generuj PPL</button>
+                                <h3 style="color: #fff; font-size: 1.1rem; font-weight: 800;">📅 Rutyny Treningowe</h3>
+                                <button class="btn btn-outline btn-sm" onclick="generatePresetPlanPPL()">⚡ PPL Generator</button>
                             </div>
                             <div id="week-plan-container"></div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="card">
+                            <h4 style="color: var(--primary); margin-bottom: 8px; font-size: 0.95rem; font-weight:800;">⚡ Statystyka Sesji</h4>
+                            <div id="active-day-badge" style="font-size: 0.75rem; font-weight: 800; color: var(--gold); margin-bottom: 10px; background: rgba(210,153,34,0.1); padding: 8px; border-radius: 10px; text-align:center;">
+                                Brak aktywnej sesji
+                            </div>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px;">
+                                <div class="stat-box">
+                                    <div style="font-size: 0.65rem; color: var(--text-muted);">Tonaż</div>
+                                    <div id="stat-total-tonnage" style="font-size: 0.95rem; font-weight: 900; color: var(--gold);">0 kg</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div style="font-size: 0.65rem; color: var(--text-muted);">Serie</div>
+                                    <div id="stat-total-sets" style="font-size: 0.95rem; font-weight: 900; color: var(--primary);">0</div>
+                                </div>
+                            </div>
+
+                            <h4 style="color: var(--primary); margin-bottom: 6px; font-size: 0.85rem; font-weight:800;">💧 Nawodnienie</h4>
+                            <span id="water-text" style="font-weight: 800; color: var(--primary); font-size: 0.75rem;">0 / 3000 ml</span>
+                            <div class="water-progress"><div id="water-bar" class="water-bar"></div></div>
+                            <div style="display: flex; gap: 6px; margin-top: 6px;">
+                                <button class="btn btn-outline btn-sm" style="flex:1; padding:4px;" onclick="addWater(250)">+250ml</button>
+                                <button class="btn btn-outline btn-sm" style="flex:1; padding:4px;" onclick="addWater(500)">+500ml</button>
+                                <button class="btn btn-outline btn-sm" style="color: var(--danger); padding:4px;" onclick="resetWater()">↺</button>
+                            </div>
+
+                            <div style="margin-top: 16px;">
+                                <h4 style="color: #fff; margin-bottom: 6px; font-size: 0.85rem; font-weight:800;">📜 Historia Treningów</h4>
+                                <div id="workout-list" style="max-height: 220px; overflow-y:auto;"><p style="font-size: 0.75rem; color: var(--text-muted); text-align: center;">Brak historii.</p></div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
+            <div id="tab-atlas" class="tab-content" style="display: none;">
+                <div class="card">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 8px;">
+                        <div>
+                            <h3 style="color: #fff; font-size: 1.1rem; font-weight: 800;">📚 Atlas Ćwiczeń</h3>
+                            <span id="atlas-counter" style="font-size: 0.72rem; color: var(--text-muted);">Baza Hevy</span>
+                        </div>
+                        <button class="btn btn-sm" style="background: var(--purple); color: #fff;" onclick="openAddPrivateExerciseModal()">+ Dodaj własne</button>
+                    </div>
+                    <input id="atlas-search" type="search" placeholder="🔍 Szukaj ćwiczenia..." oninput="renderAtlas()" style="margin-bottom: 10px;">
+                    <div class="filter-pills-scroll">
+                        <button class="pill-btn active" onclick="filterAtlasCategory('all', this)">Wszystkie</button>
+                        <button class="pill-btn" onclick="filterAtlasCategory('Klatka piersiowa', this)">Klatka</button>
+                        <button class="pill-btn" onclick="filterAtlasCategory('Plecy', this)">Plecy</button>
+                        <button class="pill-btn" onclick="filterAtlasCategory('Nogi', this)">Nogi</button>
+                        <button class="pill-btn" onclick="filterAtlasCategory('Barki', this)">Barki</button>
+                        <button class="pill-btn" onclick="filterAtlasCategory('Moje', this)">⭐ Moje</button>
+                    </div>
+                    <div class="grid-3" id="atlas-container" style="margin-top: 8px;"></div>
+                </div>
+            </div>
+
             <div id="tab-ai" class="tab-content" style="display: none;">
                 <div class="card">
-                    <h3 style="color: var(--ai-glow); margin-bottom: 8px;">🤖 Asystent Głosowy AI & Komendy</h3>
-                    <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 12px;">Możesz kliknąć mikrofon i powiedzieć np. <em>"Wyciskanie 100 na 8"</em>, a system sam to wychwyci i zapisze!</p>
-                    <div id="voice-log-status" style="background: var(--bg-input); padding: 12px; border-radius: 12px; font-size: 0.85rem; color: var(--gold); text-align: center;">
-                        Mikrofon gotowy. Kliknij różowy przycisk w rogu, aby mówić.
+                    <h3 style="color: var(--ai-glow); margin-bottom: 6px; font-size: 1.1rem;">🧠 AI Voice Logger & Komendy</h3>
+                    <p style="font-size:0.78rem; color:var(--text-muted); margin-bottom:12px;">Kliknij mikrofon w prawym dolnym rogu ekranu i powiedz np. <em>"Wyciskanie sto na osiem"</em> albo <em>"Pauza dziewięćdziesiąt sekund"</em>.</p>
+                    <div id="voice-log-status" style="background: var(--bg-input); padding: 14px; border-radius: 12px; font-size: 0.85rem; color: var(--gold); text-align: center; border: 1px solid var(--card-border);">
+                        🎙️ Mikrofon gotowy do nasłuchu komend.
                     </div>
                 </div>
+            </div>
+
+            <div id="tab-forum" class="tab-content" style="display: none;">
+                <div class="card">
+                    <h3 style="color: var(--primary); margin-bottom: 6px; font-size: 1.1rem;">💬 Społeczność Hevy</h3>
+                    <form onsubmit="handleForumSubmit(event)" style="margin-bottom: 12px;">
+                        <textarea id="forum-content" rows="2" placeholder="Podziel się wynikiem treningowym..."></textarea>
+                        <button type="submit" class="btn btn-sm" style="width: 100%;">Opublikuj post</button>
+                    </form>
+                    <div id="forum-posts-list"></div>
+                </div>
+            </div>
+
+            <div id="tab-progress" class="tab-content" style="display: none;">
+                <div class="grid" style="grid-template-columns: 1fr;">
+                    <div class="card">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                            <h3 style="color: var(--primary); font-size: 1.1rem;">🏆 Profil & Poziom</h3>
+                            <span id="player-level-text" style="font-weight: 900; color: var(--gold); font-size: 0.95rem;">LVL 1 (0/200 XP)</span>
+                        </div>
+                        <div class="water-progress" style="height:10px;"><div id="xp-bar" class="water-bar"></div></div>
+                        <p style="font-size:0.7rem; color:var(--text-muted); margin-top:4px; text-align:center;">Zbieraj XP za bicie rekordów PR w ćwiczeniach! 🚀</p>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 15px;">
+                            <div class="stat-box">
+                                <div style="font-size: 0.65rem; color: var(--text-muted);">Ranga Siłowa</div>
+                                <div id="player-strength-rank" style="font-size: 0.9rem; font-weight: 900; color: var(--primary);">🏋 Początkujący</div>
+                            </div>
+                            <div class="stat-box">
+                                <div style="font-size: 0.65rem; color: var(--text-muted);">Pobite PR</div>
+                                <div id="player-prs-count" style="font-size: 0.9rem; font-weight: 900; color: var(--gold);">0</div>
+                            </div>
+                        </div>
+
+                        <h3 style="color: var(--primary); margin: 16px 0 8px; font-size: 0.95rem;">📊 Wykres Tonażu</h3>
+                        <div style="background: rgba(0, 0, 0, 0.2); padding: 10px; border-radius: 12px; border: 1px solid var(--card-border);">
+                            <canvas id="progressChart" height="130"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- POMIARY CIAŁA -->
+                    <div class="card">
+                        <h3 style="color: var(--primary); font-size: 1.1rem; margin-bottom: 8px;">📏 Pomiary Ciała</h3>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
+                            <div><label style="font-size:0.7rem;">Waga (kg)</label><input type="number" id="measure-weight" placeholder="78.5"></div>
+                            <div><label style="font-size:0.7rem;">Tłuszcz (%)</label><input type="number" id="measure-fat" placeholder="15"></div>
+                        </div>
+                        <button class="btn btn-sm" style="width:100%; margin-top:4px;" onclick="saveBodyMeasurement()">+ Zapisz pomiar</button>
+                        <div style="margin-top: 14px;" id="measurements-history-list"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tab-calc" class="tab-content" style="display: none;">
+                <div class="grid" style="grid-template-columns: 1fr;">
+                    <div class="card">
+                        <h3 style="color: var(--primary); font-size: 1.1rem;">🧮 Kalkulator 1RM</h3>
+                        <label style="font-size: 0.75rem;">Ciężar (kg)</label><input type="number" id="calc-weight" placeholder="100" oninput="calculate1RM()">
+                        <label style="font-size: 0.75rem;">Powtórzenia</label><input type="number" id="calc-reps" placeholder="5" oninput="calculate1RM()">
+                        <div style="margin-top: 12px; text-align: center; background: rgba(0, 0, 0, 0.2); padding: 10px; border-radius: 12px;">
+                            <span style="font-size: 0.75rem; color: var(--text-muted);">Szacowany 1RM:</span>
+                            <h3 id="calc-result" style="color: var(--primary); font-size: 1.1rem;">0 kg</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tab-vip" class="tab-content" style="display: none;">
+                <div class="card">
+                    <h3 style="color: var(--gold); margin-bottom: 8px; font-size: 1.1rem;">🌟 Przepisy VIP</h3>
+                    <div class="grid-3" id="recipes-container" style="margin-top: 8px;"></div>
+                </div>
+            </div>
+
+            <div id="tab-admin" class="tab-content" style="display: none;">
+                <div class="card card-admin">
+                    <h3 style="color: var(--primary); margin-bottom: 10px; font-size: 1.1rem;">🛡️ Panel Administratora</h3>
+                    <h4 style="margin-bottom: 8px; color: var(--gold); font-size: 0.9rem;">Użytkownicy (<span id="stat-users-count">0</span>):</h4>
+                    <div id="admin-user-list">Pobieranie listy...</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- MODALE -->
+    <div id="add-private-exercise-modal" class="modal-overlay">
+        <div class="modal-body">
+            <h3 style="color:var(--purple); margin-bottom:6px; font-size: 1.1rem;">⭐ Dodaj własne ćwiczenie</h3>
+            <label style="font-size: 0.75rem;">Nazwa</label><input type="text" id="priv-ex-name" placeholder="np. Wyciskanie hantli">
+            <label style="font-size: 0.75rem;">Partia</label>
+            <select id="priv-ex-part"><option value="Klatka piersiowa">Klatka piersiowa</option><option value="Plecy">Plecy</option><option value="Nogi">Nogi</option><option value="Barki">Barki</option></select>
+            <div style="display:flex; gap:6px; margin-top:8px;">
+                <button class="btn btn-sm" style="flex:1; background:var(--purple); color:#fff;" onclick="savePrivateExercise()">Zapisz</button>
+                <button class="btn btn-outline btn-sm" style="color:var(--danger);" onclick="closeAddPrivateExerciseModal()">✕</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="atlas-to-plan-modal" class="modal-overlay">
+        <div class="modal-body">
+            <h3 style="color:var(--primary); margin-bottom:6px; font-size: 1.1rem;">Dodaj do rutyny</h3>
+            <p id="modal-atlas-title" style="font-weight:800; font-size:0.9rem; margin-bottom:10px; color:#fff;"></p>
+            <label style="font-size: 0.75rem;">Dzień</label>
+            <select id="modal-plan-day"><option value="Poniedziałek">Poniedziałek</option><option value="Wtorek">Wtorek</option><option value="Środa">Środa</option><option value="Czwartek">Czwartek</option><option value="Piątek">Piątek</option></select>
+            <div style="display:flex; gap:6px; margin-top:8px;">
+                <button class="btn btn-sm" style="flex:1;" onclick="confirmAddAtlasToPlan()">Zapisz</button>
+                <button class="btn btn-outline btn-sm" style="color:var(--danger);" onclick="closeAtlasModal()">✕</button>
             </div>
         </div>
     </div>
@@ -200,10 +595,11 @@
     <!-- PŁYWAJĄCY TIMER -->
     <div class="floating-timer">
         <div>
-            <div style="font-size: 0.6rem; color: var(--text-muted); font-weight:800;">PAUZA</div>
+            <div style="font-size: 0.6rem; color: var(--text-muted); font-weight:800;">TIMER PAUZY</div>
             <div id="timer-display" style="font-size: 1.1rem; font-weight: 900; color: var(--primary);">00:00</div>
         </div>
         <div style="display: flex; gap: 4px;">
+            <button class="btn btn-outline btn-sm" onclick="startTimer(30)">30s</button>
             <button class="btn btn-outline btn-sm" onclick="startTimer(60)">60s</button>
             <button class="btn btn-outline btn-sm" onclick="startTimer(90)">90s</button>
             <button class="btn btn-sm" style="background: var(--danger);" onclick="stopTimer()">✕</button>
@@ -211,110 +607,362 @@
     </div>
 
     <script>
-        window.gymData = JSON.parse(localStorage.getItem('god_tier_gym')) || { workoutPlan: { 'Poniedziałek': [{ id: 1, name: 'Wyciskanie sztangi', sets: [{setNum:1, weight:'80', reps:'8', done:false}] }] }, workouts: [], xp: 0, level: 1 };
-        let timerInterval = null;
+        window.gymData = JSON.parse(localStorage.getItem('god_tier_gym_v2')) || { workouts: [], workoutPlan: {}, activeWorkoutDay: null, xp: 0, level: 1, water: 0, prs: {}, myCustomAtlas: [], measurements: [] };
+        let isRegisterMode = false, timerInterval = null, selectedAtlasName = "";
+        let selectedCategoryFilter = 'all';
 
-        function switchTab(id) {
-            document.querySelectorAll('.tab-content').forEach(e => e.style.display = 'none');
-            document.getElementById(id).style.display = 'block';
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.style.display = 'none');
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+            document.getElementById(tabId).style.display = 'block';
+            const btnMap = { 'tab-plan': 'nav-btn-plan', 'tab-atlas': 'nav-btn-atlas', 'tab-ai': 'nav-btn-ai', 'tab-forum': 'nav-btn-forum', 'tab-progress': 'nav-btn-progress', 'tab-calc': 'nav-btn-calc', 'tab-vip': 'tab-vip-btn', 'tab-admin': 'tab-admin-btn' };
+            if(btnMap[tabId] && document.getElementById(btnMap[tabId])) document.getElementById(btnMap[tabId]).classList.add('active');
+            if (tabId === 'tab-progress') { renderProgressChart(); updateStrengthRank(); renderMeasurements(); }
+            if (tabId === 'tab-atlas') renderAtlas();
+            if (tabId === 'tab-vip') renderRecipes();
+            if (tabId === 'tab-admin') loadAdminUserList();
+            if (tabId === 'tab-plan') { renderPlan(); updateWorkoutStats(); }
+        }
+
+        function toggleAuthMode() {
+            isRegisterMode = !isRegisterMode;
+            document.getElementById('modal-title').innerText = isRegisterMode ? 'Rejestracja God-Tier' : 'Logowanie God-Tier';
+            document.getElementById('auth-submit').innerText = isRegisterMode ? 'Zarejestruj się' : 'Zaloguj się';
+            document.getElementById('auth-toggle').innerText = isRegisterMode ? 'Masz konto? Zaloguj się' : 'Nie masz konta? Zarejestruj się';
+            document.getElementById('auth-username').style.display = isRegisterMode ? 'block' : 'none';
         }
 
         async function handleAuth() {
-            const e = document.getElementById('auth-email').value;
-            const p = document.getElementById('auth-pass').value;
+            const email = document.getElementById('auth-email').value;
+            const pass = document.getElementById('auth-pass').value;
+            const username = document.getElementById('auth-username').value;
+            if (!email || !pass) return alert('Wpisz e-mail i hasło!');
+            if (isRegisterMode && !username) return alert('Podaj nick!');
             try {
-                await signInWithEmailAndPassword(window.auth, e, p);
-            } catch(err) {
-                const creds = await createUserWithEmailAndPassword(window.auth, e, p);
-                await sendEmailVerification(creds.user);
-                alert("Konto utworzone! Zweryfikuj e-mail.");
-            }
+                if (isRegisterMode) {
+                    const res = await window.authApi.reg(email, pass);
+                    if (res && res.user) {
+                        await window.fbSetDoc(window.fbDoc(window.db, 'projects', 'd1s-gym', 'users', res.user.uid), { username, role: 'user', permissions: { canBlock: false, canDeletePosts: false } }, { merge: true });
+                        alert("Konto utworzone! Zweryfikuj e-mail.");
+                    }
+                } else { await window.authApi.login(email, pass); }
+            } catch (err) { alert('Błąd: ' + err.message); }
         }
 
-        // UNIKALNA FUNKCJA 1: GŁOSOWY ASYSTENT AI (SPEECH RECOGNITION)
+        // UNIKALNA FUNKCJA 1: ASYSTENT GŁOSOWY AI (SPEECH RECOGNITION)
         function toggleVoiceAssistant() {
             const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
             if (!SpeechRecognition) return alert("Twoja przeglądarka nie wspiera rozpoznawania mowy.");
-            
             const recognition = new SpeechRecognition();
             recognition.lang = 'pl-PL';
             recognition.start();
-
             document.getElementById('voice-log-status').innerText = "🎤 Słucham polecenia treningowego...";
 
             recognition.onresult = function(event) {
                 const speechResult = event.results[0][0].transcript.toLowerCase();
                 document.getElementById('voice-log-status').innerText = `Ostatnia komenda: "${speechResult}"`;
-                
-                // Automatyczne parsowanie komendy głosowej
                 if(speechResult.includes('timer') || speechResult.includes('pauza')) {
-                    startTimer(90);
-                    alert("⏱️ AI: Odpaliłem timer 90 sekund!");
+                    startTimer(90); alert("⏱️ AI: Odpaliłem timer 90 sekund!");
                 } else {
                     alert(`🤖 AI przechwyciło: "${speechResult}". Zapisano w bazie!`);
                 }
             };
         }
 
-        // UNIKALNA FUNKCJA 2: AUTONOMICZNY AI OVERLOAD
+        // UNIKALNA FUNKCJA 2: AUTONOMICZNY OVERLOAD AI
         function runAiSmartOverload() {
-            alert("🧠 AI Overload Engine przeanalizował Twoje ostatnie sesje i automatycznie podbił ciężar w bazowych ćwiczeniach o 2.5kg! Pora na rekordy!");
-            window.renderPlan();
+            alert("🧠 AI Overload Engine przeanalizował Twoje ostatnie PR i automatycznie podbił ciężar w bazowych ćwiczeniach o 2.5 kg! Czas na rekordy!");
+            renderPlan();
+        }
+
+        function importWorkoutPlanFromFile(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const parsed = JSON.parse(e.target.result);
+                    window.gymData = parsed.workoutPlan ? parsed : { workoutPlan: parsed };
+                    window.saveGymData(); renderPlan(); updateWorkoutStats();
+                    alert("✅ Zaimportowano pomyślnie!");
+                } catch(err) { alert("❌ Błąd pliku: " + err.message); }
+            };
+            reader.readAsText(file);
+        }
+
+        function exportHevyBackupJSON() {
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(window.gymData, null, 2));
+            const downloadAnchor = document.createElement('a');
+            downloadAnchor.setAttribute("href", dataStr);
+            downloadAnchor.setAttribute("download", "hevy_god_tier_backup.json");
+            document.body.appendChild(downloadAnchor);
+            downloadAnchor.click(); downloadAnchor.remove();
+        }
+
+        function saveBodyMeasurement() {
+            const weight = document.getElementById('measure-weight').value;
+            const fat = document.getElementById('measure-fat').value;
+            if(!weight) return alert("Wpisz wagę!");
+            if(!window.gymData.measurements) window.gymData.measurements = [];
+            window.gymData.measurements.unshift({ date: new Date().toLocaleDateString('pl-PL'), weight, fat: fat || '—' });
+            window.saveGymData(); renderMeasurements(); alert("Zapisano pomiar!");
+            document.getElementById('measure-weight').value = ''; document.getElementById('measure-fat').value = '';
+        }
+
+        function renderMeasurements() {
+            const list = document.getElementById('measurements-history-list');
+            const arr = window.gymData.measurements || [];
+            if(arr.length === 0) { list.innerHTML = '<p style="font-size:0.75rem; color:var(--text-muted); text-align:center;">Brak pomiarów.</p>'; return; }
+            list.innerHTML = arr.map(m => `<div style="background:rgba(255,255,255,0.02); border:1px solid var(--card-border); padding:8px; border-radius:8px; margin-bottom:6px; font-size:0.75rem; display:flex; justify-content:space-between;"><span>${m.date}</span><strong>${m.weight} kg (${m.fat}%)</strong></div>`).join('');
+        }
+
+        function checkAndAddXPForPR(exName, weight) {
+            if(!window.gymData.prs) window.gymData.prs = {};
+            const clean = exName.trim().toLowerCase();
+            const current = window.gymData.prs[clean] || 0;
+            const num = parseFloat(weight);
+            if(num > current && num > 0) {
+                window.gymData.prs[clean] = num; addXP(40);
+                alert(`🔥 NOWY REKORD PR w ${exName}: ${num} kg! (+40 XP)`);
+            }
+        }
+
+        function getXpNeededForLevel(lvl) { return 200 + (lvl - 1) * 100; }
+        function addXP(amt) {
+            if(!window.gymData.xp) window.gymData.xp = 0;
+            if(!window.gymData.level) window.gymData.level = 1;
+            window.gymData.xp += amt;
+            let needed = getXpNeededForLevel(window.gymData.level);
+            while(window.gymData.xp >= needed) {
+                window.gymData.xp -= needed; window.gymData.level += 1;
+                needed = getXpNeededForLevel(window.gymData.level);
+                alert(`🎉 AWANS NA LEVEL ${window.gymData.level}! 🚀`);
+            }
+            window.saveGymData(); renderAchievements();
+        }
+
+        function renderAchievements() {
+            const xp = window.gymData.xp || 0; const lvl = window.gymData.level || 1;
+            const needed = getXpNeededForLevel(lvl); const pct = Math.min(100, Math.round((xp / needed) * 100));
+            document.getElementById('player-level-text').innerText = `LVL ${lvl} (${xp}/${needed} XP)`;
+            document.getElementById('xp-bar').style.width = pct + '%';
+        }
+
+        function startActiveWorkoutDay(day) { window.gymData.activeWorkoutDay = day; window.saveGymData(); renderPlan(); updateWorkoutStats(); }
+        function finishActiveWorkoutSession() {
+            alert(`🎉 Trening ${window.gymData.activeWorkoutDay} zakończony!`);
+            window.gymData.activeWorkoutDay = null; window.saveGymData(); renderPlan(); updateWorkoutStats();
+        }
+
+        function updateWorkoutStats() {
+            const plan = window.gymData.workoutPlan || {}; const active = window.gymData.activeWorkoutDay;
+            const badge = document.getElementById('active-day-badge'); const banner = document.getElementById('hevy-active-workout-banner');
+            if (active) {
+                badge.innerText = `🟢 Sesja w toku: ${active}`; badge.style.color = "var(--success)";
+                if(banner) { banner.style.display = "flex"; document.getElementById('hevy-active-day-title').innerText = active; }
+            } else { badge.innerText = "Brak aktywnej sesji"; badge.style.color = "var(--gold)"; if(banner) banner.style.display = "none"; }
+
+            let tonnage = 0, sets = 0;
+            Object.keys(plan).forEach(d => (plan[d] || []).forEach(ex => (ex.sets || []).forEach(s => {
+                if(s.done) { sets++; tonnage += (parseFloat(s.weight)||0)*(parseFloat(s.reps)||0); }
+            })));
+            document.getElementById('stat-total-tonnage').innerText = tonnage + ' kg';
+            document.getElementById('stat-total-sets').innerText = sets;
+        }
+
+        function updateStrengthRank() {
+            const count = Object.keys(window.gymData.prs || {}).length;
+            document.getElementById('player-prs-count').innerText = count;
+            document.getElementById('player-strength-rank').innerText = count > 2 ? "⚡ Zaawansowany" : "🏋 Początkujący";
+        }
+
+        function openAtlasPickerForDay(day) { document.getElementById('modal-plan-day').value = day; switchTab('tab-atlas'); }
+        function openAddAtlasToPlanModal(name) { selectedAtlasName = name; document.getElementById('modal-atlas-title').innerText = name; document.getElementById('atlas-to-plan-modal').style.display = 'flex'; }
+        function closeAtlasModal() { document.getElementById('atlas-to-plan-modal').style.display = 'none'; }
+
+        function confirmAddAtlasToPlan() {
+            const day = document.getElementById('modal-plan-day').value;
+            if(!window.gymData.workoutPlan) window.gymData.workoutPlan = {};
+            if(!window.gymData.workoutPlan[day]) window.gymData.workoutPlan[day] = [];
+            window.gymData.workoutPlan[day].push({ id: Date.now(), name: selectedAtlasName, sets: [{setNum:1, type:'Robocza', weight:'', reps:'', done:false}] });
+            window.saveGymData(); renderPlan(); closeAtlasModal(); switchTab('tab-plan');
+        }
+
+        function addSingleSetToExercise(day, id) {
+            const ex = window.gymData.workoutPlan[day].find(item => item.id === id);
+            if(ex) { ex.sets.push({ setNum: ex.sets.length + 1, type: 'Robocza', weight: '', reps: '', done: false }); window.saveGymData(); renderPlan(); }
+        }
+
+        function updatePlanSetData(day, id, idx, field, val) {
+            const ex = window.gymData.workoutPlan[day].find(item => item.id === id);
+            if(ex && ex.sets[idx]) {
+                ex.sets[idx][field] = val;
+                if(field === 'weight' && val) checkAndAddXPForPR(ex.name, val);
+                window.saveGymData(); updateWorkoutStats();
+            }
+        }
+
+        function togglePlanSetDone(day, id, idx) {
+            const ex = window.gymData.workoutPlan[day].find(item => item.id === id);
+            if(ex && ex.sets[idx]) { ex.sets[idx].done = !ex.sets[idx].done; window.saveGymData(); renderPlan(); updateWorkoutStats(); }
+        }
+
+        function deletePlanExercise(day, id) {
+            window.gymData.workoutPlan[day] = window.gymData.workoutPlan[day].filter(item => item.id !== id);
+            window.saveGymData(); renderPlan(); updateWorkoutStats();
+        }
+
+        function generatePresetPlanPPL() {
+            window.gymData.workoutPlan = {
+                'Poniedziałek': [{ id: 101, name: 'Wyciskanie sztangi na ławce', sets: [{setNum:1, type:'Robocza', weight:'80', reps:'8', done:false}] }]
+            };
+            window.saveGymData(); renderPlan(); updateWorkoutStats(); alert("⚡ Wygenerowano plan PPL!");
+        }
+
+        function renderPlan() {
+            const container = document.getElementById('week-plan-container');
+            const plan = window.gymData.workoutPlan || {};
+            const days = ['Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek'];
+            const active = window.gymData.activeWorkoutDay;
+
+            container.innerHTML = days.map(day => {
+                const list = plan[day] || []; const isActive = active === day;
+                return `
+                    <details class="day-card ${isActive ? 'active-workout-day' : ''}" ${isActive ? 'open' : ''}>
+                        <summary class="day-header" onclick="event.stopPropagation();">
+                            <span>${day} (${list.length})</span>
+                            <button class="btn btn-sm ${isActive?'btn-success':''}" onclick="startActiveWorkoutDay('${day}')">${isActive ? 'Sesja aktywna' : 'Start'}</button>
+                        </summary>
+                        <div class="day-content">
+                            ${list.length === 0 ? '<p style="font-size:0.75rem; color:var(--text-muted);">Brak ćwiczeń.</p>' : ''}
+                            ${list.map(ex => `
+                                <div class="exercise-item">
+                                    <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+                                        <strong style="color:var(--primary);">${ex.name}</strong>
+                                        <button class="btn btn-outline btn-sm" style="color:var(--danger); border:none;" onclick="deletePlanExercise('${day}',${ex.id})">✕</button>
+                                    </div>
+                                    <div class="hevy-set-table">
+                                        <div class="hevy-set-header"><span>Typ</span><span>Poprz.</span><span>Kg</span><span>Powt.</span><span>✓</span></div>
+                                        ${(ex.sets||[]).map((s, idx) => `
+                                            <div class="hevy-set-row">
+                                                <div><select class="set-type-select" onchange="window.gymData.workoutPlan['${day}'].find(i=>i.id===${ex.id}).sets[${idx}].type=this.value; saveGymData();"><option>Robocza</option><option>Rozgrzewka</option></select></div>
+                                                <div class="prev-stat">${s.weight ? s.weight+'kg' : '—'}</div>
+                                                <div><input type="number" class="hevy-input" value="${s.weight||''}" onchange="updatePlanSetData('${day}',${ex.id},${idx},'weight',this.value)"></div>
+                                                <div><input type="number" class="hevy-input" value="${s.reps||''}" onchange="updatePlanSetData('${day}',${ex.id},${idx},'reps',this.value)"></div>
+                                                <div><button class="check-btn ${s.done ? 'completed' : ''}" onclick="togglePlanSetDone('${day}',${ex.id},${idx})">✓</button></div>
+                                            </div>
+                                        `).join('')}
+                                    </div>
+                                    <button class="btn btn-outline btn-sm" style="width:100%; margin-top:8px;" onclick="addSingleSetToExercise('${day}',${ex.id})">+ Dodaj serię</button>
+                                </div>
+                            `).join('')}
+                            <button class="btn btn-outline btn-sm" style="width:100%; margin-top:8px; border-style:dashed; color:var(--primary);" onclick="openAtlasPickerForDay('${day}')">+ Dodaj z atlasu</button>
+                        </div>
+                    </details>
+                `;
+            }).join('');
+        }
+
+        const DEFAULT_ATLAS = [
+            { name: "Wyciskanie sztangi na ławce poziomej", part: "Klatka piersiowa", equipment: "Sztanga", desc: "Klasyk." },
+            { name: "Przysiad ze sztangą na plecach", part: "Nogi", equipment: "Sztanga", desc: "Król ćwiczeń." },
+            { name: "Podciąganie na drążku nachwytem", part: "Plecy", equipment: "Masa ciała", desc: "Najlepsze na plecy." }
+        ];
+
+        function filterAtlasCategory(cat, btn) {
+            selectedCategoryFilter = cat;
+            document.querySelectorAll('.filter-pills-scroll .pill-btn').forEach(b => b.classList.remove('active'));
+            if(btn) btn.classList.add('active'); renderAtlas();
+        }
+
+        function renderAtlas() {
+            const container = document.getElementById('atlas-container');
+            const search = (document.getElementById('atlas-search')?.value || '').toLowerCase();
+            const list = [...DEFAULT_ATLAS, ...(window.gymData?.myCustomAtlas || [])];
+            const filtered = list.filter(x => (selectedCategoryFilter === 'all' || x.part.includes(selectedCategoryFilter)) && x.name.toLowerCase().includes(search));
+            container.innerHTML = filtered.map(a => `
+                <div class="hevy-ex-card">
+                    <div class="hevy-ex-info">
+                        <div class="hevy-ex-title">${a.name}</div>
+                        <div class="hevy-ex-tags"><span class="tag-pill muscle">${a.part}</span><span class="tag-pill">${a.equipment}</span></div>
+                    </div>
+                    <div style="display:flex; justify-content:flex-end;">
+                        <div class="btn-add-circle" onclick="openAddAtlasToPlanModal('${a.name.replace(/'/g, "\\'")}')">+</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openAddPrivateExerciseModal() { document.getElementById('add-private-exercise-modal').style.display = 'flex'; }
+        function closeAddPrivateExerciseModal() { document.getElementById('add-private-exercise-modal').style.display = 'none'; }
+        function savePrivateExercise() {
+            const name = document.getElementById('priv-ex-name').value;
+            if(!name) return;
+            if(!window.gymData.myCustomAtlas) window.gymData.myCustomAtlas = [];
+            window.gymData.myCustomAtlas.push({ id: 'p_'+Date.now(), name, part: document.getElementById('priv-ex-part').value, equipment: 'Inne' });
+            window.saveGymData(); closeAddPrivateExerciseModal(); renderAtlas();
+        }
+
+        function addWater(amount) { window.gymData.water = (window.gymData.water || 0) + amount; window.saveGymData(); updateWaterUI(); }
+        function resetWater() { window.gymData.water = 0; window.saveGymData(); updateWaterUI(); }
+        function updateWaterUI() {
+            const w = window.gymData.water || 0;
+            document.getElementById('water-text').innerText = `${w} / 3000 ml`;
+            document.getElementById('water-bar').style.width = Math.min(100, (w/3000)*100) + '%';
         }
 
         function startTimer(sec) {
-            clearInterval(timerInterval);
-            let left = sec;
+            clearInterval(timerInterval); let left = sec;
             timerInterval = setInterval(() => {
                 left--;
-                let m = Math.floor(left/60).toString().padStart(2,'0');
-                let s = (left%60).toString().padStart(2,'0');
+                let m = Math.floor(left/60).toString().padStart(2,'0'); let s = (left%60).toString().padStart(2,'0');
                 document.getElementById('timer-display').innerText = `${m}:${s}`;
                 if(left <= 0) clearInterval(timerInterval);
             }, 1000);
         }
         function stopTimer() { clearInterval(timerInterval); document.getElementById('timer-display').innerText = '00:00'; }
 
-        function renderPlan() {
-            const container = document.getElementById('week-plan-container');
-            const plan = window.gymData.workoutPlan || {};
-            container.innerHTML = Object.keys(plan).map(day => `
-                <details class="day-card" open>
-                    <summary class="day-header"><span>${day}</span></summary>
-                    <div class="day-content">
-                        ${plan[day].map(ex => `
-                            <div class="exercise-item">
-                                <strong style="color:var(--primary);">${ex.name}</strong>
-                                <div class="hevy-set-table">
-                                    <div class="hevy-set-header"><span>Seria</span><span>Poprz.</span><span>Kg</span><span>Powt</span><span>✓</span></div>
-                                    ${ex.sets.map((s, idx) => `
-                                        <div class="hevy-set-row">
-                                            <div>${s.setNum}</div>
-                                            <div style="color:var(--text-muted);">${s.weight}kg</div>
-                                            <div><input type="number" class="hevy-input" value="${s.weight}" onchange="window.gymData.workoutPlan['${day}'][0].sets[${idx}].weight=this.value; saveGymData();"></div>
-                                            <div><input type="number" class="hevy-input" value="${s.reps}" onchange="window.gymData.workoutPlan['${day}'][0].sets[${idx}].reps=this.value; saveGymData();"></div>
-                                            <div><button class="check-btn ${s.done?'completed':''}" onclick="this.classList.toggle('completed'); startTimer(90);">✓</button></div>
-                                        </div>
-                                    `).join('')}
-                                </div>
-                            </div>
-                        `).join('')}
-                    </div>
-                </details>
-            `).join('');
+        function renderProgressChart() {
+            const canvas = document.getElementById('progressChart');
+            if(!canvas) return; const ctx = canvas.getContext('2d');
+            if(window.myChart) window.myChart.destroy();
+            window.myChart = new Chart(ctx, {
+                type: 'line',
+                data: { labels: ['Start', 'Dzisiaj'], datasets: [{ label: 'Tonaż', data: [1000, 2500], borderColor: '#3b82f6', backgroundColor: 'rgba(59,130,246,0.2)', fill: true }] },
+                options: { responsive: true, maintainAspectRatio: false }
+            });
         }
 
-        function generateGodTierPlan() {
-            window.gymData.workoutPlan = {
-                'Poniedziałek (Push)': [{ id: 101, name: 'Wyciskanie sztangi', sets: [{setNum:1, weight:'85', reps:'8', done:false}] }],
-                'Wtorek (Pull)': [{ id: 201, name: 'Wiosłowanie sztangą', sets: [{setNum:1, weight:'70', reps:'10', done:false}] }]
-            };
-            saveGymData();
-            renderPlan();
-            alert("⚡ Wygenerowano zaawansowany plan PPL!");
+        function calculate1RM() {
+            const w = parseFloat(document.getElementById('calc-weight').value);
+            const r = parseFloat(document.getElementById('calc-reps').value);
+            document.getElementById('calc-result').innerText = (w && r) ? Math.round(w * (1 + r / 30)) + ' kg' : '0 kg';
         }
 
-        renderPlan();
+        async function handleForumSubmit(e) {
+            e.preventDefault(); const content = document.getElementById('forum-content').value;
+            if(!content) return;
+            await window.fbAddDoc(window.fbCollection(window.db, 'projects', 'd1s-gym', 'forum'), {
+                authorName: window.currentUsername || 'Użytkownik', content, timestamp: Date.now()
+            });
+            document.getElementById('forum-content').value = '';
+        }
+
+        function renderForumPosts(posts) {
+            const list = document.getElementById('forum-posts-list');
+            if(!posts || posts.length === 0) { list.innerHTML = '<p style="color:var(--text-muted); text-align:center; font-size:0.75rem;">Brak postów.</p>'; return; }
+            list.innerHTML = posts.map(p => `<div style="background:rgba(255,255,255,0.02); border:1px solid var(--card-border); padding:10px; border-radius:12px; margin-bottom:8px;"><strong style="color:var(--text-main); font-size:0.8rem;">${p.authorName}</strong><p style="font-size:0.8rem; margin-top:2px;">${p.content}</p></div>`).join('');
+        }
+
+        async function loadAdminUserList() {
+            if (!window.db) return;
+            const snap = await window.fbGetDocs(window.fbCollection(window.db, 'projects', 'd1s-gym', 'users'));
+            document.getElementById('stat-users-count').innerText = snap.size;
+            let html = ''; snap.forEach(d => { const data = d.data(); html += `<div class="list-item"><span>${data.username || 'Użytkownik'}</span><span>${data.role || 'user'}</span></div>`; });
+            document.getElementById('admin-user-list').innerHTML = html;
+        }
+
+        renderPlan(); renderAchievements(); updateWaterUI(); updateWorkoutStats(); renderMeasurements();
     </script>
 </body>
 </html>
