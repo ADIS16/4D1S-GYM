@@ -8,17 +8,17 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="4D1S_GYM">
-    <meta name="theme-color" content="#121212">
+    <meta name="theme-color" content="#0a0a0c">
     
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
         :root {
-            --bg-dark: #0a0a0c;
-            --bg-card: #141418;
-            --bg-input: #1e1e24;
-            --card-border: #272730;
+            --bg-dark: #070709;
+            --bg-card: #121216;
+            --bg-input: #1a1a20;
+            --card-border: #262630;
             --primary: #f472b6;
             --primary-glow: rgba(244, 114, 182, 0.25);
             --purple: #c084fc;
@@ -59,13 +59,13 @@
             bottom: 0; 
             left: 0; 
             right: 0; 
-            background: rgba(20, 20, 24, 0.92); 
+            background: rgba(18, 18, 22, 0.94); 
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border-top: 1px solid var(--card-border); 
             display: flex; 
             justify-content: space-around; 
-            padding: 10px 6px 24px; 
+            padding: 10px 4px 24px; 
             z-index: 1000;
             margin: 0;
             overflow-x: auto;
@@ -76,13 +76,13 @@
             background: transparent; 
             border: none; 
             color: var(--text-muted); 
-            padding: 6px 8px; 
+            padding: 6px 6px; 
             border-radius: 10px; 
             font-weight: 700; 
             cursor: pointer; 
             transition: all 0.25s ease; 
             white-space: nowrap; 
-            font-size: 0.68rem; 
+            font-size: 0.65rem; 
             display: flex; 
             flex-direction: column; 
             align-items: center; 
@@ -90,15 +90,15 @@
         }
         .tab-btn.active { background: rgba(244, 114, 182, 0.1); color: var(--primary); box-shadow: 0 0 15px var(--primary-glow); }
 
-        .btn { background: var(--primary); color: #0a0a0c; border: none; padding: 10px 18px; border-radius: 12px; font-weight: 800; cursor: pointer; transition: all 0.2s ease; display: inline-flex; align-items: center; justify-content: center; gap: 6px; font-size: 0.85rem; text-decoration: none; box-shadow: 0 4px 15px var(--primary-glow); }
+        .btn { background: var(--primary); color: #070709; border: none; padding: 10px 18px; border-radius: 12px; font-weight: 800; cursor: pointer; transition: all 0.2s ease; display: inline-flex; align-items: center; justify-content: center; gap: 6px; font-size: 0.85rem; text-decoration: none; box-shadow: 0 4px 15px var(--primary-glow); }
         .btn:active { transform: scale(0.97); opacity: 0.9; }
         .btn-sm { padding: 6px 12px; font-size: 0.75rem; border-radius: 9px; box-shadow: none; }
         .btn-success { background: var(--success); color: #ffffff; box-shadow: 0 4px 15px rgba(34,197,94,0.3); }
         .btn-outline { background: transparent; border: 1px solid var(--card-border); color: var(--text-main); box-shadow: none; }
         .btn-outline:active { background: rgba(255, 255, 255, 0.05); }
 
-        .card { background: var(--bg-card); border: 1px solid var(--card-border); border-radius: 16px; padding: 18px; margin-bottom: 16px; width: 100%; overflow: hidden; box-shadow: 0 8px 30px rgba(0,0,0,0.5); }
-        .card-admin { border: 1px solid rgba(244, 114, 182, 0.4); background: linear-gradient(135deg, rgba(244, 114, 182, 0.03), rgba(20,20,24,0.95)); }
+        .card { background: var(--bg-card); border: 1px solid var(--card-border); border-radius: 18px; padding: 18px; margin-bottom: 16px; width: 100%; overflow: hidden; box-shadow: 0 10px 35px rgba(0,0,0,0.6); }
+        .card-admin { border: 1px solid rgba(244, 114, 182, 0.4); background: linear-gradient(135deg, rgba(244, 114, 182, 0.03), rgba(18,18,22,0.95)); }
 
         .grid { display: flex; flex-direction: column; gap: 16px; width: 100%; }
         @media (min-width: 850px) {
@@ -113,7 +113,7 @@
         input:focus, select:focus, textarea:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 10px var(--primary-glow); }
 
         .role-badge { padding: 3px 9px; border-radius: 7px; font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; display: inline-block; }
-        .role-owner { background: var(--primary); color: #0a0a0c; }
+        .role-owner { background: var(--primary); color: #070709; }
         .role-admin { background: var(--danger); color: #fff; }
         .role-staff { background: #38bdf8; color: #0d0d12; }
         .role-vip { background: var(--gold); color: #000; }
@@ -124,7 +124,7 @@
         
         .list-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; background: rgba(255,255,255,0.02); border-radius: 12px; margin-bottom: 10px; border: 1px solid var(--card-border); font-size: 0.85rem; }
         
-        details.day-card { background: var(--bg-card); border: 1px solid var(--card-border); border-radius: 16px; margin-bottom: 14px; transition: border-color 0.3s; width: 100%; overflow: hidden; }
+        details.day-card { background: var(--bg-card); border: 1px solid var(--card-border); border-radius: 18px; margin-bottom: 14px; transition: border-color 0.3s; width: 100%; overflow: hidden; }
         details.day-card[open] { border-color: rgba(244, 114, 182, 0.5); }
         details.day-card.active-workout-day { border: 1.5px solid var(--primary); background: rgba(244, 114, 182, 0.03); }
         
@@ -145,7 +145,7 @@
         summary.day-header:hover { background: rgba(255,255,255,0.04); }
 
         .day-content { padding: 16px; border-top: 1px solid var(--card-border); }
-        .exercise-item { background: #0f0f13; padding: 14px; border-radius: 14px; margin-bottom: 12px; border: 1px solid var(--card-border); }
+        .exercise-item { background: #0a0a0d; padding: 14px; border-radius: 14px; margin-bottom: 12px; border: 1px solid var(--card-border); }
 
         .hevy-set-table { width: 100%; margin-top: 10px; border-collapse: collapse; }
         .hevy-set-header { display: grid; grid-template-columns: 46px 1fr 80px 80px 46px; gap: 6px; text-align: center; font-size: 0.68rem; font-weight: 800; color: var(--text-muted); padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.08); text-transform: uppercase; }
@@ -158,12 +158,12 @@
         .prev-stat { font-size: 0.72rem; color: var(--text-muted); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
         .hevy-input { background: var(--bg-input); border: 1px solid var(--card-border); border-radius: 9px; padding: 7px; text-align: center; color: #fff; font-weight: 700; font-size: 0.9rem; margin: 0; }
-        .hevy-input:focus { border-color: var(--primary); background: #0f0f13; }
+        .hevy-input:focus { border-color: var(--primary); background: #0a0a0d; }
 
         .check-btn { width: 36px; height: 36px; border-radius: 9px; background: var(--bg-input); border: 1px solid var(--card-border); color: var(--text-muted); font-weight: 900; font-size: 0.95rem; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; margin: 0 auto; }
         .check-btn.completed { background: var(--success); color: #ffffff; border-color: var(--success); box-shadow: 0 0 12px rgba(34,197,94,0.4); }
 
-        .floating-timer { position: fixed; bottom: 82px; left: 12px; right: 12px; background: rgba(20, 20, 24, 0.96); border: 1px solid var(--card-border); border-radius: 18px; padding: 12px 16px; box-shadow: 0 12px 40px rgba(0,0,0,0.85); display: flex; align-items: center; justify-content: space-between; z-index: 900; backdrop-filter: blur(16px); flex-wrap: wrap; gap: 10px; }
+        .floating-timer { position: fixed; bottom: 82px; left: 12px; right: 12px; background: rgba(18, 18, 22, 0.96); border: 1px solid var(--card-border); border-radius: 18px; padding: 12px 16px; box-shadow: 0 12px 40px rgba(0,0,0,0.85); display: flex; align-items: center; justify-content: space-between; z-index: 900; backdrop-filter: blur(16px); flex-wrap: wrap; gap: 10px; }
         
         .water-progress { width: 100%; height: 11px; background: rgba(0,0,0,0.6); border-radius: 7px; overflow: hidden; border: 1px solid var(--card-border); margin: 8px 0; }
         .water-bar { height: 100%; width: 0%; background: linear-gradient(90deg, var(--primary), var(--purple)); transition: width 0.4s; }
@@ -171,9 +171,9 @@
         .filter-pills-scroll { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; padding-bottom: 8px; margin-bottom: 14px; }
         .filter-pills-scroll::-webkit-scrollbar { display: none; }
         .pill-btn { background: var(--bg-input); border: 1px solid var(--card-border); color: var(--text-muted); padding: 7px 16px; border-radius: 22px; font-weight: 700; font-size: 0.78rem; cursor: pointer; white-space: nowrap; transition: all 0.2s; }
-        .pill-btn.active { background: var(--primary); color: #0a0a0c; border-color: var(--primary); box-shadow: 0 0 12px var(--primary-glow); }
+        .pill-btn.active { background: var(--primary); color: #070709; border-color: var(--primary); box-shadow: 0 0 12px var(--primary-glow); }
 
-        .hevy-ex-card { background: var(--bg-input); border: 1px solid var(--card-border); border-radius: 14px; padding: 14px; display: flex; flex-direction: column; gap: 10px; cursor: pointer; transition: transform 0.15s ease, border-color 0.15s ease; position: relative; }
+        .hevy-ex-card { background: var(--bg-input); border: 1px solid var(--card-border); border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 10px; cursor: pointer; transition: transform 0.15s ease, border-color 0.15s ease; position: relative; }
         .hevy-ex-card:active { transform: scale(0.98); }
         .hevy-ex-card:hover { border-color: rgba(244, 114, 182, 0.6); }
         
@@ -184,9 +184,9 @@
         .tag-pill.muscle { background: rgba(244, 114, 182, 0.15); color: var(--primary); border-color: rgba(244, 114, 182, 0.3); }
 
         .btn-add-circle { width: 34px; height: 34px; border-radius: 50%; background: rgba(244, 114, 182, 0.15); border: 1px solid rgba(244, 114, 182, 0.4); color: var(--primary); font-size: 1.2rem; font-weight: 800; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; flex-shrink: 0; }
-        .btn-add-circle:hover { background: var(--primary); color: #0a0a0c; box-shadow: 0 0 12px var(--primary-glow); }
+        .btn-add-circle:hover { background: var(--primary); color: #070709; box-shadow: 0 0 12px var(--primary-glow); }
 
-        .recipe-card { background: rgba(0, 0, 0, 0.25); border: 1px solid var(--card-border); border-radius: 14px; padding: 16px; display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.2s; cursor: pointer; }
+        .recipe-card { background: rgba(0, 0, 0, 0.25); border: 1px solid var(--card-border); border-radius: 16px; padding: 16px; display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.2s; cursor: pointer; }
         .recipe-card:hover { border-color: rgba(250, 204, 21, 0.6); transform: translateY(-2px); }
         .macro-row { display: flex; gap: 6px; flex-wrap: wrap; margin: 8px 0; }
         .macro-row span { font-size: .72rem; font-weight: 700; padding: 4px 8px; border-radius: 7px; background: rgba(255,255,255,.04); border: 1px solid var(--card-border); }
@@ -301,10 +301,10 @@
 
                         document.getElementById('user-username-display').innerText = window.currentUsername;
                         
-                        // CAŁKOWITY WYSTARTOWANY RESET STATYSTYK DLA KAŻDEGO UŻYTKOWNIKA ZGODNIE Z ŻYCZENIEM
-                        if (!userData.gym_data || userData.gym_data.resetVersion !== '2026_ultimate_v2') {
+                        // WYSTARTOWANO ŚWIEŻY RESET STATYSTYK Z NOWYMI OPCJAMI
+                        if (!userData.gym_data || userData.gym_data.resetVersion !== '2026_ultimate_v3') {
                             userData.gym_data = {
-                                resetVersion: '2026_ultimate_v2',
+                                resetVersion: '2026_ultimate_v3',
                                 workouts: [],
                                 workoutPlan: {},
                                 activeWorkoutDay: null,
@@ -312,7 +312,8 @@
                                 level: 1,
                                 water: 0,
                                 prs: {},
-                                myCustomAtlas: []
+                                myCustomAtlas: [],
+                                bodyMeasurements: []
                             };
                             await setDoc(userDocRef, { gym_data: userData.gym_data }, { merge: true });
                         }
@@ -330,6 +331,7 @@
                         window.renderAchievements();
                         window.updateWaterUI();
                         window.updateWorkoutStats();
+                        window.renderMeasurements();
                     });
 
                     window.listenToLiveBases();
@@ -464,7 +466,7 @@
                     <span style="font-size: 1.15rem;">📈</span> Progres
                 </button>
                 <button id="nav-btn-calc" class="tab-btn" onclick="switchTab('tab-calc')">
-                    <span style="font-size: 1.15rem;">🧮</span> Kalkulator
+                    <span style="font-size: 1.15rem;">🧮</span> Narzędzia
                 </button>
                 <button id="tab-vip-btn" class="tab-btn" style="display: none; color: var(--gold);" onclick="switchTab('tab-vip')">
                     <span style="font-size: 1.15rem;">🌟</span> VIP
@@ -477,7 +479,7 @@
             <div id="tab-plan" class="tab-content">
                 <div class="grid">
                     <div>
-                        <div id="hevy-active-workout-banner" style="display:none; background: var(--bg-card); border: 1.5px solid var(--primary); padding: 16px; border-radius: 16px; margin-bottom: 16px; align-items: center; justify-content: space-between; box-shadow: 0 0 20px var(--primary-glow);">
+                        <div id="hevy-active-workout-banner" style="display:none; background: var(--bg-card); border: 1.5px solid var(--primary); padding: 16px; border-radius: 18px; margin-bottom: 16px; align-items: center; justify-content: space-between; box-shadow: 0 0 20px var(--primary-glow);">
                             <div>
                                 <div style="font-size: 0.7rem; color: var(--primary); font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;">Aktywna Sesja Treningowa</div>
                                 <div id="hevy-active-day-title" style="font-size: 1.15rem; font-weight: 900; color: #fff;"></div>
@@ -485,7 +487,7 @@
                             <button class="btn btn-success" style="font-size:0.82rem; padding: 9px 16px;" onclick="finishActiveWorkoutSession()">✓ Zakończ Trening</button>
                         </div>
 
-                        <!-- SEKCJA UPLOADU PLANU Z PLIKU -->
+                        <!-- UPLOAD PLANU Z PLIKU -->
                         <div class="card" style="border: 1.5px dashed rgba(244, 114, 182, 0.4); background: rgba(244, 114, 182, 0.02);">
                             <h3 style="color: #fff; font-size: 1rem; font-weight: 800; margin-bottom: 6px;">📂 Import planu treningowego z pliku</h3>
                             <p style="font-size: 0.76rem; color: var(--text-muted); margin-bottom: 12px;">Wgraj plik tekstowy, JSON lub Markdown ze swoim planem. Aplikacja automatycznie sparsuje dni i ćwiczenia!</p>
@@ -538,7 +540,7 @@
 
                             <div style="margin-top: 18px;">
                                 <h4 style="color: #fff; margin-bottom: 8px; font-size: 0.88rem; font-weight:800;">📜 Historia Treningów</h4>
-                                <div id="workout-list" style="max-height: 240px; overflow-y:auto;"><p style="font-size: 0.78rem; color: var(--text-muted); text-align: center;">Brak zakończonych treningów. Rozpocznij sesję!</p></div>
+                                <div id="workout-list" style="max-height: 240px; overflow-y:auto;"><p style="font-size: 0.78rem; color: var(--text-muted); text-align: center;">Brak zakończonych treningów.</p></div>
                             </div>
                         </div>
                     </div>
@@ -623,8 +625,17 @@
                         </div>
                     </div>
 
-                    <h3 style="color: var(--primary); margin: 18px 0 10px; font-size: 1rem;">📊 Wykres Progresu Tonażu</h3>
-                    <div style="background: rgba(0, 0, 0, 0.3); padding: 14px; border-radius: 14px; border: 1px solid var(--card-border);">
+                    <!-- NOWOŚĆ: DZIENNIK POMIARÓW CIAŁA -->
+                    <div style="margin-top: 22px; border-top: 1px solid var(--card-border); padding-top: 16px;">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                            <h4 style="color:var(--primary); font-size:0.95rem; font-weight:800;">📏 Pomiary i Wymiary Ciała</h4>
+                            <button class="btn btn-sm" onclick="openMeasurementModal()">+ Dodaj pomiar</button>
+                        </div>
+                        <div id="measurements-list" style="font-size:0.8rem; color:var(--text-muted);">Brak zapisanych pomiarów ciała.</div>
+                    </div>
+
+                    <h3 style="color: var(--primary); margin: 22px 0 10px; font-size: 1rem;">📊 Wykres Progresu Tonażu</h3>
+                    <div style="background: rgba(0, 0, 0, 0.3); padding: 14px; border-radius: 16px; border: 1px solid var(--card-border);">
                         <canvas id="progressChart" height="140"></canvas>
                     </div>
                 </div>
@@ -638,9 +649,21 @@
                         <input type="number" id="calc-weight" placeholder="np. 100" oninput="calculate1RM()">
                         <label style="font-size: 0.78rem;">Powtórzenia</label>
                         <input type="number" id="calc-reps" placeholder="np. 5" oninput="calculate1RM()">
-                        <div style="margin-top: 14px; text-align: center; background: rgba(0, 0, 0, 0.3); padding: 14px; border-radius: 12px; border: 1px solid var(--card-border);">
+                        <div style="margin-top: 14px; text-align: center; background: rgba(0, 0, 0, 0.3); padding: 14px; border-radius: 14px; border: 1px solid var(--card-border);">
                             <span style="font-size: 0.78rem; color: var(--text-muted);">Szacowany Rekord 1RM:</span>
                             <h3 id="calc-result" style="color: var(--primary); font-size: 1.25rem; margin-top: 4px;">0 kg</h3>
+                        </div>
+                    </div>
+
+                    <!-- NOWOŚĆ: KALKULATOR TALERZY NA SZTANGĘ (PLATE CALCULATOR) -->
+                    <div class="card">
+                        <h3 style="color: var(--primary); font-size: 1.15rem; margin-bottom: 8px;">🏋️‍♂️ Kalkulator Talerzy na Sztangę</h3>
+                        <p style="font-size:0.75rem; color:var(--text-muted); margin-bottom:10px;">Wpisz docelowy ciężar na jedną stronę (lub całość ze sztangą 20kg).</p>
+                        <label style="font-size: 0.78rem;">Docelowy ciężar całkowity (kg)</label>
+                        <input type="number" id="plate-target-weight" placeholder="np. 100" oninput="calculatePlates()">
+                        <div style="margin-top: 14px; background: rgba(0, 0, 0, 0.3); padding: 14px; border-radius: 14px; border: 1px solid var(--card-border);">
+                            <span style="font-size: 0.78rem; color: var(--text-muted);">Talerze na jedną stronę sztangi:</span>
+                            <h4 id="plate-result" style="color: var(--gold); font-size: 1rem; margin-top: 6px;">Wpisz ciężar powyżej</h4>
                         </div>
                     </div>
 
@@ -665,8 +688,8 @@
                             <option value="cut">Redukcja Tkanki Tłuszczowej (-400 kcal)</option>
                         </select>
                         <button class="btn btn-sm" style="width: 100%; padding: 11px;" onclick="calculateCalories()">Oblicz Zapotrzebowanie</button>
-                        <div id="calories-result" style="display: none; margin-top: 14px; text-align: center; background: rgba(0, 0, 0, 0.3); padding: 14px; border-radius: 12px; border: 1px solid var(--card-border);">
-                            <h4 id="res-tdee" style="color: var(--gold); margin-bottom:6px; font-size: 1.1rem;">0 kcal</h4>
+                        <div id="calories-result" style="display: none; margin-top: 14px; text-align: center; background: rgba(0, 0, 0, 0.3); padding: 14px; border-radius: 14px; border: 1px solid var(--card-border);">
+                            <h4 id="res-tdee" style="color: var(--gold); margin-bottom:6px; font-size: 1.1rem;">0 kcal / dzień</h4>
                             <div id="res-macros" style="font-size: 0.78rem; color: var(--text-muted);">Białko: 0g | Tłuszcze: 0g | Węgle: 0g</div>
                         </div>
                     </div>
@@ -692,13 +715,13 @@
                 <div class="card card-admin">
                     <h3 style="color: var(--gold); margin-bottom: 12px; font-size: 1.15rem;">👑 Panel Administratora & Zarządzanie</h3>
 
-                    <div style="background: rgba(0, 0, 0, 0.35); padding: 14px; border-radius: 14px; margin-bottom: 14px; border: 1px solid var(--primary);">
+                    <div style="background: rgba(0, 0, 0, 0.35); padding: 14px; border-radius: 16px; margin-bottom: 14px; border: 1px solid var(--primary);">
                         <h4 style="color: var(--primary); margin-bottom: 6px; font-size: 0.95rem;">📥 Globalny Masowy Import Planu</h4>
                         <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 10px;">Wgraj plik z planem treningowym, aby zaktualizować globalne ustawienia.</p>
                         <input type="file" id="admin-file-importer" accept=".txt,.json,.csv" style="font-size: 0.75rem;" onchange="importWorkoutPlanFromFile(event)">
                     </div>
 
-                    <div id="admin-atlas-form-container" style="background: rgba(0, 0, 0, 0.25); padding: 14px; border-radius: 14px; margin-bottom: 14px; border: 1px solid var(--card-border);">
+                    <div id="admin-atlas-form-container" style="background: rgba(0, 0, 0, 0.25); padding: 14px; border-radius: 16px; margin-bottom: 14px; border: 1px solid var(--card-border);">
                         <h4 style="color: var(--primary); margin-bottom: 8px; font-size: 0.95rem;">+ Dodaj ćwiczenie do Atlasu</h4>
                         <input type="text" id="admin-ex-name" placeholder="Nazwa ćwiczenia">
                         <input type="text" id="admin-ex-part" placeholder="Partia (np. Klatka piersiowa)">
@@ -713,7 +736,7 @@
                         <button class="btn btn-sm" onclick="adminAddAtlasItem()">Opublikuj w Atlasie</button>
                     </div>
 
-                    <div id="admin-recipe-form-container" style="background: rgba(0, 0, 0, 0.25); padding: 14px; border-radius: 14px; margin-bottom: 14px; border: 1px solid var(--card-border);">
+                    <div id="admin-recipe-form-container" style="background: rgba(0, 0, 0, 0.25); padding: 14px; border-radius: 16px; margin-bottom: 14px; border: 1px solid var(--card-border);">
                         <h4 style="color: var(--gold); margin-bottom: 8px; font-size: 0.95rem;">+ Dodaj Przepis VIP</h4>
                         <input type="text" id="admin-rec-name" placeholder="Nazwa potrawy">
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
@@ -735,7 +758,7 @@
                             <img id="admin-rec-img-tag-preview" class="chat-img-preview" alt="Podgląd">
                         </div>
 
-                        <button class="btn btn-sm" style="background: var(--gold); color: #0a0a0c;" onclick="adminAddRecipeItem()">Opublikuj Przepis VIP</button>
+                        <button class="btn btn-sm" style="background: var(--gold); color: #070709;" onclick="adminAddRecipeItem()">Opublikuj Przepis VIP</button>
                     </div>
 
                     <h4 style="margin-bottom: 10px; color: var(--gold); font-size: 0.95rem;">👥 Zarejestrowani Użytkownicy (<span id="stat-users-count">0</span>):</h4>
@@ -745,6 +768,26 @@
 
         </div>
 
+    </div>
+
+    <!-- MODAL POMIARÓW CIAŁA -->
+    <div id="measurement-modal" class="modal-overlay">
+        <div class="modal-body">
+            <h3 style="color:var(--primary); margin-bottom:8px; font-size: 1.15rem;">📏 Dodaj pomiar ciała</h3>
+            <label style="font-size: 0.78rem;">Data</label>
+            <input type="date" id="meas-date">
+            <label style="font-size: 0.78rem;">Waga ciała (kg)</label>
+            <input type="number" step="0.1" id="meas-weight" placeholder="np. 78.5">
+            <label style="font-size: 0.78rem;">Pas / Brzuch (cm)</label>
+            <input type="number" step="0.5" id="meas-waist" placeholder="np. 82">
+            <label style="font-size: 0.78rem;">Ramię (cm)</label>
+            <input type="number" step="0.5" id="meas-arm" placeholder="np. 38">
+
+            <div style="display:flex; gap:8px; margin-top:12px;">
+                <button class="btn btn-sm" style="flex:1; padding: 11px;" onclick="saveMeasurement()">Zapisz pomiar</button>
+                <button class="btn btn-outline btn-sm" onclick="closeMeasurementModal()">✕</button>
+            </div>
+        </div>
     </div>
 
     <!-- MODAL SZCZEGÓŁÓW PRZEPISU VIP -->
@@ -923,7 +966,7 @@
 
     <script>
         window.gymData = JSON.parse(localStorage.getItem('4d1s_gym_data')) || {
-            resetVersion: '2026_ultimate_v2',
+            resetVersion: '2026_ultimate_v3',
             workouts: [],
             workoutPlan: {},
             activeWorkoutDay: null,
@@ -931,7 +974,8 @@
             level: 1,
             water: 0,
             prs: {},
-            myCustomAtlas: []
+            myCustomAtlas: [],
+            bodyMeasurements: []
         };
         
         window.customAtlas = [];
@@ -985,7 +1029,7 @@
                 document.getElementById(btnMap[tabId]).classList.add('active');
             }
 
-            if (tabId === 'tab-progress') { renderProgressChart(); updateStrengthRank(); }
+            if (tabId === 'tab-progress') { renderProgressChart(); updateStrengthRank(); renderMeasurements(); }
             if (tabId === 'tab-atlas') renderAtlas();
             if (tabId === 'tab-vip') renderRecipes();
             if (tabId === 'tab-admin') loadAdminUserList();
@@ -1017,7 +1061,7 @@
                             role: 'user',
                             permissions: { canBlock: false, canDeletePosts: false },
                             gym_data: {
-                                resetVersion: '2026_ultimate_v2',
+                                resetVersion: '2026_ultimate_v3',
                                 workouts: [],
                                 workoutPlan: {},
                                 activeWorkoutDay: null,
@@ -1025,7 +1069,8 @@
                                 level: 1,
                                 water: 0,
                                 prs: {},
-                                myCustomAtlas: []
+                                myCustomAtlas: [],
+                                bodyMeasurements: []
                             }
                         }, { merge: true });
                         alert("Konto zostało utworzone! Wysłaliśmy link weryfikacyjny na Twój adres e-mail.");
@@ -1159,7 +1204,7 @@
                 window.gymData.xp -= needed;
                 window.gymData.level += 1;
                 needed = getXpNeededForLevel(window.gymData.level);
-                alert(`🎉 AWANS! Osiągnąłeś LEVEL ${window.gymData.level}! Jesteś o krok bliżej szczytu formy! 🚀`);
+                alert(`🎉 AWANS! Osiągnąłeś LEVEL ${window.gymData.level}! Jesteś coraz bliżej formy życia! 🚀`);
             }
 
             window.saveGymData();
@@ -1467,7 +1512,7 @@
                                 <span style="font-size:0.82rem; color:var(--text-muted);">▸</span>
                                 <span style="font-weight:900;">${day}</span>
                                 <span style="font-size:0.75rem; color:var(--text-muted); font-weight:600;">(${exCount} ćwiczeń)</span>
-                                ${isActive ? '<span style="font-size:0.68rem; background:var(--primary); color:#0a0a0c; padding:2px 8px; border-radius:6px; margin-left:6px; font-weight:800;">AKTYWNA SESJA</span>' : ''}
+                                ${isActive ? '<span style="font-size:0.68rem; background:var(--primary); color:#070709; padding:2px 8px; border-radius:6px; margin-left:6px; font-weight:800;">AKTYWNA SESJA</span>' : ''}
                             </div>
                             <div style="display:flex; gap:6px; align-items:center;" onclick="event.stopPropagation();">
                                 <button class="btn btn-sm ${isActive?'btn-success':''}" style="padding:5px 12px; font-size:0.75rem;" onclick="startActiveWorkoutDay('${day}')">${isActive ? '▶ Rozpoczęty' : 'Rozpocznij Trening'}</button>
@@ -2062,6 +2107,80 @@
             document.getElementById('exercise-details-modal').style.display = 'none';
         }
 
+        function openMeasurementModal() {
+            document.getElementById('meas-date').value = new Date().toISOString().split('T')[0];
+            document.getElementById('measurement-modal').style.display = 'flex';
+        }
+
+        function closeMeasurementModal() {
+            document.getElementById('measurement-modal').style.display = 'none';
+        }
+
+        function saveMeasurement() {
+            const date = document.getElementById('meas-date').value;
+            const weight = document.getElementById('meas-weight').value;
+            const waist = document.getElementById('meas-waist').value;
+            const arm = document.getElementById('meas-arm').value;
+
+            if(!date || !weight) return alert("Podaj datę oraz wagę!");
+
+            if(!window.gymData.bodyMeasurements) window.gymData.bodyMeasurements = [];
+            window.gymData.bodyMeasurements.unshift({ id: Date.now(), date, weight, waist, arm });
+            window.saveGymData();
+            closeMeasurementModal();
+            renderMeasurements();
+            alert("Zapisano pomiar ciała!");
+        }
+
+        function renderMeasurements() {
+            const listEl = document.getElementById('measurements-list');
+            const meas = window.gymData.bodyMeasurements || [];
+            if(meas.length === 0) {
+                listEl.innerHTML = 'Brak zapisanych pomiarów ciała.';
+                return;
+            }
+            listEl.innerHTML = meas.map(m => `
+                <div style="background:rgba(255,255,255,0.02); border:1px solid var(--card-border); padding:8px 10px; border-radius:10px; margin-bottom:6px; display:flex; justify-content:space-between; align-items:center;">
+                    <div><strong>${m.date}</strong>: Waga: <span style="color:var(--gold);">${m.weight} kg</span> ${m.waist ? `| Pas: ${m.waist} cm` : ''} ${m.arm ? `| Ramię: ${m.arm} cm` : ''}</div>
+                    <button class="btn btn-outline btn-sm" style="color:var(--danger); border:none; padding:2px 6px;" onclick="deleteMeasurement(${m.id})">✕</button>
+                </div>
+            `).join('');
+        }
+
+        function deleteMeasurement(id) {
+            window.gymData.bodyMeasurements = (window.gymData.bodyMeasurements || []).filter(x => x.id !== id);
+            window.saveGymData();
+            renderMeasurements();
+        }
+
+        function calculatePlates() {
+            const total = parseFloat(document.getElementById('plate-target-weight').value);
+            const resEl = document.getElementById('plate-result');
+            if(!total || total < 20) {
+                resEl.innerText = "Wpisz ciężar min. 20 kg (gryf standardowy)";
+                return;
+            }
+            const bar = 20; // standardowy gryf olimpijski
+            const perSide = (total - bar) / 2;
+            if (perSide < 0) {
+                resEl.innerText = "Ciężar nie może być mniejszy niż waga gryfu (20kg)";
+                return;
+            }
+
+            const availablePlates = [25, 20, 15, 10, 5, 2.5, 1.25];
+            let rem = perSide;
+            let used = [];
+
+            availablePlates.forEach(p => {
+                while(rem >= p) {
+                    used.push(p);
+                    rem -= p;
+                }
+            });
+
+            resEl.innerText = used.length > 0 ? used.join(' kg + ') + ' kg (na stronę)' : 'Sam gryf (20 kg)';
+        }
+
         function openRecipeDetailsModal(r) {
             document.getElementById('recipe-modal-title').innerText = r.name;
             document.getElementById('recipe-modal-macros').innerText = `🔥 ${r.kcal} kcal | 🥩 Białko: ${r.protein}g`;
@@ -2199,11 +2318,17 @@
         window.filterAtlasCategory = filterAtlasCategory;
         window.finishActiveWorkoutSession = finishActiveWorkoutSession;
         window.openAtlasPickerForDay = openAtlasPickerForDay;
+        window.openMeasurementModal = openMeasurementModal;
+        window.closeMeasurementModal = closeMeasurementModal;
+        window.saveMeasurement = saveMeasurement;
+        window.deleteMeasurement = deleteMeasurement;
+        window.calculatePlates = calculatePlates;
 
         renderPlan();
         renderAchievements();
         updateWaterUI();
         updateWorkoutStats();
+        renderMeasurements();
     </script>
 </body>
 </html>
