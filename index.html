@@ -3,31 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>4D1S_GYM - Ultimate Global Fitness Ecosystem Pro</title>
+    <title>4D1S_GYM - Pro Fitness Ecosystem (Lyfta Style)</title>
     
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="4D1S_GYM">
-    <meta name="theme-color" content="#050507">
+    <meta name="theme-color" content="#030305">
     
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
         :root {
-            --bg-dark: #050507;
-            --bg-card: #0e0e12;
-            --bg-input: #16161c;
-            --card-border: #22222c;
+            --bg-dark: #030305;
+            --bg-card: #0b0b0e;
+            --bg-input: #121217;
+            --card-border: #1e1e26;
             --primary: #f472b6;
             --primary-glow: rgba(244, 114, 182, 0.3);
             --purple: #c084fc;
             --text-main: #ffffff;
-            --text-muted: #8a99ad;
+            --text-muted: #8592a6;
             --success: #22c55e;
             --danger: #ef4444;
             --gold: #facc15;
-            --owner-color: #f472b6;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; -webkit-tap-highlight-color: transparent; }
@@ -37,7 +36,7 @@
             color: var(--text-main); 
             min-height: 100vh; 
             padding: 12px; 
-            padding-bottom: 120px; 
+            padding-bottom: 130px; 
             max-width: 100vw;
             overflow-x: hidden;
             -webkit-text-size-adjust: 100%;
@@ -59,13 +58,13 @@
             bottom: 0; 
             left: 0; 
             right: 0; 
-            background: rgba(14, 14, 18, 0.95); 
+            background: rgba(11, 11, 14, 0.96); 
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border-top: 1px solid var(--card-border); 
             display: flex; 
             justify-content: space-around; 
-            padding: 10px 4px 26px; 
+            padding: 10px 4px 28px; 
             z-index: 1000;
             margin: 0;
             overflow-x: auto;
@@ -90,7 +89,7 @@
         }
         .tab-btn.active { background: rgba(244, 114, 182, 0.12); color: var(--primary); box-shadow: 0 0 18px var(--primary-glow); }
 
-        .btn { background: var(--primary); color: #050507; border: none; padding: 11px 20px; border-radius: 14px; font-weight: 800; cursor: pointer; transition: all 0.2s ease; display: inline-flex; align-items: center; justify-content: center; gap: 6px; font-size: 0.88rem; text-decoration: none; box-shadow: 0 4px 18px var(--primary-glow); }
+        .btn { background: var(--primary); color: #030305; border: none; padding: 11px 20px; border-radius: 14px; font-weight: 800; cursor: pointer; transition: all 0.2s ease; display: inline-flex; align-items: center; justify-content: center; gap: 6px; font-size: 0.88rem; text-decoration: none; box-shadow: 0 4px 18px var(--primary-glow); }
         .btn:active { transform: scale(0.97); opacity: 0.9; }
         .btn-sm { padding: 6px 12px; font-size: 0.75rem; border-radius: 10px; box-shadow: none; }
         .btn-success { background: var(--success); color: #ffffff; box-shadow: 0 4px 18px rgba(34,197,94,0.3); }
@@ -98,7 +97,7 @@
         .btn-outline:active { background: rgba(255, 255, 255, 0.05); }
 
         .card { background: var(--bg-card); border: 1px solid var(--card-border); border-radius: 20px; padding: 20px; margin-bottom: 18px; width: 100%; overflow: hidden; box-shadow: 0 12px 40px rgba(0,0,0,0.65); }
-        .card-admin { border: 1px solid rgba(244, 114, 182, 0.4); background: linear-gradient(135deg, rgba(244, 114, 182, 0.04), rgba(14,14,18,0.95)); }
+        .card-admin { border: 1px solid rgba(244, 114, 182, 0.4); background: linear-gradient(135deg, rgba(244, 114, 182, 0.04), rgba(11,11,14,0.95)); }
 
         .grid { display: flex; flex-direction: column; gap: 18px; width: 100%; }
         @media (min-width: 850px) {
@@ -113,7 +112,7 @@
         input:focus, select:focus, textarea:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 12px var(--primary-glow); }
 
         .role-badge { padding: 3px 10px; border-radius: 8px; font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; display: inline-block; }
-        .role-owner { background: var(--primary); color: #050507; }
+        .role-owner { background: var(--primary); color: #030305; }
         .role-admin { background: var(--danger); color: #fff; }
         .role-staff { background: #38bdf8; color: #0d0d12; }
         .role-vip { background: var(--gold); color: #000; }
@@ -145,25 +144,26 @@
         summary.day-header:hover { background: rgba(255,255,255,0.04); }
 
         .day-content { padding: 16px; border-top: 1px solid var(--card-border); }
-        .exercise-item { background: #07070a; padding: 14px; border-radius: 14px; margin-bottom: 12px; border: 1px solid var(--card-border); }
+        .exercise-item { background: #060608; padding: 14px; border-radius: 14px; margin-bottom: 12px; border: 1px solid var(--card-border); }
 
-        .hevy-set-table { width: 100%; margin-top: 10px; border-collapse: collapse; }
-        .hevy-set-header { display: grid; grid-template-columns: 46px 1fr 80px 80px 46px; gap: 6px; text-align: center; font-size: 0.68rem; font-weight: 800; color: var(--text-muted); padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.08); text-transform: uppercase; }
-        .hevy-set-row { display: grid; grid-template-columns: 46px 1fr 80px 80px 46px; gap: 6px; align-items: center; text-align: center; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 0.8rem; }
+        /* Lyfta-style table layout for sets with RPE support */
+        .lyfta-set-table { width: 100%; margin-top: 10px; border-collapse: collapse; }
+        .lyfta-set-header { display: grid; grid-template-columns: 42px 1fr 70px 70px 60px 42px; gap: 4px; text-align: center; font-size: 0.65rem; font-weight: 800; color: var(--text-muted); padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.08); text-transform: uppercase; }
+        .lyfta-set-row { display: grid; grid-template-columns: 42px 1fr 70px 70px 60px 42px; gap: 4px; align-items: center; text-align: center; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 0.8rem; }
         
-        .set-badge { background: var(--bg-input); border-radius: 7px; font-weight: 800; color: #fff; padding: 4px 0; font-size: 0.75rem; border: 1px solid var(--card-border); }
+        .set-badge { background: var(--bg-input); border-radius: 7px; font-weight: 800; color: #fff; padding: 4px 0; font-size: 0.72rem; border: 1px solid var(--card-border); }
         .set-badge.warmup { background: rgba(250, 204, 21, 0.15); color: var(--gold); border-color: rgba(250, 204, 21, 0.3); }
         .set-badge.drop { background: rgba(192, 132, 252, 0.15); color: var(--purple); border-color: rgba(192, 132, 252, 0.3); }
 
-        .prev-stat { font-size: 0.72rem; color: var(--text-muted); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .prev-stat { font-size: 0.7rem; color: var(--text-muted); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-        .hevy-input { background: var(--bg-input); border: 1px solid var(--card-border); border-radius: 10px; padding: 8px; text-align: center; color: #fff; font-weight: 700; font-size: 0.9rem; margin: 0; }
-        .hevy-input:focus { border-color: var(--primary); background: #07070a; }
+        .lyfta-input { background: var(--bg-input); border: 1px solid var(--card-border); border-radius: 9px; padding: 7px; text-align: center; color: #fff; font-weight: 700; font-size: 0.85rem; margin: 0; }
+        .lyfta-input:focus { border-color: var(--primary); background: #060608; }
 
-        .check-btn { width: 36px; height: 36px; border-radius: 10px; background: var(--bg-input); border: 1px solid var(--card-border); color: var(--text-muted); font-weight: 900; font-size: 0.95rem; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; margin: 0 auto; }
+        .check-btn { width: 34px; height: 34px; border-radius: 9px; background: var(--bg-input); border: 1px solid var(--card-border); color: var(--text-muted); font-weight: 900; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; margin: 0 auto; }
         .check-btn.completed { background: var(--success); color: #ffffff; border-color: var(--success); box-shadow: 0 0 12px rgba(34,197,94,0.4); }
 
-        .floating-timer { position: fixed; bottom: 84px; left: 12px; right: 12px; background: rgba(14, 14, 18, 0.96); border: 1px solid var(--card-border); border-radius: 20px; padding: 12px 18px; box-shadow: 0 15px 45px rgba(0,0,0,0.85); display: flex; align-items: center; justify-content: space-between; z-index: 900; backdrop-filter: blur(18px); flex-wrap: wrap; gap: 10px; }
+        .floating-timer { position: fixed; bottom: 84px; left: 12px; right: 12px; background: rgba(11, 11, 14, 0.96); border: 1px solid var(--card-border); border-radius: 20px; padding: 12px 18px; box-shadow: 0 15px 45px rgba(0,0,0,0.85); display: flex; align-items: center; justify-content: space-between; z-index: 900; backdrop-filter: blur(18px); flex-wrap: wrap; gap: 10px; }
         
         .water-progress { width: 100%; height: 12px; background: rgba(0,0,0,0.6); border-radius: 8px; overflow: hidden; border: 1px solid var(--card-border); margin: 8px 0; }
         .water-bar { height: 100%; width: 0%; background: linear-gradient(90deg, var(--primary), var(--purple)); transition: width 0.4s; }
@@ -171,20 +171,20 @@
         .filter-pills-scroll { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; padding-bottom: 8px; margin-bottom: 14px; }
         .filter-pills-scroll::-webkit-scrollbar { display: none; }
         .pill-btn { background: var(--bg-input); border: 1px solid var(--card-border); color: var(--text-muted); padding: 8px 18px; border-radius: 24px; font-weight: 700; font-size: 0.78rem; cursor: pointer; white-space: nowrap; transition: all 0.2s; }
-        .pill-btn.active { background: var(--primary); color: #050507; border-color: var(--primary); box-shadow: 0 0 14px var(--primary-glow); }
+        .pill-btn.active { background: var(--primary); color: #030305; border-color: var(--primary); box-shadow: 0 0 14px var(--primary-glow); }
 
-        .hevy-ex-card { background: var(--bg-input); border: 1px solid var(--card-border); border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 10px; cursor: pointer; transition: transform 0.15s ease, border-color 0.15s ease; position: relative; }
-        .hevy-ex-card:active { transform: scale(0.98); }
-        .hevy-ex-card:hover { border-color: rgba(244, 114, 182, 0.6); }
+        .lyfta-ex-card { background: var(--bg-input); border: 1px solid var(--card-border); border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 10px; cursor: pointer; transition: transform 0.15s ease, border-color 0.15s ease; position: relative; }
+        .lyfta-ex-card:active { transform: scale(0.98); }
+        .lyfta-ex-card:hover { border-color: rgba(244, 114, 182, 0.6); }
         
-        .hevy-ex-info { flex: 1; min-width: 0; }
-        .hevy-ex-title { font-size: 0.95rem; font-weight: 800; color: #fff; margin-bottom: 4px; }
-        .hevy-ex-tags { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; margin-top: 6px; }
+        .lyfta-ex-info { flex: 1; min-width: 0; }
+        .lyfta-ex-title { font-size: 0.95rem; font-weight: 800; color: #fff; margin-bottom: 4px; }
+        .lyfta-ex-tags { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; margin-top: 6px; }
         .tag-pill { font-size: 0.65rem; font-weight: 700; padding: 3px 8px; border-radius: 7px; background: rgba(255,255,255,0.05); color: var(--text-muted); border: 1px solid rgba(255,255,255,0.08); text-transform: uppercase; }
         .tag-pill.muscle { background: rgba(244, 114, 182, 0.15); color: var(--primary); border-color: rgba(244, 114, 182, 0.3); }
 
         .btn-add-circle { width: 34px; height: 34px; border-radius: 50%; background: rgba(244, 114, 182, 0.15); border: 1px solid rgba(244, 114, 182, 0.4); color: var(--primary); font-size: 1.2rem; font-weight: 800; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; flex-shrink: 0; }
-        .btn-add-circle:hover { background: var(--primary); color: #050507; box-shadow: 0 0 12px var(--primary-glow); }
+        .btn-add-circle:hover { background: var(--primary); color: #030305; box-shadow: 0 0 12px var(--primary-glow); }
 
         .recipe-card { background: rgba(0, 0, 0, 0.25); border: 1px solid var(--card-border); border-radius: 16px; padding: 16px; display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.2s; cursor: pointer; }
         .recipe-card:hover { border-color: rgba(250, 204, 21, 0.6); transform: translateY(-2px); }
@@ -285,7 +285,7 @@
 
                     onSnapshot(userDocRef, async (snap) => {
                         dot.className = "dot online";
-                        txt.innerText = "Zalogowano";
+                        txt.innerText = "Zalogowano (Lyfta Pro)";
                         let userData = snap.exists() ? snap.data() : {};
                         
                         userData.role = userData.role || 'user';
@@ -302,9 +302,9 @@
 
                         document.getElementById('user-username-display').innerText = window.currentUsername;
                         
-                        if (!userData.gym_data || userData.gym_data.resetVersion !== '2026_ultimate_v4_global') {
+                        if (!userData.gym_data || userData.gym_data.resetVersion !== '2026_lyfta_style_v5') {
                             userData.gym_data = {
-                                resetVersion: '2026_ultimate_v4_global',
+                                resetVersion: '2026_lyfta_style_v5',
                                 workouts: [],
                                 workoutPlan: {},
                                 activeWorkoutDay: null,
@@ -320,7 +320,6 @@
 
                         window.gymData = userData.gym_data;
 
-                        // Synchronizacja statystyk z globalną tablicą wyników
                         await setDoc(userDocRef, { 
                             globalStats: { level: window.gymData.level, xp: window.gymData.xp, username: window.currentUsername } 
                         }, { merge: true });
@@ -403,7 +402,7 @@
                 case 'admin': return '<span class="role-badge role-admin">🛡 Admin</span>';
                 case 'staff': return '<span class="role-badge role-staff">🛠 Staff</span>';
                 case 'vip': return '<span class="role-badge role-vip">🌟 VIP</span>';
-                default: return '<span class="role-badge role-user">🏋 Gracz</span>';
+                default: return '<span class="role-badge role-user">🏋 Gracz Lyfta</span>';
             }
         }
         window.getRoleBadgeHtml = getRoleBadgeHtml;
@@ -415,7 +414,7 @@
         <header>
             <div class="logo">
                 <div class="logo-icon">⚡</div>
-                <span>4D1S_GYM <span style="font-size:0.65rem; color:var(--primary); font-weight:700; background:rgba(244,114,182,0.15); padding:2px 8px; border-radius:6px; vertical-align:middle;">GLOBAL PRO</span></span>
+                <span>4D1S_GYM <span style="font-size:0.65rem; color:var(--primary); font-weight:700; background:rgba(244,114,182,0.15); padding:2px 8px; border-radius:6px; vertical-align:middle;">LYFTA PRO</span></span>
             </div>
             <div style="display: flex; gap: 8px; align-items: center;">
                 <div class="status-badge">
@@ -434,7 +433,7 @@
             <div style="width: 64px; height: 64px; border-radius: 16px; background: linear-gradient(135deg, var(--primary), var(--purple)); display: flex; align-items: center; justify-content: center; font-size: 2rem; margin: 0 auto 14px; box-shadow: 0 4px 15px var(--primary-glow);">✉️</div>
             <h2 style="margin-bottom: 8px; color: var(--primary); font-size: 1.25rem;">Potwierdź swój adres e-mail</h2>
             <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:18px; max-width: 360px;">
-                Na Twój adres e-mail została wysłana wiadomość aktywacyjna. Kliknij w link zawarty w wiadomości, aby uzyskać pełny dostęp do ekosystemu.
+                Na Twój adres e-mail została wysłana wiadomość aktywacyjna. Kliknij w link zawarty w wiadomości, aby uzyskać pełny dostęp do ekosystemu w stylu Lyfta.
             </p>
             <div style="display: flex; flex-direction: column; gap: 10px; width: 100%; max-width: 280px; margin: 0 auto;">
                 <button class="btn" onclick="location.reload()">Sprawdzam / Odśwież</button>
@@ -446,7 +445,7 @@
         <div id="auth-lockscreen" class="card">
             <div style="width: 76px; height: 76px; border-radius: 20px; background: linear-gradient(135deg, var(--primary), var(--purple)); display: flex; align-items: center; justify-content: center; font-size: 2.3rem; margin-bottom: 14px; box-shadow: 0 6px 20px var(--primary-glow);">🏋️‍♂️</div>
             <h2 id="modal-title" style="margin-bottom: 8px; color: var(--primary); font-size: 1.3rem;">Zaloguj się do 4D1S_GYM</h2>
-            <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:18px;">Najpotężniejsza aplikacja treningowa świata – globalna społeczność i profesjonalne narzędzia.</p>
+            <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:18px;">Najlepszy dziennik treningowy wzorowany na Lyfta – loguj serie, RPE i pobijaj rekordy.</p>
             
             <div style="width:100%; max-width:320px;">
                 <input type="text" id="auth-username" placeholder="Twój Nick w aplikacji" style="display: none;">
@@ -489,18 +488,18 @@
             <div id="tab-plan" class="tab-content">
                 <div class="grid">
                     <div>
-                        <div id="hevy-active-workout-banner" style="display:none; background: var(--bg-card); border: 1.5px solid var(--primary); padding: 16px; border-radius: 18px; margin-bottom: 16px; align-items: center; justify-content: space-between; box-shadow: 0 0 20px var(--primary-glow);">
+                        <div id="lyfta-active-workout-banner" style="display:none; background: var(--bg-card); border: 1.5px solid var(--primary); padding: 16px; border-radius: 18px; margin-bottom: 16px; align-items: center; justify-content: space-between; box-shadow: 0 0 20px var(--primary-glow);">
                             <div>
-                                <div style="font-size: 0.7rem; color: var(--primary); font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;">Aktywna Sesja Treningowa</div>
-                                <div id="hevy-active-day-title" style="font-size: 1.15rem; font-weight: 900; color: #fff;"></div>
+                                <div style="font-size: 0.7rem; color: var(--primary); font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;">Aktywna Sesja Lyfta</div>
+                                <div id="lyfta-active-day-title" style="font-size: 1.15rem; font-weight: 900; color: #fff;"></div>
                             </div>
                             <button class="btn btn-success" style="font-size:0.82rem; padding: 9px 16px;" onclick="finishActiveWorkoutSession()">✓ Zakończ Trening</button>
                         </div>
 
                         <!-- UPLOAD PLANU Z PLIKU -->
                         <div class="card" style="border: 1.5px dashed rgba(244, 114, 182, 0.4); background: rgba(244, 114, 182, 0.02);">
-                            <h3 style="color: #fff; font-size: 1rem; font-weight: 800; margin-bottom: 6px;">📂 Import planu treningowego z pliku</h3>
-                            <p style="font-size: 0.76rem; color: var(--text-muted); margin-bottom: 12px;">Wgraj plik tekstowy, JSON lub Markdown ze swoim planem. Aplikacja automatycznie sparsuje dni i ćwiczenia!</p>
+                            <h3 style="color: #fff; font-size: 1rem; font-weight: 800; margin-bottom: 6px;">📂 Import planu (w stylu Lyfta)</h3>
+                            <p style="font-size: 0.76rem; color: var(--text-muted); margin-bottom: 12px;">Wgraj plik ze swoim planem treningowym. Aplikacja automatycznie sparsuje ćwiczenia i serie!</p>
                             <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
                                 <label class="btn btn-outline btn-sm" style="cursor: pointer; margin: 0;">
                                     📁 Wybierz plik z planem
@@ -513,7 +512,7 @@
                         <div class="card">
                             <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 14px;">
                                 <h3 style="color: #fff; font-size: 1.15rem; font-weight: 800;">📅 Harmonogram i Rutyny</h3>
-                                <button class="btn btn-outline btn-sm" onclick="generatePresetPlanPPL()">⚡ Generator PPL (Push/Pull/Legs)</button>
+                                <button class="btn btn-outline btn-sm" onclick="generatePresetPlanPPL()">⚡ Generator PPL Pro</button>
                             </div>
 
                             <div id="week-plan-container"></div>
@@ -561,7 +560,7 @@
                 <div class="card">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 10px;">
                         <div>
-                            <h3 style="color: #fff; font-size: 1.15rem; font-weight: 800;">📚 Profesjonalny Atlas Ćwiczeń</h3>
+                            <h3 style="color: #fff; font-size: 1.15rem; font-weight: 800;">📚 Profesjonalny Atlas Lyfta (5000+ ćwiczeń)</h3>
                             <span id="atlas-counter" style="font-size: 0.75rem; color: var(--text-muted);">Baza ćwiczeń</span>
                         </div>
                         <button class="btn btn-sm" style="background: var(--purple); color: #fff;" onclick="openAddPrivateExerciseModal()">+ Dodaj własne ćwiczenie</button>
@@ -586,11 +585,11 @@
 
             <div id="tab-forum" class="tab-content" style="display: none;">
                 <div class="card">
-                    <h3 style="color: var(--primary); margin-bottom: 6px; font-size: 1.15rem;">🤖💬 Inteligentny Trener AI & Analiza Formy</h3>
-                    <p style="font-size:0.78rem; color:var(--text-muted); margin-bottom:12px;">Wyślij zdjęcie sylwetki do oceny przez AI lub wgraj plan treningowy do optymalizacji!</p>
+                    <h3 style="color: var(--primary); margin-bottom: 6px; font-size: 1.15rem;">🤖💬 Trener AI & Społeczność Lyfta</h3>
+                    <p style="font-size:0.78rem; color:var(--text-muted); margin-bottom:12px;">Wyślij zdjęcie sylwetki lub wpis do społeczności i Trenera AI!</p>
                     
                     <form onsubmit="handleForumSubmit(event)" style="margin-bottom: 14px;">
-                        <textarea id="forum-content" rows="3" placeholder="Napisz do Trenera AI (np. 'Oceń moją sylwetkę na zdjęciu i podpowiedz co poprawić w diecie')..."></textarea>
+                        <textarea id="forum-content" rows="3" placeholder="Napisz do społeczności Lyfta lub Trenera AI..."></textarea>
                         
                         <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 8px; flex-wrap: wrap;">
                             <label class="btn btn-outline btn-sm" style="cursor: pointer; margin:0; display: inline-flex; align-items: center; gap: 5px;">
@@ -609,7 +608,7 @@
                             <img id="forum-img-tag-preview" class="chat-img-preview" alt="Podgląd">
                         </div>
 
-                        <button type="submit" class="btn btn-sm" style="width: 100%; padding: 11px;">Wyślij zapytanie do Trenera AI</button>
+                        <button type="submit" class="btn btn-sm" style="width: 100%; padding: 11px;">Opublikuj w społeczności Lyfta</button>
                     </form>
                     <div id="forum-posts-list"></div>
                 </div>
@@ -622,7 +621,7 @@
                         <span id="player-level-text" style="font-weight: 900; color: var(--gold); font-size: 1rem;">LVL 1 (0/200 XP)</span>
                     </div>
                     <div class="water-progress" style="height:12px;"><div id="xp-bar" class="water-bar"></div></div>
-                    <p style="font-size:0.75rem; color:var(--text-muted); margin-top:6px; text-align:center;">Zdobywaj punkty XP za bicie rekordów ciężarowych (PR) oraz zaliczanie treningów! 🚀</p>
+                    <p style="font-size:0.75rem; color:var(--text-muted); margin-top:6px; text-align:center;">Zbieraj punkty XP za bicie rekordów w stylu Lyfta i zamykanie serii! 🚀</p>
 
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 18px;">
                         <div class="stat-box">
@@ -651,11 +650,11 @@
                 </div>
             </div>
 
-            <!-- NOWOŚĆ: ZAKŁADKA GLOBALNYCH WYNIKÓW ŚWIATOWYCH -->
+            <!-- GLOBALNA TABLICA WYNIKÓW -->
             <div id="tab-world" class="tab-content" style="display: none;">
                 <div class="card">
-                    <h3 style="color: var(--primary); margin-bottom: 6px; font-size: 1.15rem;">🌍 Światowa Tablica Wyników (Hall of Fame)</h3>
-                    <p style="font-size:0.78rem; color:var(--text-muted); margin-bottom:14px;">Najlepsi zawodnicy z całego świata posortowani według poziomu i doświadczenia XP w 4D1S_GYM.</p>
+                    <h3 style="color: var(--primary); margin-bottom: 6px; font-size: 1.15rem;">🌍 Globalny Ranking Lyfta (Hall of Fame)</h3>
+                    <p style="font-size:0.78rem; color:var(--text-muted); margin-bottom:14px;">Najlepsi zawodnicy z całego świata posortowani według poziomu i doświadczenia XP.</p>
                     <div id="global-leaderboard-list">Pobieranie rankingów światowych...</div>
                 </div>
             </div>
@@ -663,7 +662,7 @@
             <div id="tab-calc" class="tab-content" style="display: none;">
                 <div class="grid" style="grid-template-columns: 1fr;">
                     <div class="card">
-                        <h3 style="color: var(--primary); font-size: 1.15rem; margin-bottom: 8px;">🧮 Kalkulator 1RM & Współczynnik Siły (Wilks)</h3>
+                        <h3 style="color: var(--primary); font-size: 1.15rem; margin-bottom: 8px;">🧮 Kalkulator 1RM & Współczynnik Siły</h3>
                         <label style="font-size: 0.78rem;">Ciężar (kg)</label>
                         <input type="number" id="calc-weight" placeholder="np. 100" oninput="calculate1RM()">
                         <label style="font-size: 0.78rem;">Powtórzenia</label>
@@ -777,7 +776,7 @@
                             <img id="admin-rec-img-tag-preview" class="chat-img-preview" alt="Podgląd">
                         </div>
 
-                        <button class="btn btn-sm" style="background: var(--gold); color: #050507;" onclick="adminAddRecipeItem()">Opublikuj Przepis VIP</button>
+                        <button class="btn btn-sm" style="background: var(--gold); color: #030305;" onclick="adminAddRecipeItem()">Opublikuj Przepis VIP</button>
                     </div>
 
                     <h4 style="margin-bottom: 10px; color: var(--gold); font-size: 0.95rem;">👥 Zarejestrowani Użytkownicy (<span id="stat-users-count">0</span>):</h4>
@@ -841,7 +840,7 @@
     <!-- MODAL DODAWANIA WŁASNEGO ĆWICZENIA -->
     <div id="add-private-exercise-modal" class="modal-overlay">
         <div class="modal-body">
-            <h3 style="color:var(--purple); margin-bottom:8px; font-size: 1.15rem;">⭐ Dodaj własne ćwiczenie</h3>
+            <h3 style="color:var(--purple); margin-bottom:8px; font-size: 1.15rem;">⭐ Dodaj własne ćwiczenie Lyfta</h3>
             <p style="font-size:0.78rem; color:var(--text-muted); margin-bottom:12px;">Ćwiczenie zostanie zapisane w Twoim prywatnym atlasie.</p>
             
             <label style="font-size: 0.78rem;">Nazwa ćwiczenia</label>
@@ -969,7 +968,7 @@
     <div class="floating-timer">
         <div>
             <div style="display:flex; align-items:center; gap:6px;">
-                <span style="font-size: 0.65rem; color: var(--text-muted); font-weight:800;">STOPER PRZERWY</span>
+                <span style="font-size: 0.65rem; color: var(--text-muted); font-weight:800;">STOPER PRZERWY (LYFTA)</span>
                 <button id="sound-toggle-btn" class="btn btn-outline btn-sm" style="padding:2px 6px; font-size:0.65rem;" onclick="toggleSoundMaster()">🔊 WŁ</button>
             </div>
             <div id="timer-display" style="font-size: 1.2rem; font-weight: 900; color: var(--primary);">00:00</div>
@@ -985,7 +984,7 @@
 
     <script>
         window.gymData = JSON.parse(localStorage.getItem('4d1s_gym_data')) || {
-            resetVersion: '2026_ultimate_v4_global',
+            resetVersion: '2026_lyfta_style_v5',
             workouts: [],
             workoutPlan: {},
             activeWorkoutDay: null,
@@ -1058,7 +1057,7 @@
 
         function toggleAuthMode() {
             isRegisterMode = !isRegisterMode;
-            document.getElementById('modal-title').innerText = isRegisterMode ? 'Utwórz konto w 4D1S_GYM' : 'Zaloguj się do 4D1S_GYM';
+            document.getElementById('modal-title').innerText = isRegisterMode ? 'Utwórz konto Lyfta Pro' : 'Zaloguj się do 4D1S_GYM';
             document.getElementById('auth-submit').innerText = isRegisterMode ? 'Zarejestruj się' : 'Zaloguj się';
             document.getElementById('auth-toggle').innerText = isRegisterMode ? 'Masz już konto? Zaloguj się' : 'Nie masz konta? Zarejestruj się';
             document.getElementById('auth-username').style.display = isRegisterMode ? 'block' : 'none';
@@ -1081,7 +1080,7 @@
                             role: 'user',
                             permissions: { canBlock: false, canDeletePosts: false },
                             gym_data: {
-                                resetVersion: '2026_ultimate_v4_global',
+                                resetVersion: '2026_lyfta_style_v5',
                                 workouts: [],
                                 workoutPlan: {},
                                 activeWorkoutDay: null,
@@ -1094,7 +1093,7 @@
                             },
                             globalStats: { level: 1, xp: 0, username: username }
                         }, { merge: true });
-                        alert("Konto zostało utworzone! Wysłaliśmy link weryfikacyjny na Twój adres e-mail.");
+                        alert("Konto Lyfta Pro zostało utworzone! Wysłaliśmy link weryfikacyjny na Twój adres e-mail.");
                     }
                 } else {
                     await window.authApi.login(email, pass);
@@ -1124,7 +1123,7 @@
                 });
 
                 if(users.length === 0) {
-                    listEl.innerHTML = '<p style="color:var(--text-muted); font-size:0.8rem;">Brak graczy w rankingu.</p>';
+                    listEl.innerHTML = '<p style="color:var(--text-muted); font-size:0.8rem;">Brak graczy w rankingu Lyfta.</p>';
                     return;
                 }
 
@@ -1140,7 +1139,7 @@
                                 <span style="font-weight:900; font-size:1.1rem; color:${index===0?'var(--gold)':'var(--text-muted)'}; min-width:30px;">${medal}</span>
                                 <div>
                                     <strong style="color:#fff; font-size:0.9rem;">${u.name}</strong>
-                                    <div style="font-size:0.72rem; color:var(--text-muted);">Doświadczenie: <span style="color:var(--primary);">${u.xp} XP</span></div>
+                                    <div style="font-size:0.72rem; color:var(--text-muted);">Doświadczenie Lyfta: <span style="color:var(--primary);">${u.xp} XP</span></div>
                                 </div>
                             </div>
                             <div style="text-align:right;">
@@ -1151,7 +1150,7 @@
                     `;
                 }).join('');
             } catch(e) {
-                document.getElementById('global-leaderboard-list').innerHTML = '<p style="color:var(--danger); font-size:0.8rem;">Błąd ładowania rankingu światowego.</p>';
+                document.getElementById('global-leaderboard-list').innerHTML = '<p style="color:var(--danger); font-size:0.8rem;">Błąd ładowania rankingu globalnego.</p>';
             }
         }
 
@@ -1178,7 +1177,7 @@
                     window.saveGymData();
                     window.renderPlan();
                     updateWorkoutStats();
-                    alert(`✅ Pomyślnie wgrano i zaimportowano plan z pliku: ${file.name}!`);
+                    alert(`✅ Pomyślnie zaimportowano plan w formacie Lyfta: ${file.name}!`);
                     const lbl = document.getElementById('import-plan-filename');
                     if(lbl) lbl.innerText = file.name;
                 } catch(err) {
@@ -1222,9 +1221,9 @@
                         id: Date.now() + Math.random(),
                         name: clean,
                         sets: [
-                            { setNum: 1, type: 'Robocza', weight: '', reps: '', done: false },
-                            { setNum: 2, type: 'Robocza', weight: '', reps: '', done: false },
-                            { setNum: 3, type: 'Robocza', weight: '', reps: '', done: false }
+                            { setNum: 1, type: 'Robocza', weight: '', reps: '', rpe: '8', done: false },
+                            { setNum: 2, type: 'Robocza', weight: '', reps: '', rpe: '8.5', done: false },
+                            { setNum: 3, type: 'Robocza', weight: '', reps: '', rpe: '9', done: false }
                         ]
                     });
                 }
@@ -1237,7 +1236,7 @@
             const reader = new FileReader();
             reader.onload = function(e) {
                 const textContent = e.target.result;
-                document.getElementById('forum-content').value = `[Wgrany dokument: ${file.name}]\nTreść:\n` + textContent.substring(0, 300) + '...';
+                document.getElementById('forum-content').value = `[Dokument Lyfta: ${file.name}]\nTreść:\n` + textContent.substring(0, 300) + '...';
                 document.getElementById('forum-img-name').innerText = file.name;
             };
             reader.readAsText(file);
@@ -1253,18 +1252,17 @@
                 const diff = numWeight - currentPr;
                 window.gymData.prs[cleanName] = numWeight;
 
-                let xpGain = 45;
-                if(diff >= 3 && diff < 7) xpGain = 90;
-                else if(diff >= 7 && diff < 12) xpGain = 160;
-                else if(diff >= 12) xpGain = 350;
+                let xpGain = 50;
+                if(diff >= 3 && diff < 8) xpGain = 100;
+                else if(diff >= 8) xpGain = 250;
 
                 addXP(xpGain);
-                alert(`🔥 NOWY REKORD ŚWIATA (PR) w ${exName}: ${numWeight} kg! (+${xpGain} XP)`);
+                alert(`🔥 NOWY REKORD LYFTA (PR) w ${exName}: ${numWeight} kg! (+${xpGain} XP)`);
             }
         }
 
         function getXpNeededForLevel(level) {
-            return Math.min(50000, 200 + (level - 1) * 95 + Math.floor(Math.pow(level, 1.4) * 20));
+            return Math.min(60000, 200 + (level - 1) * 100 + Math.floor(Math.pow(level, 1.4) * 22));
         }
 
         function addXP(amount) {
@@ -1278,21 +1276,11 @@
                 window.gymData.xp -= needed;
                 window.gymData.level += 1;
                 needed = getXpNeededForLevel(window.gymData.level);
-                alert(`🎉 GLOBALNY AWANS! Osiągnąłeś LEVEL ${window.gymData.level}! Jesteś legendą 4D1S_GYM! 🚀`);
+                alert(`🎉 AWANS W STYLU LYFTA! Osiągnąłeś LEVEL ${window.gymData.level}! Jesteś w elicie! 🚀`);
             }
 
             window.saveGymData();
             window.renderAchievements();
-        }
-
-        function renderAchievements() {
-            const xp = window.gymData.xp || 0;
-            const level = window.gymData.level || 1;
-            const needed = getXpNeededForLevel(level);
-            const pct = Math.min(100, Math.round((xp / needed) * 100));
-
-            document.getElementById('player-level-text').innerText = `LVL ${level} (${xp}/${needed} XP)`;
-            document.getElementById('xp-bar').style.width = pct + '%';
         }
 
         function startActiveWorkoutDay(dayName) {
@@ -1305,8 +1293,8 @@
         function finishActiveWorkoutSession() {
             const dayName = window.gymData.activeWorkoutDay;
             if(!dayName) return;
-            addXP(120);
-            alert(`🎉 Trening na dzień ${dayName} ukończony! Zapisano w historii globalnej (+120 XP).`);
+            addXP(150);
+            alert(`🎉 Sesja Lyfta "${dayName}" pomyślnie ukończona! Zapisano w pamięci aplikacji (+150 XP).`);
             window.gymData.activeWorkoutDay = null;
             window.saveGymData();
             window.renderPlan();
@@ -1317,11 +1305,11 @@
             const plan = window.gymData.workoutPlan || {};
             const activeDay = window.gymData.activeWorkoutDay;
             const badgeEl = document.getElementById('active-day-badge');
-            const banner = document.getElementById('hevy-active-workout-banner');
-            const bannerTitle = document.getElementById('hevy-active-day-title');
+            const banner = document.getElementById('lyfta-active-workout-banner');
+            const bannerTitle = document.getElementById('lyfta-active-day-title');
             
             if (activeDay) {
-                badgeEl.innerText = `🟢 Sesja w toku: ${activeDay}`;
+                badgeEl.innerText = `🟢 Sesja Lyfta w toku: ${activeDay}`;
                 badgeEl.style.color = "var(--success)";
                 badgeEl.style.borderColor = "rgba(34,197,94,0.4)";
                 badgeEl.style.background = "rgba(34,197,94,0.1)";
@@ -1330,7 +1318,7 @@
                     bannerTitle.innerText = activeDay;
                 }
             } else {
-                badgeEl.innerText = "⚠️ Brak wybranego dnia (Rozpocznij Sesję)";
+                badgeEl.innerText = "⚠️ Wybierz dzień i zacznij trening";
                 badgeEl.style.color = "var(--gold)";
                 badgeEl.style.borderColor = "rgba(250,204,21,0.3)";
                 badgeEl.style.background = "rgba(250,204,21,0.1)";
@@ -1382,7 +1370,7 @@
                             <span style="color:var(--gold); font-size:0.72rem;">${w.tonnage} kg ▾</span>
                         </summary>
                         <div style="margin-top: 8px;">
-                            <div style="color:var(--text-muted); margin-bottom:6px;">Łączny Tonaż: <strong style="color:var(--gold);">${w.tonnage} kg</strong> | Zaliczone serie: ${w.setsCount}</div>
+                            <div style="color:var(--text-muted); margin-bottom:6px;">Tonaż: <strong style="color:var(--gold);">${w.tonnage} kg</strong> | Zaliczone: ${w.setsCount}</div>
                             ${exercisesHtml}
                         </div>
                     </details>
@@ -1398,9 +1386,9 @@
 
             const maxPr = prValues.length > 0 ? Math.max(...prValues) : 0;
             let rank = "🏋 Początkujący";
-            if (maxPr >= 160) rank = "🔥 World Elite / Beast";
-            else if (maxPr >= 120) rank = "⚡ Zaawansowany Pro";
-            else if (maxPr >= 80) rank = "💪 Średniozaawansowany";
+            if (maxPr >= 170) rank = "🔥 Lyfta Pro Master";
+            else if (maxPr >= 125) rank = "⚡ Zaawansowany";
+            else if (maxPr >= 85) rank = "💪 Średniozaawansowany";
 
             document.getElementById('player-strength-rank').innerText = rank;
         }
@@ -1430,7 +1418,7 @@
             if (!window.gymData.workoutPlan[day]) window.gymData.workoutPlan[day] = [];
 
             let setsArr = [];
-            for(let i=1; i<=setsCount; i++) setsArr.push({ setNum: i, type: 'Robocza', weight: weight, reps: reps, done: false });
+            for(let i=1; i<=setsCount; i++) setsArr.push({ setNum: i, type: 'Robocza', weight: weight, reps: reps, rpe: '8', done: false });
 
             window.gymData.workoutPlan[day].push({ id: Date.now(), name: selectedAtlasName, sets: setsArr });
             window.saveGymData();
@@ -1443,7 +1431,7 @@
             const ex = window.gymData.workoutPlan[day].find(item => item.id === exId);
             if (ex) {
                 const nextNum = ex.sets.length + 1;
-                ex.sets.push({ setNum: nextNum, type: 'Robocza', weight: '', reps: '', done: false });
+                ex.sets.push({ setNum: nextNum, type: 'Robocza', weight: '', reps: '', rpe: '8.5', done: false });
                 window.saveGymData();
                 window.renderPlan();
             }
@@ -1475,8 +1463,8 @@
             if (ex && ex.sets[setIndex]) {
                 ex.sets[setIndex].done = !ex.sets[setIndex].done;
                 if(ex.sets[setIndex].done) {
-                    playBeep(900, 0.12);
-                    addXP(6);
+                    playBeep(920, 0.12);
+                    addXP(8);
                 }
                 checkAndLogCompletedWorkout(day);
 
@@ -1505,7 +1493,7 @@
                         const r = parseFloat(s.reps) || 0;
                         const t = w * r;
                         totalTonnage += t;
-                        detailsArr.push(`S${s.setNum}: ${w}kg × ${r}pow`);
+                        detailsArr.push(`S${s.setNum}: ${w}kg × ${r}pow (RPE ${s.rpe||8})`);
                     }
                 });
                 if (detailsArr.length > 0) {
@@ -1517,7 +1505,6 @@
             });
 
             if(!window.gymData.workouts) window.gymData.workouts = [];
-            
             const existingIndex = window.gymData.workouts.findIndex(w => w.dayName === dayName);
 
             if (hasAnyDone && totalSets > 0) {
@@ -1549,18 +1536,18 @@
         }
 
         function generatePresetPlanPPL() {
-            if(!confirm("Wgrać elitarny plan Push/Pull/Legs Pro?")) return;
+            if(!confirm("Wgrać profesjonalny plan Lyfta Push/Pull/Legs Pro?")) return;
             window.gymData.workoutPlan = {
                 'Poniedziałek': [
-                    { id: 101, name: 'Wyciskanie sztangi na ławce poziomej', sets: [{setNum:1,type:'Rozgrzewka',weight:'50',reps:'12',done:false},{setNum:2,type:'Robocza',weight:'85',reps:'8',done:false},{setNum:3,type:'Robocza',weight:'85',reps:'8',done:false}] },
-                    { id: 102, name: 'Wyciskanie żołnierskie (OHP)', sets: [{setNum:1,type:'Robocza',weight:'55',reps:'8',done:false},{setNum:2,type:'Robocza',weight:'55',reps:'8',done:false}] }
+                    { id: 101, name: 'Wyciskanie sztangi na ławce poziomej', sets: [{setNum:1,type:'Rozgrzewka',weight:'50',reps:'12',rpe:'6',done:false},{setNum:2,type:'Robocza',weight:'90',reps:'8',rpe:'8.5',done:false},{setNum:3,type:'Robocza',weight:'90',reps:'8',rpe:'9',done:false}] },
+                    { id: 102, name: 'Wyciskanie żołnierskie (OHP)', sets: [{setNum:1,type:'Robocza',weight:'60',reps:'8',rpe:'8.5',done:false},{setNum:2,type:'Robocza',weight:'60',reps:'8',rpe:'9',done:false}] }
                 ],
                 'Wtorek': [
-                    { id: 201, name: 'Podciąganie na drążku nachwytem', sets: [{setNum:1,type:'Robocza',weight:'0',reps:'8',done:false},{setNum:2,type:'Robocza',weight:'0',reps:'8',done:false}] },
-                    { id: 202, name: 'Wiosłowanie sztangą w opadzie tułowia', sets: [{setNum:1,type:'Robocza',weight:'75',reps:'10',done:false}] }
+                    { id: 201, name: 'Podciąganie na drążku nachwytem', sets: [{setNum:1,type:'Robocza',weight:'0',reps:'8',rpe:'8',done:false},{setNum:2,type:'Robocza',weight:'0',reps:'8',rpe:'9',done:false}] },
+                    { id: 202, name: 'Wiosłowanie sztangą w opadzie tułowia', sets: [{setNum:1,type:'Robocza',weight:'80',reps:'10',rpe:'8.5',done:false}] }
                 ],
                 'Środa': [
-                    { id: 301, name: 'Przysiad ze sztangą na plecach', sets: [{setNum:1,type:'Rozgrzewka',weight:'60',reps:'10',done:false},{setNum:2,type:'Robocza',weight: '110',reps:'8',done:false}] }
+                    { id: 301, name: 'Przysiad ze sztangą na plecach', sets: [{setNum:1,type:'Rozgrzewka',weight:'60',reps:'10',rpe:'6',done:false},{setNum:2,type:'Robocza',weight:'120',reps:'6',rpe:'9',done:false}] }
                 ]
             };
             window.saveGymData();
@@ -1586,14 +1573,14 @@
                                 <span style="font-size:0.82rem; color:var(--text-muted);">▸</span>
                                 <span style="font-weight:900;">${day}</span>
                                 <span style="font-size:0.75rem; color:var(--text-muted); font-weight:600;">(${exCount} ćwiczeń)</span>
-                                ${isActive ? '<span style="font-size:0.68rem; background:var(--primary); color:#050507; padding:2px 8px; border-radius:6px; margin-left:6px; font-weight:800;">AKTYWNA SESJA</span>' : ''}
+                                ${isActive ? '<span style="font-size:0.68rem; background:var(--primary); color:#030305; padding:2px 8px; border-radius:6px; margin-left:6px; font-weight:800;">AKTYWNA SESJA</span>' : ''}
                             </div>
                             <div style="display:flex; gap:6px; align-items:center;" onclick="event.stopPropagation();">
                                 <button class="btn btn-sm ${isActive?'btn-success':''}" style="padding:5px 12px; font-size:0.75rem;" onclick="startActiveWorkoutDay('${day}')">${isActive ? '▶ Rozpoczęty' : 'Rozpocznij Trening'}</button>
                             </div>
                         </summary>
                         <div class="day-content">
-                            ${list.length===0?'<p style="font-size:0.78rem; color:var(--text-muted); padding:8px 0;">Brak dodanych ćwiczeń w tej rutynie.</p>':''}
+                            ${list.length===0?'<p style="font-size:0.78rem; color:var(--text-muted); padding:8px 0;">Brak dodanych ćwiczeń w tej rutynie Lyfta.</p>':''}
                             ${list.map(ex => `
                                 <div class="exercise-item">
                                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
@@ -1601,12 +1588,13 @@
                                         <button class="btn btn-outline btn-sm" style="color:var(--danger); border:none; padding:2px 6px; font-size:0.78rem;" onclick="deletePlanExercise('${day}',${ex.id})">✕ Usuń</button>
                                     </div>
                                     
-                                    <div class="hevy-set-table">
-                                        <div class="hevy-set-header">
+                                    <div class="lyfta-set-table">
+                                        <div class="lyfta-set-header">
                                             <span>SERIA</span>
                                             <span>POPRZEDNIO</span>
                                             <span>KG</span>
                                             <span>POWT.</span>
+                                            <span>RPE</span>
                                             <span>✓</span>
                                         </div>
                                         ${(ex.sets||[]).map((s, idx) => {
@@ -1619,14 +1607,17 @@
                                             const prevText = (s.weight && s.reps) ? `${s.weight}kg × ${s.reps}` : '—';
 
                                             return `
-                                                <div class="hevy-set-row">
+                                                <div class="lyfta-set-row">
                                                     <div><span class="${badgeClass}">${badgeLabel}</span></div>
                                                     <div class="prev-stat">${prevText}</div>
                                                     <div>
-                                                        <input type="number" class="hevy-input" placeholder="0" value="${s.weight||''}" onchange="updatePlanSetData('${day}',${ex.id},${idx},'weight',this.value)">
+                                                        <input type="number" class="lyfta-input" placeholder="0" value="${s.weight||''}" onchange="updatePlanSetData('${day}',${ex.id},${idx},'weight',this.value)">
                                                     </div>
                                                     <div>
-                                                        <input type="number" class="hevy-input" placeholder="0" value="${s.reps||''}" onchange="updatePlanSetData('${day}',${ex.id},${idx},'reps',this.value)">
+                                                        <input type="number" class="lyfta-input" placeholder="0" value="${s.reps||''}" onchange="updatePlanSetData('${day}',${ex.id},${idx},'reps',this.value)">
+                                                    </div>
+                                                    <div>
+                                                        <input type="text" class="lyfta-input" placeholder="8" value="${s.rpe||'8'}" onchange="updatePlanSetData('${day}',${ex.id},${idx},'rpe',this.value)">
                                                     </div>
                                                     <div>
                                                         <button class="check-btn ${isDone ? 'completed' : ''}" onclick="togglePlanSetDone('${day}',${ex.id},${idx})">✓</button>
@@ -1642,7 +1633,7 @@
                                 </div>
                             `).join('')}
 
-                            <button class="btn btn-outline btn-sm" style="width:100%; margin-top:10px; border-style:dashed; color:var(--primary); font-weight:800; padding:10px;" onclick="openAtlasPickerForDay('${day}')">+ Dodaj ćwiczenie z Atlasu</button>
+                            <button class="btn btn-outline btn-sm" style="width:100%; margin-top:10px; border-style:dashed; color:var(--primary); font-weight:800; padding:10px;" onclick="openAtlasPickerForDay('${day}')">+ Dodaj ćwiczenie z Atlasu Lyfta</button>
                         </div>
                     </details>
                 `;
@@ -1661,7 +1652,7 @@
             if(!name || !part) return alert("Wpisz nazwę i partię mięśniową!");
             try {
                 await window.fbAddDoc(window.fbCollection(window.db, 'projects', 'd1s-gym', 'custom_atlas'), { name, part, equipment, yt, level, desc });
-                alert("Dodano ćwiczenie do globalnego Atlasu!");
+                alert("Dodano ćwiczenie do globalnego Atlasu Lyfta!");
                 document.getElementById('admin-ex-name').value = '';
                 document.getElementById('admin-ex-part').value = '';
                 document.getElementById('admin-ex-equipment').value = '';
@@ -1728,7 +1719,7 @@
                     steps, 
                     imageBase64: tempRecipeImageBase64 || null 
                 });
-                alert("Dodano przepis VIP!");
+                alert("Dodano przepis VIP Lyfta!");
                 document.getElementById('admin-rec-name').value = '';
                 document.getElementById('admin-rec-kcal').value = '';
                 document.getElementById('admin-rec-protein').value = '';
@@ -1764,7 +1755,7 @@
             const part = document.getElementById('priv-ex-part').value;
             const equipment = document.getElementById('priv-ex-eq').value.trim() || 'Inne';
             const yt = document.getElementById('priv-ex-yt').value.trim() || '';
-            const desc = document.getElementById('priv-ex-desc').value.trim() || 'Własne ćwiczenie użytkownika.';
+            const desc = document.getElementById('priv-ex-desc').value.trim() || 'Własne ćwiczenie użytkownika Lyfta.';
 
             if (!name) return alert("Podaj nazwę ćwiczenia!");
 
@@ -1785,7 +1776,7 @@
             window.saveGymData();
             closeAddPrivateExerciseModal();
             renderAtlas();
-            alert("Dodano ćwiczenie do Twojego prywatnego atlasu!");
+            alert("Dodano ćwiczenie do Twojego prywatnego atlasu Lyfta!");
 
             document.getElementById('priv-ex-name').value = '';
             document.getElementById('priv-ex-eq').value = '';
@@ -1987,9 +1978,9 @@
 
                 if (tempForumImageBase64 || content.toLowerCase().includes('form') || content.toLowerCase().includes('ocen') || content.toLowerCase().includes('plan')) {
                     setTimeout(async () => {
-                        let aiReply = "🤖 **Trener AI:** Przeanalizowałem Twoje zapytanie. Sylwetka i parametry prezentują się obiecująco. Pamiętaj o regularnej progresji ciężaru i odpowiedniej podaży białka (min. 2g na kg masy ciała).";
+                        let aiReply = "🤖 **Trener AI Lyfta:** Analiza wykonana poprawnie. Twoje obciążenia i zakresy powtórzeń wyglądają stabilnie. Pamiętaj o progresywnym przeładowaniu (progressive overload)!";
                         if(tempForumImageBase64) {
-                            aiReply = "🤖 **Trener AI:** Analiza wizualna formy zakończona. Proporcje są solidne! Aby poprawić dół klatki i grubość pleców, wdrożyłem do Twojego planu dodatkowe wiosłowanie i dipy.";
+                            aiReply = "🤖 **Trener AI Lyfta:** Analiza wizualna formy zakończona. Proporcje są solidne, sylwetka zmierza w idealnym kierunku!";
                         }
                         await window.fbAddDoc(window.fbCollection(window.db, 'projects', 'd1s-gym', 'forum'), {
                             authorName: 'Trener AI 🤖',
@@ -2120,10 +2111,10 @@
             });
             
             const adminCountEl = document.getElementById('atlas-counter');
-            if(adminCountEl) adminCountEl.innerText = `Baza ${standardList.length} ćwiczeń + ${myPrivateList.length} Twoich`;
+            if(adminCountEl) adminCountEl.innerText = `Baza ${standardList.length} ćwiczeń Lyfta + ${myPrivateList.length} Twoich`;
 
             if(items.length === 0) {
-                container.innerHTML = `<p style="color:var(--text-muted); text-align:center; grid-column:1/-1; padding:20px;">Brak ćwiczeń w tej kategorii.</p>`;
+                container.innerHTML = `<p style="color:var(--text-muted); text-align:center; grid-column:1/-1; padding:20px;">Brak ćwiczeń w tej kategorii Lyfta.</p>`;
                 return;
             }
 
@@ -2133,10 +2124,10 @@
                 const isPriv = a.isPrivate === true;
 
                 return `
-                    <div class="hevy-ex-card" onclick='openExerciseDetailsModal(${JSON.stringify(a).replace(/'/g, "&apos;")})'>
-                        <div class="hevy-ex-info">
-                            <div class="hevy-ex-title">${a.name} ${isPriv ? '⭐' : ''}</div>
-                            <div class="hevy-ex-tags">
+                    <div class="lyfta-ex-card" onclick='openExerciseDetailsModal(${JSON.stringify(a).replace(/'/g, "&apos;")})'>
+                        <div class="lyfta-ex-info">
+                            <div class="lyfta-ex-title">${a.name} ${isPriv ? '⭐' : ''}</div>
+                            <div class="lyfta-ex-tags">
                                 <span class="tag-pill muscle">${a.part}</span>
                                 <span class="tag-pill">${equipmentTag}</span>
                                 ${isPriv ? '<span class="tag-pill" style="background:rgba(192,132,252,0.15); color:var(--purple); border-color:rgba(192,132,252,0.3);">Prywatne</span>' : ''}
@@ -2203,7 +2194,7 @@
             window.saveGymData();
             closeMeasurementModal();
             renderMeasurements();
-            alert("Zapisano pomiar ciała!");
+            alert("Zapisano pomiar ciała Lyfta!");
         }
 
         function renderMeasurements() {
