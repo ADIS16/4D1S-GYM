@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>HEVY 4D1S - iOS Ultimate Edition</title>
+    <title>HEVY 4D1S - iOS Text AI Ultimate Edition</title>
     
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -15,19 +15,19 @@
 
     <style>
         :root {
-            --bg-dark: #000000; /* Pure OLED Black for iPhone */
-            --bg-card: #1c1c1e; /* Apple iOS Grouped Background */
-            --bg-input: #2c2c2e; /* Apple iOS Input Gray */
+            --bg-dark: #000000;
+            --bg-card: #1c1c1e;
+            --bg-input: #2c2c2e;
             --card-border: #38383a;
-            --primary: #0a84ff; /* Apple iOS System Blue */
+            --primary: #0a84ff;
             --primary-glow: rgba(10, 132, 255, 0.3);
-            --purple: #bf5af2; /* Apple iOS Purple */
+            --purple: #bf5af2;
             --text-main: #ffffff;
-            --text-muted: #8e8e93; /* Apple iOS Gray */
-            --success: #30d158; /* Apple iOS Green */
-            --danger: #ff453a; /* Apple iOS Red */
-            --gold: #ffd60a; /* Apple iOS Yellow */
-            --ai-glow: #ff375f; /* Apple iOS Pink */
+            --text-muted: #8e8e93;
+            --success: #30d158;
+            --danger: #ff453a;
+            --gold: #ffd60a;
+            --ai-glow: #ff375f;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; -webkit-tap-highlight-color: transparent; }
@@ -48,17 +48,16 @@
         header { display: flex; justify-content: space-between; align-items: center; padding: 12px 0 16px; border-bottom: 1px solid var(--card-border); margin-bottom: 16px; }
         .logo { font-weight: 900; font-size: 1.35rem; color: var(--text-main); display: flex; align-items: center; gap: 10px; letter-spacing: -0.5px; }
         .logo img { width: 36px; height: 36px; border-radius: 10px; object-fit: cover; border: 1px solid var(--card-border); }
-        .logo span { background: linear-gradient(135deg, #0a84ff, #bf5af2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .logo span { background: linear-gradient(135deg, #0a84ff, #ff375f); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
         .status-badge { display: flex; align-items: center; gap: 6px; font-size: 0.7rem; background: rgba(255,255,255,0.06); padding: 5px 12px; border-radius: 30px; border: 1px solid var(--card-border); backdrop-filter: blur(10px); }
         .dot { width: 7px; height: 7px; border-radius: 50%; background: #64748b; }
         .dot.online { background: var(--success); box-shadow: 0 0 10px var(--success); }
         .dot.offline { background: var(--danger); }
 
-        /* iOS Bottom Navigation Bar */
         .nav-tabs { 
             position: fixed; bottom: 0; left: 0; right: 0; 
-            background: rgba(28, 28, 30, 0.85); backdrop-filter: blur(25px);
+            background: rgba(28, 28, 30, 0.88); backdrop-filter: blur(25px);
             -webkit-backdrop-filter: blur(25px);
             border-top: 1px solid var(--card-border); 
             display: flex; justify-content: space-around; padding: 8px 4px calc(24px + env(safe-area-inset-bottom, 0px)) 4px; 
@@ -106,7 +105,6 @@
         .check-btn { width: 36px; height: 36px; border-radius: 10px; background: var(--bg-input); border: 1px solid var(--card-border); color: var(--text-muted); font-weight: 900; font-size: 0.95rem; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s; margin: 0 auto; }
         .check-btn.completed { background: var(--success); color: #fff; border-color: var(--success); box-shadow: 0 0 12px rgba(48,209,88,0.5); }
 
-        /* iOS Dynamic Island Style Timer */
         .floating-timer { position: fixed; bottom: calc(75px + env(safe-area-inset-bottom, 0px)); left: 14px; right: 14px; background: rgba(28, 28, 30, 0.92); border: 1.5px solid var(--primary); border-radius: 22px; padding: 12px 18px; box-shadow: 0 15px 40px rgba(0,0,0,0.9); display: flex; align-items: center; justify-content: space-between; z-index: 900; backdrop-filter: blur(25px); }
         
         .water-progress { width: 100%; height: 12px; background: rgba(0,0,0,0.6); border-radius: 6px; overflow: hidden; border: 1px solid var(--card-border); margin: 8px 0; }
@@ -117,21 +115,24 @@
         .pill-btn { background: var(--bg-input); border: 1px solid var(--card-border); color: var(--text-muted); padding: 8px 16px; border-radius: 20px; font-weight: 700; font-size: 0.75rem; cursor: pointer; white-space: nowrap; }
         .pill-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
 
-        .hevy-ex-card { background: var(--bg-input); border: 1px solid var(--card-border); border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 10px; cursor: pointer; transition: 0.15s; }
+        .hevy-ex-card { background: var(--bg-input); border: 1px solid var(--card-border); border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 10px; cursor: pointer; }
         .hevy-ex-title { font-size: 0.95rem; font-weight: 800; color: #fff; margin-bottom: 4px; }
         .tag-pill { font-size: 0.65rem; font-weight: 700; padding: 3px 8px; border-radius: 6px; background: rgba(255,255,255,0.06); color: var(--text-muted); text-transform: uppercase; }
         .tag-pill.muscle { background: rgba(10, 132, 255, 0.2); color: var(--primary); }
-
         .btn-add-circle { width: 34px; height: 34px; border-radius: 50%; background: rgba(10, 132, 255, 0.2); border: 1px solid rgba(10, 132, 255, 0.4); color: var(--primary); font-size: 1.2rem; font-weight: 800; display: flex; align-items: center; justify-content: center; cursor: pointer; }
 
         .modal-overlay { position: fixed; top:0; left:0; right:0; bottom:0; background: rgba(0,0,0,0.85); backdrop-filter: blur(15px); display: none; align-items: center; justify-content: center; z-index: 1100; padding: 16px; }
         .modal-body { background: var(--bg-card); border: 1px solid var(--card-border); border-radius: 24px; padding: 22px; width: 100%; max-width: 440px; box-shadow: 0 20px 50px rgba(0,0,0,0.95); max-height: 90vh; overflow-y: auto; }
-
         .stat-box { background: rgba(255,255,255,0.03); border: 1px solid var(--card-border); padding: 12px; border-radius: 14px; text-align: center; }
 
-        /* Pływający mikrofon AI */
-        .ai-floating-mic { position: fixed; bottom: calc(150px + env(safe-area-inset-bottom, 0px)); right: 16px; width: 58px; height: 58px; border-radius: 50%; background: linear-gradient(135deg, #0a84ff, #ff375f); border: none; color: white; font-size: 1.6rem; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 8px 25px rgba(255,55,95,0.5); z-index: 950; animation: pulse-ai 2s infinite; }
-        @keyframes pulse-ai { 0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,55,95,0.7); } 70% { transform: scale(1.06); box-shadow: 0 0 0 14px rgba(255,55,95,0); } 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,55,95,0); } }
+        /* AI Chat Window Styles */
+        .ai-chat-container { display: flex; flex-direction: column; height: 420px; background: #000000; border: 1px solid var(--card-border); border-radius: 16px; padding: 12px; overflow: hidden; }
+        .ai-chat-messages { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; padding-bottom: 8px; scrollbar-width: none; }
+        .ai-chat-messages::-webkit-scrollbar { display: none; }
+        .ai-bubble { max-width: 85%; padding: 10px 14px; border-radius: 14px; font-size: 0.82rem; line-height: 1.4; word-break: break-word; }
+        .ai-bubble.user { background: var(--primary); color: #fff; align-self: flex-end; border-bottom-right-radius: 4px; }
+        .ai-bubble.assistant { background: var(--bg-input); color: var(--text-main); align-self: flex-start; border: 1px solid var(--card-border); border-bottom-left-radius: 4px; }
+        .ai-input-row { display: flex; gap: 8px; margin-top: 8px; }
     </style>
 
     <script type="module">
@@ -198,7 +199,6 @@
                         userData.role = userData.role || 'user';
                         window.currentUserRole = userData.role;
                         window.currentUsername = userData.username || user.email.split('@')[0];
-                        window.permissions = userData.permissions || { canBlock: false, canDeletePosts: false };
 
                         await setDoc(userDocRef, { username: window.currentUsername, isOnline: true }, { merge: true });
                         document.getElementById('user-username-display').innerText = window.currentUsername;
@@ -209,10 +209,8 @@
                         document.getElementById('tab-vip-btn').style.display = ['owner', 'admin', 'vip'].includes(window.currentUserRole) ? 'flex' : 'none';
 
                         if (['owner', 'admin'].includes(window.currentUserRole)) window.loadAdminUserList();
-                        window.renderPlan(); window.renderAchievements(); window.updateWaterUI(); window.updateWorkoutStats(); window.renderMeasurements();
+                        window.renderPlan(); window.renderAchievements(); window.updateWaterUI(); window.updateWorkoutStats();
                     });
-
-                    window.listenToLiveBases(); window.listenToForumPosts();
                 } else {
                     verificationScreen.style.display = 'none'; lockScreen.style.display = 'flex'; appContent.style.display = 'none';
                     document.getElementById('user-profile').style.display = 'none';
@@ -229,34 +227,13 @@
                     }, { merge: true });
                 } catch (e) { console.error(e); }
             }
-            localStorage.setItem('ios_hevy_gym_v3', JSON.stringify(window.gymData));
-        };
-
-        window.listenToLiveBases = function() {
-            if (!db) return;
-            onSnapshot(collection(db, 'projects', 'd1s-gym', 'custom_atlas'), (snap) => {
-                let items = []; snap.forEach(d => items.push({ id: d.id, ...d.data() }));
-                window.customAtlas = items; window.renderAtlas();
-            });
-            onSnapshot(collection(db, 'projects', 'd1s-gym', 'custom_recipes'), (snap) => {
-                let items = []; snap.forEach(d => items.push({ id: d.id, ...d.data() }));
-                window.customRecipes = items; window.renderRecipes();
-            });
-        };
-
-        window.listenToForumPosts = function() {
-            if (!db) return;
-            onSnapshot(collection(db, 'projects', 'd1s-gym', 'forum'), (snap) => {
-                let posts = []; snap.forEach(d => posts.push({ id: d.id, ...d.data() }));
-                posts.sort((a, b) => b.timestamp - a.timestamp); window.renderForumPosts(posts);
-            });
+            localStorage.setItem('ios_hevy_gym_v4', JSON.stringify(window.gymData));
         };
 
         function getRoleBadgeHtml(role) {
             switch(role) {
                 case 'owner': return '<span class="role-badge role-owner">👑 Szef</span>';
                 case 'admin': return '<span class="role-badge role-admin">🛡 Admin</span>';
-                case 'staff': return '<span class="role-badge role-staff">🛠 Staff</span>';
                 case 'vip': return '<span class="role-badge role-vip">🌟 VIP</span>';
                 default: return '<span class="role-badge role-user">🏋 Athlete</span>';
             }
@@ -265,9 +242,6 @@
     </script>
 </head>
 <body>
-
-    <!-- ASYSTENT GŁOSOWY AI (WIDGET W ROGU) -->
-    <button class="ai-floating-mic" onclick="toggleVoiceAssistant()" title="AI Voice Assistant">🎙️</button>
 
     <div class="container">
         <header>
@@ -320,7 +294,7 @@
                     <span style="font-size: 1.1rem;">🔍</span> Atlas
                 </button>
                 <button id="nav-btn-ai" class="tab-btn" style="color: var(--ai-glow);" onclick="switchTab('tab-ai')">
-                    <span style="font-size: 1.1rem;">🧠</span> AI Coach
+                    <span style="font-size: 1.1rem;">🤖</span> AI Chat
                 </button>
                 <button id="nav-btn-plate" class="tab-btn" style="color: var(--gold);" onclick="switchTab('tab-plate')">
                     <span style="font-size: 1.1rem;">⚖️</span> Talerze
@@ -336,10 +310,11 @@
                 </button>
             </div>
 
+            <!-- TRENING -->
             <div id="tab-plan" class="tab-content">
                 <div class="grid">
                     <div>
-                        <div id="hevy-active-workout-banner" style="display:none; background: var(--bg-card); border: 1.5px solid var(--primary); padding: 14px 18px; border-radius: 20px; margin-bottom: 16px; align-items: center; justify-content: space-between; box-shadow: 0 10px 30px rgba(10,132,255,0.25);">
+                        <div id="hevy-active-workout-banner" style="display:none; background: var(--bg-card); border: 1.5px solid var(--primary); padding: 14px 18px; border-radius: 20px; margin-bottom: 16px; align-items: center; justify-content: space-between;">
                             <div>
                                 <div style="font-size: 0.68rem; color: var(--primary); font-weight: 800; text-transform: uppercase;">Aktywna Sesja iOS</div>
                                 <div id="hevy-active-day-title" style="font-size: 1.1rem; font-weight: 900; color: #fff;"></div>
@@ -347,23 +322,10 @@
                             <button class="btn btn-success" style="font-size:0.8rem; padding: 8px 14px;" onclick="finishActiveWorkoutSession()">✓ Zakończ</button>
                         </div>
 
-                        <!-- AI OVERLOAD -->
                         <div class="card" style="border: 1px solid var(--ai-glow); background: rgba(255,55,95,0.03);">
                             <h3 style="color: var(--ai-glow); font-size: 0.95rem; font-weight: 800; margin-bottom: 6px;">🧠 AI Progressive Overload</h3>
                             <p style="font-size: 0.73rem; color: var(--text-muted); margin-bottom: 10px;">Automatyczna analiza tonażu i podbijanie ciężarów.</p>
                             <button class="btn btn-ai btn-sm" onclick="runAiSmartOverload()">✨ Optymalizuj plan</button>
-                        </div>
-
-                        <!-- BACKUP / IMPORT -->
-                        <div class="card" style="border: 1px dashed var(--primary); background: rgba(10,132,255,0.02);">
-                            <h3 style="color: #fff; font-size: 0.95rem; font-weight: 800; margin-bottom: 6px;">📂 Backup i Synchronizacja</h3>
-                            <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
-                                <label class="btn btn-outline btn-sm" style="cursor: pointer; margin: 0;">
-                                    📁 Wgraj plik JSON
-                                    <input type="file" id="import-plan-file-input" accept=".json,.txt" style="display: none;" onchange="importWorkoutPlanFromFile(event)">
-                                </label>
-                                <button class="btn btn-outline btn-sm" onclick="exportHevyBackupJSON()">💾 Eksportuj Backup</button>
-                            </div>
                         </div>
 
                         <div class="card">
@@ -382,14 +344,8 @@
                                 Brak aktywnego treningu
                             </div>
                             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px;">
-                                <div class="stat-box">
-                                    <div style="font-size: 0.65rem; color: var(--text-muted);">Tonaż</div>
-                                    <div id="stat-total-tonnage" style="font-size: 0.95rem; font-weight: 900; color: var(--gold);">0 kg</div>
-                                </div>
-                                <div class="stat-box">
-                                    <div style="font-size: 0.65rem; color: var(--text-muted);">Serie</div>
-                                    <div id="stat-total-sets" style="font-size: 0.95rem; font-weight: 900; color: var(--primary);">0</div>
-                                </div>
+                                <div class="stat-box"><div style="font-size: 0.65rem; color: var(--text-muted);">Tonaż</div><div id="stat-total-tonnage" style="font-size: 0.95rem; font-weight: 900; color: var(--gold);">0 kg</div></div>
+                                <div class="stat-box"><div style="font-size: 0.65rem; color: var(--text-muted);">Serie</div><div id="stat-total-sets" style="font-size: 0.95rem; font-weight: 900; color: var(--primary);">0</div></div>
                             </div>
 
                             <h4 style="color: var(--primary); margin-bottom: 6px; font-size: 0.85rem; font-weight:800;">💧 Woda</h4>
@@ -405,25 +361,7 @@
                 </div>
             </div>
 
-            <!-- KALKULATOR TALERZY (PLATE CALCULATOR) -->
-            <div id="tab-plate" class="tab-content" style="display: none;">
-                <div class="card">
-                    <h3 style="color: var(--gold); margin-bottom: 8px; font-size: 1.1rem;">⚖️ Kalkulator Talerzy na Sztangę</h3>
-                    <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 12px;">Wpisz całkowity ciężar, aby dowiedzieć się, jakie krążki założyć na jedną stronę.</p>
-                    
-                    <label style="font-size: 0.75rem;">Waga gryfu (kg)</label>
-                    <input type="number" id="plate-bar-weight" value="20">
-                    
-                    <label style="font-size: 0.75rem;">Docelowy ciężar (kg)</label>
-                    <input type="number" id="plate-target-weight" placeholder="np. 100" oninput="calculatePlates()">
-                    
-                    <div style="margin-top: 14px; background: #000000; padding: 14px; border-radius: 14px; border: 1px solid var(--card-border);">
-                        <h4 style="font-size: 0.85rem; color: var(--primary); margin-bottom: 6px;">Krążki na jedną stronę:</h4>
-                        <div id="plate-result-output" style="font-size: 0.85rem; font-weight: 800; color: var(--gold);">Wpisz ciężar powyżej.</div>
-                    </div>
-                </div>
-            </div>
-
+            <!-- ATLAS -->
             <div id="tab-atlas" class="tab-content" style="display: none;">
                 <div class="card">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 8px;">
@@ -441,38 +379,55 @@
                 </div>
             </div>
 
+            <!-- AI CHAT (TEKSTOWY ASYSTENT) -->
             <div id="tab-ai" class="tab-content" style="display: none;">
                 <div class="card">
-                    <h3 style="color: var(--ai-glow); margin-bottom: 6px; font-size: 1.1rem;">🧠 Asystent Głosowy AI</h3>
-                    <p style="font-size:0.78rem; color:var(--text-muted); margin-bottom:12px;">Kliknij mikrofon w prawym dolnym rogu ekranu i podyktuj wynik.</p>
-                    <div id="voice-log-status" style="background: var(--bg-input); padding: 14px; border-radius: 14px; font-size: 0.85rem; color: var(--gold); text-align: center; border: 1px solid var(--card-border);">
-                        🎙️ System gotowy do nasłuchu.
+                    <h3 style="color: var(--ai-glow); margin-bottom: 6px; font-size: 1.1rem;">🤖 AI Coach Chat</h3>
+                    <p style="font-size:0.78rem; color:var(--text-muted); margin-bottom:12px;">Zadaj pytanie dotyczące techniki, progresywnego przeładowania, diety lub planu.</p>
+                    
+                    <div class="ai-chat-container">
+                        <div id="ai-chat-messages" class="ai-chat-messages">
+                            <div class="ai-bubble assistant">Cześć! Jestem Twoim osobistym trenerem AI. W czym mogę Ci pomóc na dzisiejszym treningu?</div>
+                        </div>
+                        <div class="ai-input-row">
+                            <input type="text" id="ai-chat-input" placeholder="Napisz wiadomość do AI..." style="margin:0;" onkeydown="if(event.key==='Enter') sendAiMessage()">
+                            <button class="btn btn-ai btn-sm" onclick="sendAiMessage()">Wyślij</button>
+                        </div>
                     </div>
                 </div>
             </div>
 
+            <!-- KALKULATOR TALERZY -->
+            <div id="tab-plate" class="tab-content" style="display: none;">
+                <div class="card">
+                    <h3 style="color: var(--gold); margin-bottom: 8px; font-size: 1.1rem;">⚖️ Kalkulator Talerzy na Sztangę</h3>
+                    <label style="font-size: 0.75rem;">Waga gryfu (kg)</label>
+                    <input type="number" id="plate-bar-weight" value="20">
+                    <label style="font-size: 0.75rem;">Docelowy ciężar (kg)</label>
+                    <input type="number" id="plate-target-weight" placeholder="np. 100" oninput="calculatePlates()">
+                    <div style="margin-top: 14px; background: #000000; padding: 14px; border-radius: 14px; border: 1px solid var(--card-border);">
+                        <h4 style="font-size: 0.85rem; color: var(--primary); margin-bottom: 6px;">Krążki na jedną stronę:</h4>
+                        <div id="plate-result-output" style="font-size: 0.85rem; font-weight: 800; color: var(--gold);">Wpisz ciężar powyżej.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PROFIL -->
             <div id="tab-progress" class="tab-content" style="display: none;">
-                <div class="grid" style="grid-template-columns: 1fr;">
-                    <div class="card">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                            <h3 style="color: var(--primary); font-size: 1.1rem;">🏆 Poziom & XP</h3>
-                            <span id="player-level-text" style="font-weight: 900; color: var(--gold); font-size: 0.95rem;">LVL 1</span>
-                        </div>
-                        <div class="water-progress" style="height:10px;"><div id="xp-bar" class="water-bar"></div></div>
-                        
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 14px;">
-                            <div class="stat-box"><div style="font-size: 0.65rem; color: var(--text-muted);">Ranga</div><div id="player-strength-rank" style="font-size: 0.9rem; font-weight: 900; color: var(--primary);">Początkujący</div></div>
-                            <div class="stat-box"><div style="font-size: 0.65rem; color: var(--text-muted);">Pobite PR</div><div id="player-prs-count" style="font-size: 0.9rem; font-weight: 900; color: var(--gold);">0</div></div>
-                        </div>
-
-                        <h3 style="color: var(--primary); margin: 16px 0 8px; font-size: 0.95rem;">📊 Wykres Postępu</h3>
-                        <div style="background: #000000; padding: 12px; border-radius: 16px; border: 1px solid var(--card-border);">
-                            <canvas id="progressChart" height="130"></canvas>
-                        </div>
+                <div class="card">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                        <h3 style="color: var(--primary); font-size: 1.1rem;">🏆 Poziom & XP</h3>
+                        <span id="player-level-text" style="font-weight: 900; color: var(--gold); font-size: 0.95rem;">LVL 1</span>
+                    </div>
+                    <div class="water-progress" style="height:10px;"><div id="xp-bar" class="water-bar"></div></div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 14px;">
+                        <div class="stat-box"><div style="font-size: 0.65rem; color: var(--text-muted);">Ranga</div><div id="player-strength-rank" style="font-size: 0.9rem; font-weight: 900; color: var(--primary);">Początkujący</div></div>
+                        <div class="stat-box"><div style="font-size: 0.65rem; color: var(--text-muted);">Pobite PR</div><div id="player-prs-count" style="font-size: 0.9rem; font-weight: 900; color: var(--gold);">0</div></div>
                     </div>
                 </div>
             </div>
 
+            <!-- ADMIN -->
             <div id="tab-admin" class="tab-content" style="display: none;">
                 <div class="card card-admin">
                     <h3 style="color: var(--primary); margin-bottom: 10px; font-size: 1.1rem;">🛡️ Panel Administratora</h3>
@@ -484,7 +439,7 @@
         </div>
     </div>
 
-    <!-- MODAL DODAWANIA ĆWICZENIA -->
+    <!-- MODALE -->
     <div id="add-private-exercise-modal" class="modal-overlay">
         <div class="modal-body">
             <h3 style="color:var(--purple); margin-bottom:6px; font-size: 1.1rem;">⭐ Własne ćwiczenie</h3>
@@ -511,7 +466,7 @@
         </div>
     </div>
 
-    <!-- DYNAMIC ISLAND TIMER -->
+    <!-- TIMER -->
     <div class="floating-timer">
         <div>
             <div style="font-size: 0.58rem; color: var(--text-muted); font-weight:800;">REST TIMER</div>
@@ -526,7 +481,7 @@
     </div>
 
     <script>
-        window.gymData = JSON.parse(localStorage.getItem('ios_hevy_gym_v3')) || { workouts: [], workoutPlan: {}, activeWorkoutDay: null, xp: 0, level: 1, water: 0, prs: {}, myCustomAtlas: [], measurements: [] };
+        window.gymData = JSON.parse(localStorage.getItem('ios_hevy_gym_v4')) || { workouts: [], workoutPlan: {}, activeWorkoutDay: null, xp: 0, level: 1, water: 0, prs: {}, myCustomAtlas: [], measurements: [] };
         let isRegisterMode = false, timerInterval = null, selectedAtlasName = "";
         let selectedCategoryFilter = 'all';
 
@@ -536,7 +491,7 @@
             document.getElementById(tabId).style.display = 'block';
             const btnMap = { 'tab-plan': 'nav-btn-plan', 'tab-atlas': 'nav-btn-atlas', 'tab-ai': 'nav-btn-ai', 'tab-plate': 'nav-btn-plate', 'tab-progress': 'nav-btn-progress', 'tab-vip': 'tab-vip-btn', 'tab-admin': 'tab-admin-btn' };
             if(btnMap[tabId] && document.getElementById(btnMap[tabId])) document.getElementById(btnMap[tabId]).classList.add('active');
-            if (tabId === 'tab-progress') { renderProgressChart(); updateStrengthRank(); }
+            if (tabId === 'tab-progress') updateStrengthRank();
             if (tabId === 'tab-atlas') renderAtlas();
             if (tabId === 'tab-plan') { renderPlan(); updateWorkoutStats(); }
         }
@@ -566,82 +521,53 @@
             } catch (err) { alert('Błąd: ' + err.message); }
         }
 
-        // Kalkulator talerzy na sztangę
+        // DZIAŁAJĄCY TEKSTOWY AI COACH CZAT
+        function sendAiMessage() {
+            const input = document.getElementById('ai-chat-input');
+            const text = input.value.trim();
+            if(!text) return;
+            
+            const messagesContainer = document.getElementById('ai-chat-messages');
+            messagesContainer.innerHTML += `<div class="ai-bubble user">${text}</div>`;
+            input.value = '';
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+            setTimeout(() => {
+                let reply = "Przeanalizowałem Twoje zapytanie. Trzymaj się planu i progresuj z głową!";
+                const lower = text.toLowerCase();
+                if(lower.includes('dieta') || lower.includes('białko') || lower.includes('jeść')) {
+                    reply = "Dla optymalnego wzrostu mięśni spożywaj około 1.8 - 2.2g białka na kg masy ciała i dbaj o czystą nadwyżkę kaloryczną.";
+                } else if(lower.includes('ciężar') || lower.includes('progres') || lower.includes('siła')) {
+                    const prCount = Object.keys(window.gymData.prs || {}).length;
+                    reply = `Masz obecnie na koncie ${prCount} rekordów PR. Jeśli na treningu robisz zaplanowane powtórzenia z zapasem 1-2 powtórzeń w zapasie, czas podbić ciężar o 2.5 kg!`;
+                } else if(lower.includes('woda') || lower.includes('pić')) {
+                    reply = `Twoje dzisiejsze nawodnienie to ${window.gymData.water || 0} ml. Pamiętaj o minimum 3 litrach wody dziennie!`;
+                } else if(lower.includes('regeneracja') || lower.includes('sen')) {
+                    reply = "Regeneracja to 50% sukcesu. Zadbaj o 7-8 godzin snu każdej nocy i odpowiednie przerwy między sesjami na tę samą partię mięśniową.";
+                }
+
+                messagesContainer.innerHTML += `<div class="ai-bubble assistant">${reply}</div>`;
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }, 600);
+        }
+
         function calculatePlates() {
             const bar = parseFloat(document.getElementById('plate-bar-weight').value) || 20;
             const target = parseFloat(document.getElementById('plate-target-weight').value);
             const output = document.getElementById('plate-result-output');
-            
-            if(!target || target <= bar) {
-                output.innerText = "Docelowy ciężar musi być większy niż waga gryfu.";
-                return;
-            }
-
+            if(!target || target <= bar) { output.innerText = "Cężar musi być większy niż gryf."; return; }
             let neededPerSide = (target - bar) / 2;
-            const availablePlates = [25, 20, 15, 10, 5, 2.5, 1.25];
+            const plates = [25, 20, 15, 10, 5, 2.5, 1.25];
             let result = [];
-
-            for(let p of availablePlates) {
-                while(neededPerSide >= p) {
-                    result.push(p);
-                    neededPerSide -= p;
-                }
+            for(let p of plates) {
+                while(neededPerSide >= p) { result.push(p); neededPerSide -= p; }
             }
-
-            if(result.length === 0) {
-                output.innerText = "Brak wymaganych talerzy.";
-            } else {
-                output.innerText = result.join(' kg + ') + ' kg (na jedną stronę)';
-            }
-        }
-
-        // Asystent głosowy AI
-        function toggleVoiceAssistant() {
-            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-            if (!SpeechRecognition) return alert("Twoje urządzenie nie wspiera rozpoznawania mowy.");
-            const recognition = new SpeechRecognition();
-            recognition.lang = 'pl-PL';
-            recognition.start();
-            document.getElementById('voice-log-status').innerText = "🎤 Nasłuchuję polecenia...";
-
-            recognition.onresult = function(event) {
-                const speechResult = event.results[0][0].transcript.toLowerCase();
-                document.getElementById('voice-log-status').innerText = `Ostatnia komenda: "${speechResult}"`;
-                if(speechResult.includes('timer') || speechResult.includes('pauza')) {
-                    startTimer(90); alert("⏱️ AI: Uruchomiono timer 90s!");
-                } else {
-                    alert(`🤖 AI: Przyjęto komendę "${speechResult}".`);
-                }
-            };
+            output.innerText = result.length === 0 ? "Brak talerzy." : result.join(' kg + ') + ' kg (na jedną stronę)';
         }
 
         function runAiSmartOverload() {
             alert("🧠 AI Overload Engine podbił ciężary bazowe o 2.5 kg na podstawie Twojej historii!");
             renderPlan();
-        }
-
-        function importWorkoutPlanFromFile(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                try {
-                    const parsed = JSON.parse(e.target.result);
-                    window.gymData = parsed.workoutPlan ? parsed : { workoutPlan: parsed };
-                    window.saveGymData(); renderPlan(); updateWorkoutStats();
-                    alert("✅ Zaimportowano backup pomyślnie!");
-                } catch(err) { alert("❌ Błąd pliku: " + err.message); }
-            };
-            reader.readAsText(file);
-        }
-
-        function exportHevyBackupJSON() {
-            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(window.gymData, null, 2));
-            const downloadAnchor = document.createElement('a');
-            downloadAnchor.setAttribute("href", dataStr);
-            downloadAnchor.setAttribute("download", "ios_hevy_backup.json");
-            document.body.appendChild(downloadAnchor);
-            downloadAnchor.click(); downloadAnchor.remove();
         }
 
         function checkAndAddXPForPR(exName, weight) {
@@ -836,17 +762,6 @@
             }, 1000);
         }
         function stopTimer() { clearInterval(timerInterval); document.getElementById('timer-display').innerText = '00:00'; }
-
-        function renderProgressChart() {
-            const canvas = document.getElementById('progressChart');
-            if(!canvas) return; const ctx = canvas.getContext('2d');
-            if(window.myChart) window.myChart.destroy();
-            window.myChart = new Chart(ctx, {
-                type: 'line',
-                data: { labels: ['Start', 'Dzisiaj'], datasets: [{ label: 'Tonaż', data: [1000, 2500], borderColor: '#0a84ff', backgroundColor: 'rgba(10,132,255,0.2)', fill: true }] },
-                options: { responsive: true, maintainAspectRatio: false }
-            });
-        }
 
         async function loadAdminUserList() {
             if (!window.db) return;
