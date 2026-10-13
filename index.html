@@ -3,30 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>4D1S_GYM - Pro Fitness Ecosystem (Lyfta Style)</title>
+    <title>4D1S_GYM - Hevy 1:1 Edition</title>
     
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="4D1S_GYM">
-    <meta name="theme-color" content="#030305">
+    <meta name="theme-color" content="#0d1117">
     
+    <link id="apple-icon" rel="apple-touch-icon" href="c3e85c77-58fb-4713-b654-5eca4e3158c8.png">
+    <link id="fav-icon" rel="icon" type="image/png" href="c3e85c77-58fb-4713-b654-5eca4e3158c8.png">
+
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
         :root {
-            --bg-dark: #030305;
-            --bg-card: #0b0b0e;
-            --bg-input: #121217;
-            --card-border: #1e1e26;
-            --primary: #f472b6;
-            --primary-glow: rgba(244, 114, 182, 0.3);
+            --bg-dark: #0d1117;
+            --bg-card: #161b22;
+            --bg-input: #21262d;
+            --card-border: #30363d;
+            --primary: #3b82f6; /* Hevy Blue Accent */
+            --primary-glow: rgba(59, 130, 246, 0.2);
             --purple: #c084fc;
-            --text-main: #ffffff;
-            --text-muted: #8592a6;
-            --success: #22c55e;
-            --danger: #ef4444;
-            --gold: #facc15;
+            --text-main: #f0f6fc;
+            --text-muted: #8b949e;
+            --success: #238636; /* Hevy Green */
+            --danger: #f85149;
+            --gold: #d29922;
+            --owner-color: #3b82f6;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; -webkit-tap-highlight-color: transparent; }
@@ -36,21 +40,22 @@
             color: var(--text-main); 
             min-height: 100vh; 
             padding: 12px; 
-            padding-bottom: 130px; 
+            padding-bottom: 110px; 
             max-width: 100vw;
             overflow-x: hidden;
             -webkit-text-size-adjust: 100%;
         }
 
-        .container { max-width: 1250px; margin: 0 auto; width: 100%; }
+        .container { max-width: 1200px; margin: 0 auto; width: 100%; }
 
-        header { display: flex; justify-content: space-between; align-items: center; padding: 12px 6px 18px; border-bottom: 1px solid var(--card-border); margin-bottom: 18px; flex-wrap: wrap; gap: 10px; }
-        .logo { font-weight: 900; font-size: 1.6rem; color: var(--primary); letter-spacing: -0.5px; display: flex; align-items: center; gap: 12px; text-shadow: 0 0 25px var(--primary-glow); }
-        .logo-icon { width: 42px; height: 42px; border-radius: 12px; background: linear-gradient(135deg, var(--primary), var(--purple)); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; box-shadow: 0 5px 15px var(--primary-glow); }
+        header { display: flex; justify-content: space-between; align-items: center; padding: 10px 0 16px; border-bottom: 1px solid var(--card-border); margin-bottom: 15px; flex-wrap: wrap; gap: 10px; }
+        .logo { font-weight: 900; font-size: 1.35rem; color: var(--text-main); letter-spacing: -0.5px; display: flex; align-items: center; gap: 10px; }
+        .logo img { width: 36px; height: 36px; border-radius: 10px; object-fit: cover; border: 1px solid var(--card-border); }
+        .logo span { background: linear-gradient(135deg, #3b82f6, #60a5fa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        .status-badge { display: flex; align-items: center; gap: 8px; font-size: 0.72rem; background: rgba(255,255,255,0.03); padding: 6px 14px; border-radius: 30px; border: 1px solid var(--card-border); }
-        .dot { width: 8px; height: 8px; border-radius: 50%; background: #64748b; }
-        .dot.online { background: var(--success); box-shadow: 0 0 12px var(--success); }
+        .status-badge { display: flex; align-items: center; gap: 6px; font-size: 0.7rem; background: rgba(255,255,255,0.03); padding: 5px 10px; border-radius: 30px; border: 1px solid var(--card-border); }
+        .dot { width: 7px; height: 7px; border-radius: 50%; background: #64748b; }
+        .dot.online { background: var(--success); box-shadow: 0 0 8px var(--success); }
         .dot.offline { background: var(--danger); }
 
         .nav-tabs { 
@@ -58,13 +63,13 @@
             bottom: 0; 
             left: 0; 
             right: 0; 
-            background: rgba(11, 11, 14, 0.96); 
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            background: rgba(22, 27, 34, 0.95); 
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
             border-top: 1px solid var(--card-border); 
             display: flex; 
             justify-content: space-around; 
-            padding: 10px 4px 28px; 
+            padding: 8px 4px 24px; 
             z-index: 1000;
             margin: 0;
             overflow-x: auto;
@@ -76,126 +81,125 @@
             border: none; 
             color: var(--text-muted); 
             padding: 6px 6px; 
-            border-radius: 10px; 
+            border-radius: 8px; 
             font-weight: 700; 
             cursor: pointer; 
-            transition: all 0.25s ease; 
+            transition: all 0.2s ease; 
             white-space: nowrap; 
-            font-size: 0.62rem; 
+            font-size: 0.65rem; 
             display: flex; 
             flex-direction: column; 
             align-items: center; 
             gap: 3px;
         }
-        .tab-btn.active { background: rgba(244, 114, 182, 0.12); color: var(--primary); box-shadow: 0 0 18px var(--primary-glow); }
+        .tab-btn.active { background: transparent; color: var(--primary); }
 
-        .btn { background: var(--primary); color: #030305; border: none; padding: 11px 20px; border-radius: 14px; font-weight: 800; cursor: pointer; transition: all 0.2s ease; display: inline-flex; align-items: center; justify-content: center; gap: 6px; font-size: 0.88rem; text-decoration: none; box-shadow: 0 4px 18px var(--primary-glow); }
+        .btn { background: var(--primary); color: #ffffff; border: none; padding: 10px 16px; border-radius: 10px; font-weight: 800; cursor: pointer; transition: all 0.2s ease; display: inline-flex; align-items: center; justify-content: center; gap: 6px; font-size: 0.85rem; text-decoration: none; box-shadow: 0 2px 6px rgba(59, 130, 246, 0.3); }
         .btn:active { transform: scale(0.97); opacity: 0.9; }
-        .btn-sm { padding: 6px 12px; font-size: 0.75rem; border-radius: 10px; box-shadow: none; }
-        .btn-success { background: var(--success); color: #ffffff; box-shadow: 0 4px 18px rgba(34,197,94,0.3); }
+        .btn-sm { padding: 6px 10px; font-size: 0.72rem; border-radius: 8px; }
+        .btn-success { background: var(--success); box-shadow: 0 2px 6px rgba(35, 134, 54, 0.3); }
         .btn-outline { background: transparent; border: 1px solid var(--card-border); color: var(--text-main); box-shadow: none; }
         .btn-outline:active { background: rgba(255, 255, 255, 0.05); }
 
-        .card { background: var(--bg-card); border: 1px solid var(--card-border); border-radius: 20px; padding: 20px; margin-bottom: 18px; width: 100%; overflow: hidden; box-shadow: 0 12px 40px rgba(0,0,0,0.65); }
-        .card-admin { border: 1px solid rgba(244, 114, 182, 0.4); background: linear-gradient(135deg, rgba(244, 114, 182, 0.04), rgba(11,11,14,0.95)); }
+        .card { background: var(--bg-card); border: 1px solid var(--card-border); border-radius: 16px; padding: 16px; margin-bottom: 15px; width: 100%; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+        .card-admin { border: 1px solid rgba(59, 130, 246, 0.4); background: rgba(59, 130, 246, 0.02); }
 
-        .grid { display: flex; flex-direction: column; gap: 18px; width: 100%; }
-        @media (min-width: 850px) {
-            .grid { display: grid; grid-template-columns: 1fr 350px; gap: 22px; }
+        .grid { display: flex; flex-direction: column; gap: 15px; width: 100%; }
+        @media (min-width: 800px) {
+            .grid { display: grid; grid-template-columns: 1fr 340px; gap: 18px; }
         }
-        .grid-3 { display: grid; grid-template-columns: 1fr; gap: 14px; }
-        @media (min-width: 650px) {
+        .grid-3 { display: grid; grid-template-columns: 1fr; gap: 12px; }
+        @media (min-width: 600px) {
             .grid-3 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
         }
         
-        input, select, textarea { width: 100%; padding: 12px 16px; background: var(--bg-input); border: 1px solid var(--card-border); border-radius: 12px; color: white; margin-top: 4px; margin-bottom: 12px; font-size: 15px; transition: all 0.2s; -webkit-appearance: none; }
-        input:focus, select:focus, textarea:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 12px var(--primary-glow); }
+        input, select, textarea { width: 100%; padding: 10px 12px; background: var(--bg-input); border: 1px solid var(--card-border); border-radius: 10px; color: white; margin-top: 4px; margin-bottom: 10px; font-size: 15px; transition: border-color 0.2s; -webkit-appearance: none; }
+        input:focus, select:focus, textarea:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 2px var(--primary-glow); }
 
-        .role-badge { padding: 3px 10px; border-radius: 8px; font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; display: inline-block; }
-        .role-owner { background: var(--primary); color: #030305; }
-        .role-admin { background: var(--danger); color: #fff; }
+        .role-badge { padding: 3px 8px; border-radius: 6px; font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; display: inline-block; }
+        .role-owner { background: var(--primary); color: #ffffff; }
+        .role-admin { background: #f85149; color: #fff; }
         .role-staff { background: #38bdf8; color: #0d0d12; }
         .role-vip { background: var(--gold); color: #000; }
-        .role-user { background: var(--bg-input); color: var(--text-muted); border: 1px solid var(--card-border); }
+        .role-user { background: #21262d; color: var(--text-muted); }
 
-        #auth-lockscreen { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 65vh; text-align: center; }
-        #verification-screen { display: none; flex-direction: column; align-items: center; justify-content: center; min-height: 55vh; text-align: center; }
+        #auth-lockscreen { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 60vh; text-align: center; }
+        #verification-screen { display: none; flex-direction: column; align-items: center; justify-content: center; min-height: 50vh; text-align: center; }
         
-        .list-item { display: flex; justify-content: space-between; align-items: center; padding: 14px 16px; background: rgba(255,255,255,0.02); border-radius: 14px; margin-bottom: 10px; border: 1px solid var(--card-border); font-size: 0.85rem; }
+        .list-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 12px; background: rgba(255,255,255,0.02); border-radius: 10px; margin-bottom: 8px; border: 1px solid var(--card-border); font-size: 0.82rem; }
         
-        details.day-card { background: var(--bg-card); border: 1px solid var(--card-border); border-radius: 18px; margin-bottom: 14px; transition: border-color 0.3s; width: 100%; overflow: hidden; }
-        details.day-card[open] { border-color: rgba(244, 114, 182, 0.5); }
-        details.day-card.active-workout-day { border: 1.5px solid var(--primary); background: rgba(244, 114, 182, 0.03); }
+        details.day-card { background: var(--bg-card); border: 1px solid var(--card-border); border-radius: 16px; margin-bottom: 12px; transition: border-color 0.3s; width: 100%; overflow: hidden; }
+        details.day-card[open] { border-color: rgba(59, 130, 246, 0.5); }
+        details.day-card.active-workout-day { border: 1.5px solid var(--primary); background: rgba(59, 130, 246, 0.03); }
         
         summary.day-header { 
             font-weight: 800; 
             color: #fff; 
-            padding: 16px; 
+            padding: 14px 16px; 
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
-            font-size: 1.05rem; 
+            font-size: 1rem; 
             cursor: pointer; 
             user-select: none;
             list-style: none;
-            background: rgba(255,255,255,0.02);
+            background: rgba(255,255,255,0.01);
         }
         summary.day-header::-webkit-details-marker { display: none; }
-        summary.day-header:hover { background: rgba(255,255,255,0.04); }
+        summary.day-header:hover { background: rgba(255,255,255,0.03); }
 
-        .day-content { padding: 16px; border-top: 1px solid var(--card-border); }
-        .exercise-item { background: #060608; padding: 14px; border-radius: 14px; margin-bottom: 12px; border: 1px solid var(--card-border); }
+        .day-content { padding: 14px 16px; border-top: 1px solid var(--card-border); }
+        .exercise-item { background: #0d1117; padding: 12px; border-radius: 12px; margin-bottom: 12px; border: 1px solid var(--card-border); }
 
-        /* Lyfta-style table layout for sets with RPE support */
-        .lyfta-set-table { width: 100%; margin-top: 10px; border-collapse: collapse; }
-        .lyfta-set-header { display: grid; grid-template-columns: 42px 1fr 70px 70px 60px 42px; gap: 4px; text-align: center; font-size: 0.65rem; font-weight: 800; color: var(--text-muted); padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.08); text-transform: uppercase; }
-        .lyfta-set-row { display: grid; grid-template-columns: 42px 1fr 70px 70px 60px 42px; gap: 4px; align-items: center; text-align: center; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 0.8rem; }
+        .hevy-set-table { width: 100%; margin-top: 8px; border-collapse: collapse; }
+        .hevy-set-header { display: grid; grid-template-columns: 42px 1fr 75px 75px 42px; gap: 6px; text-align: center; font-size: 0.65rem; font-weight: 800; color: var(--text-muted); padding-bottom: 6px; border-bottom: 1px solid rgba(255,255,255,0.08); text-transform: uppercase; }
+        .hevy-set-row { display: grid; grid-template-columns: 42px 1fr 75px 75px 42px; gap: 6px; align-items: center; text-align: center; padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 0.78rem; }
         
-        .set-badge { background: var(--bg-input); border-radius: 7px; font-weight: 800; color: #fff; padding: 4px 0; font-size: 0.72rem; border: 1px solid var(--card-border); }
-        .set-badge.warmup { background: rgba(250, 204, 21, 0.15); color: var(--gold); border-color: rgba(250, 204, 21, 0.3); }
-        .set-badge.drop { background: rgba(192, 132, 252, 0.15); color: var(--purple); border-color: rgba(192, 132, 252, 0.3); }
+        .set-badge { background: #21262d; border-radius: 6px; font-weight: 800; color: #fff; padding: 3px 0; font-size: 0.72rem; }
+        .set-badge.warmup { background: rgba(210, 153, 34, 0.2); color: var(--gold); }
+        .set-badge.drop { background: rgba(192, 132, 252, 0.2); color: var(--purple); }
 
         .prev-stat { font-size: 0.7rem; color: var(--text-muted); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-        .lyfta-input { background: var(--bg-input); border: 1px solid var(--card-border); border-radius: 9px; padding: 7px; text-align: center; color: #fff; font-weight: 700; font-size: 0.85rem; margin: 0; }
-        .lyfta-input:focus { border-color: var(--primary); background: #060608; }
+        .hevy-input { background: #21262d; border: 1px solid var(--card-border); border-radius: 8px; padding: 6px; text-align: center; color: #fff; font-weight: 700; font-size: 0.85rem; margin: 0; }
+        .hevy-input:focus { border-color: var(--primary); background: #0d1117; }
 
-        .check-btn { width: 34px; height: 34px; border-radius: 9px; background: var(--bg-input); border: 1px solid var(--card-border); color: var(--text-muted); font-weight: 900; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; margin: 0 auto; }
-        .check-btn.completed { background: var(--success); color: #ffffff; border-color: var(--success); box-shadow: 0 0 12px rgba(34,197,94,0.4); }
+        .check-btn { width: 34px; height: 34px; border-radius: 8px; background: #21262d; border: 1px solid var(--card-border); color: var(--text-muted); font-weight: 900; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; margin: 0 auto; }
+        .check-btn.completed { background: var(--success); color: #ffffff; border-color: var(--success); box-shadow: 0 0 10px rgba(35, 134, 54, 0.4); }
 
-        .floating-timer { position: fixed; bottom: 84px; left: 12px; right: 12px; background: rgba(11, 11, 14, 0.96); border: 1px solid var(--card-border); border-radius: 20px; padding: 12px 18px; box-shadow: 0 15px 45px rgba(0,0,0,0.85); display: flex; align-items: center; justify-content: space-between; z-index: 900; backdrop-filter: blur(18px); flex-wrap: wrap; gap: 10px; }
+        .floating-timer { position: fixed; bottom: 78px; left: 12px; right: 12px; background: rgba(22, 27, 34, 0.96); border: 1px solid var(--card-border); border-radius: 16px; padding: 10px 14px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: space-between; z-index: 900; backdrop-filter: blur(14px); flex-wrap: wrap; gap: 8px; }
         
-        .water-progress { width: 100%; height: 12px; background: rgba(0,0,0,0.6); border-radius: 8px; overflow: hidden; border: 1px solid var(--card-border); margin: 8px 0; }
-        .water-bar { height: 100%; width: 0%; background: linear-gradient(90deg, var(--primary), var(--purple)); transition: width 0.4s; }
+        .water-progress { width: 100%; height: 10px; background: rgba(0,0,0,0.6); border-radius: 6px; overflow: hidden; border: 1px solid var(--card-border); margin: 6px 0; }
+        .water-bar { height: 100%; width: 0%; background: var(--primary); transition: width 0.3s; }
 
-        .filter-pills-scroll { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; padding-bottom: 8px; margin-bottom: 14px; }
+        .filter-pills-scroll { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; padding-bottom: 8px; margin-bottom: 12px; }
         .filter-pills-scroll::-webkit-scrollbar { display: none; }
-        .pill-btn { background: var(--bg-input); border: 1px solid var(--card-border); color: var(--text-muted); padding: 8px 18px; border-radius: 24px; font-weight: 700; font-size: 0.78rem; cursor: pointer; white-space: nowrap; transition: all 0.2s; }
-        .pill-btn.active { background: var(--primary); color: #030305; border-color: var(--primary); box-shadow: 0 0 14px var(--primary-glow); }
+        .pill-btn { background: #21262d; border: 1px solid var(--card-border); color: var(--text-muted); padding: 6px 14px; border-radius: 20px; font-weight: 700; font-size: 0.75rem; cursor: pointer; white-space: nowrap; transition: all 0.2s; }
+        .pill-btn.active { background: var(--primary); color: #ffffff; border-color: var(--primary); }
 
-        .lyfta-ex-card { background: var(--bg-input); border: 1px solid var(--card-border); border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 10px; cursor: pointer; transition: transform 0.15s ease, border-color 0.15s ease; position: relative; }
-        .lyfta-ex-card:active { transform: scale(0.98); }
-        .lyfta-ex-card:hover { border-color: rgba(244, 114, 182, 0.6); }
+        .hevy-ex-card { background: #21262d; border: 1px solid var(--card-border); border-radius: 14px; padding: 12px; display: flex; flex-direction: column; gap: 10px; cursor: pointer; transition: transform 0.15s ease, border-color 0.15s ease; position: relative; }
+        .hevy-ex-card:active { transform: scale(0.98); }
+        .hevy-ex-card:hover { border-color: rgba(59, 130, 246, 0.6); }
         
-        .lyfta-ex-info { flex: 1; min-width: 0; }
-        .lyfta-ex-title { font-size: 0.95rem; font-weight: 800; color: #fff; margin-bottom: 4px; }
-        .lyfta-ex-tags { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; margin-top: 6px; }
-        .tag-pill { font-size: 0.65rem; font-weight: 700; padding: 3px 8px; border-radius: 7px; background: rgba(255,255,255,0.05); color: var(--text-muted); border: 1px solid rgba(255,255,255,0.08); text-transform: uppercase; }
-        .tag-pill.muscle { background: rgba(244, 114, 182, 0.15); color: var(--primary); border-color: rgba(244, 114, 182, 0.3); }
+        .hevy-ex-info { flex: 1; min-width: 0; }
+        .hevy-ex-title { font-size: 0.92rem; font-weight: 800; color: #fff; margin-bottom: 4px; }
+        .hevy-ex-tags { display: flex; gap: 5px; flex-wrap: wrap; align-items: center; margin-top: 6px; }
+        .tag-pill { font-size: 0.62rem; font-weight: 700; padding: 2px 7px; border-radius: 6px; background: rgba(255,255,255,0.06); color: var(--text-muted); border: 1px solid rgba(255,255,255,0.08); text-transform: uppercase; }
+        .tag-pill.muscle { background: rgba(59, 130, 246, 0.15); color: var(--primary); border-color: rgba(59, 130, 246, 0.3); }
 
-        .btn-add-circle { width: 34px; height: 34px; border-radius: 50%; background: rgba(244, 114, 182, 0.15); border: 1px solid rgba(244, 114, 182, 0.4); color: var(--primary); font-size: 1.2rem; font-weight: 800; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; flex-shrink: 0; }
-        .btn-add-circle:hover { background: var(--primary); color: #030305; box-shadow: 0 0 12px var(--primary-glow); }
+        .btn-add-circle { width: 32px; height: 32px; border-radius: 50%; background: rgba(59, 130, 246, 0.15); border: 1px solid rgba(59, 130, 246, 0.4); color: var(--primary); font-size: 1.1rem; font-weight: 800; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; flex-shrink: 0; }
+        .btn-add-circle:hover { background: var(--primary); color: #fff; }
 
-        .recipe-card { background: rgba(0, 0, 0, 0.25); border: 1px solid var(--card-border); border-radius: 16px; padding: 16px; display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.2s; cursor: pointer; }
-        .recipe-card:hover { border-color: rgba(250, 204, 21, 0.6); transform: translateY(-2px); }
-        .macro-row { display: flex; gap: 6px; flex-wrap: wrap; margin: 8px 0; }
-        .macro-row span { font-size: .72rem; font-weight: 700; padding: 4px 8px; border-radius: 7px; background: rgba(255,255,255,.04); border: 1px solid var(--card-border); }
+        .recipe-card { background: rgba(0, 0, 0, 0.2); border: 1px solid var(--card-border); border-radius: 12px; padding: 14px; display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.2s; cursor: pointer; }
+        .recipe-card:hover { border-color: rgba(210, 153, 34, 0.5); }
+        .macro-row { display: flex; gap: 6px; flex-wrap: wrap; margin: 6px 0; }
+        .macro-row span { font-size: .68rem; font-weight: 700; padding: 3px 6px; border-radius: 6px; background: rgba(255,255,255,.05); border: 1px solid var(--card-border); }
 
-        .modal-overlay { position: fixed; top:0; left:0; right:0; bottom:0; background: rgba(0,0,0,0.88); backdrop-filter: blur(12px); display: none; align-items: center; justify-content: center; z-index: 1100; padding: 12px; }
-        .modal-body { background: var(--bg-card); border: 1px solid var(--card-border); border-radius: 22px; padding: 24px; width: 100%; max-width: 480px; box-shadow: 0 20px 50px rgba(0,0,0,0.95); max-height: 90vh; overflow-y: auto; }
+        .modal-overlay { position: fixed; top:0; left:0; right:0; bottom:0; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); display: none; align-items: center; justify-content: center; z-index: 1100; padding: 12px; }
+        .modal-body { background: var(--bg-card); border: 1px solid var(--card-border); border-radius: 18px; padding: 18px; width: 100%; max-width: 440px; box-shadow: 0 10px 30px rgba(0,0,0,0.9); max-height: 90vh; overflow-y: auto; }
 
-        .chat-img-preview { max-width: 100%; max-height: 260px; border-radius: 12px; margin-top: 8px; border: 1px solid var(--card-border); object-fit: contain; background: #000; display: block; }
-        .stat-box { background: rgba(255,255,255,0.02); border: 1px solid var(--card-border); padding: 14px; border-radius: 14px; text-align: center; }
+        .chat-img-preview { max-width: 100%; max-height: 240px; border-radius: 10px; margin-top: 6px; border: 1px solid var(--card-border); object-fit: contain; background: #000; display: block; }
+        .stat-box { background: rgba(255,255,255,0.03); border: 1px solid var(--card-border); padding: 10px; border-radius: 12px; text-align: center; }
     </style>
 
     <script type="module">
@@ -285,7 +289,7 @@
 
                     onSnapshot(userDocRef, async (snap) => {
                         dot.className = "dot online";
-                        txt.innerText = "Zalogowano (Lyfta Pro)";
+                        txt.innerText = "Online";
                         let userData = snap.exists() ? snap.data() : {};
                         
                         userData.role = userData.role || 'user';
@@ -295,34 +299,12 @@
 
                         await setDoc(userDocRef, { 
                             username: window.currentUsername,
-                            role: window.currentUserRole,
                             isOnline: true, 
                             lastSeen: new Date().toLocaleString('pl-PL') 
                         }, { merge: true });
 
                         document.getElementById('user-username-display').innerText = window.currentUsername;
-                        
-                        if (!userData.gym_data || userData.gym_data.resetVersion !== '2026_lyfta_style_v5') {
-                            userData.gym_data = {
-                                resetVersion: '2026_lyfta_style_v5',
-                                workouts: [],
-                                workoutPlan: {},
-                                activeWorkoutDay: null,
-                                xp: 0,
-                                level: 1,
-                                water: 0,
-                                prs: {},
-                                myCustomAtlas: [],
-                                bodyMeasurements: []
-                            };
-                            await setDoc(userDocRef, { gym_data: userData.gym_data }, { merge: true });
-                        }
-
-                        window.gymData = userData.gym_data;
-
-                        await setDoc(userDocRef, { 
-                            globalStats: { level: window.gymData.level, xp: window.gymData.xp, username: window.currentUsername } 
-                        }, { merge: true });
+                        window.gymData = userData.gym_data || { workouts: [], workoutPlan: {}, activeWorkoutDay: null, xp: 0, level: 1, water: 0, prs: {}, myCustomAtlas: [] };
 
                         document.getElementById('user-role-tag').innerHTML = getRoleBadgeHtml(window.currentUserRole);
 
@@ -335,8 +317,6 @@
                         window.renderAchievements();
                         window.updateWaterUI();
                         window.updateWorkoutStats();
-                        window.renderMeasurements();
-                        window.loadGlobalLeaderboard();
                     });
 
                     window.listenToLiveBases();
@@ -350,7 +330,7 @@
                     document.getElementById('tab-admin-btn').style.display = 'none';
                     document.getElementById('tab-vip-btn').style.display = 'none';
                     dot.className = "dot offline";
-                    txt.innerText = "Niezalogowany";
+                    txt.innerText = "Offline";
                 }
             });
         }
@@ -361,8 +341,7 @@
                     await setDoc(doc(db, 'projects', 'd1s-gym', 'users', auth.currentUser.uid), { 
                         username: window.currentUsername || 'Użytkownik',
                         role: window.currentUserRole || 'user',
-                        gym_data: window.gymData,
-                        globalStats: { level: window.gymData.level, xp: window.gymData.xp, username: window.currentUsername }
+                        gym_data: window.gymData 
                     }, { merge: true });
                 } catch (e) { console.error(e); }
             }
@@ -402,7 +381,7 @@
                 case 'admin': return '<span class="role-badge role-admin">🛡 Admin</span>';
                 case 'staff': return '<span class="role-badge role-staff">🛠 Staff</span>';
                 case 'vip': return '<span class="role-badge role-vip">🌟 VIP</span>';
-                default: return '<span class="role-badge role-user">🏋 Gracz Lyfta</span>';
+                default: return '<span class="role-badge role-user">🏋 Athlete</span>';
             }
         }
         window.getRoleBadgeHtml = getRoleBadgeHtml;
@@ -413,46 +392,46 @@
     <div class="container">
         <header>
             <div class="logo">
-                <div class="logo-icon">⚡</div>
-                <span>4D1S_GYM <span style="font-size:0.65rem; color:var(--primary); font-weight:700; background:rgba(244,114,182,0.15); padding:2px 8px; border-radius:6px; vertical-align:middle;">LYFTA PRO</span></span>
+                <img src="c3e85c77-58fb-4713-b654-5eca4e3158c8.png" alt="Logo">
+                <span>4D1S_GYM <small style="font-size:0.6rem; color:var(--text-muted);">HEVY 1:1</small></span>
             </div>
-            <div style="display: flex; gap: 8px; align-items: center;">
+            <div style="display: flex; gap: 6px; align-items: center;">
                 <div class="status-badge">
                     <div id="status-dot" class="dot offline"></div>
                     <span id="status-text">Łączenie...</span>
                 </div>
-                <div id="user-profile" style="display: none; align-items: center; gap: 8px;">
+                <div id="user-profile" style="display: none; align-items: center; gap: 6px;">
                     <span id="user-role-tag"></span>
-                    <span id="user-username-display" style="font-size: 0.82rem; font-weight: 800; color: var(--text-main);"></span>
+                    <span id="user-username-display" style="font-size: 0.8rem; font-weight: 800; color: var(--text-main);"></span>
                     <button class="btn btn-outline btn-sm" onclick="window.authApi.out()" title="Wyloguj">✕</button>
                 </div>
             </div>
         </header>
 
         <div id="verification-screen" class="card">
-            <div style="width: 64px; height: 64px; border-radius: 16px; background: linear-gradient(135deg, var(--primary), var(--purple)); display: flex; align-items: center; justify-content: center; font-size: 2rem; margin: 0 auto 14px; box-shadow: 0 4px 15px var(--primary-glow);">✉️</div>
-            <h2 style="margin-bottom: 8px; color: var(--primary); font-size: 1.25rem;">Potwierdź swój adres e-mail</h2>
-            <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:18px; max-width: 360px;">
-                Na Twój adres e-mail została wysłana wiadomość aktywacyjna. Kliknij w link zawarty w wiadomości, aby uzyskać pełny dostęp do ekosystemu w stylu Lyfta.
+            <img src="c3e85c77-58fb-4713-b654-5eca4e3158c8.png" alt="Logo" style="width: 64px; height: 64px; border-radius: 14px; object-fit: cover; margin: 0 auto 12px; border: 1px solid var(--card-border); display: block;">
+            <h2 style="margin-bottom: 8px; color: var(--primary); font-size: 1.2rem;">Potwierdź swój adres e-mail</h2>
+            <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:15px; max-width: 340px;">
+                Na Twój adres e-mail wysłaliśmy link aktywacyjny. Kliknij w niego, aby odblokować dostęp.
             </p>
-            <div style="display: flex; flex-direction: column; gap: 10px; width: 100%; max-width: 280px; margin: 0 auto;">
+            <div style="display: flex; flex-direction: column; gap: 8px; width: 100%; max-width: 260px; margin: 0 auto;">
                 <button class="btn" onclick="location.reload()">Sprawdzam / Odśwież</button>
                 <button class="btn btn-outline" onclick="window.authApi.resendVerification()">Wyślij e-mail ponownie</button>
-                <button class="btn btn-outline" style="color: var(--danger); border-color: rgba(239,68,68,0.3);" onclick="window.authApi.out()">Wyloguj się</button>
+                <button class="btn btn-outline" style="color: var(--danger); border-color: rgba(248,81,73,0.3);" onclick="window.authApi.out()">Wyloguj się</button>
             </div>
         </div>
 
         <div id="auth-lockscreen" class="card">
-            <div style="width: 76px; height: 76px; border-radius: 20px; background: linear-gradient(135deg, var(--primary), var(--purple)); display: flex; align-items: center; justify-content: center; font-size: 2.3rem; margin-bottom: 14px; box-shadow: 0 6px 20px var(--primary-glow);">🏋️‍♂️</div>
-            <h2 id="modal-title" style="margin-bottom: 8px; color: var(--primary); font-size: 1.3rem;">Zaloguj się do 4D1S_GYM</h2>
-            <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:18px;">Najlepszy dziennik treningowy wzorowany na Lyfta – loguj serie, RPE i pobijaj rekordy.</p>
+            <img src="c3e85c77-58fb-4713-b654-5eca4e3158c8.png" alt="Logo" style="width: 72px; height: 72px; border-radius: 16px; object-fit: cover; margin-bottom: 12px; border: 1px solid var(--card-border);">
+            <h2 id="modal-title" style="margin-bottom: 8px; color: var(--primary); font-size: 1.2rem;">Logowanie Hevy 4D1S</h2>
+            <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:15px;">Zaloguj się, aby śledzić swoje treningi i postępy.</p>
             
-            <div style="width:100%; max-width:320px;">
-                <input type="text" id="auth-username" placeholder="Twój Nick w aplikacji" style="display: none;">
+            <div style="width:100%; max-width:300px;">
+                <input type="text" id="auth-username" placeholder="Twój Nick" style="display: none;">
                 <input type="email" id="auth-email" placeholder="E-mail">
                 <input type="password" id="auth-pass" placeholder="Hasło">
-                <button id="auth-submit" class="btn" style="width: 100%; margin-bottom: 10px;" onclick="handleAuth()">Zaloguj się</button>
-                <button class="btn btn-outline" style="width: 100%; border: none; font-size:0.78rem;" onclick="toggleAuthMode()" id="auth-toggle">Nie masz konta? Zarejestruj się</button>
+                <button id="auth-submit" class="btn" style="width: 100%; margin-bottom: 8px;" onclick="handleAuth()">Zaloguj się</button>
+                <button class="btn btn-outline" style="width: 100%; border: none; font-size:0.75rem;" onclick="toggleAuthMode()" id="auth-toggle">Nie masz konta? Zarejestruj się</button>
             </div>
         </div>
 
@@ -460,59 +439,56 @@
 
             <div class="nav-tabs">
                 <button id="nav-btn-plan" class="tab-btn active" onclick="switchTab('tab-plan')">
-                    <span style="font-size: 1.15rem;">📝</span> Trening
+                    <span style="font-size: 1.1rem;">📋</span> Trening
                 </button>
                 <button id="nav-btn-atlas" class="tab-btn" onclick="switchTab('tab-atlas')">
-                    <span style="font-size: 1.15rem;">🔍</span> Atlas
+                    <span style="font-size: 1.1rem;">🔍</span> Atlas
                 </button>
                 <button id="nav-btn-forum" class="tab-btn" onclick="switchTab('tab-forum')">
-                    <span style="font-size: 1.15rem;">🤖💬</span> Trener AI
+                    <span style="font-size: 1.1rem;">💬</span> Społeczność
                 </button>
                 <button id="nav-btn-progress" class="tab-btn" onclick="switchTab('tab-progress')">
-                    <span style="font-size: 1.15rem;">📈</span> Progres
-                </button>
-                <button id="nav-btn-world" class="tab-btn" onclick="switchTab('tab-world')">
-                    <span style="font-size: 1.15rem;">🌍</span> Globalni
+                    <span style="font-size: 1.1rem;">📊</span> Profil
                 </button>
                 <button id="nav-btn-calc" class="tab-btn" onclick="switchTab('tab-calc')">
-                    <span style="font-size: 1.15rem;">🧮</span> Narzędzia
+                    <span style="font-size: 1.1rem;">🧮</span> Narzędzia
                 </button>
                 <button id="tab-vip-btn" class="tab-btn" style="display: none; color: var(--gold);" onclick="switchTab('tab-vip')">
-                    <span style="font-size: 1.15rem;">🌟</span> VIP
+                    <span style="font-size: 1.1rem;">🌟</span> VIP
                 </button>
-                <button id="tab-admin-btn" class="tab-btn" style="display: none; color: var(--owner-color);" onclick="switchTab('tab-admin')">
-                    <span style="font-size: 1.15rem;">👑</span> Admin
+                <button id="tab-admin-btn" class="tab-btn" style="display: none; color: var(--primary);" onclick="switchTab('tab-admin')">
+                    <span style="font-size: 1.1rem;">🛡️</span> Admin
                 </button>
             </div>
 
             <div id="tab-plan" class="tab-content">
                 <div class="grid">
                     <div>
-                        <div id="lyfta-active-workout-banner" style="display:none; background: var(--bg-card); border: 1.5px solid var(--primary); padding: 16px; border-radius: 18px; margin-bottom: 16px; align-items: center; justify-content: space-between; box-shadow: 0 0 20px var(--primary-glow);">
+                        <div id="hevy-active-workout-banner" style="display:none; background: #161b22; border: 1px solid var(--primary); padding: 14px 16px; border-radius: 16px; margin-bottom: 15px; align-items: center; justify-content: space-between; box-shadow: 0 4px 15px rgba(59,130,246,0.2);">
                             <div>
-                                <div style="font-size: 0.7rem; color: var(--primary); font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;">Aktywna Sesja Lyfta</div>
-                                <div id="lyfta-active-day-title" style="font-size: 1.15rem; font-weight: 900; color: #fff;"></div>
+                                <div style="font-size: 0.68rem; color: var(--primary); font-weight: 800; text-transform: uppercase;">Aktywny Trening</div>
+                                <div id="hevy-active-day-title" style="font-size: 1.1rem; font-weight: 900; color: #fff;"></div>
                             </div>
-                            <button class="btn btn-success" style="font-size:0.82rem; padding: 9px 16px;" onclick="finishActiveWorkoutSession()">✓ Zakończ Trening</button>
+                            <button class="btn btn-success" style="font-size:0.8rem; padding: 8px 14px;" onclick="finishActiveWorkoutSession()">✓ Zakończ Trening</button>
                         </div>
 
                         <!-- UPLOAD PLANU Z PLIKU -->
-                        <div class="card" style="border: 1.5px dashed rgba(244, 114, 182, 0.4); background: rgba(244, 114, 182, 0.02);">
-                            <h3 style="color: #fff; font-size: 1rem; font-weight: 800; margin-bottom: 6px;">📂 Import planu (w stylu Lyfta)</h3>
-                            <p style="font-size: 0.76rem; color: var(--text-muted); margin-bottom: 12px;">Wgraj plik ze swoim planem treningowym. Aplikacja automatycznie sparsuje ćwiczenia i serie!</p>
-                            <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+                        <div class="card" style="border: 1px dashed var(--primary); background: rgba(59, 130, 246, 0.02);">
+                            <h3 style="color: #fff; font-size: 0.95rem; font-weight: 800; margin-bottom: 6px;">📂 Import planu z pliku</h3>
+                            <p style="font-size: 0.73rem; color: var(--text-muted); margin-bottom: 10px;">Wgraj plik tekstowy (.txt) lub JSON ze swoimi rutynami.</p>
+                            <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
                                 <label class="btn btn-outline btn-sm" style="cursor: pointer; margin: 0;">
-                                    📁 Wybierz plik z planem
+                                    📁 Wybierz plik
                                     <input type="file" id="import-plan-file-input" accept=".txt,.json,.csv,.md" style="display: none;" onchange="importWorkoutPlanFromFile(event)">
                                 </label>
-                                <span id="import-plan-filename" style="font-size: 0.75rem; color: var(--text-muted);">Brak wybranego pliku</span>
+                                <span id="import-plan-filename" style="font-size: 0.72rem; color: var(--text-muted);">Brak pliku</span>
                             </div>
                         </div>
 
                         <div class="card">
-                            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 14px;">
-                                <h3 style="color: #fff; font-size: 1.15rem; font-weight: 800;">📅 Harmonogram i Rutyny</h3>
-                                <button class="btn btn-outline btn-sm" onclick="generatePresetPlanPPL()">⚡ Generator PPL Pro</button>
+                            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 12px;">
+                                <h3 style="color: #fff; font-size: 1.1rem; font-weight: 800;">📅 Rutyny Treningowe</h3>
+                                <button class="btn btn-outline btn-sm" onclick="generatePresetPlanPPL()">⚡ PPL Generator</button>
                             </div>
 
                             <div id="week-plan-container"></div>
@@ -521,35 +497,35 @@
 
                     <div>
                         <div class="card">
-                            <h4 style="color: var(--primary); margin-bottom: 8px; font-size: 0.95rem; font-weight:800;">⚡ Statystyki Sesji</h4>
-                            <div id="active-day-badge" style="font-size: 0.78rem; font-weight: 800; color: var(--gold); margin-bottom: 12px; background: rgba(250,204,21,0.1); padding: 8px 10px; border-radius: 10px; border: 1px solid rgba(250,204,21,0.3); text-align:center;">
-                                Brak wybranego dnia
+                            <h4 style="color: var(--primary); margin-bottom: 8px; font-size: 0.95rem; font-weight:800;">⚡ Statystyka Sesji</h4>
+                            <div id="active-day-badge" style="font-size: 0.75rem; font-weight: 800; color: var(--gold); margin-bottom: 10px; background: rgba(210,153,34,0.1); padding: 8px; border-radius: 10px; border: 1px solid rgba(210,153,34,0.3); text-align:center;">
+                                Brak wybranej sesji
                             </div>
-                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px;">
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px;">
                                 <div class="stat-box">
-                                    <div style="font-size: 0.68rem; color: var(--text-muted);">Łączny Tonaż</div>
-                                    <div id="stat-total-tonnage" style="font-size: 1.05rem; font-weight: 900; color: var(--gold);">0 kg</div>
+                                    <div style="font-size: 0.65rem; color: var(--text-muted);">Tonaż</div>
+                                    <div id="stat-total-tonnage" style="font-size: 0.95rem; font-weight: 900; color: var(--gold);">0 kg</div>
                                 </div>
                                 <div class="stat-box">
-                                    <div style="font-size: 0.68rem; color: var(--text-muted);">Zaliczone Serie</div>
-                                    <div id="stat-total-sets" style="font-size: 1.05rem; font-weight: 900; color: var(--primary);">0</div>
+                                    <div style="font-size: 0.65rem; color: var(--text-muted);">Serie</div>
+                                    <div id="stat-total-sets" style="font-size: 0.95rem; font-weight: 900; color: var(--primary);">0</div>
                                 </div>
                             </div>
 
-                            <h4 style="color: var(--primary); margin-bottom: 6px; font-size: 0.88rem; font-weight:800;">💧 Nawodnienie Organizmu</h4>
+                            <h4 style="color: var(--primary); margin-bottom: 6px; font-size: 0.85rem; font-weight:800;">💧 Nawodnienie</h4>
                             <div style="display: flex; justify-content: space-between; align-items:center;">
-                                <span id="water-text" style="font-weight: 800; color: var(--primary); font-size: 0.78rem;">0 / 3000 ml</span>
+                                <span id="water-text" style="font-weight: 800; color: var(--primary); font-size: 0.75rem;">0 / 3000 ml</span>
                             </div>
                             <div class="water-progress"><div id="water-bar" class="water-bar"></div></div>
-                            <div style="display: flex; gap: 6px; margin-top: 8px;">
-                                <button class="btn btn-outline btn-sm" style="flex:1; padding:6px;" onclick="addWater(250)">+250ml</button>
-                                <button class="btn btn-outline btn-sm" style="flex:1; padding:6px;" onclick="addWater(500)">+500ml</button>
-                                <button class="btn btn-outline btn-sm" style="color: var(--danger); padding:6px;" onclick="resetWater()">↺</button>
+                            <div style="display: flex; gap: 6px; margin-top: 6px;">
+                                <button class="btn btn-outline btn-sm" style="flex:1; padding:4px;" onclick="addWater(250)">+250ml</button>
+                                <button class="btn btn-outline btn-sm" style="flex:1; padding:4px;" onclick="addWater(500)">+500ml</button>
+                                <button class="btn btn-outline btn-sm" style="color: var(--danger); padding:4px;" onclick="resetWater()">↺</button>
                             </div>
 
-                            <div style="margin-top: 18px;">
-                                <h4 style="color: #fff; margin-bottom: 8px; font-size: 0.88rem; font-weight:800;">📜 Historia Treningów</h4>
-                                <div id="workout-list" style="max-height: 240px; overflow-y:auto;"><p style="font-size: 0.78rem; color: var(--text-muted); text-align: center;">Brak zakończonych treningów.</p></div>
+                            <div style="margin-top: 16px;">
+                                <h4 style="color: #fff; margin-bottom: 6px; font-size: 0.85rem; font-weight:800;">📜 Historia Treningów</h4>
+                                <div id="workout-list" style="max-height: 220px; overflow-y:auto;"><p style="font-size: 0.75rem; color: var(--text-muted); text-align: center;">Brak zakończonych sesji.</p></div>
                             </div>
                         </div>
                     </div>
@@ -558,15 +534,15 @@
 
             <div id="tab-atlas" class="tab-content" style="display: none;">
                 <div class="card">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 10px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 8px;">
                         <div>
-                            <h3 style="color: #fff; font-size: 1.15rem; font-weight: 800;">📚 Profesjonalny Atlas Lyfta (5000+ ćwiczeń)</h3>
-                            <span id="atlas-counter" style="font-size: 0.75rem; color: var(--text-muted);">Baza ćwiczeń</span>
+                            <h3 style="color: #fff; font-size: 1.1rem; font-weight: 800;">📚 Atlas Ćwiczeń</h3>
+                            <span id="atlas-counter" style="font-size: 0.72rem; color: var(--text-muted);">Baza Hevy</span>
                         </div>
-                        <button class="btn btn-sm" style="background: var(--purple); color: #fff;" onclick="openAddPrivateExerciseModal()">+ Dodaj własne ćwiczenie</button>
+                        <button class="btn btn-sm" style="background: var(--purple); color: #fff;" onclick="openAddPrivateExerciseModal()">+ Dodaj własne</button>
                     </div>
 
-                    <input id="atlas-search" type="search" placeholder="🔍 Szukaj ćwiczenia lub sprzętu..." oninput="renderAtlas()" style="margin-bottom: 12px;">
+                    <input id="atlas-search" type="search" placeholder="🔍 Szukaj ćwiczenia lub sprzętu..." oninput="renderAtlas()" style="margin-bottom: 10px;">
                     
                     <div class="filter-pills-scroll">
                         <button class="pill-btn active" onclick="filterAtlasCategory('all', this)">Wszystkie</button>
@@ -576,39 +552,39 @@
                         <button class="pill-btn" onclick="filterAtlasCategory('Barki', this)">Barki</button>
                         <button class="pill-btn" onclick="filterAtlasCategory('Ramiona', this)">Ramiona</button>
                         <button class="pill-btn" onclick="filterAtlasCategory('Brzuch', this)">Brzuch</button>
-                        <button class="pill-btn" onclick="filterAtlasCategory('Moje', this)">⭐ Moje Prywatne</button>
+                        <button class="pill-btn" onclick="filterAtlasCategory('Moje', this)">⭐ Moje</button>
                     </div>
 
-                    <div class="grid-3" id="atlas-container" style="margin-top: 10px;"></div>
+                    <div class="grid-3" id="atlas-container" style="margin-top: 8px;"></div>
                 </div>
             </div>
 
             <div id="tab-forum" class="tab-content" style="display: none;">
                 <div class="card">
-                    <h3 style="color: var(--primary); margin-bottom: 6px; font-size: 1.15rem;">🤖💬 Trener AI & Społeczność Lyfta</h3>
-                    <p style="font-size:0.78rem; color:var(--text-muted); margin-bottom:12px;">Wyślij zdjęcie sylwetki lub wpis do społeczności i Trenera AI!</p>
+                    <h3 style="color: var(--primary); margin-bottom: 6px; font-size: 1.1rem;">💬 Społeczność Hevy & Trener AI</h3>
+                    <p style="font-size:0.75rem; color:var(--text-muted); margin-bottom:10px;">Podziel się wynikiem, formą lub poproś Trenera AI o analizę.</p>
                     
-                    <form onsubmit="handleForumSubmit(event)" style="margin-bottom: 14px;">
-                        <textarea id="forum-content" rows="3" placeholder="Napisz do społeczności Lyfta lub Trenera AI..."></textarea>
+                    <form onsubmit="handleForumSubmit(event)" style="margin-bottom: 12px;">
+                        <textarea id="forum-content" rows="2" placeholder="Napisz post lub poproś AI o analizę..."></textarea>
                         
-                        <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 8px; flex-wrap: wrap;">
-                            <label class="btn btn-outline btn-sm" style="cursor: pointer; margin:0; display: inline-flex; align-items: center; gap: 5px;">
-                                📷 Dodaj zdjęcie formy
+                        <div style="display: flex; gap: 6px; align-items: center; margin-bottom: 6px; flex-wrap: wrap;">
+                            <label class="btn btn-outline btn-sm" style="cursor: pointer; margin:0; display: inline-flex; align-items: center; gap: 4px;">
+                                📷 Dodaj zdjęcie
                                 <input type="file" id="forum-img-input" accept="image/*" style="display: none;" onchange="previewForumImage(event)">
                             </label>
-                            <label class="btn btn-outline btn-sm" style="cursor: pointer; margin:0; display: inline-flex; align-items: center; gap: 5px; border-color: var(--primary); color: var(--primary);">
-                                📁 Wgraj plan (.txt/.json)
+                            <label class="btn btn-outline btn-sm" style="cursor: pointer; margin:0; display: inline-flex; align-items: center; gap: 4px; border-color: var(--primary); color: var(--primary);">
+                                📁 Wgraj plik (.txt)
                                 <input type="file" id="forum-doc-input" accept=".txt,.json,.md,.csv" style="display: none;" onchange="previewForumDocument(event)">
                             </label>
-                            <span id="forum-img-name" style="font-size: 0.72rem; color: var(--text-muted);">Brak załącznika</span>
-                            <button type="button" id="forum-img-clear" class="btn btn-outline btn-sm" style="color: var(--danger); display: none; padding: 3px 6px;" onclick="clearForumImage()">Usuń</button>
+                            <span id="forum-img-name" style="font-size: 0.7rem; color: var(--text-muted);">Brak załącznika</span>
+                            <button type="button" id="forum-img-clear" class="btn btn-outline btn-sm" style="color: var(--danger); display: none; padding: 2px 5px;" onclick="clearForumImage()">Usuń</button>
                         </div>
                         
-                        <div id="forum-img-preview-container" style="display: none; margin-bottom: 10px;">
+                        <div id="forum-img-preview-container" style="display: none; margin-bottom: 8px;">
                             <img id="forum-img-tag-preview" class="chat-img-preview" alt="Podgląd">
                         </div>
 
-                        <button type="submit" class="btn btn-sm" style="width: 100%; padding: 11px;">Opublikuj w społeczności Lyfta</button>
+                        <button type="submit" class="btn btn-sm" style="width: 100%;">Opublikuj / Wyślij do AI</button>
                     </form>
                     <div id="forum-posts-list"></div>
                 </div>
@@ -616,99 +592,61 @@
 
             <div id="tab-progress" class="tab-content" style="display: none;">
                 <div class="card">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap:wrap; gap:8px;">
-                        <h3 style="color: var(--primary); font-size: 1.15rem;">🏆 Poziom Postępu i Gamifikacja</h3>
-                        <span id="player-level-text" style="font-weight: 900; color: var(--gold); font-size: 1rem;">LVL 1 (0/200 XP)</span>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap:wrap; gap:6px;">
+                        <h3 style="color: var(--primary); font-size: 1.1rem;">🏆 Profil & Poziom</h3>
+                        <span id="player-level-text" style="font-weight: 900; color: var(--gold); font-size: 0.95rem;">LVL 1 (0/200 XP)</span>
                     </div>
-                    <div class="water-progress" style="height:12px;"><div id="xp-bar" class="water-bar"></div></div>
-                    <p style="font-size:0.75rem; color:var(--text-muted); margin-top:6px; text-align:center;">Zbieraj punkty XP za bicie rekordów w stylu Lyfta i zamykanie serii! 🚀</p>
+                    <div class="water-progress" style="height:10px;"><div id="xp-bar" class="water-bar"></div></div>
+                    <p style="font-size:0.7rem; color:var(--text-muted); margin-top:4px; text-align:center;">Zbieraj XP za bicie rekordów (PR) w ćwiczeniach! 🚀</p>
 
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 18px;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 15px;">
                         <div class="stat-box">
-                            <div style="font-size: 0.68rem; color: var(--text-muted);">Ranga Siłowa</div>
-                            <div id="player-strength-rank" style="font-size: 0.95rem; font-weight: 900; color: var(--primary); margin-top: 4px;">🏋 Początkujący</div>
+                            <div style="font-size: 0.65rem; color: var(--text-muted);">Ranga Siłowa</div>
+                            <div id="player-strength-rank" style="font-size: 0.9rem; font-weight: 900; color: var(--primary); margin-top: 2px;">🏋 Początkujący</div>
                         </div>
                         <div class="stat-box">
-                            <div style="font-size: 0.68rem; color: var(--text-muted);">Pobite Rekordy (PR)</div>
-                            <div id="player-prs-count" style="font-size: 0.95rem; font-weight: 900; color: var(--gold); margin-top: 4px;">0</div>
+                            <div style="font-size: 0.65rem; color: var(--text-muted);">Pobite PR</div>
+                            <div id="player-prs-count" style="font-size: 0.9rem; font-weight: 900; color: var(--gold); margin-top: 2px;">0</div>
                         </div>
                     </div>
 
-                    <!-- DZIENNIK POMIARÓW CIAŁA -->
-                    <div style="margin-top: 22px; border-top: 1px solid var(--card-border); padding-top: 16px;">
-                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-                            <h4 style="color:var(--primary); font-size:0.95rem; font-weight:800;">📏 Pomiary i Wymiary Ciała</h4>
-                            <button class="btn btn-sm" onclick="openMeasurementModal()">+ Dodaj pomiar</button>
-                        </div>
-                        <div id="measurements-list" style="font-size:0.8rem; color:var(--text-muted);">Brak zapisanych pomiarów ciała.</div>
+                    <h3 style="color: var(--primary); margin: 16px 0 8px; font-size: 0.95rem;">📊 Wykres Tonażu</h3>
+                    <div style="background: rgba(0, 0, 0, 0.2); padding: 10px; border-radius: 12px; border: 1px solid var(--card-border);">
+                        <canvas id="progressChart" height="130"></canvas>
                     </div>
-
-                    <h3 style="color: var(--primary); margin: 22px 0 10px; font-size: 1rem;">📊 Wykres Progresu Tonażu</h3>
-                    <div style="background: rgba(0, 0, 0, 0.3); padding: 14px; border-radius: 16px; border: 1px solid var(--card-border);">
-                        <canvas id="progressChart" height="140"></canvas>
-                    </div>
-                </div>
-            </div>
-
-            <!-- GLOBALNA TABLICA WYNIKÓW -->
-            <div id="tab-world" class="tab-content" style="display: none;">
-                <div class="card">
-                    <h3 style="color: var(--primary); margin-bottom: 6px; font-size: 1.15rem;">🌍 Globalny Ranking Lyfta (Hall of Fame)</h3>
-                    <p style="font-size:0.78rem; color:var(--text-muted); margin-bottom:14px;">Najlepsi zawodnicy z całego świata posortowani według poziomu i doświadczenia XP.</p>
-                    <div id="global-leaderboard-list">Pobieranie rankingów światowych...</div>
                 </div>
             </div>
 
             <div id="tab-calc" class="tab-content" style="display: none;">
                 <div class="grid" style="grid-template-columns: 1fr;">
                     <div class="card">
-                        <h3 style="color: var(--primary); font-size: 1.15rem; margin-bottom: 8px;">🧮 Kalkulator 1RM & Współczynnik Siły</h3>
-                        <label style="font-size: 0.78rem;">Ciężar (kg)</label>
-                        <input type="number" id="calc-weight" placeholder="np. 100" oninput="calculate1RM()">
-                        <label style="font-size: 0.78rem;">Powtórzenia</label>
-                        <input type="number" id="calc-reps" placeholder="np. 5" oninput="calculate1RM()">
-                        <div style="margin-top: 14px; text-align: center; background: rgba(0, 0, 0, 0.3); padding: 14px; border-radius: 14px; border: 1px solid var(--card-border);">
-                            <span style="font-size: 0.78rem; color: var(--text-muted);">Szacowany Rekord 1RM:</span>
-                            <h3 id="calc-result" style="color: var(--primary); font-size: 1.25rem; margin-top: 4px;">0 kg</h3>
-                        </div>
-                    </div>
-
-                    <!-- KALKULATOR TALERZY NA SZTANGĘ -->
-                    <div class="card">
-                        <h3 style="color: var(--primary); font-size: 1.15rem; margin-bottom: 8px;">🏋️‍♂️ Kalkulator Talerzy na Sztangę</h3>
-                        <p style="font-size:0.75rem; color:var(--text-muted); margin-bottom:10px;">Wpisz docelowy ciężar całkowity (ze sztangą 20kg).</p>
-                        <label style="font-size: 0.78rem;">Docelowy ciężar całkowity (kg)</label>
-                        <input type="number" id="plate-target-weight" placeholder="np. 100" oninput="calculatePlates()">
-                        <div style="margin-top: 14px; background: rgba(0, 0, 0, 0.3); padding: 14px; border-radius: 14px; border: 1px solid var(--card-border);">
-                            <span style="font-size: 0.78rem; color: var(--text-muted);">Talerze na jedną stronę sztangi:</span>
-                            <h4 id="plate-result" style="color: var(--gold); font-size: 1rem; margin-top: 6px;">Wpisz ciężar powyżej</h4>
+                        <h3 style="color: var(--primary); font-size: 1.1rem;">🧮 Kalkulator 1RM</h3>
+                        <label style="font-size: 0.75rem;">Ciężar (kg)</label>
+                        <input type="number" id="calc-weight" placeholder="100" oninput="calculate1RM()">
+                        <label style="font-size: 0.75rem;">Powtórzenia</label>
+                        <input type="number" id="calc-reps" placeholder="5" oninput="calculate1RM()">
+                        <div style="margin-top: 12px; text-align: center; background: rgba(0, 0, 0, 0.2); padding: 10px; border-radius: 12px; border: 1px solid var(--card-border);">
+                            <span style="font-size: 0.75rem; color: var(--text-muted);">Szacowany 1RM:</span>
+                            <h3 id="calc-result" style="color: var(--primary); font-size: 1.1rem;">0 kg</h3>
                         </div>
                     </div>
 
                     <div class="card">
-                        <h3 style="color: var(--primary); font-size: 1.15rem; margin-bottom: 8px;">🔥 Kalkulator Kalorii i Makroskładników (TDEE)</h3>
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
-                            <div>
-                                <label style="font-size: 0.78rem;">Waga (kg)</label>
-                                <input type="number" id="bmr-weight" placeholder="np. 78">
-                            </div>
-                            <div>
-                                <label style="font-size: 0.78rem;">Wzrost (cm)</label>
-                                <input type="number" id="bmr-height" placeholder="np. 178">
-                            </div>
+                        <h3 style="color: var(--primary); font-size: 1.1rem;">🔥 Kalorie & Makro</h3>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
+                            <input type="number" id="bmr-weight" placeholder="Waga kg">
+                            <input type="number" id="bmr-height" placeholder="Wzrost cm">
                         </div>
-                        <label style="font-size: 0.78rem;">Wiek</label>
-                        <input type="number" id="bmr-age" placeholder="np. 24">
-                        <label style="font-size: 0.78rem;">Cel treningowy</label>
+                        <input type="number" id="bmr-age" placeholder="Wiek">
                         <select id="bmr-goal">
-                            <option value="maintain">Utrzymanie Wagi (Zero Kaloryczne)</option>
-                            <option value="bulk">Masa Mięśniowa (+300 kcal)</option>
-                            <option value="cut">Redukcja Tkanki Tłuszczowej (-400 kcal)</option>
+                            <option value="maintain">Utrzymanie wagi</option>
+                            <option value="bulk">Masa (+300 kcal)</option>
+                            <option value="cut">Redukcja (-400 kcal)</option>
                         </select>
-                        <button class="btn btn-sm" style="width: 100%; padding: 11px;" onclick="calculateCalories()">Oblicz Zapotrzebowanie</button>
-                        <div id="calories-result" style="display: none; margin-top: 14px; text-align: center; background: rgba(0, 0, 0, 0.3); padding: 14px; border-radius: 14px; border: 1px solid var(--card-border);">
-                            <h4 id="res-tdee" style="color: var(--gold); margin-bottom:6px; font-size: 1.1rem;">0 kcal / dzień</h4>
-                            <div id="res-macros" style="font-size: 0.78rem; color: var(--text-muted);">Białko: 0g | Tłuszcze: 0g | Węgle: 0g</div>
+                        <button class="btn btn-sm" style="width: 100%;" onclick="calculateCalories()">Oblicz zapotrzebowanie</button>
+                        <div id="calories-result" style="display: none; margin-top: 10px; text-align: center; background: rgba(0, 0, 0, 0.2); padding: 10px; border-radius: 12px; border: 1px solid var(--card-border);">
+                            <h4 id="res-tdee" style="color: var(--gold); margin-bottom:4px; font-size: 1rem;">0 kcal</h4>
+                            <div id="res-macros" style="font-size: 0.75rem; color: var(--text-muted);">Białko: 0g | Tłuszcze: 0g | Węgle: 0g</div>
                         </div>
                     </div>
                 </div>
@@ -716,71 +654,46 @@
 
             <div id="tab-vip" class="tab-content" style="display: none;">
                 <div class="card">
-                    <h3 style="color: var(--gold); margin-bottom: 10px; font-size: 1.15rem;">🌟 Strefa VIP – Przepisy Wysokobiałkowe</h3>
-                    <div style="display:flex; gap:8px; margin-bottom:12px; flex-wrap:wrap;">
-                        <input id="recipe-search" type="search" placeholder="🔎 Szukaj przepisu..." oninput="renderRecipes()" style="margin:0; flex:1; min-width:180px;">
-                        <select id="recipe-filter-kcal" onchange="renderRecipes()" style="width:auto; margin:0; background:var(--bg-input);">
-                            <option value="all">Wszystkie kalorie</option>
+                    <h3 style="color: var(--gold); margin-bottom: 8px; font-size: 1.1rem;">🌟 Przepisy VIP</h3>
+                    <div style="display:flex; gap:6px; margin-bottom:10px; flex-wrap:wrap;">
+                        <input id="recipe-search" type="search" placeholder="🔎 Szukaj przepisu..." oninput="renderRecipes()" style="margin:0; flex:1; min-width:160px;">
+                        <select id="recipe-filter-kcal" onchange="renderRecipes()" style="width:auto; margin:0; background:#21262d;">
+                            <option value="all">Wszystkie kcal</option>
                             <option value="low">&lt; 500 kcal</option>
                             <option value="high">&gt;= 500 kcal</option>
                         </select>
                     </div>
-                    <div class="grid-3" id="recipes-container" style="margin-top: 10px;"></div>
+                    <div class="grid-3" id="recipes-container" style="margin-top: 8px;"></div>
                 </div>
             </div>
 
             <div id="tab-admin" class="tab-content" style="display: none;">
                 <div class="card card-admin">
-                    <h3 style="color: var(--gold); margin-bottom: 12px; font-size: 1.15rem;">👑 Panel Administratora & Zarządzanie</h3>
+                    <h3 style="color: var(--primary); margin-bottom: 10px; font-size: 1.1rem;">🛡️ Panel Administratora & AI</h3>
 
-                    <div style="background: rgba(0, 0, 0, 0.35); padding: 14px; border-radius: 16px; margin-bottom: 14px; border: 1px solid var(--primary);">
-                        <h4 style="color: var(--primary); margin-bottom: 6px; font-size: 0.95rem;">📥 Globalny Masowy Import Planu</h4>
-                        <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 10px;">Wgraj plik z planem treningowym, aby zaktualizować globalne ustawienia.</p>
+                    <div style="background: rgba(0, 0, 0, 0.3); padding: 12px; border-radius: 12px; margin-bottom: 12px; border: 1px solid var(--primary);">
+                        <h4 style="color: var(--primary); margin-bottom: 6px; font-size: 0.9rem;">📥 Masowy import planu / bazy</h4>
+                        <p style="font-size: 0.72rem; color: var(--text-muted); margin-bottom: 8px;">Wgraj plik z planem treningowym do bazy.</p>
                         <input type="file" id="admin-file-importer" accept=".txt,.json,.csv" style="font-size: 0.75rem;" onchange="importWorkoutPlanFromFile(event)">
                     </div>
 
-                    <div id="admin-atlas-form-container" style="background: rgba(0, 0, 0, 0.25); padding: 14px; border-radius: 16px; margin-bottom: 14px; border: 1px solid var(--card-border);">
-                        <h4 style="color: var(--primary); margin-bottom: 8px; font-size: 0.95rem;">+ Dodaj ćwiczenie do Atlasu</h4>
+                    <div id="admin-atlas-form-container" style="background: rgba(0, 0, 0, 0.2); padding: 12px; border-radius: 12px; margin-bottom: 12px; border: 1px solid var(--card-border);">
+                        <h4 style="color: var(--primary); margin-bottom: 6px; font-size: 0.9rem;">+ Dodaj ćwiczenie do Atlasu</h4>
                         <input type="text" id="admin-ex-name" placeholder="Nazwa ćwiczenia">
                         <input type="text" id="admin-ex-part" placeholder="Partia (np. Klatka piersiowa)">
-                        <input type="text" id="admin-ex-equipment" placeholder="Sprzęt (np. Sztanga / Hantle)">
-                        <input type="url" id="admin-ex-yt" placeholder="Link YouTube z instrukcją">
+                        <input type="text" id="admin-ex-equipment" placeholder="Sprzęt (np. Sztanga)">
+                        <input type="url" id="admin-ex-yt" placeholder="Link YouTube">
                         <select id="admin-ex-level">
                             <option value="Początkujący">Początkujący</option>
                             <option value="Średniozaawansowany">Średniozaawansowany</option>
                             <option value="Zaawansowany">Zaawansowany</option>
                         </select>
-                        <textarea id="admin-ex-desc" rows="2" placeholder="Technika wykonania..."></textarea>
+                        <textarea id="admin-ex-desc" rows="2" placeholder="Technika..."></textarea>
                         <button class="btn btn-sm" onclick="adminAddAtlasItem()">Opublikuj w Atlasie</button>
                     </div>
 
-                    <div id="admin-recipe-form-container" style="background: rgba(0, 0, 0, 0.25); padding: 14px; border-radius: 16px; margin-bottom: 14px; border: 1px solid var(--card-border);">
-                        <h4 style="color: var(--gold); margin-bottom: 8px; font-size: 0.95rem;">+ Dodaj Przepis VIP</h4>
-                        <input type="text" id="admin-rec-name" placeholder="Nazwa potrawy">
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
-                            <input type="number" id="admin-rec-kcal" placeholder="Kcal">
-                            <input type="number" id="admin-rec-protein" placeholder="Białko (g)">
-                        </div>
-                        <textarea id="admin-rec-ingredients" rows="2" placeholder="Składniki (np. • 100g kurczaka...)"></textarea>
-                        <textarea id="admin-rec-steps" rows="2" placeholder="Sposób przygotowania..."></textarea>
-                        
-                        <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 10px; flex-wrap: wrap;">
-                            <label class="btn btn-outline btn-sm" style="cursor: pointer; margin:0; display: inline-flex; align-items: center; gap: 5px; font-size:0.75rem;">
-                                📷 Zdjęcie potrawy
-                                <input type="file" id="admin-rec-img-input" accept="image/*" style="display: none;" onchange="previewRecipeImage(event)">
-                            </label>
-                            <span id="admin-rec-img-name" style="font-size: 0.72rem; color: var(--text-muted);">Brak zdjęcia</span>
-                            <button type="button" id="admin-rec-img-clear" class="btn btn-outline btn-sm" style="color: var(--danger); display: none; padding: 2px 6px;" onclick="clearRecipeImage()">Usuń</button>
-                        </div>
-                        <div id="admin-rec-img-preview-container" style="display: none; margin-bottom: 10px;">
-                            <img id="admin-rec-img-tag-preview" class="chat-img-preview" alt="Podgląd">
-                        </div>
-
-                        <button class="btn btn-sm" style="background: var(--gold); color: #030305;" onclick="adminAddRecipeItem()">Opublikuj Przepis VIP</button>
-                    </div>
-
-                    <h4 style="margin-bottom: 10px; color: var(--gold); font-size: 0.95rem;">👥 Zarejestrowani Użytkownicy (<span id="stat-users-count">0</span>):</h4>
-                    <div id="admin-user-list">Pobieranie listy użytkowników...</div>
+                    <h4 style="margin-bottom: 8px; color: var(--gold); font-size: 0.9rem;">👥 Użytkownicy (<span id="stat-users-count">0</span>):</h4>
+                    <div id="admin-user-list">Pobieranie listy...</div>
                 </div>
             </div>
 
@@ -788,65 +701,34 @@
 
     </div>
 
-    <!-- MODAL POMIARÓW CIAŁA -->
-    <div id="measurement-modal" class="modal-overlay">
-        <div class="modal-body">
-            <h3 style="color:var(--primary); margin-bottom:8px; font-size: 1.15rem;">📏 Dodaj pomiar ciała</h3>
-            <label style="font-size: 0.78rem;">Data</label>
-            <input type="date" id="meas-date">
-            <label style="font-size: 0.78rem;">Waga ciała (kg)</label>
-            <input type="number" step="0.1" id="meas-weight" placeholder="np. 78.5">
-            <label style="font-size: 0.78rem;">Pas / Brzuch (cm)</label>
-            <input type="number" step="0.5" id="meas-waist" placeholder="np. 82">
-            <label style="font-size: 0.78rem;">Ramię (cm)</label>
-            <input type="number" step="0.5" id="meas-arm" placeholder="np. 38">
-
-            <div style="display:flex; gap:8px; margin-top:12px;">
-                <button class="btn btn-sm" style="flex:1; padding: 11px;" onclick="saveMeasurement()">Zapisz pomiar</button>
-                <button class="btn btn-outline btn-sm" onclick="closeMeasurementModal()">✕</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- MODAL SZCZEGÓŁÓW PRZEPISU VIP -->
+    <!-- MODALE -->
     <div id="recipe-details-modal" class="modal-overlay">
-        <div class="modal-body" style="max-width: 480px;">
-            <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:14px;">
+        <div class="modal-body" style="max-width: 460px;">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px;">
                 <div>
-                    <h3 id="recipe-modal-title" style="color:var(--gold); font-size: 1.2rem; font-weight: 800;"></h3>
-                    <div id="recipe-modal-macros" style="font-size:0.78rem; color:var(--text-muted); margin-top:3px;"></div>
+                    <h3 id="recipe-modal-title" style="color:var(--gold); font-size: 1.15rem; font-weight: 800;"></h3>
+                    <div id="recipe-modal-macros" style="font-size:0.75rem; color:var(--text-muted); margin-top:2px;"></div>
                 </div>
-                <button class="btn btn-outline btn-sm" style="color:var(--text-muted); padding:3px 10px; font-size:0.95rem;" onclick="closeRecipeDetailsModal()">✕</button>
+                <button class="btn btn-outline btn-sm" style="color:var(--text-muted); padding:2px 8px; font-size:0.9rem;" onclick="closeRecipeDetailsModal()">✕</button>
             </div>
-
-            <div id="recipe-modal-img-container" style="display:none; margin-bottom: 14px;">
-                <img id="recipe-modal-img" class="chat-img-preview" alt="Potrawa">
+            <div style="margin-bottom:12px;">
+                <h4 style="font-size:0.8rem; color:var(--gold); margin-bottom:4px; font-weight:800;">Składniki</h4>
+                <p id="recipe-modal-ingredients" style="font-size:0.78rem; color:var(--text-muted); line-height:1.4; white-space: pre-line;"></p>
             </div>
-
-            <div style="margin-bottom:14px;">
-                <h4 style="font-size:0.82rem; color:var(--gold); margin-bottom:6px; font-weight:800;">Składniki</h4>
-                <p id="recipe-modal-ingredients" style="font-size:0.8rem; color:var(--text-muted); line-height:1.45; white-space: pre-line;"></p>
+            <div style="margin-bottom:12px;">
+                <h4 style="font-size:0.8rem; color:var(--gold); margin-bottom:4px; font-weight:800;">Przygotowanie</h4>
+                <p id="recipe-modal-steps" style="font-size:0.78rem; color:var(--text-muted); line-height:1.4; white-space: pre-line;"></p>
             </div>
-
-            <div style="margin-bottom:14px;">
-                <h4 style="font-size:0.82rem; color:var(--gold); margin-bottom:6px; font-weight:800;">Sposób przygotowania</h4>
-                <p id="recipe-modal-steps" style="font-size:0.8rem; color:var(--text-muted); line-height:1.45; white-space: pre-line;"></p>
-            </div>
-
-            <button class="btn btn-outline btn-sm" style="width:100%; padding: 11px;" onclick="closeRecipeDetailsModal()">Zamknij</button>
+            <button class="btn btn-outline btn-sm" style="width:100%;" onclick="closeRecipeDetailsModal()">Zamknij</button>
         </div>
     </div>
 
-    <!-- MODAL DODAWANIA WŁASNEGO ĆWICZENIA -->
     <div id="add-private-exercise-modal" class="modal-overlay">
         <div class="modal-body">
-            <h3 style="color:var(--purple); margin-bottom:8px; font-size: 1.15rem;">⭐ Dodaj własne ćwiczenie Lyfta</h3>
-            <p style="font-size:0.78rem; color:var(--text-muted); margin-bottom:12px;">Ćwiczenie zostanie zapisane w Twoim prywatnym atlasie.</p>
-            
-            <label style="font-size: 0.78rem;">Nazwa ćwiczenia</label>
-            <input type="text" id="priv-ex-name" placeholder="np. Wyciskanie hantli pod skosem ujemnym">
-            
-            <label style="font-size: 0.78rem;">Partia mięśniowa</label>
+            <h3 style="color:var(--purple); margin-bottom:6px; font-size: 1.1rem;">⭐ Dodaj własne ćwiczenie</h3>
+            <label style="font-size: 0.75rem;">Nazwa</label>
+            <input type="text" id="priv-ex-name" placeholder="np. Wyciskanie hantli pod skosem">
+            <label style="font-size: 0.75rem;">Partia mięśniowa</label>
             <select id="priv-ex-part">
                 <option value="Klatka piersiowa">Klatka piersiowa</option>
                 <option value="Plecy">Plecy</option>
@@ -855,57 +737,49 @@
                 <option value="Ramiona">Ramiona</option>
                 <option value="Brzuch">Brzuch</option>
             </select>
-
-            <label style="font-size: 0.78rem;">Sprzęt</label>
-            <input type="text" id="priv-ex-eq" placeholder="np. Hantle / Maszyna">
-
-            <label style="font-size: 0.78rem;">Link YouTube (opcjonalnie)</label>
-            <input type="url" id="priv-ex-yt" placeholder="https://www.youtube.com/watch?v=...">
-
-            <label style="font-size: 0.78rem;">Opis i wskazówki</label>
-            <textarea id="priv-ex-desc" rows="2" placeholder="Jak poprawnie wykonać..."></textarea>
-
-            <div style="display:flex; gap:8px; margin-top:10px;">
-                <button class="btn btn-sm" style="flex:1; background:var(--purple); color:#fff; padding: 11px;" onclick="savePrivateExercise()">+ Zapisz w moim atlasie</button>
+            <label style="font-size: 0.75rem;">Sprzęt</label>
+            <input type="text" id="priv-ex-eq" placeholder="np. Hantle">
+            <label style="font-size: 0.75rem;">Link YouTube</label>
+            <input type="url" id="priv-ex-yt" placeholder="https://youtube.com/...">
+            <label style="font-size: 0.75rem;">Opis</label>
+            <textarea id="priv-ex-desc" rows="2" placeholder="Wskazówki..."></textarea>
+            <div style="display:flex; gap:6px; margin-top:8px;">
+                <button class="btn btn-sm" style="flex:1; background:var(--purple); color:#fff;" onclick="savePrivateExercise()">Zapisz</button>
                 <button class="btn btn-outline btn-sm" style="color:var(--danger);" onclick="closeAddPrivateExerciseModal()">✕</button>
             </div>
         </div>
     </div>
 
     <div id="exercise-details-modal" class="modal-overlay">
-        <div class="modal-body" style="max-width: 480px;">
-            <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:14px;">
+        <div class="modal-body" style="max-width: 460px;">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px;">
                 <div>
-                    <h3 id="ex-modal-title" style="color:#fff; font-size: 1.2rem; font-weight: 800;"></h3>
-                    <div id="ex-modal-subtitle" style="font-size:0.78rem; color:var(--text-muted); margin-top:3px;"></div>
+                    <h3 id="ex-modal-title" style="color:#fff; font-size: 1.15rem; font-weight: 800;"></h3>
+                    <div id="ex-modal-subtitle" style="font-size:0.75rem; color:var(--text-muted); margin-top:2px;"></div>
                 </div>
-                <button class="btn btn-outline btn-sm" style="color:var(--text-muted); padding:3px 10px; font-size:0.95rem;" onclick="closeExerciseDetailsModal()">✕</button>
+                <button class="btn btn-outline btn-sm" style="color:var(--text-muted); padding:2px 8px; font-size:0.9rem;" onclick="closeExerciseDetailsModal()">✕</button>
             </div>
-            
-            <div style="margin-bottom: 14px;">
-                <a id="ex-modal-yt-btn" href="#" target="_blank" class="btn" style="width:100%; background:#ff0000; color:#fff; display:none; justify-content:center; gap:8px; padding:11px;">
-                    ▶ Obejrzyj film instrukcyjny na YouTube
+            <div style="margin-bottom: 12px;">
+                <a id="ex-modal-yt-btn" href="#" target="_blank" class="btn" style="width:100%; background:#ff0000; color:#fff; display:none; justify-content:center; gap:8px;">
+                    ▶ Obejrzyj film na YouTube
                 </a>
             </div>
-
-            <div style="margin-bottom:14px;">
-                <h4 style="font-size:0.82rem; color:var(--primary); margin-bottom:6px; font-weight:800;">Wskazówki i Technika</h4>
-                <p id="ex-modal-desc" style="font-size:0.8rem; color:var(--text-muted); line-height:1.45;"></p>
+            <div style="margin-bottom:12px;">
+                <h4 style="font-size:0.8rem; color:var(--primary); margin-bottom:4px; font-weight:800;">Technika</h4>
+                <p id="ex-modal-desc" style="font-size:0.78rem; color:var(--text-muted); line-height:1.4;"></p>
             </div>
-
-            <div style="display:flex; gap:10px;">
-                <button id="ex-modal-add-btn" class="btn btn-sm" style="flex:1; padding: 11px;">+ Dodaj do Planu</button>
-                <button class="btn btn-outline btn-sm" style="padding: 11px;" onclick="closeExerciseDetailsModal()">Zamknij</button>
+            <div style="display:flex; gap:8px;">
+                <button id="ex-modal-add-btn" class="btn btn-sm" style="flex:1;">+ Dodaj do rutyny</button>
+                <button class="btn btn-outline btn-sm" onclick="closeExerciseDetailsModal()">Zamknij</button>
             </div>
         </div>
     </div>
 
     <div id="atlas-to-plan-modal" class="modal-overlay">
         <div class="modal-body">
-            <h3 style="color:var(--primary); margin-bottom:6px; font-size: 1.15rem;">Dodaj do Planu</h3>
-            <p id="modal-atlas-title" style="font-weight:800; font-size:0.95rem; margin-bottom:12px; color:#fff;"></p>
-            
-            <label style="font-size: 0.78rem;">Wybierz Dzień / Rutynę</label>
+            <h3 style="color:var(--primary); margin-bottom:6px; font-size: 1.1rem;">Dodaj do rutyny</h3>
+            <p id="modal-atlas-title" style="font-weight:800; font-size:0.9rem; margin-bottom:10px; color:#fff;"></p>
+            <label style="font-size: 0.75rem;">Wybierz dzień</label>
             <select id="modal-plan-day">
                 <option value="Poniedziałek">Poniedziałek</option>
                 <option value="Wtorek">Wtorek</option>
@@ -915,24 +789,22 @@
                 <option value="Sobota">Sobota</option>
                 <option value="Niedziela">Niedziela</option>
             </select>
-
-            <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px;">
+            <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:6px;">
                 <div>
-                    <label style="font-size: 0.72rem;">Serie</label>
+                    <label style="font-size: 0.7rem;">Serie</label>
                     <input type="number" id="modal-sets-count" value="3" placeholder="3">
                 </div>
                 <div>
-                    <label style="font-size: 0.72rem;">Ciężar</label>
+                    <label style="font-size: 0.7rem;">Ciężar</label>
                     <input type="number" id="modal-weight" placeholder="kg">
                 </div>
                 <div>
-                    <label style="font-size: 0.72rem;">Powt.</label>
+                    <label style="font-size: 0.7rem;">Powt.</label>
                     <input type="number" id="modal-reps" placeholder="pow">
                 </div>
             </div>
-
-            <div style="display:flex; gap:8px; margin-top:10px;">
-                <button class="btn btn-sm" style="flex:1; padding: 11px;" onclick="confirmAddAtlasToPlan()">+ Zapisz w Rutynie</button>
+            <div style="display:flex; gap:6px; margin-top:8px;">
+                <button class="btn btn-sm" style="flex:1;" onclick="confirmAddAtlasToPlan()">Zapisz</button>
                 <button class="btn btn-outline btn-sm" style="color:var(--danger);" onclick="closeAtlasModal()">✕</button>
             </div>
         </div>
@@ -940,65 +812,40 @@
 
     <div id="admin-edit-nickname-modal" class="modal-overlay">
         <div class="modal-body">
-            <h3 style="color:var(--gold); margin-bottom:8px; font-size: 1.15rem;">⚙️ Uprawnienia Użytkownika</h3>
-            
+            <h3 style="color:var(--primary); margin-bottom:6px; font-size: 1.1rem;">⚙️ Uprawnienia</h3>
             <input type="hidden" id="modal-edit-uid">
-            <label style="font-size: 0.78rem;">Pseudonim (Nick)</label>
+            <label style="font-size: 0.75rem;">Pseudonim</label>
             <input type="text" id="modal-new-username" placeholder="Nowy nick...">
-
-            <div style="background: rgba(255,255,255,0.03); border:1px solid var(--card-border); padding:10px; border-radius:12px; margin: 10px 0;">
-                <label style="font-size:0.78rem; color:var(--gold); display:block; margin-bottom:6px;">Uprawnienia moderatora:</label>
-                <div style="display:flex; flex-direction:column; gap:6px; font-size:0.82rem;">
-                    <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
-                        <input type="checkbox" id="perm-block" style="width:auto; margin:0;"> Może blokować / moderować
-                    </label>
-                    <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
-                        <input type="checkbox" id="perm-delete" style="width:auto; margin:0;"> Może usuwać posty / wpisy
-                    </label>
-                </div>
-            </div>
-
-            <div style="display:flex; gap:8px; margin-top:10px;">
-                <button class="btn btn-sm" style="flex:1; padding: 11px;" onclick="confirmChangeUserPermissions()">Zapisz Zmiany</button>
+            <div style="display:flex; gap:6px; margin-top:8px;">
+                <button class="btn btn-sm" style="flex:1;" onclick="confirmChangeUserPermissions()">Zapisz</button>
                 <button class="btn btn-outline btn-sm" style="color:var(--danger);" onclick="closeNicknameModal()">✕</button>
             </div>
         </div>
     </div>
 
+    <!-- PŁYWAJĄCY TIMER HEVY -->
     <div class="floating-timer">
         <div>
             <div style="display:flex; align-items:center; gap:6px;">
-                <span style="font-size: 0.65rem; color: var(--text-muted); font-weight:800;">STOPER PRZERWY (LYFTA)</span>
-                <button id="sound-toggle-btn" class="btn btn-outline btn-sm" style="padding:2px 6px; font-size:0.65rem;" onclick="toggleSoundMaster()">🔊 WŁ</button>
+                <span style="font-size: 0.6rem; color: var(--text-muted); font-weight:800;">TIMER PAUZY</span>
+                <button id="sound-toggle-btn" class="btn btn-outline btn-sm" style="padding:2px 4px; font-size:0.6rem;" onclick="toggleSoundMaster()">🔊</button>
             </div>
-            <div id="timer-display" style="font-size: 1.2rem; font-weight: 900; color: var(--primary);">00:00</div>
+            <div id="timer-display" style="font-size: 1.1rem; font-weight: 900; color: var(--primary);">00:00</div>
         </div>
-        <div style="display: flex; gap: 5px; flex-wrap: wrap;">
-            <button class="btn btn-outline btn-sm" style="padding:5px 8px; font-size:0.72rem;" onclick="startTimer(30)">30s</button>
-            <button class="btn btn-outline btn-sm" style="padding:5px 8px; font-size:0.72rem;" onclick="startTimer(60)">60s</button>
-            <button class="btn btn-outline btn-sm" style="padding:5px 8px; font-size:0.72rem;" onclick="startTimer(90)">90s</button>
-            <button class="btn btn-outline btn-sm" style="padding:5px 8px; font-size:0.72rem;" onclick="startTimer(180)">180s</button>
-            <button class="btn btn-sm" style="background: var(--danger); color: white; padding: 5px 8px; font-size:0.72rem;" onclick="stopTimer()">✕</button>
+        <div style="display: flex; gap: 4px; flex-wrap: wrap;">
+            <button class="btn btn-outline btn-sm" style="padding:4px 6px; font-size:0.7rem;" onclick="startTimer(30)">30s</button>
+            <button class="btn btn-outline btn-sm" style="padding:4px 6px; font-size:0.7rem;" onclick="startTimer(60)">60s</button>
+            <button class="btn btn-outline btn-sm" style="padding:4px 6px; font-size:0.7rem;" onclick="startTimer(90)">90s</button>
+            <button class="btn btn-outline btn-sm" style="padding:4px 6px; font-size:0.7rem;" onclick="startTimer(180)">180s</button>
+            <button class="btn btn-sm" style="background: var(--danger); color: white; padding: 4px 6px; font-size:0.7rem;" onclick="stopTimer()">✕</button>
         </div>
     </div>
 
     <script>
-        window.gymData = JSON.parse(localStorage.getItem('4d1s_gym_data')) || {
-            resetVersion: '2026_lyfta_style_v5',
-            workouts: [],
-            workoutPlan: {},
-            activeWorkoutDay: null,
-            xp: 0,
-            level: 1,
-            water: 0,
-            prs: {},
-            myCustomAtlas: [],
-            bodyMeasurements: []
-        };
-        
+        window.gymData = JSON.parse(localStorage.getItem('4d1s_gym_data')) || { workouts: [], workoutPlan: {}, activeWorkoutDay: null, xp: 0, level: 1, water: 0, prs: {}, myCustomAtlas: [] };
         window.customAtlas = [];
         window.customRecipes = [];
-        let isRegisterMode = false, timerInterval = null, selectedAtlasName = "", tempForumImageBase64 = null, tempRecipeImageBase64 = null;
+        let isRegisterMode = false, timerInterval = null, selectedAtlasName = "", tempForumImageBase64 = null;
         let selectedCategoryFilter = 'all';
         let soundEnabled = true;
         let globalAudioCtx = null;
@@ -1006,14 +853,8 @@
         function toggleSoundMaster() {
             soundEnabled = !soundEnabled;
             const btn = document.getElementById('sound-toggle-btn');
-            if (soundEnabled) {
-                btn.innerText = "🔊 WŁ";
-                btn.style.borderColor = "var(--primary)";
-                playBeep(600, 0.1);
-            } else {
-                btn.innerText = "🔇 WYŁ";
-                btn.style.borderColor = "var(--card-border)";
-            }
+            btn.innerText = soundEnabled ? "🔊" : "🔇";
+            if (soundEnabled) playBeep(600, 0.1);
         }
 
         function playBeep(freq = 880, duration = 0.2) {
@@ -1042,13 +883,12 @@
             document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
             document.getElementById(tabId).style.display = 'block';
             
-            const btnMap = { 'tab-plan': 'nav-btn-plan', 'tab-atlas': 'nav-btn-atlas', 'tab-forum': 'nav-btn-forum', 'tab-progress': 'nav-btn-progress', 'tab-world': 'nav-btn-world', 'tab-calc': 'nav-btn-calc', 'tab-vip': 'tab-vip-btn', 'tab-admin': 'tab-admin-btn' };
+            const btnMap = { 'tab-plan': 'nav-btn-plan', 'tab-atlas': 'nav-btn-atlas', 'tab-forum': 'nav-btn-forum', 'tab-progress': 'nav-btn-progress', 'tab-calc': 'nav-btn-calc', 'tab-vip': 'tab-vip-btn', 'tab-admin': 'tab-admin-btn' };
             if(btnMap[tabId] && document.getElementById(btnMap[tabId])) {
                 document.getElementById(btnMap[tabId]).classList.add('active');
             }
 
-            if (tabId === 'tab-progress') { renderProgressChart(); updateStrengthRank(); renderMeasurements(); }
-            if (tabId === 'tab-world') loadGlobalLeaderboard();
+            if (tabId === 'tab-progress') { renderProgressChart(); updateStrengthRank(); }
             if (tabId === 'tab-atlas') renderAtlas();
             if (tabId === 'tab-vip') renderRecipes();
             if (tabId === 'tab-admin') loadAdminUserList();
@@ -1057,9 +897,9 @@
 
         function toggleAuthMode() {
             isRegisterMode = !isRegisterMode;
-            document.getElementById('modal-title').innerText = isRegisterMode ? 'Utwórz konto Lyfta Pro' : 'Zaloguj się do 4D1S_GYM';
+            document.getElementById('modal-title').innerText = isRegisterMode ? 'Rejestracja Hevy 4D1S' : 'Logowanie Hevy 4D1S';
             document.getElementById('auth-submit').innerText = isRegisterMode ? 'Zarejestruj się' : 'Zaloguj się';
-            document.getElementById('auth-toggle').innerText = isRegisterMode ? 'Masz już konto? Zaloguj się' : 'Nie masz konta? Zarejestruj się';
+            document.getElementById('auth-toggle').innerText = isRegisterMode ? 'Masz konto? Zaloguj się' : 'Nie masz konta? Zarejestruj się';
             document.getElementById('auth-username').style.display = isRegisterMode ? 'block' : 'none';
         }
 
@@ -1069,7 +909,7 @@
             const username = document.getElementById('auth-username').value;
 
             if (!email || !pass) return alert('Wpisz e-mail i hasło!');
-            if (isRegisterMode && !username) return alert('Podaj swój Nick w aplikacji!');
+            if (isRegisterMode && !username) return alert('Podaj swój nick!');
 
             try {
                 if (isRegisterMode) {
@@ -1078,22 +918,9 @@
                         await window.fbSetDoc(window.fbDoc(window.db, 'projects', 'd1s-gym', 'users', res.user.uid), {
                             username: username,
                             role: 'user',
-                            permissions: { canBlock: false, canDeletePosts: false },
-                            gym_data: {
-                                resetVersion: '2026_lyfta_style_v5',
-                                workouts: [],
-                                workoutPlan: {},
-                                activeWorkoutDay: null,
-                                xp: 0,
-                                level: 1,
-                                water: 0,
-                                prs: {},
-                                myCustomAtlas: [],
-                                bodyMeasurements: []
-                            },
-                            globalStats: { level: 1, xp: 0, username: username }
+                            permissions: { canBlock: false, canDeletePosts: false }
                         }, { merge: true });
-                        alert("Konto Lyfta Pro zostało utworzone! Wysłaliśmy link weryfikacyjny na Twój adres e-mail.");
+                        alert("Konto utworzone! Sprawdź e-mail w celu weryfikacji.");
                     }
                 } else {
                     await window.authApi.login(email, pass);
@@ -1101,87 +928,25 @@
             } catch (err) { alert('Błąd: ' + err.message); }
         }
 
-        async function loadGlobalLeaderboard() {
-            if(!window.db) return;
-            try {
-                const snap = await window.fbGetDocs(window.fbCollection(window.db, 'projects', 'd1s-gym', 'users'));
-                const listEl = document.getElementById('global-leaderboard-list');
-                let users = [];
-                snap.forEach(d => {
-                    const data = d.data();
-                    users.push({
-                        name: data.username || 'Gracz',
-                        level: data.gym_data?.level || data.globalStats?.level || 1,
-                        xp: data.gym_data?.xp || data.globalStats?.xp || 0,
-                        role: data.role || 'user'
-                    });
-                });
-
-                users.sort((a,b) => {
-                    if(b.level !== a.level) return b.level - a.level;
-                    return b.xp - a.xp;
-                });
-
-                if(users.length === 0) {
-                    listEl.innerHTML = '<p style="color:var(--text-muted); font-size:0.8rem;">Brak graczy w rankingu Lyfta.</p>';
-                    return;
-                }
-
-                listEl.innerHTML = users.map((u, index) => {
-                    let medal = `#${index+1}`;
-                    if(index === 0) medal = '🥇';
-                    else if(index === 1) medal = '🥈';
-                    else if(index === 2) medal = '🥉';
-
-                    return `
-                        <div class="list-item" style="background:${index===0?'rgba(250,204,21,0.05)':'rgba(255,255,255,0.02)'}; border-color:${index===0?'var(--gold)':'var(--card-border)'};">
-                            <div style="display:flex; align-items:center; gap:12px;">
-                                <span style="font-weight:900; font-size:1.1rem; color:${index===0?'var(--gold)':'var(--text-muted)'}; min-width:30px;">${medal}</span>
-                                <div>
-                                    <strong style="color:#fff; font-size:0.9rem;">${u.name}</strong>
-                                    <div style="font-size:0.72rem; color:var(--text-muted);">Doświadczenie Lyfta: <span style="color:var(--primary);">${u.xp} XP</span></div>
-                                </div>
-                            </div>
-                            <div style="text-align:right;">
-                                <div style="font-weight:900; color:var(--gold); font-size:0.95rem;">LVL ${u.level}</div>
-                                ${window.getRoleBadgeHtml ? window.getRoleBadgeHtml(u.role) : ''}
-                            </div>
-                        </div>
-                    `;
-                }).join('');
-            } catch(e) {
-                document.getElementById('global-leaderboard-list').innerHTML = '<p style="color:var(--danger); font-size:0.8rem;">Błąd ładowania rankingu globalnego.</p>';
-            }
-        }
-
         function importWorkoutPlanFromFile(event) {
             const file = event.target.files[0];
             if (!file) return;
-            
             const reader = new FileReader();
             reader.onload = function(e) {
                 const content = e.target.result;
                 try {
-                    let parsedData = null;
                     if (file.name.endsWith('.json')) {
-                        parsedData = JSON.parse(content);
-                        if (parsedData.workoutPlan) {
-                            window.gymData.workoutPlan = parsedData.workoutPlan;
-                        } else {
-                            window.gymData.workoutPlan = parsedData;
-                        }
+                        const parsed = JSON.parse(content);
+                        window.gymData.workoutPlan = parsed.workoutPlan || parsed;
                     } else {
                         parseTextPlanToGymData(content);
                     }
-                    
                     window.saveGymData();
                     window.renderPlan();
                     updateWorkoutStats();
-                    alert(`✅ Pomyślnie zaimportowano plan w formacie Lyfta: ${file.name}!`);
-                    const lbl = document.getElementById('import-plan-filename');
-                    if(lbl) lbl.innerText = file.name;
+                    alert(`✅ Zaimportowano plan z pliku: ${file.name}`);
                 } catch(err) {
-                    alert("❌ Błąd podczas parsowania pliku: " + err.message);
+                    alert("❌ Błąd parsowania pliku: " + err.message);
                 }
             };
             reader.readAsText(file);
@@ -1191,16 +956,14 @@
             const lines = text.split('\n');
             let currentDay = 'Poniedziałek';
             if(!window.gymData.workoutPlan) window.gymData.workoutPlan = {};
-            
-            const daysKeywords = ['poniedziałek', 'wtorek', 'środa', 'czwartek', 'piątek', 'sobota', 'niedziela', 'day 1', 'day 2', 'dzień'];
+            const daysKeywords = ['poniedziałek', 'wtorek', 'środa', 'czwartek', 'piątek', 'sobota', 'niedziela'];
             
             lines.forEach(line => {
                 const clean = line.trim();
                 if(!clean) return;
                 const lower = clean.toLowerCase();
-                
-                let foundDay = daysKeywords.find(d => lower.includes(d));
-                if (foundDay && clean.length < 30) {
+                let found = daysKeywords.find(d => lower.includes(d));
+                if (found && clean.length < 25) {
                     if(lower.includes('poniedziałek')) currentDay = 'Poniedziałek';
                     else if(lower.includes('wtorek')) currentDay = 'Wtorek';
                     else if(lower.includes('środa')) currentDay = 'Środa';
@@ -1210,36 +973,20 @@
                     else if(lower.includes('niedziela')) currentDay = 'Niedziela';
                     else currentDay = clean;
 
-                    if(!window.gymData.workoutPlan[currentDay]) {
-                        window.gymData.workoutPlan[currentDay] = [];
-                    }
+                    if(!window.gymData.workoutPlan[currentDay]) window.gymData.workoutPlan[currentDay] = [];
                 } else {
-                    if(!window.gymData.workoutPlan[currentDay]) {
-                        window.gymData.workoutPlan[currentDay] = [];
-                    }
+                    if(!window.gymData.workoutPlan[currentDay]) window.gymData.workoutPlan[currentDay] = [];
                     window.gymData.workoutPlan[currentDay].push({
                         id: Date.now() + Math.random(),
                         name: clean,
                         sets: [
-                            { setNum: 1, type: 'Robocza', weight: '', reps: '', rpe: '8', done: false },
-                            { setNum: 2, type: 'Robocza', weight: '', reps: '', rpe: '8.5', done: false },
-                            { setNum: 3, type: 'Robocza', weight: '', reps: '', rpe: '9', done: false }
+                            { setNum: 1, type: 'Robocza', weight: '', reps: '', done: false },
+                            { setNum: 2, type: 'Robocza', weight: '', reps: '', done: false },
+                            { setNum: 3, type: 'Robocza', weight: '', reps: '', done: false }
                         ]
                     });
                 }
             });
-        }
-
-        function previewForumDocument(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const textContent = e.target.result;
-                document.getElementById('forum-content').value = `[Dokument Lyfta: ${file.name}]\nTreść:\n` + textContent.substring(0, 300) + '...';
-                document.getElementById('forum-img-name').innerText = file.name;
-            };
-            reader.readAsText(file);
         }
 
         function checkAndAddXPForPR(exName, weight) {
@@ -1251,53 +998,54 @@
             if(numWeight > currentPr && numWeight > 0) {
                 const diff = numWeight - currentPr;
                 window.gymData.prs[cleanName] = numWeight;
-
-                let xpGain = 50;
-                if(diff >= 3 && diff < 8) xpGain = 100;
-                else if(diff >= 8) xpGain = 250;
-
+                let xpGain = diff > 5 ? 50 : 25;
                 addXP(xpGain);
-                alert(`🔥 NOWY REKORD LYFTA (PR) w ${exName}: ${numWeight} kg! (+${xpGain} XP)`);
+                alert(`🔥 NOWY REKORD PR w ${exName}: ${numWeight} kg! (+${xpGain} XP)`);
             }
         }
 
         function getXpNeededForLevel(level) {
-            return Math.min(60000, 200 + (level - 1) * 100 + Math.floor(Math.pow(level, 1.4) * 22));
+            return 200 + (level - 1) * 100;
         }
 
         function addXP(amount) {
             if(!window.gymData.xp) window.gymData.xp = 0;
             if(!window.gymData.level) window.gymData.level = 1;
-
             window.gymData.xp += amount;
             let needed = getXpNeededForLevel(window.gymData.level);
-
-            while(window.gymData.xp >= needed && window.gymData.level < 999) {
+            while(window.gymData.xp >= needed) {
                 window.gymData.xp -= needed;
                 window.gymData.level += 1;
                 needed = getXpNeededForLevel(window.gymData.level);
-                alert(`🎉 AWANS W STYLU LYFTA! Osiągnąłeś LEVEL ${window.gymData.level}! Jesteś w elicie! 🚀`);
+                alert(`🎉 AWANS NA LEVEL ${window.gymData.level}! 🚀`);
             }
-
             window.saveGymData();
-            window.renderAchievements();
+            renderAchievements();
+        }
+
+        function renderAchievements() {
+            const xp = window.gymData.xp || 0;
+            const level = window.gymData.level || 1;
+            const needed = getXpNeededForLevel(level);
+            const pct = Math.min(100, Math.round((xp / needed) * 100));
+            document.getElementById('player-level-text').innerText = `LVL ${level} (${xp}/${needed} XP)`;
+            document.getElementById('xp-bar').style.width = pct + '%';
         }
 
         function startActiveWorkoutDay(dayName) {
             window.gymData.activeWorkoutDay = dayName;
             window.saveGymData();
-            window.renderPlan();
+            renderPlan();
             updateWorkoutStats();
         }
 
         function finishActiveWorkoutSession() {
             const dayName = window.gymData.activeWorkoutDay;
             if(!dayName) return;
-            addXP(150);
-            alert(`🎉 Sesja Lyfta "${dayName}" pomyślnie ukończona! Zapisano w pamięci aplikacji (+150 XP).`);
+            alert(`🎉 Trening ${dayName} zakończony pomyślnie!`);
             window.gymData.activeWorkoutDay = null;
             window.saveGymData();
-            window.renderPlan();
+            renderPlan();
             updateWorkoutStats();
         }
 
@@ -1305,37 +1053,33 @@
             const plan = window.gymData.workoutPlan || {};
             const activeDay = window.gymData.activeWorkoutDay;
             const badgeEl = document.getElementById('active-day-badge');
-            const banner = document.getElementById('lyfta-active-workout-banner');
-            const bannerTitle = document.getElementById('lyfta-active-day-title');
+            const banner = document.getElementById('hevy-active-workout-banner');
+            const bannerTitle = document.getElementById('hevy-active-day-title');
             
             if (activeDay) {
-                badgeEl.innerText = `🟢 Sesja Lyfta w toku: ${activeDay}`;
+                badgeEl.innerText = `🟢 Sesja w toku: ${activeDay}`;
                 badgeEl.style.color = "var(--success)";
-                badgeEl.style.borderColor = "rgba(34,197,94,0.4)";
-                badgeEl.style.background = "rgba(34,197,94,0.1)";
+                badgeEl.style.borderColor = "rgba(35,134,54,0.4)";
+                badgeEl.style.background = "rgba(35,134,54,0.1)";
                 if(banner && bannerTitle) {
                     banner.style.display = "flex";
                     bannerTitle.innerText = activeDay;
                 }
             } else {
-                badgeEl.innerText = "⚠️ Wybierz dzień i zacznij trening";
+                badgeEl.innerText = "Brak aktywnej sesji";
                 badgeEl.style.color = "var(--gold)";
-                badgeEl.style.borderColor = "rgba(250,204,21,0.3)";
-                badgeEl.style.background = "rgba(250,204,21,0.1)";
+                badgeEl.style.borderColor = "rgba(210,153,34,0.3)";
+                badgeEl.style.background = "rgba(210,153,34,0.1)";
                 if(banner) banner.style.display = "none";
             }
 
-            let totalTonnage = 0;
-            let totalDoneSets = 0;
-
+            let totalTonnage = 0, totalDoneSets = 0;
             Object.keys(plan).forEach(day => {
                 (plan[day] || []).forEach(ex => {
                     (ex.sets || []).forEach(s => {
                         if (s.done) {
                             totalDoneSets++;
-                            const w = parseFloat(s.weight) || 0;
-                            const r = parseFloat(s.reps) || 0;
-                            totalTonnage += w * r;
+                            totalTonnage += (parseFloat(s.weight) || 0) * (parseFloat(s.reps) || 0);
                         }
                     });
                 });
@@ -1350,46 +1094,28 @@
             const list = document.getElementById('workout-list');
             const workouts = window.gymData.workouts || [];
             if (workouts.length === 0) {
-                list.innerHTML = '<p style="font-size: 0.78rem; color: var(--text-muted); text-align: center;">Brak zakończonych treningów.</p>';
+                list.innerHTML = '<p style="font-size: 0.75rem; color: var(--text-muted); text-align: center;">Brak historii.</p>';
                 return;
             }
-            list.innerHTML = workouts.map(w => {
-                const exercisesHtml = (w.exercises || []).map(ex => `
-                    <div style="margin-top: 4px; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 4px;">
-                        <span style="font-weight:700; color:var(--text-main);">${ex.name}</span>
-                        <div style="font-size:0.72rem; color:var(--text-muted);">
-                            ${ex.setsSummary}
-                        </div>
+            list.innerHTML = workouts.map(w => `
+                <div style="background:rgba(255,255,255,0.02); border:1px solid var(--card-border); padding:8px; border-radius:10px; margin-bottom:6px; font-size:0.75rem;">
+                    <div style="font-weight:800; color:var(--primary); display:flex; justify-content:space-between;">
+                        <span>${w.dayName}</span>
+                        <span style="color:var(--gold);">${w.tonnage} kg</span>
                     </div>
-                `).join('');
-
-                return `
-                    <details style="background:rgba(255,255,255,0.02); border:1px solid var(--card-border); padding:10px; border-radius:12px; margin-bottom:8px; font-size:0.78rem;">
-                        <summary style="font-weight:800; color:var(--primary); display:flex; justify-content:space-between; align-items:center;">
-                            <span>${w.dayName}</span>
-                            <span style="color:var(--gold); font-size:0.72rem;">${w.tonnage} kg ▾</span>
-                        </summary>
-                        <div style="margin-top: 8px;">
-                            <div style="color:var(--text-muted); margin-bottom:6px;">Tonaż: <strong style="color:var(--gold);">${w.tonnage} kg</strong> | Zaliczone: ${w.setsCount}</div>
-                            ${exercisesHtml}
-                        </div>
-                    </details>
-                `;
-            }).join('');
+                </div>
+            `).join('');
         }
 
         function updateStrengthRank() {
             const prs = window.gymData.prs || {};
             const prValues = Object.values(prs);
-            const prsCount = prValues.length;
-            document.getElementById('player-prs-count').innerText = prsCount;
-
-            const maxPr = prValues.length > 0 ? Math.max(...prValues) : 0;
+            document.getElementById('player-prs-count').innerText = prValues.length;
+            let maxPr = prValues.length ? Math.max(...prValues) : 0;
             let rank = "🏋 Początkujący";
-            if (maxPr >= 170) rank = "🔥 Lyfta Pro Master";
-            else if (maxPr >= 125) rank = "⚡ Zaawansowany";
-            else if (maxPr >= 85) rank = "💪 Średniozaawansowany";
-
+            if (maxPr >= 140) rank = "🔥 Elite";
+            else if (maxPr >= 100) rank = "⚡ Zaawansowany";
+            else if (maxPr >= 70) rank = "💪 Średniozaawansowany";
             document.getElementById('player-strength-rank').innerText = rank;
         }
 
@@ -1418,11 +1144,11 @@
             if (!window.gymData.workoutPlan[day]) window.gymData.workoutPlan[day] = [];
 
             let setsArr = [];
-            for(let i=1; i<=setsCount; i++) setsArr.push({ setNum: i, type: 'Robocza', weight: weight, reps: reps, rpe: '8', done: false });
+            for(let i=1; i<=setsCount; i++) setsArr.push({ setNum: i, type: 'Robocza', weight: weight, reps: reps, done: false });
 
             window.gymData.workoutPlan[day].push({ id: Date.now(), name: selectedAtlasName, sets: setsArr });
             window.saveGymData();
-            window.renderPlan();
+            renderPlan();
             closeAtlasModal();
             switchTab('tab-plan');
         }
@@ -1430,21 +1156,9 @@
         function addSingleSetToExercise(day, exId) {
             const ex = window.gymData.workoutPlan[day].find(item => item.id === exId);
             if (ex) {
-                const nextNum = ex.sets.length + 1;
-                ex.sets.push({ setNum: nextNum, type: 'Robocza', weight: '', reps: '', rpe: '8.5', done: false });
+                ex.sets.push({ setNum: ex.sets.length + 1, type: 'Robocza', weight: '', reps: '', done: false });
                 window.saveGymData();
-                window.renderPlan();
-            }
-        }
-
-        function removeSingleSetFromExercise(day, exId, setIndex) {
-            const ex = window.gymData.workoutPlan[day].find(item => item.id === exId);
-            if (ex && ex.sets.length > 0) {
-                ex.sets.splice(setIndex, 1);
-                ex.sets.forEach((s, i) => s.setNum = i + 1);
-                window.saveGymData();
-                window.renderPlan();
-                updateWorkoutStats();
+                renderPlan();
             }
         }
 
@@ -1462,96 +1176,50 @@
             const ex = window.gymData.workoutPlan[day].find(item => item.id === exId);
             if (ex && ex.sets[setIndex]) {
                 ex.sets[setIndex].done = !ex.sets[setIndex].done;
-                if(ex.sets[setIndex].done) {
-                    playBeep(920, 0.12);
-                    addXP(8);
-                }
                 checkAndLogCompletedWorkout(day);
-
                 window.saveGymData();
-                window.renderPlan();
+                renderPlan();
                 updateWorkoutStats();
             }
         }
 
         function checkAndLogCompletedWorkout(dayName) {
             const plan = window.gymData.workoutPlan[dayName] || [];
-            if (plan.length === 0) return;
-
-            let totalTonnage = 0;
-            let totalSets = 0;
-            let exercisesSummary = [];
-            let hasAnyDone = false;
-
+            let totalTonnage = 0, totalSets = 0, hasAnyDone = false;
             plan.forEach(ex => {
-                let detailsArr = [];
                 (ex.sets || []).forEach(s => {
                     if (s.done) {
                         hasAnyDone = true;
                         totalSets++;
-                        const w = parseFloat(s.weight) || 0;
-                        const r = parseFloat(s.reps) || 0;
-                        const t = w * r;
-                        totalTonnage += t;
-                        detailsArr.push(`S${s.setNum}: ${w}kg × ${r}pow (RPE ${s.rpe||8})`);
+                        totalTonnage += (parseFloat(s.weight) || 0) * (parseFloat(s.reps) || 0);
                     }
                 });
-                if (detailsArr.length > 0) {
-                    exercisesSummary.push({
-                        name: ex.name,
-                        setsSummary: detailsArr.join(' | ')
-                    });
-                }
             });
-
             if(!window.gymData.workouts) window.gymData.workouts = [];
-            const existingIndex = window.gymData.workouts.findIndex(w => w.dayName === dayName);
-
-            if (hasAnyDone && totalSets > 0) {
-                const workoutObj = {
-                    id: existingIndex >= 0 ? window.gymData.workouts[existingIndex].id : Date.now(),
-                    dayName: dayName,
-                    tonnage: totalTonnage,
-                    setsCount: totalSets,
-                    exercises: exercisesSummary
-                };
-
-                if (existingIndex >= 0) {
-                    window.gymData.workouts[existingIndex] = workoutObj;
-                } else {
-                    window.gymData.workouts.unshift(workoutObj);
-                }
-            } else {
-                if (existingIndex >= 0) {
-                    window.gymData.workouts.splice(existingIndex, 1);
-                }
+            if (hasAnyDone) {
+                window.gymData.workouts.unshift({ id: Date.now(), dayName, tonnage: totalTonnage, setsCount: totalSets });
             }
         }
 
         function deletePlanExercise(day, exId) {
             window.gymData.workoutPlan[day] = window.gymData.workoutPlan[day].filter(item => item.id !== exId);
             window.saveGymData();
-            window.renderPlan();
+            renderPlan();
             updateWorkoutStats();
         }
 
         function generatePresetPlanPPL() {
-            if(!confirm("Wgrać profesjonalny plan Lyfta Push/Pull/Legs Pro?")) return;
+            if(!confirm("Wgrać domyślny plan PPL w stylu Hevy?")) return;
             window.gymData.workoutPlan = {
                 'Poniedziałek': [
-                    { id: 101, name: 'Wyciskanie sztangi na ławce poziomej', sets: [{setNum:1,type:'Rozgrzewka',weight:'50',reps:'12',rpe:'6',done:false},{setNum:2,type:'Robocza',weight:'90',reps:'8',rpe:'8.5',done:false},{setNum:3,type:'Robocza',weight:'90',reps:'8',rpe:'9',done:false}] },
-                    { id: 102, name: 'Wyciskanie żołnierskie (OHP)', sets: [{setNum:1,type:'Robocza',weight:'60',reps:'8',rpe:'8.5',done:false},{setNum:2,type:'Robocza',weight:'60',reps:'8',rpe:'9',done:false}] }
+                    { id: 101, name: 'Wyciskanie sztangi na ławce poziomej', sets: [{setNum:1,type:'Robocza',weight:'80',reps:'8',done:false}] }
                 ],
                 'Wtorek': [
-                    { id: 201, name: 'Podciąganie na drążku nachwytem', sets: [{setNum:1,type:'Robocza',weight:'0',reps:'8',rpe:'8',done:false},{setNum:2,type:'Robocza',weight:'0',reps:'8',rpe:'9',done:false}] },
-                    { id: 202, name: 'Wiosłowanie sztangą w opadzie tułowia', sets: [{setNum:1,type:'Robocza',weight:'80',reps:'10',rpe:'8.5',done:false}] }
-                ],
-                'Środa': [
-                    { id: 301, name: 'Przysiad ze sztangą na plecach', sets: [{setNum:1,type:'Rozgrzewka',weight:'60',reps:'10',rpe:'6',done:false},{setNum:2,type:'Robocza',weight:'120',reps:'6',rpe:'9',done:false}] }
+                    { id: 201, name: 'Podciąganie na drążku nachwytem', sets: [{setNum:1,type:'Robocza',weight:'0',reps:'8',done:false}] }
                 ]
             };
             window.saveGymData();
-            window.renderPlan();
+            renderPlan();
             updateWorkoutStats();
         }
 
@@ -1564,521 +1232,60 @@
             container.innerHTML = days.map(day => {
                 const list = plan[day] || [];
                 const isActive = activeDay === day;
-                const exCount = list.length;
-
                 return `
                     <details class="day-card ${isActive ? 'active-workout-day' : ''}" ${isActive ? 'open' : ''}>
                         <summary class="day-header" onclick="event.stopPropagation();">
                             <div style="display:flex; align-items:center; gap:8px;">
-                                <span style="font-size:0.82rem; color:var(--text-muted);">▸</span>
                                 <span style="font-weight:900;">${day}</span>
-                                <span style="font-size:0.75rem; color:var(--text-muted); font-weight:600;">(${exCount} ćwiczeń)</span>
-                                ${isActive ? '<span style="font-size:0.68rem; background:var(--primary); color:#030305; padding:2px 8px; border-radius:6px; margin-left:6px; font-weight:800;">AKTYWNA SESJA</span>' : ''}
+                                <span style="font-size:0.72rem; color:var(--text-muted);">(${list.length})</span>
+                                ${isActive ? '<span style="font-size:0.65rem; background:var(--primary); color:#fff; padding:2px 6px; border-radius:6px;">AKTYWNY</span>' : ''}
                             </div>
-                            <div style="display:flex; gap:6px; align-items:center;" onclick="event.stopPropagation();">
-                                <button class="btn btn-sm ${isActive?'btn-success':''}" style="padding:5px 12px; font-size:0.75rem;" onclick="startActiveWorkoutDay('${day}')">${isActive ? '▶ Rozpoczęty' : 'Rozpocznij Trening'}</button>
-                            </div>
+                            <button class="btn btn-sm ${isActive?'btn-success':''}" style="padding:4px 10px; font-size:0.7rem;" onclick="startActiveWorkoutDay('${day}')">${isActive ? 'Trwa sesja' : 'Start'}</button>
                         </summary>
                         <div class="day-content">
-                            ${list.length===0?'<p style="font-size:0.78rem; color:var(--text-muted); padding:8px 0;">Brak dodanych ćwiczeń w tej rutynie Lyfta.</p>':''}
+                            ${list.length===0?'<p style="font-size:0.75rem; color:var(--text-muted);">Brak ćwiczeń w tym dniu.</p>':''}
                             ${list.map(ex => `
                                 <div class="exercise-item">
-                                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-                                        <strong style="color:var(--primary); font-size:0.95rem; font-weight:800;">${ex.name}</strong>
-                                        <button class="btn btn-outline btn-sm" style="color:var(--danger); border:none; padding:2px 6px; font-size:0.78rem;" onclick="deletePlanExercise('${day}',${ex.id})">✕ Usuń</button>
+                                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                                        <strong style="color:var(--primary); font-size:0.9rem;">${ex.name}</strong>
+                                        <button class="btn btn-outline btn-sm" style="color:var(--danger); border:none; padding:1px 4px;" onclick="deletePlanExercise('${day}',${ex.id})">✕</button>
                                     </div>
-                                    
-                                    <div class="lyfta-set-table">
-                                        <div class="lyfta-set-header">
+                                    <div class="hevy-set-table">
+                                        <div class="hevy-set-header">
                                             <span>SERIA</span>
-                                            <span>POPRZEDNIO</span>
+                                            <span>POP.</span>
                                             <span>KG</span>
                                             <span>POWT.</span>
-                                            <span>RPE</span>
                                             <span>✓</span>
                                         </div>
-                                        ${(ex.sets||[]).map((s, idx) => {
-                                            const isDone = s.done === true;
-                                            let badgeLabel = s.setNum;
-                                            let badgeClass = "set-badge";
-                                            if(s.type === 'Rozgrzewka') { badgeLabel = 'W'; badgeClass += " warmup"; }
-                                            if(s.type === 'Drop-set') { badgeLabel = 'D'; badgeClass += " drop"; }
-
-                                            const prevText = (s.weight && s.reps) ? `${s.weight}kg × ${s.reps}` : '—';
-
-                                            return `
-                                                <div class="lyfta-set-row">
-                                                    <div><span class="${badgeClass}">${badgeLabel}</span></div>
-                                                    <div class="prev-stat">${prevText}</div>
-                                                    <div>
-                                                        <input type="number" class="lyfta-input" placeholder="0" value="${s.weight||''}" onchange="updatePlanSetData('${day}',${ex.id},${idx},'weight',this.value)">
-                                                    </div>
-                                                    <div>
-                                                        <input type="number" class="lyfta-input" placeholder="0" value="${s.reps||''}" onchange="updatePlanSetData('${day}',${ex.id},${idx},'reps',this.value)">
-                                                    </div>
-                                                    <div>
-                                                        <input type="text" class="lyfta-input" placeholder="8" value="${s.rpe||'8'}" onchange="updatePlanSetData('${day}',${ex.id},${idx},'rpe',this.value)">
-                                                    </div>
-                                                    <div>
-                                                        <button class="check-btn ${isDone ? 'completed' : ''}" onclick="togglePlanSetDone('${day}',${ex.id},${idx})">✓</button>
-                                                    </div>
-                                                </div>
-                                            `;
-                                        }).join('')}
+                                        ${(ex.sets||[]).map((s, idx) => `
+                                            <div class="hevy-set-row">
+                                                <div><span class="set-badge">${s.setNum}</span></div>
+                                                <div class="prev-stat">${s.weight ? s.weight+'kg' : '—'}</div>
+                                                <div><input type="number" class="hevy-input" value="${s.weight||''}" onchange="updatePlanSetData('${day}',${ex.id},${idx},'weight',this.value)"></div>
+                                                <div><input type="number" class="hevy-input" value="${s.reps||''}" onchange="updatePlanSetData('${day}',${ex.id},${idx},'reps',this.value)"></div>
+                                                <div><button class="check-btn ${s.done ? 'completed' : ''}" onclick="togglePlanSetDone('${day}',${ex.id},${idx})">✓</button></div>
+                                            </div>
+                                        `).join('')}
                                     </div>
-                                    <div style="display:flex; justify-content:space-between; align-items:center; margin-top:12px;">
-                                        <button class="btn btn-outline btn-sm" style="font-size:0.75rem; padding:5px 12px;" onclick="addSingleSetToExercise('${day}',${ex.id})">+ Dodaj Serię</button>
-                                        <button class="btn btn-outline btn-sm" style="font-size:0.68rem; color:var(--text-muted); border:none;" onclick="removeSingleSetFromExercise('${day}',${ex.id},${ex.sets.length-1})">- Usuń serię</button>
-                                    </div>
+                                    <button class="btn btn-outline btn-sm" style="width:100%; margin-top:8px;" onclick="addSingleSetToExercise('${day}',${ex.id})">+ Dodaj serię</button>
                                 </div>
                             `).join('')}
-
-                            <button class="btn btn-outline btn-sm" style="width:100%; margin-top:10px; border-style:dashed; color:var(--primary); font-weight:800; padding:10px;" onclick="openAtlasPickerForDay('${day}')">+ Dodaj ćwiczenie z Atlasu Lyfta</button>
+                            <button class="btn btn-outline btn-sm" style="width:100%; margin-top:8px; border-style:dashed; color:var(--primary);" onclick="openAtlasPickerForDay('${day}')">+ Dodaj z atlasu</button>
                         </div>
                     </details>
                 `;
             }).join('');
         }
 
-        async function adminAddAtlasItem() {
-            if (!['owner', 'admin'].includes(window.currentUserRole)) return alert("Brak uprawnień!");
-            const name = document.getElementById('admin-ex-name').value;
-            const part = document.getElementById('admin-ex-part').value;
-            const equipment = document.getElementById('admin-ex-equipment').value || "Sztanga";
-            const yt = document.getElementById('admin-ex-yt').value || "";
-            const level = document.getElementById('admin-ex-level').value;
-            const desc = document.getElementById('admin-ex-desc').value;
-
-            if(!name || !part) return alert("Wpisz nazwę i partię mięśniową!");
-            try {
-                await window.fbAddDoc(window.fbCollection(window.db, 'projects', 'd1s-gym', 'custom_atlas'), { name, part, equipment, yt, level, desc });
-                alert("Dodano ćwiczenie do globalnego Atlasu Lyfta!");
-                document.getElementById('admin-ex-name').value = '';
-                document.getElementById('admin-ex-part').value = '';
-                document.getElementById('admin-ex-equipment').value = '';
-                document.getElementById('admin-ex-yt').value = '';
-                document.getElementById('admin-ex-desc').value = '';
-            } catch(e) { alert("Błąd: " + e.message); }
-        }
-
-        function previewRecipeImage(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const img = new Image();
-                img.onload = function() {
-                    const canvas = document.createElement('canvas');
-                    const MAX_WIDTH = 800;
-                    const MAX_HEIGHT = 800;
-                    let width = img.width;
-                    let height = img.height;
-                    if (width > height) {
-                        if (width > MAX_WIDTH) { height *= MAX_WIDTH / width; width = MAX_WIDTH; }
-                    } else {
-                        if (height > MAX_HEIGHT) { width *= MAX_HEIGHT / height; height = MAX_HEIGHT; }
-                    }
-                    canvas.width = width;
-                    canvas.height = height;
-                    const ctx = canvas.getContext('2d');
-                    ctx.drawImage(img, 0, 0, width, height);
-                    tempRecipeImageBase64 = canvas.toDataURL('image/jpeg', 0.8);
-                    document.getElementById('admin-rec-img-tag-preview').src = tempRecipeImageBase64;
-                    document.getElementById('admin-rec-img-preview-container').style.display = 'block';
-                    document.getElementById('admin-rec-img-name').innerText = file.name || 'Zdjęcie';
-                    document.getElementById('admin-rec-img-clear').style.display = 'inline-block';
-                };
-                img.src = e.target.result;
-            };
-            reader.readAsDataURL(file);
-        }
-
-        function clearRecipeImage() {
-            tempRecipeImageBase64 = null;
-            document.getElementById('admin-rec-img-input').value = '';
-            document.getElementById('admin-rec-img-preview-container').style.display = 'none';
-            document.getElementById('admin-rec-img-tag-preview').src = '';
-            document.getElementById('admin-rec-img-name').innerText = 'Brak zdjęcia';
-            document.getElementById('admin-rec-img-clear').style.display = 'none';
-        }
-
-        async function adminAddRecipeItem() {
-            if (!['owner', 'admin'].includes(window.currentUserRole)) return alert("Brak uprawnień!");
-            const name = document.getElementById('admin-rec-name').value;
-            const kcal = document.getElementById('admin-rec-kcal').value;
-            const protein = document.getElementById('admin-rec-protein').value;
-            const ingredients = document.getElementById('admin-rec-ingredients').value || 'Brak listy składników.';
-            const steps = document.getElementById('admin-rec-steps').value;
-            if(!name) return alert("Wpisz nazwę przepisu!");
-            try {
-                await window.fbAddDoc(window.fbCollection(window.db, 'projects', 'd1s-gym', 'custom_recipes'), { 
-                    name, 
-                    kcal, 
-                    protein, 
-                    ingredients, 
-                    steps, 
-                    imageBase64: tempRecipeImageBase64 || null 
-                });
-                alert("Dodano przepis VIP Lyfta!");
-                document.getElementById('admin-rec-name').value = '';
-                document.getElementById('admin-rec-kcal').value = '';
-                document.getElementById('admin-rec-protein').value = '';
-                document.getElementById('admin-rec-ingredients').value = '';
-                document.getElementById('admin-rec-steps').value = '';
-                clearRecipeImage();
-            } catch(e) { alert("Błąd: " + e.message); }
-        }
-
-        async function deleteForumPostAdmin(postId) {
-            if(['owner', 'admin'].includes(window.currentUserRole)) {
-                if(window.permissions?.canDeletePosts === false && window.currentUserRole !== 'owner') {
-                    return alert("Brak uprawnień do usuwania postów!");
-                }
-                if(confirm("Usunąć ten post?")) {
-                    await window.fbDeleteDoc(window.fbDoc(window.db, 'projects', 'd1s-gym', 'forum', postId));
-                }
-            } else {
-                alert("Brak uprawnień!");
-            }
-        }
-
-        function openAddPrivateExerciseModal() {
-            document.getElementById('add-private-exercise-modal').style.display = 'flex';
-        }
-
-        function closeAddPrivateExerciseModal() {
-            document.getElementById('add-private-exercise-modal').style.display = 'none';
-        }
-
-        function savePrivateExercise() {
-            const name = document.getElementById('priv-ex-name').value.trim();
-            const part = document.getElementById('priv-ex-part').value;
-            const equipment = document.getElementById('priv-ex-eq').value.trim() || 'Inne';
-            const yt = document.getElementById('priv-ex-yt').value.trim() || '';
-            const desc = document.getElementById('priv-ex-desc').value.trim() || 'Własne ćwiczenie użytkownika Lyfta.';
-
-            if (!name) return alert("Podaj nazwę ćwiczenia!");
-
-            if (!window.gymData.myCustomAtlas) window.gymData.myCustomAtlas = [];
-            
-            const newEx = {
-                id: 'priv_' + Date.now(),
-                name,
-                part,
-                equipment,
-                yt,
-                level: 'Początkujący',
-                desc,
-                isPrivate: true
-            };
-
-            window.gymData.myCustomAtlas.push(newEx);
-            window.saveGymData();
-            closeAddPrivateExerciseModal();
-            renderAtlas();
-            alert("Dodano ćwiczenie do Twojego prywatnego atlasu Lyfta!");
-
-            document.getElementById('priv-ex-name').value = '';
-            document.getElementById('priv-ex-eq').value = '';
-            document.getElementById('priv-ex-yt').value = '';
-            document.getElementById('priv-ex-desc').value = '';
-        }
-
-        function deletePrivateExercise(privId) {
-            if(confirm("Usunąć to ćwiczenie z prywatnego atlasu?")) {
-                window.gymData.myCustomAtlas = (window.gymData.myCustomAtlas || []).filter(x => x.id !== privId);
-                window.saveGymData();
-                renderAtlas();
-            }
-        }
-
-        async function changeUserRole(targetUid, newRole) {
-            if(window.currentUserRole !== 'owner') return alert("Tylko Szef może zmieniać rangi!");
-            try {
-                await window.fbSetDoc(window.fbDoc(window.db, 'projects', 'd1s-gym', 'users', targetUid), { role: newRole }, { merge: true });
-                alert("Zmieniono rangę użytkownika!");
-                loadAdminUserList();
-            } catch(e) { alert("Błąd: " + e.message); }
-        }
-
-        async function deleteUserFromDatabase(targetUid) {
-            if(window.currentUserRole !== 'owner') return alert("Tylko Szef może usuwać użytkowników z bazy!");
-            if(confirm("Usunąć tego użytkownika z bazy danych?")) {
-                try {
-                    await window.fbDeleteDoc(window.fbDoc(window.db, 'projects', 'd1s-gym', 'users', targetUid));
-                    alert("Usunięto użytkownika!");
-                    loadAdminUserList();
-                } catch(e) { alert("Błąd: " + e.message); }
-            }
-        }
-
-        function openEditNicknameModal(targetUid, currentName, currentPerms, role) {
-            if (!['owner', 'admin'].includes(window.currentUserRole)) return alert("Brak uprawnień!");
-            if (role === 'owner' && window.currentUserRole !== 'owner') return alert("Nie możesz edytować konta Szefa!");
-
-            document.getElementById('modal-edit-uid').value = targetUid;
-            document.getElementById('modal-new-username').value = currentName;
-            
-            const perms = currentPerms || { canBlock: false, canDeletePosts: false };
-            document.getElementById('perm-block').checked = perms.canBlock === true;
-            document.getElementById('perm-delete').checked = perms.canDeletePosts === true;
-
-            document.getElementById('admin-edit-nickname-modal').style.display = 'flex';
-        }
-
-        function closeNicknameModal() {
-            document.getElementById('admin-edit-nickname-modal').style.display = 'none';
-        }
-
-        async function confirmChangeUserPermissions() {
-            if (!['owner', 'admin'].includes(window.currentUserRole)) return alert("Brak uprawnień!");
-            const targetUid = document.getElementById('modal-edit-uid').value;
-            const newName = document.getElementById('modal-new-username').value.trim();
-            const canBlock = document.getElementById('perm-block').checked;
-            const canDeletePosts = document.getElementById('perm-delete').checked;
-
-            if (!newName) return alert("Nick nie może być pusty!");
-
-            try {
-                await window.fbSetDoc(window.fbDoc(window.db, 'projects', 'd1s-gym', 'users', targetUid), { 
-                    username: newName,
-                    permissions: { canBlock, canDeletePosts }
-                }, { merge: true });
-                
-                alert("Zapisano uprawnienia!");
-                closeNicknameModal();
-                loadAdminUserList();
-            } catch(e) { alert("Błąd: " + e.message); }
-        }
-
-        async function loadAdminUserList() {
-            if (!window.db) return;
-            const isOwner = window.currentUserRole === 'owner';
-            const isAdminOrOwner = ['owner', 'admin'].includes(window.currentUserRole);
-
-            document.getElementById('admin-atlas-form-container').style.display = isAdminOrOwner ? 'block' : 'none';
-            document.getElementById('admin-recipe-form-container').style.display = isAdminOrOwner ? 'block' : 'none';
-
-            try {
-                const snap = await window.fbGetDocs(window.fbCollection(window.db, 'projects', 'd1s-gym', 'users'));
-                const listEl = document.getElementById('admin-user-list');
-                let total = snap.size, html = '';
-
-                if (total === 0) {
-                    listEl.innerHTML = '<p style="color:var(--text-muted); font-size:0.78rem;">Brak użytkowników w bazie.</p>';
-                    return;
-                }
-
-                snap.forEach(userDoc => {
-                    const data = userDoc.data();
-                    const uLvl = data.gym_data?.level || 1;
-                    const uXp = data.gym_data?.xp || 0;
-                    const role = data.role || 'user';
-                    const nameToDisplay = data.username || 'Użytkownik';
-                    const perms = data.permissions || { canBlock: false, canDeletePosts: false };
-
-                    let actionControls = '';
-                    if (isAdminOrOwner) {
-                        let roleSelectHtml = '';
-                        if (isOwner) {
-                            roleSelectHtml = `
-                                <select onchange="changeUserRole('${userDoc.id}', this.value)" style="width:auto; margin:0; padding:4px 8px; font-size:0.72rem; background:var(--bg-input);">
-                                    <option value="user" ${role==='user'?'selected':''}>Gracz</option>
-                                    <option value="vip" ${role==='vip'?'selected':''}>VIP</option>
-                                    <option value="staff" ${role==='staff'?'selected':''}>Staff</option>
-                                    <option value="admin" ${role==='admin'?'selected':''}>Admin</option>
-                                    <option value="owner" ${role==='owner'?'selected':''}>Szef</option>
-                                </select>
-                            `;
-                        }
-
-                        actionControls = `
-                            <div style="display:flex; gap:6px; align-items:center; flex-wrap:wrap; margin-top:6px;">
-                                <button class="btn btn-outline btn-sm" style="color:var(--gold); border-color:var(--gold); font-size:0.68rem; padding:4px 8px;" onclick='openEditNicknameModal("${userDoc.id}", "${nameToDisplay}", ${JSON.stringify(perms)}, "${role}")'>⚙️ Uprawnienia</button>
-                                ${roleSelectHtml}
-                                ${isOwner ? `<button class="btn btn-outline btn-sm" style="color:var(--danger); border-color:var(--danger); font-size:0.68rem; padding:4px 8px;" onclick="deleteUserFromDatabase('${userDoc.id}')">🗑</button>` : ''}
-                            </div>
-                        `;
-                    }
-
-                    html += `
-                        <div class="list-item" style="flex-direction:column; align-items:flex-start; background:rgba(255,255,255,0.02);">
-                            <div style="display:flex; justify-content:space-between; width:100%; align-items:center;">
-                                <strong style="color:#fff; font-size:0.85rem;">${nameToDisplay}</strong>
-                                ${window.getRoleBadgeHtml(role)}
-                            </div>
-                            <div style="font-size:0.72rem; color:var(--gold); margin-top:3px;">LVL ${uLvl} (${uXp} XP) | Blokady: ${perms.canBlock===true?'TAK':'NIE'} | Usuwanie: ${perms.canDeletePosts===true?'TAK':'NIE'}</div>
-                            ${actionControls}
-                        </div>
-                    `;
-                });
-                document.getElementById('stat-users-count').innerText = total;
-                listEl.innerHTML = html;
-            } catch (e) {
-                document.getElementById('admin-user-list').innerHTML = '<p style="color:var(--danger); font-size:0.78rem;">Błąd pobierania listy.</p>';
-            }
-        }
-
-        function previewForumImage(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const img = new Image();
-                img.onload = function() {
-                    const canvas = document.createElement('canvas');
-                    const MAX_WIDTH = 800;
-                    const MAX_HEIGHT = 800;
-                    let width = img.width;
-                    let height = img.height;
-                    if (width > height) {
-                        if (width > MAX_WIDTH) { height *= MAX_WIDTH / width; width = MAX_WIDTH; }
-                    } else {
-                        if (height > MAX_HEIGHT) { width *= MAX_HEIGHT / height; height = MAX_HEIGHT; }
-                    }
-                    canvas.width = width;
-                    canvas.height = height;
-                    const ctx = canvas.getContext('2d');
-                    ctx.drawImage(img, 0, 0, width, height);
-                    tempForumImageBase64 = canvas.toDataURL('image/jpeg', 0.8);
-                    document.getElementById('forum-img-tag-preview').src = tempForumImageBase64;
-                    document.getElementById('forum-img-preview-container').style.display = 'block';
-                    document.getElementById('forum-img-name').innerText = file.name || 'Zdjęcie';
-                    document.getElementById('forum-img-clear').style.display = 'inline-block';
-                };
-                img.src = e.target.result;
-            };
-            reader.readAsDataURL(file);
-        }
-
-        function clearForumImage() {
-            tempForumImageBase64 = null;
-            document.getElementById('forum-img-input').value = '';
-            document.getElementById('forum-img-preview-container').style.display = 'none';
-            document.getElementById('forum-img-tag-preview').src = '';
-            document.getElementById('forum-img-name').innerText = 'Brak załącznika';
-            document.getElementById('forum-img-clear').style.display = 'none';
-        }
-
-        async function createForumPost(content) {
-            if (!content && !tempForumImageBase64) return;
-            const displayName = window.currentUsername || 'Użytkownik';
-            const currentRole = window.currentUserRole || 'user';
-
-            try {
-                await window.fbAddDoc(window.fbCollection(window.db, 'projects', 'd1s-gym', 'forum'), {
-                    authorName: displayName,
-                    authorRole: currentRole,
-                    content: content || '',
-                    imageBase64: tempForumImageBase64 || null,
-                    timestamp: Date.now(),
-                    likes: 0,
-                    likedBy: []
-                });
-
-                if (tempForumImageBase64 || content.toLowerCase().includes('form') || content.toLowerCase().includes('ocen') || content.toLowerCase().includes('plan')) {
-                    setTimeout(async () => {
-                        let aiReply = "🤖 **Trener AI Lyfta:** Analiza wykonana poprawnie. Twoje obciążenia i zakresy powtórzeń wyglądają stabilnie. Pamiętaj o progresywnym przeładowaniu (progressive overload)!";
-                        if(tempForumImageBase64) {
-                            aiReply = "🤖 **Trener AI Lyfta:** Analiza wizualna formy zakończona. Proporcje są solidne, sylwetka zmierza w idealnym kierunku!";
-                        }
-                        await window.fbAddDoc(window.fbCollection(window.db, 'projects', 'd1s-gym', 'forum'), {
-                            authorName: 'Trener AI 🤖',
-                            authorRole: 'admin',
-                            content: aiReply,
-                            imageBase64: null,
-                            timestamp: Date.now() + 500,
-                            likes: 1,
-                            likedBy: []
-                        });
-                    }, 1200);
-                }
-
-                clearForumImage();
-                document.getElementById('forum-content').value = '';
-            } catch(e) {
-                alert("Błąd publikacji: " + e.message);
-            }
-        }
-
-        function handleForumSubmit(e) {
-            e.preventDefault();
-            const content = document.getElementById('forum-content').value;
-            createForumPost(content);
-        }
-
-        async function likeForumPost(postId, currentLikes, likedByArr) {
-            if (!window.auth || !window.auth.currentUser) return alert("Zaloguj się!");
-            const uid = window.auth.currentUser.uid;
-            let list = likedByArr || [];
-            if (list.includes(uid)) return alert("Już polubiłeś ten post!");
-            list.push(uid);
-            try {
-                await window.fbSetDoc(window.fbDoc(window.db, 'projects', 'd1s-gym', 'forum', postId), {
-                    likes: (currentLikes || 0) + 1,
-                    likedBy: list
-                }, { merge: true });
-            } catch(e) {}
-        }
-
-        function renderForumPosts(posts) {
-            const list = document.getElementById('forum-posts-list');
-            if(!posts || posts.length===0) { list.innerHTML = '<p style="color:var(--text-muted); text-align:center; font-size:0.78rem;">Brak wpisów.</p>'; return; }
-            const canModerate = ['owner', 'admin'].includes(window.currentUserRole) && (window.permissions?.canDeletePosts === true || window.currentUserRole === 'owner');
-            const currentUid = window.auth?.currentUser?.uid || '';
-
-            list.innerHTML = posts.map(p => {
-                const roleBadge = window.getRoleBadgeHtml ? window.getRoleBadgeHtml(p.authorRole || 'user') : '';
-                const likes = p.likes || 0;
-                const likedBy = p.likedBy || [];
-                const hasLiked = likedBy.includes(currentUid);
-                const isAI = p.authorName && p.authorName.includes('AI');
-
-                return `
-                    <div style="background:${isAI ? 'rgba(244,114,182,0.05)' : 'rgba(255,255,255,0.02)'}; border:1px solid ${isAI ? 'var(--primary)' : 'var(--card-border)'}; padding:12px; border-radius:14px; margin-bottom:10px;">
-                        <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.72rem; color:var(--text-muted); margin-bottom:6px;">
-                            <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
-                                ${roleBadge}
-                                <strong style="color: var(--text-main);">${p.authorName || 'Użytkownik'}</strong>
-                            </div>
-                            <div>
-                                <span>${new Date(p.timestamp).toLocaleTimeString('pl-PL', {hour:'2-digit', minute:'2-digit'})}</span>
-                                ${canModerate ? `<button class="btn btn-outline btn-sm" style="color:var(--danger); border-color:var(--card-border); padding:2px 8px; margin-left:6px; font-size:0.68rem;" onclick="deleteForumPostAdmin('${p.id}')">Usuń</button>` : ''}
-                            </div>
-                        </div>
-                        ${p.content ? `<p style="font-size:0.85rem; margin-top:4px; line-height:1.35; white-space: pre-line;">${p.content}</p>` : ''}
-                        ${p.imageBase64 ? `<img src="${p.imageBase64}" class="chat-img-preview" alt="Progres">` : ''}
-                        <div style="margin-top:8px; display:flex; align-items:center; gap:6px;">
-                            <button class="btn btn-outline btn-sm" style="padding:4px 10px; font-size:0.72rem; ${hasLiked?'border-color:var(--primary); color:var(--primary);':''}" onclick="likeForumPost('${p.id}', ${likes}, ${JSON.stringify(likedBy).replace(/"/g, '&quot;')})">❤️ ${likes}</button>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-        }
-
         const DEFAULT_ATLAS = [
-            { name: "Wyciskanie sztangi na ławce poziomej", part: "Klatka piersiowa", equipment: "Sztanga", level: "Średniozaawansowany", yt: "https://www.youtube.com/results?search_query=wyciskanie+sztangi+na+lawce+poziomej", desc: "Klasyczne ćwiczenie budujące masę klatki piersiowej. Połóż się stabilnie, ściągnij łopatki i opuszczaj sztangę kontrolowanym ruchem do środka klatki." },
-            { name: "Wyciskanie sztangi na ławce skośnej dodatniej", part: "Klatka piersiowa", equipment: "Sztanga", level: "Średniozaawansowany", yt: "https://www.youtube.com/results?search_query=wyciskanie+sztangi+na+lawce+skosnej+dodatniej", desc: "Angażuje głównie górną część klatki piersiowej." },
-            { name: "Przysiad ze sztangą na plecach", part: "Nogi", equipment: "Sztanga", level: "Średniozaawansowany", yt: "https://www.youtube.com/results?search_query=przysiad+ze+sztanga+na+plecach", desc: "Król ćwiczeń siłowych na dolne partie ciała." },
-            { name: "Podciąganie na drążku nachwytem", part: "Plecy", equipment: "Masa ciała", level: "Zaawansowany", yt: "https://www.youtube.com/results?search_query=podciaganie+na+drzazku+nachwytem", desc: "Buduje szerokość i grubość mięśni najszerszych grzbietu." },
-            { name: "Wyciskanie żołnierskie (OHP)", part: "Barki", equipment: "Sztanga", level: "Średniozaawansowany", yt: "https://www.youtube.com/results?search_query=wyciskanie+zolnierskie+ohp", desc: "Podstawowe ćwiczenie stojąc na całe barki i stabilizację." }
+            { name: "Wyciskanie sztangi na ławce poziomej", part: "Klatka piersiowa", equipment: "Sztanga", level: "Średniozaawansowany", yt: "https://youtube.com", desc: "Klasyk budujący klatkę." },
+            { name: "Przysiad ze sztangą na plecach", part: "Nogi", equipment: "Sztanga", level: "Średniozaawansowany", yt: "https://youtube.com", desc: "Podstawa na nogi." },
+            { name: "Podciąganie na drążku nachwytem", part: "Plecy", equipment: "Masa ciała", level: "Zaawansowany", yt: "https://youtube.com", desc: "Na szerokość pleców." }
         ];
 
         const DEFAULT_RECIPES = [
-            { 
-                name: "Owsianka proteinowa z bananem", 
-                kcal: 510, 
-                protein: 36, 
-                ingredients: "• 70g płatków owsianych\n• 250ml mleka 1.5%\n• 30g odżywki białkowej\n• 1 dojrzały banan\n• 15g masła orzechowego",
-                steps: "1. Płatki owsiane zalej mlekiem i gotuj przez ok. 5 minut.\n2. Po lekkim przestudzeniu wmieszaj odżywkę białkową i ułóż dodatki." 
-            },
-            {
-                name: "Kurczak z batatami i warzywami",
-                kcal: 580,
-                protein: 48,
-                ingredients: "• 200g piersi z kurczaka\n• 250g batatów\n• 10ml oliwy z oliwek\n• Mix warzyw na patelnię",
-                steps: "1. Bataty pokrój w łódeczki, skrop oliwą i piecz w 200°C przez 25 minut.\n2. Kurczaka dopraw ulubionymi przyprawami i usmaż lub upiecz."
-            }
+            { name: "Owsianka proteinowa", kcal: 500, protein: 35, ingredients: "• 70g płatków\n• 30g białka", steps: "Ugotować i wymieszać." }
         ];
 
         function filterAtlasCategory(cat, btn) {
@@ -2090,200 +1297,52 @@
 
         function renderAtlas() {
             const container = document.getElementById('atlas-container');
-            if(!container) return;
             const search = (document.getElementById('atlas-search')?.value || '').toLowerCase();
+            const list = [...DEFAULT_ATLAS, ...(window.gymData?.myCustomAtlas || [])];
+            const filtered = list.filter(x => (selectedCategoryFilter === 'all' || x.part.includes(selectedCategoryFilter)) && x.name.toLowerCase().includes(search));
             
-            const standardList = [...DEFAULT_ATLAS, ...(window.customAtlas || [])];
-            const myPrivateList = window.gymData?.myCustomAtlas || [];
-            
-            let fullList = [];
-            if (selectedCategoryFilter === 'Moje') {
-                fullList = myPrivateList;
-            } else {
-                fullList = [...standardList, ...myPrivateList];
-            }
-            
-            let items = fullList.filter(x => {
-                const partName = x.part || '';
-                const matchCategory = (selectedCategoryFilter === 'all' || selectedCategoryFilter === 'Moje') || partName.toLowerCase().includes(selectedCategoryFilter.toLowerCase());
-                const matchSearch = x.name.toLowerCase().includes(search) || (x.equipment && x.equipment.toLowerCase().includes(search));
-                return matchCategory && matchSearch;
-            });
-            
-            const adminCountEl = document.getElementById('atlas-counter');
-            if(adminCountEl) adminCountEl.innerText = `Baza ${standardList.length} ćwiczeń Lyfta + ${myPrivateList.length} Twoich`;
-
-            if(items.length === 0) {
-                container.innerHTML = `<p style="color:var(--text-muted); text-align:center; grid-column:1/-1; padding:20px;">Brak ćwiczeń w tej kategorii Lyfta.</p>`;
-                return;
-            }
-
-            container.innerHTML = items.map((a) => {
-                const equipmentTag = a.equipment || 'Sprzęt';
-                const escName = a.name.replace(/'/g, "\\'");
-                const isPriv = a.isPrivate === true;
-
-                return `
-                    <div class="lyfta-ex-card" onclick='openExerciseDetailsModal(${JSON.stringify(a).replace(/'/g, "&apos;")})'>
-                        <div class="lyfta-ex-info">
-                            <div class="lyfta-ex-title">${a.name} ${isPriv ? '⭐' : ''}</div>
-                            <div class="lyfta-ex-tags">
-                                <span class="tag-pill muscle">${a.part}</span>
-                                <span class="tag-pill">${equipmentTag}</span>
-                                ${isPriv ? '<span class="tag-pill" style="background:rgba(192,132,252,0.15); color:var(--purple); border-color:rgba(192,132,252,0.3);">Prywatne</span>' : ''}
-                            </div>
-                        </div>
-                        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:6px;">
-                            <span style="font-size:0.72rem; color:var(--text-muted);">Szczegóły techniki</span>
-                            <div style="display:flex; align-items:center; gap:8px;">
-                                ${isPriv ? `<button class="btn btn-outline btn-sm" style="color:var(--danger); padding:4px 8px; border:none;" onclick="event.stopPropagation(); deletePrivateExercise('${a.id}')">🗑</button>` : ''}
-                                <div class="btn-add-circle" title="Dodaj do planu" onclick="event.stopPropagation(); openAddAtlasToPlanModal('${escName}')">+</div>
-                            </div>
+            container.innerHTML = filtered.map(a => `
+                <div class="hevy-ex-card" onclick='openExerciseDetailsModal(${JSON.stringify(a).replace(/'/g, "&apos;")})'>
+                    <div class="hevy-ex-info">
+                        <div class="hevy-ex-title">${a.name}</div>
+                        <div class="hevy-ex-tags">
+                            <span class="tag-pill muscle">${a.part}</span>
+                            <span class="tag-pill">${a.equipment}</span>
                         </div>
                     </div>
-                `;
-            }).join('');
-        }
-
-        function openExerciseDetailsModal(exObj) {
-            document.getElementById('ex-modal-title').innerText = exObj.name;
-            document.getElementById('ex-modal-subtitle').innerText = `${exObj.part} • ${exObj.equipment || 'Sztanga'}`;
-            document.getElementById('ex-modal-desc').innerHTML = exObj.desc || 'Brak dodatkowego opisu techniki.';
-            
-            const ytBtn = document.getElementById('ex-modal-yt-btn');
-            if (exObj.yt && exObj.yt.length > 5) {
-                ytBtn.href = exObj.yt;
-                ytBtn.style.display = 'flex';
-            } else {
-                ytBtn.href = '#';
-                ytBtn.style.display = 'none';
-            }
-
-            const addBtn = document.getElementById('ex-modal-add-btn');
-            addBtn.onclick = () => {
-                closeExerciseDetailsModal();
-                openAddAtlasToPlanModal(exObj.name);
-            };
-
-            document.getElementById('exercise-details-modal').style.display = 'flex';
-        }
-
-        function closeExerciseDetailsModal() {
-            document.getElementById('exercise-details-modal').style.display = 'none';
-        }
-
-        function openMeasurementModal() {
-            document.getElementById('meas-date').value = new Date().toISOString().split('T')[0];
-            document.getElementById('measurement-modal').style.display = 'flex';
-        }
-
-        function closeMeasurementModal() {
-            document.getElementById('measurement-modal').style.display = 'none';
-        }
-
-        function saveMeasurement() {
-            const date = document.getElementById('meas-date').value;
-            const weight = document.getElementById('meas-weight').value;
-            const waist = document.getElementById('meas-waist').value;
-            const arm = document.getElementById('meas-arm').value;
-
-            if(!date || !weight) return alert("Podaj datę oraz wagę!");
-
-            if(!window.gymData.bodyMeasurements) window.gymData.bodyMeasurements = [];
-            window.gymData.bodyMeasurements.unshift({ id: Date.now(), date, weight, waist, arm });
-            window.saveGymData();
-            closeMeasurementModal();
-            renderMeasurements();
-            alert("Zapisano pomiar ciała Lyfta!");
-        }
-
-        function renderMeasurements() {
-            const listEl = document.getElementById('measurements-list');
-            const meas = window.gymData.bodyMeasurements || [];
-            if(meas.length === 0) {
-                listEl.innerHTML = 'Brak zapisanych pomiarów ciała.';
-                return;
-            }
-            listEl.innerHTML = meas.map(m => `
-                <div style="background:rgba(255,255,255,0.02); border:1px solid var(--card-border); padding:8px 10px; border-radius:10px; margin-bottom:6px; display:flex; justify-content:space-between; align-items:center;">
-                    <div><strong>${m.date}</strong>: Waga: <span style="color:var(--gold);">${m.weight} kg</span> ${m.waist ? `| Pas: ${m.waist} cm` : ''} ${m.arm ? `| Ramię: ${m.arm} cm` : ''}</div>
-                    <button class="btn btn-outline btn-sm" style="color:var(--danger); border:none; padding:2px 6px;" onclick="deleteMeasurement(${m.id})">✕</button>
+                    <div style="display:flex; justify-content:flex-end;">
+                        <div class="btn-add-circle" onclick="event.stopPropagation(); openAddAtlasToPlanModal('${a.name.replace(/'/g, "\\'")}')">+</div>
+                    </div>
                 </div>
             `).join('');
         }
 
-        function deleteMeasurement(id) {
-            window.gymData.bodyMeasurements = (window.gymData.bodyMeasurements || []).filter(x => x.id !== id);
+        function openExerciseDetailsModal(exObj) {
+            document.getElementById('ex-modal-title').innerText = exObj.name;
+            document.getElementById('ex-modal-subtitle').innerText = `${exObj.part} • ${exObj.equipment}`;
+            document.getElementById('ex-modal-desc').innerText = exObj.desc || 'Brak opisu.';
+            document.getElementById('exercise-details-modal').style.display = 'flex';
+        }
+        function closeExerciseDetailsModal() { document.getElementById('exercise-details-modal').style.display = 'none'; }
+        
+        function openAddPrivateExerciseModal() { document.getElementById('add-private-exercise-modal').style.display = 'flex'; }
+        function closeAddPrivateExerciseModal() { document.getElementById('add-private-exercise-modal').style.display = 'none'; }
+        function savePrivateExercise() {
+            const name = document.getElementById('priv-ex-name').value;
+            if(!name) return;
+            if(!window.gymData.myCustomAtlas) window.gymData.myCustomAtlas = [];
+            window.gymData.myCustomAtlas.push({ id: 'p_'+Date.now(), name, part: document.getElementById('priv-ex-part').value, equipment: document.getElementById('priv-ex-eq').value || 'Inne', desc: document.getElementById('priv-ex-desc').value });
             window.saveGymData();
-            renderMeasurements();
-        }
-
-        function calculatePlates() {
-            const total = parseFloat(document.getElementById('plate-target-weight').value);
-            const resEl = document.getElementById('plate-result');
-            if(!total || total < 20) {
-                resEl.innerText = "Wpisz ciężar min. 20 kg (gryf standardowy)";
-                return;
-            }
-            const bar = 20; 
-            const perSide = (total - bar) / 2;
-            if (perSide < 0) {
-                resEl.innerText = "Ciężar nie może być mniejszy niż waga gryfu (20kg)";
-                return;
-            }
-
-            const availablePlates = [25, 20, 15, 10, 5, 2.5, 1.25];
-            let rem = perSide;
-            let used = [];
-
-            availablePlates.forEach(p => {
-                while(rem >= p) {
-                    used.push(p);
-                    rem -= p;
-                }
-            });
-
-            resEl.innerText = used.length > 0 ? used.join(' kg + ') + ' kg (na stronę)' : 'Sam gryf (20 kg)';
-        }
-
-        function openRecipeDetailsModal(r) {
-            document.getElementById('recipe-modal-title').innerText = r.name;
-            document.getElementById('recipe-modal-macros').innerText = `🔥 ${r.kcal} kcal | 🥩 Białko: ${r.protein}g`;
-            document.getElementById('recipe-modal-ingredients').innerText = r.ingredients || '';
-            document.getElementById('recipe-modal-steps').innerText = r.steps || '';
-            document.getElementById('recipe-details-modal').style.display = 'flex';
-        }
-
-        function closeRecipeDetailsModal() {
-            document.getElementById('recipe-details-modal').style.display = 'none';
+            closeAddPrivateExerciseModal();
+            renderAtlas();
         }
 
         function renderRecipes() {
             const container = document.getElementById('recipes-container');
-            const search = (document.getElementById('recipe-search')?.value || '').toLowerCase();
-            const kcalFilter = document.getElementById('recipe-filter-kcal')?.value || 'all';
-
-            const fullList = [...DEFAULT_RECIPES, ...(window.customRecipes || [])];
-            
-            let filtered = fullList.filter(r => {
-                const matchName = r.name.toLowerCase().includes(search);
-                const kcalVal = parseFloat(r.kcal) || 0;
-                let matchKcal = true;
-                if(kcalFilter === 'low') matchKcal = kcalVal < 500;
-                if(kcalFilter === 'high') matchKcal = kcalVal >= 500;
-                return matchName && matchKcal;
-            });
-
-            if(filtered.length === 0) {
-                container.innerHTML = `<p style="color:var(--text-muted); text-align:center; grid-column:1/-1; padding:20px;">Brak przepisów.</p>`;
-                return;
-            }
-
-            container.innerHTML = filtered.map(r => `
-                <div class="recipe-card" onclick='openRecipeDetailsModal(${JSON.stringify(r).replace(/'/g, "&apos;")})'>
-                    <h4 style="color:var(--gold); margin-bottom:4px; font-size:0.95rem;">${r.name}</h4>
-                    <div class="macro-row"><span>🔥 ${r.kcal} kcal</span><span>🥩 ${r.protein}g białka</span></div>
-                    <p style="font-size:0.78rem; color:var(--text-muted); margin-top:6px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;">${r.steps}</p>
+            container.innerHTML = DEFAULT_RECIPES.map(r => `
+                <div class="recipe-card" onclick='alert("${r.name}")'>
+                    <h4 style="color:var(--gold); font-size:0.9rem;">${r.name}</h4>
+                    <div class="macro-row"><span>🔥 ${r.kcal} kcal</span><span>🥩 ${r.protein}g</span></div>
                 </div>
             `).join('');
         }
@@ -2293,13 +1352,7 @@
             window.saveGymData();
             updateWaterUI();
         }
-
-        function resetWater() {
-            window.gymData.water = 0;
-            window.saveGymData();
-            updateWaterUI();
-        }
-
+        function resetWater() { window.gymData.water = 0; window.saveGymData(); updateWaterUI(); }
         function updateWaterUI() {
             const w = window.gymData.water || 0;
             document.getElementById('water-text').innerText = `${w} / 3000 ml`;
@@ -2310,22 +1363,13 @@
             clearInterval(timerInterval);
             let left = seconds;
             updateTimerDisplay(left);
-            playBeep(440, 0.08);
-
             timerInterval = setInterval(() => {
                 left--;
                 updateTimerDisplay(left);
-                if (left === 3 || left === 2 || left === 1) { playBeep(700, 0.15); }
-                if(left <= 0) {
-                    clearInterval(timerInterval);
-                    playBeep(1046, 0.6);
-                    if(soundEnabled && navigator.vibrate) navigator.vibrate([300, 100, 300, 100, 400]);
-                }
+                if(left <= 0) { clearInterval(timerInterval); playBeep(1046, 0.5); }
             }, 1000);
         }
-
         function stopTimer() { clearInterval(timerInterval); updateTimerDisplay(0); }
-
         function updateTimerDisplay(s) {
             const m = Math.floor(s/60).toString().padStart(2,'0');
             const sec = (s%60).toString().padStart(2,'0');
@@ -2342,7 +1386,7 @@
                 type: 'line',
                 data: {
                     labels: workouts.map(w => w.dayName).reverse(),
-                    datasets: [{ label: 'Łączny Tonaż (kg)', data: workouts.map(w => w.tonnage).reverse(), borderColor: '#f472b6', backgroundColor: 'rgba(244, 114, 182, 0.2)', fill: true, tension: 0.25 }]
+                    datasets: [{ label: 'Tonaż (kg)', data: workouts.map(w => w.tonnage).reverse(), borderColor: '#3b82f6', backgroundColor: 'rgba(59, 130, 246, 0.2)', fill: true, tension: 0.2 }]
                 },
                 options: { responsive: true, maintainAspectRatio: false }
             });
@@ -2358,43 +1402,68 @@
             const weight = parseFloat(document.getElementById('bmr-weight').value);
             const height = parseFloat(document.getElementById('bmr-height').value);
             const age = parseFloat(document.getElementById('bmr-age').value);
-            const goal = document.getElementById('bmr-goal').value;
-
-            if(!weight || !height || !age) return alert("Uzupełnij wszystkie dane w kalkulatorze!");
-            let bmr = (10 * weight) + (6.25 * height) - (5 * age) + 5;
-            let tdee = Math.round(bmr * 1.55);
-            if(goal==='bulk') tdee += 300;
-            if(goal==='cut') tdee -= 400;
-
-            const proteinGrams = Math.round(weight * 2.2);
-            const fatGrams = Math.round((tdee * 0.25) / 9);
-            const carbGrams = Math.round((tdee - (proteinGrams * 4 + fatGrams * 9)) / 4);
-
-            document.getElementById('res-tdee').innerText = tdee + ' kcal / dzień';
-            document.getElementById('res-macros').innerText = `Białko: ${proteinGrams}g | Tłuszcze: ${fatGrams}g | Węgle: ${carbGrams}g`;
+            if(!weight || !height || !age) return alert("Uzupełnij dane!");
+            let tdee = Math.round(((10 * weight) + (6.25 * height) - (5 * age) + 5) * 1.55);
+            document.getElementById('res-tdee').innerText = tdee + ' kcal';
             document.getElementById('calories-result').style.display = 'block';
         }
 
-        window.loadAdminUserList = loadAdminUserList;
-        window.openExerciseDetailsModal = openExerciseDetailsModal;
-        window.closeExerciseDetailsModal = closeExerciseDetailsModal;
-        window.openRecipeDetailsModal = openRecipeDetailsModal;
-        window.closeRecipeDetailsModal = closeRecipeDetailsModal;
-        window.filterAtlasCategory = filterAtlasCategory;
-        window.finishActiveWorkoutSession = finishActiveWorkoutSession;
-        window.openAtlasPickerForDay = openAtlasPickerForDay;
-        window.openMeasurementModal = openMeasurementModal;
-        window.closeMeasurementModal = closeMeasurementModal;
-        window.saveMeasurement = saveMeasurement;
-        window.deleteMeasurement = deleteMeasurement;
-        window.calculatePlates = calculatePlates;
-        window.loadGlobalLeaderboard = loadGlobalLeaderboard;
+        async function loadAdminUserList() {
+            if (!window.db) return;
+            try {
+                const snap = await window.fbGetDocs(window.fbCollection(window.db, 'projects', 'd1s-gym', 'users'));
+                document.getElementById('stat-users-count').innerText = snap.size;
+                let html = '';
+                snap.forEach(d => {
+                    const data = d.data();
+                    html += `<div class="list-item"><span>${data.username || 'Użytkownik'}</span><span>${data.role || 'user'}</span></div>`;
+                });
+                document.getElementById('admin-user-list').innerHTML = html;
+            } catch(e) {}
+        }
+
+        function previewForumImage(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(ev) {
+                tempForumImageBase64 = ev.target.result;
+                document.getElementById('forum-img-tag-preview').src = tempForumImageBase64;
+                document.getElementById('forum-img-preview-container').style.display = 'block';
+                document.getElementById('forum-img-name').innerText = file.name;
+                document.getElementById('forum-img-clear').style.display = 'inline-block';
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function clearForumImage() {
+            tempForumImageBase64 = null;
+            document.getElementById('forum-img-preview-container').style.display = 'none';
+            document.getElementById('forum-img-name').innerText = 'Brak załącznika';
+            document.getElementById('forum-img-clear').style.display = 'none';
+        }
+
+        async function handleForumSubmit(e) {
+            e.preventDefault();
+            const content = document.getElementById('forum-content').value;
+            if(!content && !tempForumImageBase64) return;
+            await window.fbAddDoc(window.fbCollection(window.db, 'projects', 'd1s-gym', 'forum'), {
+                authorName: window.currentUsername || 'Użytkownik',
+                authorRole: window.currentUserRole || 'user',
+                content,
+                imageBase64: tempForumImageBase64,
+                timestamp: Date.now(),
+                likes: 0,
+                likedBy: []
+            });
+            document.getElementById('forum-content').value = '';
+            clearForumImage();
+        }
 
         renderPlan();
         renderAchievements();
         updateWaterUI();
         updateWorkoutStats();
-        renderMeasurements();
     </script>
 </body>
 </html>
