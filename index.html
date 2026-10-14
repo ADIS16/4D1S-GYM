@@ -59,7 +59,6 @@
 
         .profile-pill { display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.04); border: 1px solid var(--card-border); padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 800; }
 
-        /* DOLNY PASEK NAWIGACJI (BARDZIEJ KLIKALNY) */
         .nav-tabs { 
             position: fixed; 
             bottom: 12px; 
@@ -274,12 +273,22 @@
                         userData.role = userData.role || 'user';
                         window.currentUserRole = userData.role;
                         window.currentUsername = userData.username || user.email.split('@')[0];
-                        window.permissions = userData.permissions || { canBlock: false, canDeletePosts: false };
 
                         await setDoc(userDocRef, { username: window.currentUsername, isOnline: true }, { merge: true });
 
                         document.getElementById('user-username-display').innerText = window.currentUsername;
                         window.gymData = userData.gym_data || { workouts: [], workoutPlan: {}, activeWorkoutDay: null, xp: 0, level: 1, water: 0, prs: {}, myCustomAtlas: [], streak: 0 };
+
+                        // AUTOMATYCZNIE PRZYPISZ TWÓJ PLAN TYLKO DLA KONTO 4D1S (JEŚLI PLAN JEST PUSTY)
+                        if (window.currentUsername.toUpperCase() === '4D1S' && (!window.gymData.workoutPlan || Object.keys(window.gymData.workoutPlan).length === 0)) {
+                            window.gymData.workoutPlan = {
+                                'Dzień 1: Push + lekki Pull': [],
+                                'Dzień 2: Nogi': [],
+                                'Dzień 3: Pull + lekki Push': [],
+                                'Dzień 4: FBW / Akcesoria': []
+                            };
+                            window.saveGymData();
+                        }
 
                         document.getElementById('user-role-tag').innerHTML = getRoleBadgeHtml(window.currentUserRole);
                         document.getElementById('tab-admin-btn').style.display = ['owner', 'admin'].includes(window.currentUserRole) ? 'flex' : 'none';
@@ -399,7 +408,7 @@
 
         <div id="app-main-content" style="display: none;">
 
-            <!-- NOWY PASEK NAWIGACJI -->
+            <!-- NAWIGACJA -->
             <div class="nav-tabs">
                 <button id="nav-btn-plan" class="tab-btn active" onclick="switchTab('tab-plan')">
                     <span style="font-size: 1.1rem;">📋</span> Trening
@@ -431,9 +440,9 @@
                         </div>
 
                         <div class="card">
-                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
-                                <h3 style="color: #fff; font-size: 1.1rem; font-weight: 800;">📅 Plan Treningowy PPL+FBW</h3>
-                                <button class="btn btn-outline btn-sm" onclick="generatePresetPlanPPL()">⚡ Załaduj plan</button>
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 8px;">
+                                <h3 style="color: #fff; font-size: 1.1rem; font-weight: 800;">📅 Plan Treningowy</h3>
+                                <button class="btn btn-sm" onclick="addNewWorkoutDay()">+ Dodaj dzień</button>
                             </div>
                             <div id="week-plan-container"></div>
                         </div>
@@ -465,7 +474,7 @@
                 </div>
             </div>
 
-            <!-- PROFIL (STATYSTYKI I NAWODNIENIE) -->
+            <!-- PROFIL -->
             <div id="tab-progress" class="tab-content" style="display: none;">
                 <div class="card">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap:wrap; gap:6px;">
@@ -550,7 +559,7 @@
 
     </div>
 
-    <!-- MODAL WŁASNEGO ĆWICZENIA -->
+    <!-- MODALE -->
     <div id="add-private-exercise-modal" class="modal-overlay">
         <div class="modal-body">
             <h3 style="color:var(--purple); margin-bottom:6px; font-size: 1.1rem;">⭐ Dodaj własne ćwiczenie</h3>
@@ -575,13 +584,8 @@
         <div class="modal-body">
             <h3 style="color:var(--primary); margin-bottom:6px; font-size: 1.1rem;">Dodaj do Planu</h3>
             <p id="modal-atlas-title" style="font-weight:800; font-size:0.9rem; margin-bottom:10px; color:#fff;"></p>
-            <label style="font-size: 0.75rem;">Dzień</label>
-            <select id="modal-plan-day">
-                <option value="Dzień 1: Push + lekki Pull">Dzień 1: Push + lekki Pull</option>
-                <option value="Dzień 2: Nogi">Dzień 2: Nogi</option>
-                <option value="Dzień 3: Pull + lekki Push">Dzień 3: Pull + lekki Push</option>
-                <option value="Dzień 4: FBW / Akcesoria">Dzień 4: FBW / Akcesoria</option>
-            </select>
+            <label style="font-size: 0.75rem;">Wybierz dzień</label>
+            <select id="modal-plan-day"></select>
             <div style="display:flex; gap:6px; margin-top:8px;">
                 <button class="btn btn-sm" style="flex:1;" onclick="confirmAddAtlasToPlan()">Zapisz</button>
                 <button class="btn btn-outline btn-sm" style="color:var(--danger);" onclick="closeAtlasModal()">✕</button>
@@ -589,7 +593,7 @@
         </div>
     </div>
 
-    <!-- PŁYWAJĄCY REST TIMER -->
+    <!-- TIMER -->
     <div id="floating-timer" class="floating-timer">
         <div>
             <span style="font-size: 0.62rem; color: var(--primary); font-weight:800;">REST TIMER</span>
@@ -747,13 +751,23 @@
         }
 
         function openAtlasPickerForDay(dayName) {
-            document.getElementById('modal-plan-day').value = dayName;
+            openAddAtlasToPlanModal("", dayName);
             switchTab('tab-atlas');
         }
 
-        function openAddAtlasToPlanModal(exName) {
+        function openAddAtlasToPlanModal(exName, defaultDay) {
             selectedAtlasName = exName;
-            document.getElementById('modal-atlas-title').innerText = exName;
+            document.getElementById('modal-atlas-title').innerText = exName || "Wybierz ćwiczenie";
+            
+            const select = document.getElementById('modal-plan-day');
+            const days = Object.keys(window.gymData.workoutPlan || {});
+            
+            if(days.length === 0) {
+                alert("Najpierw dodaj przynajmniej jeden dzień w zakładce Trening!");
+                return;
+            }
+            
+            select.innerHTML = days.map(d => `<option value="${d}" ${d===defaultDay?'selected':''}>${d}</option>`).join('');
             document.getElementById('atlas-to-plan-modal').style.display = 'flex';
         }
 
@@ -761,7 +775,6 @@
 
         function confirmAddAtlasToPlan() {
             const day = document.getElementById('modal-plan-day').value;
-            if (!window.gymData.workoutPlan) window.gymData.workoutPlan = {};
             if (!window.gymData.workoutPlan[day]) window.gymData.workoutPlan[day] = [];
 
             window.gymData.workoutPlan[day].push({
@@ -777,6 +790,45 @@
             window.renderPlan();
             closeAtlasModal();
             switchTab('tab-plan');
+        }
+
+        function addNewWorkoutDay() {
+            const dayName = prompt("Podaj nazwę nowego dnia treningowego (np. Dzień A, Klatka + Biceps):");
+            if (!dayName || !dayName.trim()) return;
+            const name = dayName.trim();
+            if (!window.gymData.workoutPlan) window.gymData.workoutPlan = {};
+            if (window.gymData.workoutPlan[name]) return alert("Dzień o takiej nazwie już istnieje!");
+
+            window.gymData.workoutPlan[name] = [];
+            window.saveGymData();
+            window.renderPlan();
+        }
+
+        function renameWorkoutDay(oldName) {
+            const newName = prompt("Podaj nową nazwę dla dnia:", oldName);
+            if (!newName || !newName.trim() || newName === oldName) return;
+            const name = newName.trim();
+
+            window.gymData.workoutPlan[name] = window.gymData.workoutPlan[oldName];
+            delete window.gymData.workoutPlan[oldName];
+            
+            if(window.gymData.activeWorkoutDay === oldName) {
+                window.gymData.activeWorkoutDay = name;
+            }
+
+            window.saveGymData();
+            window.renderPlan();
+        }
+
+        function deleteWorkoutDay(dayName) {
+            if (!confirm(`Czy na pewno chcesz usunąć dzień "${dayName}" oraz wszystkie jego ćwiczenia?`)) return;
+            delete window.gymData.workoutPlan[dayName];
+            if(window.gymData.activeWorkoutDay === dayName) {
+                window.gymData.activeWorkoutDay = null;
+            }
+            window.saveGymData();
+            window.renderPlan();
+            updateWorkoutStats();
         }
 
         function addSingleSetToExercise(day, exId) {
@@ -829,47 +881,16 @@
             updateWorkoutStats();
         }
 
-        function generatePresetPlanPPL() {
-            if(!confirm("Załadować domyślny plan PPL + FBW z dokumentu?")) return;
-            window.gymData.workoutPlan = {
-                'Dzień 1: Push + lekki Pull': [
-                    { id: 101, name: 'Wyciskanie hantli na ławce skośnej (neutral)', sets: [{setNum:1,type:'Robocza',weight:'',reps:'',done:false}] },
-                    { id: 102, name: 'Odwrotne rozpiętki na wyciągu (rościągnięta)', sets: [{setNum:1,type:'Robocza',weight:'',reps:'',done:false}] },
-                    { id: 103, name: 'Wyciskanie na Smithie z martwego punktu / Płaska', sets: [{setNum:1,type:'Robocza',weight:'',reps:'',done:false}] },
-                    { id: 104, name: 'Podciąganie na drążku podchwytem', sets: [{setNum:1,type:'Robocza',weight:'',reps:'',done:false}] },
-                    { id: 105, name: 'Pin Press (Wyciskanie sztangi nad głowę stojąc)', sets: [{setNum:1,type:'Robocza',weight:'',reps:'',done:false}] },
-                    { id: 106, name: 'Wyciskanie francuskie ze sztangą', sets: [{setNum:1,type:'Robocza',weight:'',reps:'',done:false}] }
-                ],
-                'Dzień 2: Nogi': [
-                    { id: 201, name: 'Power Clean / Wyskok z klęku', sets: [{setNum:1,type:'Robocza',weight:'',reps:'',done:false}] },
-                    { id: 202, name: 'Front Squat / Back Squat', sets: [{setNum:1,type:'Robocza',weight:'',reps:'',done:false}] },
-                    { id: 203, name: 'Klasyczny martwy ciąg', sets: [{setNum:1,type:'Robocza',weight:'',reps:'',done:false}] },
-                    { id: 204, name: 'Ugięcia podudzi na maszynie', sets: [{setNum:1,type:'Robocza',weight:'',reps:'',done:false}] },
-                    { id: 205, name: 'Przysiad wykroczny z martwego punktu', sets: [{setNum:1,type:'Robocza',weight:'',reps:'',done:false}] }
-                ],
-                'Dzień 3: Pull + lekki Push': [
-                    { id: 301, name: 'Ściąganie drążka górnego wyciągu nachwytem', sets: [{setNum:1,type:'Robocza',weight:'',reps:'',done:false}] },
-                    { id: 302, name: 'Uginania młotkowe z hantlami', sets: [{setNum:1,type:'Robocza',weight:'',reps:'',done:false}] },
-                    { id: 303, name: 'Wiosłowanie hantlem jednorącz', sets: [{setNum:1,type:'Robocza',weight:'',reps:'',done:false}] },
-                    { id: 304, name: 'Wyciskanie na hamerze siedząc', sets: [{setNum:1,type:'Robocza',weight:'',reps:'',done:false}] }
-                ],
-                'Dzień 4: FBW / Akcesoria': [
-                    { id: 401, name: 'RDL z półsztangą', sets: [{setNum:1,type:'Robocza',weight:'',reps:'',done:false}] },
-                    { id: 402, name: 'Wypychanie na suwnicy jednonóż', sets: [{setNum:1,type:'Robocza',weight:'',reps:'',done:false}] },
-                    { id: 403, name: 'Hip Thrusty ze sztangą / maszyną', sets: [{setNum:1,type:'Robocza',weight:'',reps:'',done:false}] },
-                    { id: 404, name: 'Wyprosty przedramion z linką zza siebie', sets: [{setNum:1,type:'Robocza',weight:'',reps:'',done:false}] }
-                ]
-            };
-            window.saveGymData();
-            window.renderPlan();
-            updateWorkoutStats();
-        }
-
         function renderPlan() {
             const container = document.getElementById('week-plan-container');
             const plan = window.gymData.workoutPlan || {};
-            const days = ['Dzień 1: Push + lekki Pull', 'Dzień 2: Nogi', 'Dzień 3: Pull + lekki Push', 'Dzień 4: FBW / Akcesoria'];
+            const days = Object.keys(plan);
             const activeDay = window.gymData.activeWorkoutDay;
+
+            if (days.length === 0) {
+                container.innerHTML = '<p style="text-align:center; color:var(--text-muted); padding:20px; font-size:0.85rem;">Brak dni w planie. Kliknij "+ Dodaj dzień" powyżej, aby utworzyć swój pierwszy dzień!</p>';
+                return;
+            }
 
             container.innerHTML = days.map(day => {
                 const list = plan[day] || [];
@@ -877,16 +898,20 @@
                 return `
                     <details class="day-card ${isActive ? 'active-workout-day' : ''}" ${isActive ? 'open' : ''}>
                         <summary class="day-header" onclick="event.stopPropagation();">
-                            <span>${day} (${list.length})</span>
-                            <button class="btn btn-sm ${isActive?'btn-success':''}" style="padding:4px 10px; font-size:0.7rem;" onclick="startActiveWorkoutDay('${day}')">${isActive ? '▶ W toku' : 'Start'}</button>
+                            <div style="display:flex; align-items:center; gap:8px;">
+                                <span>${day} (${list.length})</span>
+                                <button class="btn btn-outline btn-sm" style="padding:2px 6px; font-size:0.65rem;" onclick="renameWorkoutDay('${day.replace(/'/g, "\\'")}')">✏️</button>
+                                <button class="btn btn-outline btn-sm" style="padding:2px 6px; font-size:0.65rem; color:var(--danger);" onclick="deleteWorkoutDay('${day.replace(/'/g, "\\'")}')">🗑️</button>
+                            </div>
+                            <button class="btn btn-sm ${isActive?'btn-success':''}" style="padding:4px 10px; font-size:0.7rem;" onclick="startActiveWorkoutDay('${day.replace(/'/g, "\\'")}')">${isActive ? '▶ W toku' : 'Start'}</button>
                         </summary>
                         <div class="day-content">
-                            ${list.length===0?'<p style="font-size:0.75rem; color:var(--text-muted);">Brak ćwiczeń. Dodaj je z Atlasu.</p>':''}
+                            ${list.length===0?'<p style="font-size:0.75rem; color:var(--text-muted);">Brak ćwiczeń w tym dniu.</p>':''}
                             ${list.map(ex => `
                                 <div class="exercise-item">
                                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
                                         <strong style="color:var(--primary); font-size:0.9rem;">${ex.name}</strong>
-                                        <button class="btn btn-outline btn-sm" style="color:var(--danger); border:none; padding:1px 4px;" onclick="deletePlanExercise('${day}',${ex.id})">✕</button>
+                                        <button class="btn btn-outline btn-sm" style="color:var(--danger); border:none; padding:1px 4px;" onclick="deletePlanExercise('${day.replace(/'/g, "\\'")}',${ex.id})">✕</button>
                                     </div>
                                     <div class="hevy-set-table">
                                         <div class="hevy-set-header">
@@ -898,28 +923,28 @@
                                                 <div class="prev-stat">${s.weight ? s.weight+'kg' : '—'}</div>
                                                 <div>
                                                     <div class="gym-input-group">
-                                                        <button class="gym-step-btn" onclick="stepInputValue('${day}',${ex.id},${idx},'weight',-2.5)">-</button>
-                                                        <input type="number" class="hevy-input" value="${s.weight||''}" onchange="updatePlanSetData('${day}',${ex.id},${idx},'weight',this.value)">
-                                                        <button class="gym-step-btn" onclick="stepInputValue('${day}',${ex.id},${idx},'weight',2.5)">+</button>
+                                                        <button class="gym-step-btn" onclick="stepInputValue('${day.replace(/'/g, "\\'")}',${ex.id},${idx},'weight',-2.5)">-</button>
+                                                        <input type="number" class="hevy-input" value="${s.weight||''}" onchange="updatePlanSetData('${day.replace(/'/g, "\\'")}',${ex.id},${idx},'weight',this.value)">
+                                                        <button class="gym-step-btn" onclick="stepInputValue('${day.replace(/'/g, "\\'")}',${ex.id},${idx},'weight',2.5)">+</button>
                                                     </div>
                                                 </div>
                                                 <div>
                                                     <div class="gym-input-group">
-                                                        <button class="gym-step-btn" onclick="stepInputValue('${day}',${ex.id},${idx},'reps',-1)">-</button>
-                                                        <input type="number" class="hevy-input" value="${s.reps||''}" onchange="updatePlanSetData('${day}',${ex.id},${idx},'reps',this.value)">
-                                                        <button class="gym-step-btn" onclick="stepInputValue('${day}',${ex.id},${idx},'reps',1)">+</button>
+                                                        <button class="gym-step-btn" onclick="stepInputValue('${day.replace(/'/g, "\\'")}',${ex.id},${idx},'reps',-1)">-</button>
+                                                        <input type="number" class="hevy-input" value="${s.reps||''}" onchange="updatePlanSetData('${day.replace(/'/g, "\\'")}',${ex.id},${idx},'reps',this.value)">
+                                                        <button class="gym-step-btn" onclick="stepInputValue('${day.replace(/'/g, "\\'")}',${ex.id},${idx},'reps',1)">+</button>
                                                     </div>
                                                 </div>
                                                 <div>
-                                                    <button class="check-btn ${s.done ? 'completed' : ''}" onclick="togglePlanSetDone('${day}',${ex.id},${idx})">✓</button>
+                                                    <button class="check-btn ${s.done ? 'completed' : ''}" onclick="togglePlanSetDone('${day.replace(/'/g, "\\'")}',${ex.id},${idx})">✓</button>
                                                 </div>
                                             </div>
                                         `).join('')}
                                     </div>
-                                    <button class="btn btn-outline btn-sm" style="width:100%; margin-top:8px; font-size:0.7rem;" onclick="addSingleSetToExercise('${day}',${ex.id})">+ Seria</button>
+                                    <button class="btn btn-outline btn-sm" style="width:100%; margin-top:8px; font-size:0.7rem;" onclick="addSingleSetToExercise('${day.replace(/'/g, "\\'")}',${ex.id})">+ Seria</button>
                                 </div>
                             `).join('')}
-                            <button class="btn btn-outline btn-sm" style="width:100%; margin-top:8px; border-style:dashed; color:var(--primary);" onclick="openAtlasPickerForDay('${day}')">+ Dodaj z Atlasu</button>
+                            <button class="btn btn-outline btn-sm" style="width:100%; margin-top:8px; border-style:dashed; color:var(--primary);" onclick="openAtlasPickerForDay('${day.replace(/'/g, "\\'")}')">+ Dodaj z Atlasu</button>
                         </div>
                     </details>
                 `;
@@ -966,9 +991,7 @@
             } catch (e) {}
         }
 
-        // PEŁNY ATLAS Z TWOJEGO PLANU PPL+FBW
         const DEFAULT_ATLAS = [
-            // Push
             { name: "Wyciskanie hantli na ławce skośnej (neutral)", part: "Klatka piersiowa", equipment: "Hantle" },
             { name: "Odwrotne rozpiętki na wyciągu (rościągnięta)", part: "Barki", equipment: "Wyciąg" },
             { name: "Wyciskanie na Smithie / Płaska z martwego punktu", part: "Klatka piersiowa", equipment: "Smith" },
@@ -976,7 +999,6 @@
             { name: "Rotacja zewnętrzna hantla", part: "Barki", equipment: "Hantle" },
             { name: "Wyciskanie francuskie ze sztangą na ławce skośnej", part: "Ramiona", equipment: "Sztanga" },
             { name: "Y-Rise na wyciągu", part: "Barki", equipment: "Wyciąg" },
-            // Nogi
             { name: "Power Clean (Zarzut sztangi)", part: "Nogi", equipment: "Sztanga" },
             { name: "Wyskok z klęku w górę", part: "Nogi", equipment: "Masa ciała" },
             { name: "Front Squat / Back Squat", part: "Nogi", equipment: "Sztanga" },
@@ -986,7 +1008,6 @@
             { name: "Przysiad wykroczny z martwego punktu", part: "Nogi", equipment: "Hantle/Sztanga" },
             { name: "Kopenhagi", part: "Nogi", equipment: "Rolka/Masa ciała" },
             { name: "Wspięcia na palce na hack squat / leg press", part: "Nogi", equipment: "Maszyna" },
-            // Pull
             { name: "Ściąganie drążka górnego wyciągu nachwytem", part: "Plecy", equipment: "Wyciąg" },
             { name: "Uginania młotkowe z hantlami na przemian", part: "Ramiona", equipment: "Hantle" },
             { name: "Wiosłowanie hantlem jednorącz", part: "Plecy", equipment: "Hantle" },
@@ -997,7 +1018,6 @@
             { name: "Uginania ze sztangą siedząc (z martwego punktu)", part: "Ramiona", equipment: "Sztanga" },
             { name: "Ściąganie okrężne górnego wyciągu w kłęku", part: "Plecy", equipment: "Wyciąg" },
             { name: "Szczypce (przedramię)", part: "Ramiona", equipment: "Krążek" },
-            // FBW / Akcesoria
             { name: "RDL z półsztangą", part: "Nogi", equipment: "Sztanga" },
             { name: "Wypychanie na suwnicy jednonóż", part: "Nogi", equipment: "Suwnica" },
             { name: "Rozpiętki na maszynie", part: "Klatka piersiowa", equipment: "Maszyna" },
