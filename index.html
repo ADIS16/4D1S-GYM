@@ -42,13 +42,15 @@
             -webkit-text-size-adjust: 100%;
         }
 
-        .container { max-width: 1200px; margin: 0 auto; width: 100%; }
+        .container { max-width: 800px; margin: 0 auto; width: 100%; }
 
         header { display: flex; justify-content: space-between; align-items: center; padding: 8px 0 14px; border-bottom: 1px solid var(--card-border); margin-bottom: 15px; flex-wrap: wrap; gap: 10px; }
         .logo-area { display: flex; align-items: center; gap: 10px; }
-        .logo { font-weight: 900; font-size: 1.3rem; color: #fff; letter-spacing: -0.5px; display: flex; flex-direction: column; }
+        .logo { font-weight: 900; font-size: 1.2rem; color: #fff; letter-spacing: -0.5px; display: flex; flex-direction: column; }
         .logo span.sub { font-size: 0.65rem; color: var(--primary); font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
-        .logo img { width: 36px; height: 36px; border-radius: 8px; object-fit: cover; border: 1px solid var(--card-border); }
+        
+        /* POPRAWKA DLA LOGO */
+        .logo-img { width: 40px; height: 40px; max-width: 40px; max-height: 40px; border-radius: 10px; object-fit: cover; border: 1px solid var(--card-border); flex-shrink: 0; }
 
         .header-right { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
         .status-badge { display: flex; align-items: center; gap: 6px; font-size: 0.68rem; background: rgba(255,255,255,0.03); padding: 5px 10px; border-radius: 30px; border: 1px solid var(--card-border); }
@@ -104,9 +106,9 @@
         .card-admin { border: 1px solid rgba(244, 114, 182, 0.4); background: rgba(244, 114, 182, 0.02); }
 
         .grid { display: flex; flex-direction: column; gap: 15px; width: 100%; }
-        @media (min-width: 800px) { .grid { display: grid; grid-template-columns: 1fr 340px; gap: 18px; } }
+        @media (min-width: 800px) { .grid { display: grid; grid-template-columns: 1fr 300px; gap: 18px; } }
         .grid-3 { display: grid; grid-template-columns: 1fr; gap: 12px; }
-        @media (min-width: 600px) { .grid-3 { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); } }
+        @media (min-width: 600px) { .grid-3 { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); } }
         
         input, select, textarea { width: 100%; padding: 11px 14px; background: var(--bg-input); border: 1px solid var(--card-border); border-radius: 12px; color: white; margin-top: 4px; margin-bottom: 10px; font-size: 15px; transition: border-color 0.2s; -webkit-appearance: none; }
         input:focus, select:focus, textarea:focus { outline: none; border-color: var(--primary); }
@@ -139,7 +141,6 @@
         .set-badge { background: #2c2c2e; border-radius: 6px; font-weight: 800; color: #fff; padding: 4px 0; font-size: 0.72rem; }
         .prev-stat { font-size: 0.7rem; color: var(--text-muted); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-        /* GYM MODE STEPPERS (+ / - DO SZYBKIEGO KLIKANIA NA SIŁOWNI) */
         .gym-input-group { display: flex; align-items: center; justify-content: center; gap: 3px; background: #2c2c2e; border: 1px solid var(--card-border); border-radius: 10px; padding: 2px; }
         .gym-step-btn { background: rgba(255,255,255,0.08); border: none; color: #fff; width: 22px; height: 32px; border-radius: 6px; font-weight: 900; font-size: 0.85rem; cursor: pointer; display: flex; align-items: center; justify-content: center; }
         .gym-step-btn:active { background: var(--primary); color: #121212; }
@@ -174,7 +175,6 @@
         .chat-img-preview { max-width: 100%; max-height: 240px; border-radius: 12px; margin-top: 6px; border: 1px solid var(--card-border); object-fit: contain; background: #000; display: block; }
         .stat-box { background: rgba(255,255,255,0.03); border: 1px solid var(--card-border); padding: 12px; border-radius: 12px; text-align: center; }
 
-        /* WIZUALIZACJA GRAFICZNA TALERZY NA GRUFIE */
         .barbell-visual { display: flex; align-items: center; justify-content: center; gap: 4px; background: #121212; border: 1px solid var(--card-border); border-radius: 12px; padding: 16px; margin: 12px 0; overflow-x: auto; min-height: 90px; }
         .barbell-sleeve { width: 20px; height: 16px; background: #64748b; border-radius: 2px; }
         .barbell-bar { height: 10px; background: #94a3b8; flex: 1; min-width: 60px; border-radius: 2px; }
@@ -364,7 +364,7 @@
     <div class="container">
         <header>
             <div class="logo-area">
-                <img src="c3e85c77-58fb-4713-b654-5eca4e3158c8.png" alt="Logo">
+                <img src="c3e85c77-58fb-4713-b654-5eca4e3158c8.png" class="logo-img" alt="Logo">
                 <div class="logo">
                     <span>HEVY iOS</span>
                     <span class="sub">ULTIMATE PRO</span>
@@ -738,7 +738,6 @@
             } catch (err) { alert('Błąd: ' + err.message); }
         }
 
-        /* KALKULATOR TALERZY Z GRAFIKĄ */
         function calculatePlates() {
             const barWeight = parseFloat(document.getElementById('plate-bar-weight').value) || 20;
             const targetWeight = parseFloat(document.getElementById('plate-target-weight').value);
