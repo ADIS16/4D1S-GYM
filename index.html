@@ -49,7 +49,6 @@
         .logo { font-weight: 900; font-size: 1.2rem; color: #fff; letter-spacing: -0.5px; display: flex; flex-direction: column; }
         .logo span.sub { font-size: 0.65rem; color: var(--primary); font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
         
-        /* POPRAWKA DLA LOGO */
         .logo-img { width: 40px; height: 40px; max-width: 40px; max-height: 40px; border-radius: 10px; object-fit: cover; border: 1px solid var(--card-border); flex-shrink: 0; }
 
         .header-right { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
@@ -60,41 +59,56 @@
 
         .profile-pill { display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.04); border: 1px solid var(--card-border); padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 800; }
 
+        /* DOLNY PASEK NAWIGACJI (BARDZIEJ KLIKALNY) */
         .nav-tabs { 
             position: fixed; 
-            bottom: 0; 
-            left: 0; 
-            right: 0; 
-            background: rgba(28, 28, 30, 0.96); 
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            border-top: 1px solid var(--card-border); 
+            bottom: 12px; 
+            left: 12px; 
+            right: 12px; 
+            max-width: 776px;
+            margin: 0 auto;
+            background: rgba(24, 24, 28, 0.92); 
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.12); 
+            border-radius: 24px;
             display: flex; 
-            justify-content: space-around; 
-            padding: 8px 4px 20px; 
+            justify-content: space-evenly; 
+            align-items: center;
+            padding: 6px; 
             z-index: 1000;
-            margin: 0;
-            overflow-x: auto;
-            scrollbar-width: none;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.7);
         }
-        .nav-tabs::-webkit-scrollbar { display: none; }
+        
         .tab-btn { 
-            background: transparent; 
-            border: none; 
+            background: rgba(255, 255, 255, 0.03); 
+            border: 1px solid transparent; 
             color: var(--text-muted); 
-            padding: 6px 4px; 
-            border-radius: 8px; 
-            font-weight: 700; 
+            padding: 8px 12px; 
+            border-radius: 16px; 
+            font-weight: 800; 
             cursor: pointer; 
-            transition: all 0.2s ease; 
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); 
             white-space: nowrap; 
-            font-size: 0.65rem; 
+            font-size: 0.68rem; 
             display: flex; 
             flex-direction: column; 
             align-items: center; 
-            gap: 3px;
+            gap: 4px;
+            flex: 1;
+            margin: 0 2px;
         }
-        .tab-btn.active { background: transparent; color: var(--primary); box-shadow: none; }
+        .tab-btn:active { 
+            transform: scale(0.92); 
+            background: rgba(244, 114, 182, 0.1); 
+        }
+        .tab-btn.active { 
+            background: var(--bg-input); 
+            color: var(--primary); 
+            border-color: rgba(244, 114, 182, 0.4); 
+            box-shadow: 0 4px 12px rgba(244, 114, 182, 0.15); 
+            transform: translateY(-2px);
+        }
 
         .btn { background: var(--primary); color: #121212; border: none; padding: 10px 16px; border-radius: 12px; font-weight: 800; cursor: pointer; transition: all 0.2s ease; display: inline-flex; align-items: center; justify-content: center; gap: 6px; font-size: 0.85rem; text-decoration: none; }
         .btn:active { transform: scale(0.97); opacity: 0.9; }
@@ -106,7 +120,6 @@
         .card-admin { border: 1px solid rgba(244, 114, 182, 0.4); background: rgba(244, 114, 182, 0.02); }
 
         .grid { display: flex; flex-direction: column; gap: 15px; width: 100%; }
-        @media (min-width: 800px) { .grid { display: grid; grid-template-columns: 1fr 300px; gap: 18px; } }
         .grid-3 { display: grid; grid-template-columns: 1fr; gap: 12px; }
         @media (min-width: 600px) { .grid-3 { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); } }
         
@@ -150,7 +163,7 @@
         .check-btn { width: 38px; height: 38px; border-radius: 10px; background: #2c2c2e; border: 1px solid var(--card-border); color: var(--text-muted); font-weight: 900; font-size: 1rem; display: flex; align-items: center; justify-content: center; cursor: pointer; margin: 0 auto; }
         .check-btn.completed { background: var(--success); color: #ffffff; border-color: var(--success); box-shadow: 0 0 10px rgba(52, 199, 89, 0.4); }
 
-        .floating-timer { position: fixed; bottom: 78px; left: 12px; right: 12px; background: rgba(28, 28, 30, 0.95); border: 1px solid rgba(244, 114, 182, 0.3); border-radius: 16px; padding: 10px 14px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); display: none; align-items: center; justify-content: space-between; z-index: 950; backdrop-filter: blur(14px); flex-wrap: wrap; gap: 8px; }
+        .floating-timer { position: fixed; bottom: 85px; left: 12px; right: 12px; max-width: 776px; margin: 0 auto; background: rgba(28, 28, 30, 0.95); border: 1px solid rgba(244, 114, 182, 0.3); border-radius: 16px; padding: 10px 14px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); display: none; align-items: center; justify-content: space-between; z-index: 950; backdrop-filter: blur(14px); flex-wrap: wrap; gap: 8px; }
 
         .water-progress { width: 100%; height: 10px; background: rgba(0,0,0,0.6); border-radius: 6px; overflow: hidden; border: 1px solid var(--card-border); margin: 6px 0; }
         .water-bar { height: 100%; width: 0%; background: var(--primary); transition: width 0.3s; }
@@ -172,20 +185,7 @@
         .modal-overlay { position: fixed; top:0; left:0; right:0; bottom:0; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); display: none; align-items: center; justify-content: center; z-index: 1100; padding: 12px; }
         .modal-body { background: var(--bg-card); border: 1px solid var(--card-border); border-radius: 18px; padding: 20px; width: 100%; max-width: 440px; box-shadow: 0 10px 30px rgba(0,0,0,0.9); max-height: 90vh; overflow-y: auto; }
 
-        .chat-img-preview { max-width: 100%; max-height: 240px; border-radius: 12px; margin-top: 6px; border: 1px solid var(--card-border); object-fit: contain; background: #000; display: block; }
         .stat-box { background: rgba(255,255,255,0.03); border: 1px solid var(--card-border); padding: 12px; border-radius: 12px; text-align: center; }
-
-        .barbell-visual { display: flex; align-items: center; justify-content: center; gap: 4px; background: #121212; border: 1px solid var(--card-border); border-radius: 12px; padding: 16px; margin: 12px 0; overflow-x: auto; min-height: 90px; }
-        .barbell-sleeve { width: 20px; height: 16px; background: #64748b; border-radius: 2px; }
-        .barbell-bar { height: 10px; background: #94a3b8; flex: 1; min-width: 60px; border-radius: 2px; }
-        .plate { display: flex; align-items: center; justify-content: center; font-size: 0.6rem; font-weight: 900; border-radius: 4px; box-shadow: 0 2px 6px rgba(0,0,0,0.5); }
-        .plate-25 { width: 16px; height: 75px; background: #ef4444; color: #fff; }
-        .plate-20 { width: 15px; height: 70px; background: #3b82f6; color: #fff; }
-        .plate-15 { width: 14px; height: 60px; background: #eab308; color: #000; }
-        .plate-10 { width: 13px; height: 50px; background: #22c55e; color: #fff; }
-        .plate-5 { width: 11px; height: 40px; background: #a855f7; color: #fff; }
-        .plate-2-5 { width: 9px; height: 32px; background: #ffffff; color: #000; }
-        .plate-1-25 { width: 8px; height: 26px; background: #64748b; color: #fff; }
     </style>
 
     <script type="module">
@@ -295,7 +295,6 @@
                     });
 
                     window.listenToLiveBases();
-                    window.listenToForumPosts();
                 } else {
                     verificationScreen.style.display = 'none';
                     lockScreen.style.display = 'flex';
@@ -335,16 +334,6 @@
                 snap.forEach(d => items.push({ id: d.id, ...d.data() }));
                 window.customRecipes = items;
                 window.renderRecipes();
-            });
-        };
-
-        window.listenToForumPosts = function() {
-            if (!db) return;
-            onSnapshot(collection(db, 'projects', 'd1s-gym', 'forum'), (snap) => {
-                let posts = [];
-                snap.forEach(d => posts.push({ id: d.id, ...d.data() }));
-                posts.sort((a, b) => b.timestamp - a.timestamp);
-                window.renderForumPosts(posts);
             });
         };
 
@@ -410,18 +399,13 @@
 
         <div id="app-main-content" style="display: none;">
 
+            <!-- NOWY PASEK NAWIGACJI -->
             <div class="nav-tabs">
                 <button id="nav-btn-plan" class="tab-btn active" onclick="switchTab('tab-plan')">
                     <span style="font-size: 1.1rem;">📋</span> Trening
                 </button>
                 <button id="nav-btn-atlas" class="tab-btn" onclick="switchTab('tab-atlas')">
                     <span style="font-size: 1.1rem;">📚</span> Atlas
-                </button>
-                <button id="nav-btn-forum" class="tab-btn" onclick="switchTab('tab-forum')">
-                    <span style="font-size: 1.1rem;">🤖</span> AI Coach
-                </button>
-                <button id="nav-btn-calc" class="tab-btn" onclick="switchTab('tab-calc')">
-                    <span style="font-size: 1.1rem;">⚖️</span> Talerze
                 </button>
                 <button id="nav-btn-progress" class="tab-btn" onclick="switchTab('tab-progress')">
                     <span style="font-size: 1.1rem;">📊</span> Profil
@@ -446,55 +430,12 @@
                             <button class="btn btn-success" style="font-size:0.8rem; padding: 8px 14px;" onclick="finishActiveWorkoutSession()">✓ Zakończ</button>
                         </div>
 
-                        <!-- UPLOAD PLANU -->
-                        <div class="card" style="border: 1px dashed var(--primary); background: rgba(244, 114, 182, 0.02);">
-                            <h3 style="color: #fff; font-size: 0.95rem; font-weight: 800; margin-bottom: 4px;">📂 Wgraj plan treningowy</h3>
-                            <p style="font-size: 0.72rem; color: var(--text-muted); margin-bottom: 10px;">Wybierz plik `.txt` lub `.json` z planem.</p>
-                            <label class="btn btn-outline btn-sm" style="cursor: pointer; margin: 0;">
-                                📁 Wybierz plik
-                                <input type="file" id="import-plan-file-input" accept=".txt,.json,.csv" style="display: none;" onchange="importWorkoutPlanFromFile(event)">
-                            </label>
-                        </div>
-
                         <div class="card">
                             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
-                                <h3 style="color: #fff; font-size: 1.1rem; font-weight: 800;">📅 Plan Treningowy</h3>
-                                <button class="btn btn-outline btn-sm" onclick="generatePresetPlanPPL()">⚡ PPL</button>
+                                <h3 style="color: #fff; font-size: 1.1rem; font-weight: 800;">📅 Plan Treningowy PPL+FBW</h3>
+                                <button class="btn btn-outline btn-sm" onclick="generatePresetPlanPPL()">⚡ Załaduj plan</button>
                             </div>
                             <div id="week-plan-container"></div>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div class="card">
-                            <h4 style="color: var(--primary); margin-bottom: 8px; font-size: 0.95rem; font-weight:800;">⚡ Statystyki</h4>
-                            <div id="active-day-badge" style="font-size: 0.75rem; font-weight: 800; color: var(--gold); margin-bottom: 10px; background: rgba(251,191,36,0.1); padding: 8px; border-radius: 10px; border: 1px solid rgba(251,191,36,0.3); text-align:center;">
-                                Brak aktywnego dnia
-                            </div>
-                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px;">
-                                <div class="stat-box">
-                                    <div style="font-size: 0.65rem; color: var(--text-muted);">Tonaż</div>
-                                    <div id="stat-total-tonnage" style="font-size: 0.95rem; font-weight: 900; color: var(--gold);">0 kg</div>
-                                </div>
-                                <div class="stat-box">
-                                    <div style="font-size: 0.65rem; color: var(--text-muted);">Zaliczone Serie</div>
-                                    <div id="stat-total-sets" style="font-size: 0.95rem; font-weight: 900; color: var(--primary);">0</div>
-                                </div>
-                            </div>
-
-                            <h4 style="color: var(--primary); margin-bottom: 6px; font-size: 0.85rem; font-weight:800;">💧 Nawodnienie</h4>
-                            <span id="water-text" style="font-weight: 800; color: var(--primary); font-size: 0.75rem;">0 / 3000 ml</span>
-                            <div class="water-progress"><div id="water-bar" class="water-bar"></div></div>
-                            <div style="display: flex; gap: 6px; margin-top: 6px;">
-                                <button class="btn btn-outline btn-sm" style="flex:1; padding:6px;" onclick="addWater(250)">+250ml</button>
-                                <button class="btn btn-outline btn-sm" style="flex:1; padding:6px;" onclick="addWater(500)">+500ml</button>
-                                <button class="btn btn-outline btn-sm" style="color: var(--danger); padding:6px;" onclick="resetWater()">↺</button>
-                            </div>
-
-                            <div style="margin-top: 15px;">
-                                <h4 style="color: #fff; margin-bottom: 6px; font-size: 0.85rem; font-weight:800;">📜 Historia</h4>
-                                <div id="workout-list" style="max-height: 200px; overflow-y:auto;"><p style="font-size: 0.75rem; color: var(--text-muted); text-align: center;">Brak.</p></div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -524,63 +465,7 @@
                 </div>
             </div>
 
-            <!-- AI COACH -->
-            <div id="tab-forum" class="tab-content" style="display: none;">
-                <div class="card">
-                    <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
-                        <span style="font-size: 1.4rem;">🤖</span>
-                        <h3 style="color: #fff; font-size: 1.1rem;">AI Coach Expert</h3>
-                    </div>
-                    <p style="font-size:0.75rem; color:var(--text-muted); margin-bottom:12px;">Rozmawiaj o treningu, diecie i wynikach. Wyślij zdjęcie sylwetki do analizy!</p>
-                    
-                    <form onsubmit="handleForumSubmit(event)" style="margin-bottom: 14px;">
-                        <textarea id="forum-content" rows="3" placeholder="Siemanko! Jestem Twoim trenerem AI. Pytaj o cokolwiek... 🔥" style="margin-bottom:8px;"></textarea>
-                        
-                        <div style="display: flex; gap: 6px; align-items: center; margin-bottom: 8px; flex-wrap: wrap;">
-                            <label class="btn btn-outline btn-sm" style="cursor: pointer; margin:0;">
-                                📷 Dodaj zdjęcie
-                                <input type="file" id="forum-img-input" accept="image/*" style="display: none;" onchange="previewForumImage(event)">
-                            </label>
-                            <span id="forum-img-name" style="font-size: 0.7rem; color: var(--text-muted);">Brak załącznika</span>
-                            <button type="button" id="forum-img-clear" class="btn btn-outline btn-sm" style="color: var(--danger); display: none; padding: 2px 5px;" onclick="clearForumImage()">Usuń</button>
-                        </div>
-                        
-                        <div id="forum-img-preview-container" style="display: none; margin-bottom: 8px;">
-                            <img id="forum-img-tag-preview" class="chat-img-preview" alt="Podgląd">
-                        </div>
-
-                        <button type="submit" class="btn btn-sm" style="width: 100%;">Wyślij zapytanie</button>
-                    </form>
-                    <div id="forum-posts-list"></div>
-                </div>
-            </div>
-
-            <!-- TALERZE / KALKULATOR -->
-            <div id="tab-calc" class="tab-content" style="display: none;">
-                <div class="card">
-                    <h3 style="color: var(--primary); font-size: 1.1rem; margin-bottom: 4px;">⚖️ Kalkulator Talerzy</h3>
-                    <p style="font-size:0.75rem; color:var(--text-muted); margin-bottom:12px;">Oblicz precyzyjnie, jakie talerze założyć na jedną stronę gryfu.</p>
-                    
-                    <label style="font-size: 0.75rem;">Waga gryfu (kg)</label>
-                    <input type="number" id="plate-bar-weight" value="20" oninput="calculatePlates()">
-                    
-                    <label style="font-size: 0.75rem;">Ciężar docelowy (kg)</label>
-                    <input type="number" id="plate-target-weight" placeholder="np. 100" oninput="calculatePlates()">
-
-                    <div class="barbell-visual" id="barbell-visual-box">
-                        <div class="barbell-sleeve"></div>
-                        <div id="plates-container-side" style="display:flex; gap:3px; align-items:center;"></div>
-                        <div class="barbell-bar"></div>
-                    </div>
-
-                    <div style="background: rgba(0, 0, 0, 0.3); padding: 12px; border-radius: 12px; border: 1px solid var(--card-border); margin-top: 10px;">
-                        <span style="font-size:0.72rem; color:var(--text-muted); display:block; margin-bottom:2px;">Na jedną stronę nakładasz:</span>
-                        <h4 id="plate-result-text" style="color: var(--primary); font-size: 1.05rem; font-weight: 800;">Wpisz ciężar powyżej.</h4>
-                    </div>
-                </div>
-            </div>
-
-            <!-- PROFIL -->
+            <!-- PROFIL (STATYSTYKI I NAWODNIENIE) -->
             <div id="tab-progress" class="tab-content" style="display: none;">
                 <div class="card">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap:wrap; gap:6px;">
@@ -603,6 +488,37 @@
                     <div style="margin-top: 14px; background: rgba(251,191,36,0.05); border: 1px solid rgba(251,191,36,0.2); padding: 12px; border-radius: 12px; text-align: center;">
                         <div style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; font-weight:800;">🔥 Streak Treningowy</div>
                         <h3 id="streak-counter-text" style="color: var(--gold); font-size: 1.2rem; font-weight: 900; margin-top: 2px;">0 dni z rzędu</h3>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h4 style="color: var(--primary); margin-bottom: 8px; font-size: 0.95rem; font-weight:800;">⚡ Statystyki Treningowe</h4>
+                    <div id="active-day-badge" style="font-size: 0.75rem; font-weight: 800; color: var(--gold); margin-bottom: 10px; background: rgba(251,191,36,0.1); padding: 8px; border-radius: 10px; border: 1px solid rgba(251,191,36,0.3); text-align:center;">
+                        Brak aktywnego dnia
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px;">
+                        <div class="stat-box">
+                            <div style="font-size: 0.65rem; color: var(--text-muted);">Tonaż Łączny</div>
+                            <div id="stat-total-tonnage" style="font-size: 0.95rem; font-weight: 900; color: var(--gold);">0 kg</div>
+                        </div>
+                        <div class="stat-box">
+                            <div style="font-size: 0.65rem; color: var(--text-muted);">Zaliczone Serie</div>
+                            <div id="stat-total-sets" style="font-size: 0.95rem; font-weight: 900; color: var(--primary);">0</div>
+                        </div>
+                    </div>
+
+                    <h4 style="color: var(--primary); margin-bottom: 6px; font-size: 0.85rem; font-weight:800; margin-top:14px;">💧 Nawodnienie</h4>
+                    <span id="water-text" style="font-weight: 800; color: var(--primary); font-size: 0.75rem;">0 / 3000 ml</span>
+                    <div class="water-progress"><div id="water-bar" class="water-bar"></div></div>
+                    <div style="display: flex; gap: 6px; margin-top: 6px;">
+                        <button class="btn btn-outline btn-sm" style="flex:1; padding:6px;" onclick="addWater(250)">+250ml</button>
+                        <button class="btn btn-outline btn-sm" style="flex:1; padding:6px;" onclick="addWater(500)">+500ml</button>
+                        <button class="btn btn-outline btn-sm" style="color: var(--danger); padding:6px;" onclick="resetWater()">↺</button>
+                    </div>
+
+                    <div style="margin-top: 15px;">
+                        <h4 style="color: #fff; margin-bottom: 6px; font-size: 0.85rem; font-weight:800;">📜 Historia Treningów</h4>
+                        <div id="workout-list" style="max-height: 200px; overflow-y:auto;"><p style="font-size: 0.75rem; color: var(--text-muted); text-align: center;">Brak.</p></div>
                     </div>
                 </div>
             </div>
@@ -661,11 +577,10 @@
             <p id="modal-atlas-title" style="font-weight:800; font-size:0.9rem; margin-bottom:10px; color:#fff;"></p>
             <label style="font-size: 0.75rem;">Dzień</label>
             <select id="modal-plan-day">
-                <option value="Poniedziałek">Poniedziałek</option>
-                <option value="Wtorek">Wtorek</option>
-                <option value="Środa">Środa</option>
-                <option value="Czwartek">Czwartek</option>
-                <option value="Piątek">Piątek</option>
+                <option value="Dzień 1: Push + lekki Pull">Dzień 1: Push + lekki Pull</option>
+                <option value="Dzień 2: Nogi">Dzień 2: Nogi</option>
+                <option value="Dzień 3: Pull + lekki Push">Dzień 3: Pull + lekki Push</option>
+                <option value="Dzień 4: FBW / Akcesoria">Dzień 4: FBW / Akcesoria</option>
             </select>
             <div style="display:flex; gap:6px; margin-top:8px;">
                 <button class="btn btn-sm" style="flex:1;" onclick="confirmAddAtlasToPlan()">Zapisz</button>
@@ -692,7 +607,7 @@
         window.gymData = JSON.parse(localStorage.getItem('4d1s_gym_data')) || { workouts: [], workoutPlan: {}, activeWorkoutDay: null, xp: 0, level: 1, water: 0, prs: {}, myCustomAtlas: [], streak: 0 };
         window.customAtlas = [];
         window.customRecipes = [];
-        let isRegisterMode = false, timerInterval = null, selectedAtlasName = "", tempForumImageBase64 = null;
+        let isRegisterMode = false, timerInterval = null, selectedAtlasName = "";
         let selectedCategoryFilter = 'all';
 
         function switchTab(tabId) {
@@ -700,15 +615,14 @@
             document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
             document.getElementById(tabId).style.display = 'block';
             
-            const btnMap = { 'tab-plan': 'nav-btn-plan', 'tab-atlas': 'nav-btn-atlas', 'tab-forum': 'nav-btn-forum', 'tab-calc': 'nav-btn-calc', 'tab-progress': 'nav-btn-progress', 'tab-vip': 'tab-vip-btn', 'tab-admin': 'tab-admin-btn' };
+            const btnMap = { 'tab-plan': 'nav-btn-plan', 'tab-atlas': 'nav-btn-atlas', 'tab-progress': 'nav-btn-progress', 'tab-vip': 'tab-vip-btn', 'tab-admin': 'tab-admin-btn' };
             if(btnMap[tabId] && document.getElementById(btnMap[tabId])) document.getElementById(btnMap[tabId]).classList.add('active');
 
-            if (tabId === 'tab-progress') { updateStrengthRank(); checkStreak(); }
+            if (tabId === 'tab-progress') { updateStrengthRank(); checkStreak(); updateWorkoutStats(); }
             if (tabId === 'tab-atlas') renderAtlas();
             if (tabId === 'tab-vip') renderRecipes();
             if (tabId === 'tab-admin') loadAdminUserList();
             if (tabId === 'tab-plan') { renderPlan(); updateWorkoutStats(); }
-            if (tabId === 'tab-calc') calculatePlates();
         }
 
         function toggleAuthMode() {
@@ -738,64 +652,9 @@
             } catch (err) { alert('Błąd: ' + err.message); }
         }
 
-        function calculatePlates() {
-            const barWeight = parseFloat(document.getElementById('plate-bar-weight').value) || 20;
-            const targetWeight = parseFloat(document.getElementById('plate-target-weight').value);
-            const resContainer = document.getElementById('plates-container-side');
-            const resultText = document.getElementById('plate-result-text');
-
-            if (!targetWeight || targetWeight <= barWeight) {
-                resContainer.innerHTML = '';
-                resultText.innerText = "Wpisz ciężar powyżej wagi gryfu.";
-                return;
-            }
-
-            let weightPerSide = (targetWeight - barWeight) / 2;
-            const availablePlates = [25, 20, 15, 10, 5, 2.5, 1.25];
-            let usedPlates = [];
-            let rem = weightPerSide;
-
-            for (let p of availablePlates) {
-                while (rem >= p) {
-                    usedPlates.push(p);
-                    rem -= p;
-                    rem = Math.round(rem * 100) / 100;
-                }
-            }
-
-            resultText.innerText = `Na jedną stronę: ${weightPerSide} kg`;
-            resContainer.innerHTML = usedPlates.map(p => {
-                let cls = 'plate-20';
-                if (p === 25) cls = 'plate-25';
-                else if (p === 20) cls = 'plate-20';
-                else if (p === 15) cls = 'plate-15';
-                else if (p === 10) cls = 'plate-10';
-                else if (p === 5) cls = 'plate-5';
-                else if (p === 2.5) cls = 'plate-2-5';
-                else if (p === 1.25) cls = 'plate-1-25';
-                return `<div class="plate ${cls}">${p}</div>`;
-            }).join('');
-        }
-
         function checkStreak() {
             const streakText = document.getElementById('streak-counter-text');
             if(streakText) streakText.innerText = `${window.gymData.streak || 0} dni z rzędu 🔥`;
-        }
-
-        function importWorkoutPlanFromFile(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                try {
-                    let parsed = JSON.parse(e.target.result);
-                    window.gymData.workoutPlan = parsed.workoutPlan || parsed;
-                    window.saveGymData();
-                    window.renderPlan();
-                    alert(`✅ Zaimportowano plan!`);
-                } catch(err) { alert("Błąd pliku."); }
-            };
-            reader.readAsText(file);
         }
 
         function checkAndAddXPForPR(exName, weight) {
@@ -859,10 +718,10 @@
             const banner = document.getElementById('hevy-active-workout-banner');
             
             if (activeDay) {
-                badgeEl.innerText = `🟢 Sesja: ${activeDay}`;
+                if(badgeEl) badgeEl.innerText = `🟢 Sesja: ${activeDay}`;
                 if(banner) { banner.style.display = "flex"; document.getElementById('hevy-active-day-title').innerText = activeDay; }
             } else {
-                badgeEl.innerText = "⚠️ Brak aktywnego dnia";
+                if(badgeEl) badgeEl.innerText = "⚠️ Brak aktywnego dnia";
                 if(banner) banner.style.display = "none";
             }
 
@@ -875,8 +734,10 @@
                 });
             });
 
-            document.getElementById('stat-total-tonnage').innerText = tonnage + ' kg';
-            document.getElementById('stat-total-sets').innerText = sets;
+            const tonnageEl = document.getElementById('stat-total-tonnage');
+            const setsEl = document.getElementById('stat-total-sets');
+            if(tonnageEl) tonnageEl.innerText = tonnage + ' kg';
+            if(setsEl) setsEl.innerText = sets;
         }
 
         function updateStrengthRank() {
@@ -969,11 +830,35 @@
         }
 
         function generatePresetPlanPPL() {
-            if(!confirm("Wygenerować plan PPL?")) return;
+            if(!confirm("Załadować domyślny plan PPL + FBW z dokumentu?")) return;
             window.gymData.workoutPlan = {
-                'Poniedziałek': [{ id: 101, name: 'Wyciskanie sztangi na ławce', sets: [{setNum:1,type:'Robocza',weight:'80',reps:'8',done:false},{setNum:2,type:'Robocza',weight:'80',reps:'8',done:false}] }],
-                'Wtorek': [{ id: 201, name: 'Podciąganie na drążku', sets: [{setNum:1,type:'Robocza',weight:'0',reps:'8',done:false}] }],
-                'Środa': [{ id: 301, name: 'Przysiad ze sztangą', sets: [{setNum:1,type:'Robocza',weight:'100',reps:'8',done:false}] }]
+                'Dzień 1: Push + lekki Pull': [
+                    { id: 101, name: 'Wyciskanie hantli na ławce skośnej (neutral)', sets: [{setNum:1,type:'Robocza',weight:'',reps:'',done:false}] },
+                    { id: 102, name: 'Odwrotne rozpiętki na wyciągu (rościągnięta)', sets: [{setNum:1,type:'Robocza',weight:'',reps:'',done:false}] },
+                    { id: 103, name: 'Wyciskanie na Smithie z martwego punktu / Płaska', sets: [{setNum:1,type:'Robocza',weight:'',reps:'',done:false}] },
+                    { id: 104, name: 'Podciąganie na drążku podchwytem', sets: [{setNum:1,type:'Robocza',weight:'',reps:'',done:false}] },
+                    { id: 105, name: 'Pin Press (Wyciskanie sztangi nad głowę stojąc)', sets: [{setNum:1,type:'Robocza',weight:'',reps:'',done:false}] },
+                    { id: 106, name: 'Wyciskanie francuskie ze sztangą', sets: [{setNum:1,type:'Robocza',weight:'',reps:'',done:false}] }
+                ],
+                'Dzień 2: Nogi': [
+                    { id: 201, name: 'Power Clean / Wyskok z klęku', sets: [{setNum:1,type:'Robocza',weight:'',reps:'',done:false}] },
+                    { id: 202, name: 'Front Squat / Back Squat', sets: [{setNum:1,type:'Robocza',weight:'',reps:'',done:false}] },
+                    { id: 203, name: 'Klasyczny martwy ciąg', sets: [{setNum:1,type:'Robocza',weight:'',reps:'',done:false}] },
+                    { id: 204, name: 'Ugięcia podudzi na maszynie', sets: [{setNum:1,type:'Robocza',weight:'',reps:'',done:false}] },
+                    { id: 205, name: 'Przysiad wykroczny z martwego punktu', sets: [{setNum:1,type:'Robocza',weight:'',reps:'',done:false}] }
+                ],
+                'Dzień 3: Pull + lekki Push': [
+                    { id: 301, name: 'Ściąganie drążka górnego wyciągu nachwytem', sets: [{setNum:1,type:'Robocza',weight:'',reps:'',done:false}] },
+                    { id: 302, name: 'Uginania młotkowe z hantlami', sets: [{setNum:1,type:'Robocza',weight:'',reps:'',done:false}] },
+                    { id: 303, name: 'Wiosłowanie hantlem jednorącz', sets: [{setNum:1,type:'Robocza',weight:'',reps:'',done:false}] },
+                    { id: 304, name: 'Wyciskanie na hamerze siedząc', sets: [{setNum:1,type:'Robocza',weight:'',reps:'',done:false}] }
+                ],
+                'Dzień 4: FBW / Akcesoria': [
+                    { id: 401, name: 'RDL z półsztangą', sets: [{setNum:1,type:'Robocza',weight:'',reps:'',done:false}] },
+                    { id: 402, name: 'Wypychanie na suwnicy jednonóż', sets: [{setNum:1,type:'Robocza',weight:'',reps:'',done:false}] },
+                    { id: 403, name: 'Hip Thrusty ze sztangą / maszyną', sets: [{setNum:1,type:'Robocza',weight:'',reps:'',done:false}] },
+                    { id: 404, name: 'Wyprosty przedramion z linką zza siebie', sets: [{setNum:1,type:'Robocza',weight:'',reps:'',done:false}] }
+                ]
             };
             window.saveGymData();
             window.renderPlan();
@@ -983,7 +868,7 @@
         function renderPlan() {
             const container = document.getElementById('week-plan-container');
             const plan = window.gymData.workoutPlan || {};
-            const days = ['Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek'];
+            const days = ['Dzień 1: Push + lekki Pull', 'Dzień 2: Nogi', 'Dzień 3: Pull + lekki Push', 'Dzień 4: FBW / Akcesoria'];
             const activeDay = window.gymData.activeWorkoutDay;
 
             container.innerHTML = days.map(day => {
@@ -996,7 +881,7 @@
                             <button class="btn btn-sm ${isActive?'btn-success':''}" style="padding:4px 10px; font-size:0.7rem;" onclick="startActiveWorkoutDay('${day}')">${isActive ? '▶ W toku' : 'Start'}</button>
                         </summary>
                         <div class="day-content">
-                            ${list.length===0?'<p style="font-size:0.75rem; color:var(--text-muted);">Brak ćwiczeń.</p>':''}
+                            ${list.length===0?'<p style="font-size:0.75rem; color:var(--text-muted);">Brak ćwiczeń. Dodaj je z Atlasu.</p>':''}
                             ${list.map(ex => `
                                 <div class="exercise-item">
                                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
@@ -1081,77 +966,47 @@
             } catch (e) {}
         }
 
-        function previewForumImage(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const img = new Image();
-                img.onload = function() {
-                    const canvas = document.createElement('canvas');
-                    canvas.width = 800; canvas.height = 800 * (img.height / img.width);
-                    canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
-                    tempForumImageBase64 = canvas.toDataURL('image/jpeg', 0.8);
-                    document.getElementById('forum-img-tag-preview').src = tempForumImageBase64;
-                    document.getElementById('forum-img-preview-container').style.display = 'block';
-                    document.getElementById('forum-img-name').innerText = file.name;
-                    document.getElementById('forum-img-clear').style.display = 'inline-block';
-                };
-                img.src = e.target.result;
-            };
-            reader.readAsDataURL(file);
-        }
-
-        function clearForumImage() {
-            tempForumImageBase64 = null;
-            document.getElementById('forum-img-input').value = '';
-            document.getElementById('forum-img-preview-container').style.display = 'none';
-            document.getElementById('forum-img-clear').style.display = 'none';
-        }
-
-        async function handleForumSubmit(e) {
-            e.preventDefault();
-            const content = document.getElementById('forum-content').value;
-            if (!content && !tempForumImageBase64) return;
-            try {
-                await window.fbAddDoc(window.fbCollection(window.db, 'projects', 'd1s-gym', 'forum'), {
-                    authorName: window.currentUsername || 'Użytkownik',
-                    authorRole: window.currentUserRole || 'user',
-                    content: content || '',
-                    imageBase64: tempForumImageBase64 || null,
-                    timestamp: Date.now()
-                });
-                setTimeout(async () => {
-                    await window.fbAddDoc(window.fbCollection(window.db, 'projects', 'd1s-gym', 'forum'), {
-                        authorName: 'AI Coach 🤖',
-                        authorRole: 'admin',
-                        content: "🤖 Analiza ukończona! Solidna sesja, trzymaj tak dalej.",
-                        timestamp: Date.now() + 300
-                    });
-                }, 1000);
-                clearForumImage();
-                document.getElementById('forum-content').value = '';
-            } catch(e) {}
-        }
-
-        function renderForumPosts(posts) {
-            const list = document.getElementById('forum-posts-list');
-            if(!posts || posts.length===0) { list.innerHTML = '<p style="color:var(--text-muted); text-align:center; font-size:0.75rem;">Brak wiadomości.</p>'; return; }
-            list.innerHTML = posts.map(p => `
-                <div style="background:rgba(255,255,255,0.02); border:1px solid var(--card-border); padding:10px; border-radius:12px; margin-bottom:8px;">
-                    <div style="display:flex; justify-content:space-between; font-size:0.7rem; color:var(--text-muted); margin-bottom:4px;">
-                        <strong>${p.authorName}</strong>
-                    </div>
-                    ${p.content ? `<p style="font-size:0.82rem;">${p.content}</p>` : ''}
-                    ${p.imageBase64 ? `<img src="${p.imageBase64}" class="chat-img-preview" alt="Foto">` : ''}
-                </div>
-            `).join('');
-        }
-
+        // PEŁNY ATLAS Z TWOJEGO PLANU PPL+FBW
         const DEFAULT_ATLAS = [
-            { name: "Wyciskanie sztangi na ławce", part: "Klatka piersiowa", equipment: "Sztanga" },
-            { name: "Przysiad ze sztangą", part: "Nogi", equipment: "Sztanga" },
-            { name: "Podciąganie na drążku", part: "Plecy", equipment: "Masa ciała" }
+            // Push
+            { name: "Wyciskanie hantli na ławce skośnej (neutral)", part: "Klatka piersiowa", equipment: "Hantle" },
+            { name: "Odwrotne rozpiętki na wyciągu (rościągnięta)", part: "Barki", equipment: "Wyciąg" },
+            { name: "Wyciskanie na Smithie / Płaska z martwego punktu", part: "Klatka piersiowa", equipment: "Smith" },
+            { name: "Pin Press (Wyciskanie sztangi nad głowę stojąc)", part: "Barki", equipment: "Sztanga" },
+            { name: "Rotacja zewnętrzna hantla", part: "Barki", equipment: "Hantle" },
+            { name: "Wyciskanie francuskie ze sztangą na ławce skośnej", part: "Ramiona", equipment: "Sztanga" },
+            { name: "Y-Rise na wyciągu", part: "Barki", equipment: "Wyciąg" },
+            // Nogi
+            { name: "Power Clean (Zarzut sztangi)", part: "Nogi", equipment: "Sztanga" },
+            { name: "Wyskok z klęku w górę", part: "Nogi", equipment: "Masa ciała" },
+            { name: "Front Squat / Back Squat", part: "Nogi", equipment: "Sztanga" },
+            { name: "Hamstring Iso Hold", part: "Nogi", equipment: "Masa ciała" },
+            { name: "Klasyczny martwy ciąg", part: "Nogi", equipment: "Sztanga" },
+            { name: "Ugięcia podudzi na maszynie (leżąc/siedząc)", part: "Nogi", equipment: "Maszyna" },
+            { name: "Przysiad wykroczny z martwego punktu", part: "Nogi", equipment: "Hantle/Sztanga" },
+            { name: "Kopenhagi", part: "Nogi", equipment: "Rolka/Masa ciała" },
+            { name: "Wspięcia na palce na hack squat / leg press", part: "Nogi", equipment: "Maszyna" },
+            // Pull
+            { name: "Ściąganie drążka górnego wyciągu nachwytem", part: "Plecy", equipment: "Wyciąg" },
+            { name: "Uginania młotkowe z hantlami na przemian", part: "Ramiona", equipment: "Hantle" },
+            { name: "Wiosłowanie hantlem jednorącz", part: "Plecy", equipment: "Hantle" },
+            { name: "Wyciskanie na hamerze siedząc (klatka)", part: "Klatka piersiowa", equipment: "Maszyna" },
+            { name: "Wiosłowanie na hammerze (ręce od ciała)", part: "Plecy", equipment: "Maszyna" },
+            { name: "Wyciskanie hantla jednorącz na ławce płaskiej", part: "Klatka piersiowa", equipment: "Hantle" },
+            { name: "Ściąganie z góry jednorącz (hammer lub wyciąg)", part: "Plecy", equipment: "Wyciąg/Hammer" },
+            { name: "Uginania ze sztangą siedząc (z martwego punktu)", part: "Ramiona", equipment: "Sztanga" },
+            { name: "Ściąganie okrężne górnego wyciągu w kłęku", part: "Plecy", equipment: "Wyciąg" },
+            { name: "Szczypce (przedramię)", part: "Ramiona", equipment: "Krążek" },
+            // FBW / Akcesoria
+            { name: "RDL z półsztangą", part: "Nogi", equipment: "Sztanga" },
+            { name: "Wypychanie na suwnicy jednonóż", part: "Nogi", equipment: "Suwnica" },
+            { name: "Rozpiętki na maszynie", part: "Klatka piersiowa", equipment: "Maszyna" },
+            { name: "Odwrotne rozpiętki na maszynie", part: "Barki", equipment: "Maszyna" },
+            { name: "Hip Thrusty ze sztangą lub na maszynie", part: "Nogi", equipment: "Sztanga/Maszyna" },
+            { name: "Podciąganie sztangi wzdłuż tułowia", part: "Barki", equipment: "Sztanga" },
+            { name: "Wyprosty przedramion z linką wyciągu zza siebie", part: "Ramiona", equipment: "Wyciąg" },
+            { name: "Uginania przedramion z hantlami na ławce skośnej", part: "Ramiona", equipment: "Hantle" },
+            { name: "Wyprosty przedramion z hantlą zza głowy", part: "Ramiona", equipment: "Hantle" }
         ];
 
         function filterAtlasCategory(cat, btn) {
@@ -1208,8 +1063,10 @@
         }
         function updateWaterUI() {
             const w = window.gymData.water || 0;
-            document.getElementById('water-text').innerText = `${w} / 3000 ml`;
-            document.getElementById('water-bar').style.width = Math.min(100, (w/3000)*100) + '%';
+            const waterText = document.getElementById('water-text');
+            const waterBar = document.getElementById('water-bar');
+            if(waterText) waterText.innerText = `${w} / 3000 ml`;
+            if(waterBar) waterBar.style.width = Math.min(100, (w/3000)*100) + '%';
         }
 
         function startTimer(seconds) {
