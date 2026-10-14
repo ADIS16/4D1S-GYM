@@ -279,8 +279,7 @@
                         document.getElementById('user-username-display').innerText = window.currentUsername;
                         window.gymData = userData.gym_data || { workouts: [], workoutPlan: {}, activeWorkoutDay: null, xp: 0, level: 1, water: 0, prs: {}, myCustomAtlas: [], streak: 0 };
 
-                        // AUTOMATYCZNIE PRZYPISZ TWÓJ PLAN TYLKO DLA KONTO 4D1S (JEŚLI PLAN JEST PUSTY)
-                        if (window.currentUsername.toUpperCase() === '4D1S' && (!window.gymData.workoutPlan || Object.keys(window.gymData.workoutPlan).length === 0)) {
+                        if (window.currentUsername.toUpperCase() === 'ADIS' && (!window.gymData.workoutPlan || Object.keys(window.gymData.workoutPlan).length === 0)) {
                             window.gymData.workoutPlan = {
                                 'Dzień 1: Push + lekki Pull': [],
                                 'Dzień 2: Nogi': [],
@@ -809,8 +808,16 @@
             if (!newName || !newName.trim() || newName === oldName) return;
             const name = newName.trim();
 
-            window.gymData.workoutPlan[name] = window.gymData.workoutPlan[oldName];
-            delete window.gymData.workoutPlan[oldName];
+            let oldPlan = window.gymData.workoutPlan;
+            let newPlan = {};
+            Object.keys(oldPlan).forEach(k => {
+                if (k === oldName) {
+                    newPlan[name] = oldPlan[oldName];
+                } else {
+                    newPlan[k] = oldPlan[k];
+                }
+            });
+            window.gymData.workoutPlan = newPlan;
             
             if(window.gymData.activeWorkoutDay === oldName) {
                 window.gymData.activeWorkoutDay = name;
