@@ -240,14 +240,6 @@
             }
         };
 
-        function makeDefaultSets(count) {
-            let res = [];
-            for(let i=1; i<=count; i++) {
-                res.push({ setNum: i, type: 'Robocza', weight: '', reps: '', done: false });
-            }
-            return res;
-        }
-
         if (auth) {
             onAuthStateChanged(auth, async (user) => {
                 const dot = document.getElementById('status-dot');
@@ -286,55 +278,6 @@
 
                         document.getElementById('user-username-display').innerText = window.currentUsername;
                         window.gymData = userData.gym_data || { workouts: [], workoutPlan: {}, activeWorkoutDay: null, xp: 0, level: 1, water: 0, prs: {}, myCustomAtlas: [], streak: 0 };
-
-                        if (window.currentUsername.toUpperCase() === 'ADIS' && (!window.gymData.workoutPlan || Object.keys(window.gymData.workoutPlan).length === 0 || Object.values(window.gymData.workoutPlan).every(arr => arr.length === 0))) {
-                            window.gymData.workoutPlan = {
-                                'Dzień 1: Push + lekki Pull': [
-                                    { id: 101, name: 'Wyciskanie hantli na ławce skośnej (neutral)', sets: makeDefaultSets(3) },
-                                    { id: 102, name: 'Odwrotne rozpiętki na wyciągu (rościągnięta)', sets: makeDefaultSets(3) },
-                                    { id: 103, name: 'Wyciskanie na Smithie / Płaska z martwego punktu', sets: makeDefaultSets(3) },
-                                    { id: 104, name: 'Pin Press (Wyciskanie sztangi nad głowę stojąc)', sets: makeDefaultSets(3) },
-                                    { id: 105, name: 'Rotacja zewnętrzna hantla', sets: makeDefaultSets(3) },
-                                    { id: 106, name: 'Wyciskanie francuskie ze sztangą na ławce skośnej', sets: makeDefaultSets(3) },
-                                    { id: 107, name: 'Y-Rise na wyciągu', sets: makeDefaultSets(3) }
-                                ],
-                                'Dzień 2: Nogi': [
-                                    { id: 201, name: 'Power Clean (Zarzut sztangi)', sets: makeDefaultSets(3) },
-                                    { id: 202, name: 'Wyskok z klęku w górę', sets: makeDefaultSets(3) },
-                                    { id: 203, name: 'Front Squat / Back Squat', sets: makeDefaultSets(3) },
-                                    { id: 204, name: 'Hamstring Iso Hold', sets: makeDefaultSets(3) },
-                                    { id: 205, name: 'Klasyczny martwy ciąg', sets: makeDefaultSets(3) },
-                                    { id: 206, name: 'Ugięcia podudzi na maszynie (leżąc/siedząc)', sets: makeDefaultSets(3) },
-                                    { id: 207, name: 'Przysiad wykroczny z martwego punktu', sets: makeDefaultSets(3) },
-                                    { id: 208, name: 'Kopenhagi', sets: makeDefaultSets(3) },
-                                    { id: 209, name: 'Wspięcia na palce na hack squat / leg press', sets: makeDefaultSets(3) }
-                                ],
-                                'Dzień 3: Pull + lekki Push': [
-                                    { id: 301, name: 'Ściąganie drążka górnego wyciągu nachwytem', sets: makeDefaultSets(3) },
-                                    { id: 302, name: 'Uginania młotkowe z hantlami na przemian', sets: makeDefaultSets(3) },
-                                    { id: 303, name: 'Wiosłowanie hantlem jednorącz', sets: makeDefaultSets(3) },
-                                    { id: 304, name: 'Wyciskanie na hamerze siedząc (klatka)', sets: makeDefaultSets(3) },
-                                    { id: 305, name: 'Wiosłowanie na hammerze (ręce od ciała)', sets: makeDefaultSets(3) },
-                                    { id: 306, name: 'Wyciskanie hantla jednorącz na ławce płaskiej', sets: makeDefaultSets(3) },
-                                    { id: 307, name: 'Ściąganie z góry jednorącz (hammer lub wyciąg)', sets: makeDefaultSets(3) },
-                                    { id: 308, name: 'Uginania ze sztangą siedząc (z martwego punktu)', sets: makeDefaultSets(3) },
-                                    { id: 309, name: 'Ściąganie okrężne górnego wyciągu w kłęku', sets: makeDefaultSets(3) },
-                                    { id: 310, name: 'Szczypce (przedramię)', sets: makeDefaultSets(3) }
-                                ],
-                                'Dzień 4: FBW / Akcesoria': [
-                                    { id: 401, name: 'RDL z półsztangą', sets: makeDefaultSets(3) },
-                                    { id: 402, name: 'Wypychanie na suwnicy jednonóż', sets: makeDefaultSets(3) },
-                                    { id: 403, name: 'Rozpiętki na maszynie', sets: makeDefaultSets(3) },
-                                    { id: 404, name: 'Odwrotne rozpiętki na maszynie', sets: makeDefaultSets(3) },
-                                    { id: 405, name: 'Hip Thrusty ze sztangą lub na maszynie', sets: makeDefaultSets(3) },
-                                    { id: 406, name: 'Podciąganie sztangi wzdłuż tułowia', sets: makeDefaultSets(3) },
-                                    { id: 407, name: 'Wyprosty przedramion z linką wyciągu zza siebie', sets: makeDefaultSets(3) },
-                                    { id: 408, name: 'Uginania przedramion z hantlami na ławce skośnej', sets: makeDefaultSets(3) },
-                                    { id: 409, name: 'Wyprosty przedramion z hantlą zza głowy', sets: makeDefaultSets(3) }
-                                ]
-                            };
-                            window.saveGymData();
-                        }
 
                         document.getElementById('user-role-tag').innerHTML = getRoleBadgeHtml(window.currentUserRole);
                         document.getElementById('tab-admin-btn').style.display = ['owner', 'admin'].includes(window.currentUserRole) ? 'flex' : 'none';
@@ -477,7 +420,10 @@
                         <div class="card">
                             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 8px;">
                                 <h3 style="color: #fff; font-size: 1.1rem; font-weight: 800;">📅 Plan Treningowy</h3>
-                                <button class="btn btn-sm" onclick="addNewWorkoutDay()">+ Dodaj dzień</button>
+                                <div style="display:flex; gap:6px;">
+                                    <button class="btn btn-outline btn-sm" style="color:var(--danger); border-color:rgba(255,59,48,0.3);" onclick="removeEmptyDays()">🧹 Usuń puste dni</button>
+                                    <button class="btn btn-sm" onclick="addNewWorkoutDay()">+ Dodaj dzień</button>
+                                </div>
                             </div>
                             <div id="week-plan-container"></div>
                         </div>
@@ -679,6 +625,20 @@
                     await window.authApi.login(email, pass);
                 }
             } catch (err) { alert('Błąd: ' + err.message); }
+        }
+
+        function removeEmptyDays() {
+            if (!window.gymData.workoutPlan) return;
+            const plan = window.gymData.workoutPlan;
+            Object.keys(plan).forEach(day => {
+                if (!plan[day] || plan[day].length === 0) {
+                    delete plan[day];
+                }
+            });
+            window.saveGymData();
+            window.renderPlan();
+            updateWorkoutStats();
+            alert("Usunięto puste dni!");
         }
 
         function checkStreak() {
