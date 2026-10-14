@@ -274,11 +274,24 @@
                         window.currentUserRole = userData.role;
                         window.currentUsername = userData.username || user.email.split('@')[0];
 
-                        await setDoc(userDocRef, { username: window.currentUsername, isOnline: true }, { merge: true });
-
-                        document.getElementById('user-username-display').innerText = window.currentUsername;
                         window.gymData = userData.gym_data || { workouts: [], workoutPlan: {}, activeWorkoutDay: null, xp: 0, level: 1, water: 0, prs: {}, myCustomAtlas: [], streak: 0 };
 
+                        // CZYSZCZENIE AUTOMATYCZNE PUSTYCH DNI DZIEN 1, DZIEN 2, DZIEN 3, DZIEN 4
+                        if (window.gymData.workoutPlan) {
+                            let cleaned = false;
+                            const badKeys = ['Dzień 1', 'Dzień 2', 'Dzień 3', 'Dzień 4'];
+                            badKeys.forEach(k => {
+                                if (window.gymData.workoutPlan[k] && window.gymData.workoutPlan[k].length === 0) {
+                                    delete window.gymData.workoutPlan[k];
+                                    cleaned = true;
+                                }
+                            });
+                            if (cleaned) {
+                                await window.saveGymData();
+                            }
+                        }
+
+                        document.getElementById('user-username-display').innerText = window.currentUsername;
                         document.getElementById('user-role-tag').innerHTML = getRoleBadgeHtml(window.currentUserRole);
                         document.getElementById('tab-admin-btn').style.display = ['owner', 'admin'].includes(window.currentUserRole) ? 'flex' : 'none';
 
